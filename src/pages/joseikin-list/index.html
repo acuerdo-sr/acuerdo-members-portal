@@ -1,0 +1,69 @@
+{# meta:
+title: 助成金早見表
+body_class: aq-is-josei
+data_page: joseikin-list
+#}
+
+<div id="aq-josei-wrap"><main class="aq-josei-main"><header class="aq-josei-hero"><div class="aq-josei-hero-text"><h1>助成金早見表</h1><p>目的・キーワードから使える助成金をすばやく確認。</p></div><div class="aq-josei-search"><svg class="aq-josei-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m21 21-4.3-4.3"></path></svg><input type="search" id="aq-josei-q" placeholder="キーワードで検索" aria-label="助成金をキーワードで検索"></div></header><div class="aq-josei-tabs" id="aq-josei-tabs" role="tablist"><button class="is-active" data-cat="all" type="button">すべて</button><button data-cat="hire" type="button">社員採用</button><button data-cat="edu" type="button">従業員教育</button><button data-cat="care" type="button">育児・介護</button><button data-cat="wage" type="button">有期処遇改善</button><button data-cat="env" type="button">職場環境改善</button><button data-cat="prod" type="button">設備・生産性</button></div><div class="aq-josei-tablewrap"><table class="aq-josei-table"><thead><tr><th class="aq-josei-icol" aria-hidden="true"></th><th>どんなとき？</th><th>何をしたら？</th><th>なんの助成金？</th><th>金額目安</th><th class="aq-josei-arrow" aria-hidden="true"></th></tr></thead><tbody id="aq-josei-rows"></tbody></table><p class="aq-josei-empty" id="aq-josei-empty" hidden>該当する制度が見つかりませんでした。</p></div><div class="aq-josei-info"><span class="aq-josei-info-icon">i</span>行をタップすると詳細ページ（要件・対象者・申請の流れ）を別タブで開きます。</div><h2 class="aq-josei-flow-h">詳細を見る流れ</h2><ol class="aq-josei-flow"><li><span class="aq-josei-step-no">1</span><span class="aq-josei-step-icon">📋</span><span class="aq-josei-step-title">早見表</span><span class="aq-josei-step-desc">気になる助成金を選択</span></li><li><span class="aq-josei-step-no">2</span><span class="aq-josei-step-icon">📄</span><span class="aq-josei-step-title">詳細ページ</span><span class="aq-josei-step-desc">要件や金額・申請方法を確認</span></li><li><span class="aq-josei-step-no">3</span><span class="aq-josei-step-icon">🤖</span><span class="aq-josei-step-title">AIボット相談</span><span class="aq-josei-step-desc">疑問点をその場で解決</span></li><li><span class="aq-josei-step-no">4</span><span class="aq-josei-step-icon">👤</span><span class="aq-josei-step-title">担当者へ相談</span><span class="aq-josei-step-desc">個別のご相談・サポート</span></li></ol></main></div>
+
+<script id="aq-josei-data" type="application/json">__JOSEI_DATA__</script>
+<script>
+(function () {
+  var EXT_BASE = 'https://acuerdo-sr.github.io/joseikin001/#';
+  var CAT_ICON = { hire:'👥', edu:'📖', care:'🤱', wage:'💰', env:'🏢', prod:'🏭' };
+  var data;
+  try {
+    var el = document.getElementById('aq-josei-data');
+    data = el ? JSON.parse(el.textContent || el.innerText || '[]') : [];
+  } catch (e) { data = []; }
+  var tbody  = document.getElementById('aq-josei-rows');
+  var empty  = document.getElementById('aq-josei-empty');
+  var input  = document.getElementById('aq-josei-q');
+  var tabs   = document.getElementById('aq-josei-tabs');
+  var state  = { cat: 'all', q: '' };
+
+  function escapeHtml(s){return String(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+
+  function render() {
+    if (!tbody) return;
+    var q = state.q.trim().toLowerCase();
+    var rows = data.filter(function (r) {
+      if (state.cat !== 'all' && r.c !== state.cat) return false;
+      if (!q) return true;
+      return (r.w + r.a + r.n + r.m).toLowerCase().indexOf(q) !== -1;
+    });
+    tbody.innerHTML = rows.map(function (r) {
+      var url = EXT_BASE + r.i;
+      return '<tr data-id="' + escapeHtml(r.i) + '" data-url="' + escapeHtml(url) + '">' +
+        '<td class="aq-josei-icol"><span class="aq-josei-row-icon">' + (CAT_ICON[r.c] || '・') + '</span></td>' +
+        '<td>' + escapeHtml(r.w) + '</td>' +
+        '<td>' + escapeHtml(r.a) + '</td>' +
+        '<td class="aq-josei-name">' + escapeHtml(r.n) + '</td>' +
+        '<td class="aq-josei-amt">' + escapeHtml(r.m) + '</td>' +
+        '<td class="aq-josei-arrow">›</td>' +
+        '</tr>';
+    }).join('');
+    if (empty) empty.hidden = rows.length > 0;
+  }
+
+  if (tbody) tbody.addEventListener('click', function (e) {
+    var tr = e.target.closest('tr[data-url]');
+    if (!tr) return;
+    window.open(tr.getAttribute('data-url'), '_blank', 'noopener');
+  });
+
+  if (tabs) tabs.addEventListener('click', function (e) {
+    var b = e.target.closest('button[data-cat]');
+    if (!b) return;
+    tabs.querySelectorAll('button').forEach(function (x) { x.classList.remove('is-active'); });
+    b.classList.add('is-active');
+    state.cat = b.getAttribute('data-cat');
+    render();
+  });
+  if (input) input.addEventListener('input', function () {
+    state.q = input.value || '';
+    render();
+  });
+  render();
+})();
+</script>

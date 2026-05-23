@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ title }} | アクエルド顧問先ポータル</title>
+  <meta name="description" content="{{ description|default('アクエルド社会保険労務士法人の顧問先専用ポータル') }}">
+  <base href="{{ base_href }}">
+  <link rel="stylesheet" href="assets/css/site.css">
+  <link rel="icon" href="https://assets.super.so/ff55fa24-943b-4570-bc4b-3531dfc71017/uploads/favicon/2271fa94-63af-4f5e-8ac4-48481418b2c3.png">
+</head>
+<body class="{{ body_class }}">
+
+{% include '_layout/partials/chrome_pre.html' %}
+
+{{ content | safe }}
+
+{% include '_layout/partials/chrome_post.html' %}
+
+<script src="assets/js/site.js" defer></script>
+</body>
+</html>
