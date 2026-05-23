@@ -42,7 +42,12 @@ jobs:
           fi
 
       - name: Build
-        run: python scripts/build.py --base-href "/${{ github.event.repository.name }}/"
+        run: |
+          if [ -f CNAME ]; then
+            python scripts/build.py --base-href "/"
+          else
+            python scripts/build.py --base-href "/${{ github.event.repository.name }}/"
+          fi
 
       - uses: actions/upload-pages-artifact@v3
         with:
