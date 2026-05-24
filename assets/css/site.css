@@ -3424,37 +3424,66 @@ body.aq-is-news {
   color: #1e3a8a; font-size: 14px; line-height: 1.75;
 }
 
-/* 公式パンフレット解説の追加情報 */
+/* 解説 (旧: 公式パンフレット解説より) */
 .js-supplement {
-  margin-top: 18px; padding: 16px 18px;
-  background: #fff7ed; border: 1px solid #fed7aa; border-left: 4px solid #ea580c;
-  border-radius: 12px;
+  margin-top: 22px;
+  background: #fff;
+  border: 1px solid var(--aq-border);
+  border-radius: 14px;
+  overflow: hidden;
 }
-.js-supplement .js-section-h {
-  border-bottom-color: #ea580c !important;
-  color: #9a3412 !important;
-  margin-top: 0 !important;
+.js-supplement > .js-section-h {
+  margin: 0 !important;
+  padding: 14px 22px;
+  background: linear-gradient(135deg, #06152e 0%, #1e293b 100%);
+  color: #fff !important;
+  font-size: 14px !important; font-weight: 800 !important;
+  letter-spacing: .25em;
+  border: 0 !important;
+  display: flex; align-items: center; gap: 10px;
+}
+.js-supplement > .js-section-h::before {
+  content: '📖'; font-size: 16px;
+  letter-spacing: 0;
 }
 .js-supplement-meta {
-  margin: 0 0 10px !important;
-  font-size: 12px; color: #7c2d12;
+  margin: 0 !important;
+  padding: 10px 22px;
+  background: #f8fafc;
+  border-bottom: 1px solid var(--aq-border);
+  font-size: 13px; color: var(--aq-text-sub);
 }
-.js-supplement-meta strong { color: #9a3412; }
+.js-supplement-meta strong { color: var(--aq-navy); font-weight: 800; }
 .js-supplement-block {
-  margin-bottom: 10px; padding: 10px 12px;
-  background: #fff; border-radius: 8px;
+  margin: 0;
+  padding: 18px 22px;
+  border-bottom: 1px solid var(--aq-border);
+  background: #fff;
 }
-.js-supplement-block:last-child { margin-bottom: 0; }
+.js-supplement-block:last-child { border-bottom: 0; }
+.js-supplement-block.js-supplement-overview { background: #fafbfc; }
 .js-supplement-h {
-  margin-bottom: 6px;
-  font-size: 12px; font-weight: 800; color: #9a3412;
+  display: inline-flex; align-items: center; gap: 8px;
+  margin-bottom: 12px;
+  padding: 4px 14px;
+  background: #06152e; color: #fff;
+  border-radius: 999px;
+  font-size: 13px; font-weight: 800;
   letter-spacing: .04em;
 }
+.js-supplement-course .js-supplement-h {
+  background: #906a3b;
+}
 .js-supplement-block p {
-  margin: 0 0 8px !important;
-  font-size: 14.5px; color: var(--aq-text); line-height: 1.85;
+  margin: 0 0 10px !important;
+  font-size: 14.5px; color: var(--aq-text); line-height: 1.95;
 }
 .js-supplement-block p:last-child { margin-bottom: 0 !important; }
+/* 最初の段落は強調 (リード文として) */
+.js-supplement-block p:first-of-type {
+  font-size: 15.5px; font-weight: 600; color: var(--aq-navy);
+  padding-left: 12px; border-left: 3px solid #906a3b;
+}
 
 /* ============================================================
    お知らせ (news) ページ
