@@ -10,11 +10,7 @@ data_page: joseikin-list
   <div class="aq-josei-hero-text">
     <p class="aq-hero-kicker">2026年度（令和8年度）最新版</p>
     <h1>助成金早見表</h1>
-    <p>厚生労働省の主要な助成金26件を、目的別・キーワードで検索できます。</p>
-  </div>
-  <div class="aq-josei-search">
-    <svg class="aq-josei-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m21 21-4.3-4.3"></path></svg>
-    <input type="search" id="aq-josei-q" placeholder="キーワードで検索 (賃上げ、外国人、育休等)" aria-label="助成金をキーワードで検索">
+    <p>厚生労働省の主要な助成金26件を、目的別に確認できます。</p>
   </div>
 </header>
 
@@ -74,10 +70,9 @@ data_page: joseikin-list
 
   var rows    = document.getElementById('aq-jl-rows');
   var empty   = document.getElementById('aq-josei-empty');
-  var input   = document.getElementById('aq-josei-q');
   var tabs    = document.getElementById('aq-josei-tabs');
   var navi    = document.getElementById('aq-jl-navi');
-  var state   = { cat: 'all', q: '' };
+  var state   = { cat: 'all' };
 
   function esc(s){return String(s == null ? '' : s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
 
@@ -113,10 +108,7 @@ data_page: joseikin-list
 
   function matchFilter(r) {
     if (state.cat !== 'all' && r.c !== state.cat) return false;
-    var q = state.q.trim().toLowerCase();
-    if (!q) return true;
-    var hay = (r.w + ' ' + r.n + ' ' + r.m + ' ' + (r.cat_label || '')).toLowerCase();
-    return hay.indexOf(q) !== -1;
+    return true;
   }
 
   function render() {
@@ -173,12 +165,6 @@ data_page: joseikin-list
     tabs.querySelectorAll('button').forEach(function (x) { x.classList.remove('is-active'); });
     var tabBtn = tabs.querySelector('button[data-cat="'+cat+'"]');
     if (tabBtn) tabBtn.classList.add('is-active');
-    render();
-  });
-
-  // Search input
-  if (input) input.addEventListener('input', function () {
-    state.q = input.value || '';
     render();
   });
 
