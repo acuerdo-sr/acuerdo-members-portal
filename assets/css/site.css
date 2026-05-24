@@ -2278,10 +2278,11 @@ body.aq-is-josei [data-block-id] {
   gap: 24px;
 }
 .aq-josei-hero-text h1 {
-  margin: 0 0 6px;
-  font-size: 28px;
-  letter-spacing: -.01em;
-  color: #fff;
+  margin: 0 0 6px !important;
+  font-size: 28px !important;
+  letter-spacing: -.01em !important;
+  color: #fff !important;
+  font-weight: 800 !important;
 }
 .aq-josei-hero-text p {
   margin: 0;
