@@ -10,7 +10,7 @@ data_page: forms
   <div class="aq-subpage-hero-text">
     <p class="aq-hero-kicker">顧問先専用</p>
     <h1>お役立ち書式</h1>
-    <p>労務管理で頻繁に使う各種書式を、社内ファイルサーバ(Vドライブ)から直接ご利用いただけます。</p>
+    <p>労務管理で頻繁に使う各種書式をワンクリックでダウンロードできます (Word / PDF / Excel)。</p>
   </div>
 </header>
 
@@ -20,14 +20,7 @@ data_page: forms
 
 <div id="aq-forms-sections"></div>
 
-<div class="aq-forms-help">
-  <h3>ファイルが開けない場合は</h3>
-  <ul>
-    <li>「Wordをコピー」「PDFをコピー」を押すとパスがクリップボードにコピーされます。エクスプローラのアドレスバーに貼り付けて開いてください。</li>
-    <li>Vドライブが見当たらない場合は IT 担当へご確認ください。</li>
-    <li>「担当者へ請求」の表示がある書式は、 弊社担当者へお問い合わせください。最新版をお送りします。</li>
-  </ul>
-</div>
+<p class="aq-subpage-note">※ 書式は一般的なひな形です。 個別の対応が必要なケースは担当者へご相談ください。</p>
 
 </main></div>
 
@@ -38,97 +31,56 @@ data_page: forms
   try { raw = JSON.parse(document.getElementById('aq-forms-data').textContent); }
   catch (e) { raw = { categories: {} }; }
 
-  var root  = raw.fileshare_root || '';
-  var cats  = raw.categories || {};
+  var cats     = raw.categories || {};
   var sections = document.getElementById('aq-forms-sections');
   var tabsEl   = document.getElementById('aq-forms-tabs');
   var state    = { tab: 'all' };
 
   function esc(s){return String(s == null ? '' : s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
 
-  function buildPath(filename) {
-    if (!filename) return '';
-    return root + '\\' + filename;
-  }
-
-  function buildFileUrl(filename) {
-    if (!filename) return '';
-    // file:// URL (may not open from HTTPS but provides a clickable affordance)
-    return 'file:///' + (root + '\\' + filename).replace(/\\/g, '/');
-  }
-
-  function copyToClipboard(text, btn) {
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(text).then(function () {
-        if (btn) flashCopied(btn);
-      });
-    } else {
-      var ta = document.createElement('textarea');
-      ta.value = text; document.body.appendChild(ta); ta.select();
-      try { document.execCommand('copy'); if (btn) flashCopied(btn); } catch (e) {}
-      document.body.removeChild(ta);
-    }
-  }
-  function flashCopied(btn) {
-    var orig = btn.textContent; btn.textContent = '✓ コピーしました';
-    setTimeout(function(){ btn.textContent = orig; }, 1400);
+  function urlEncodePath(p) {
+    // URL-encode each path segment to handle Japanese, parens, spaces
+    return (p || '').split('/').map(encodeURIComponent).join('/');
   }
 
   function buildTabs() {
-    // tabs: All + each templates subcategory + procedure_contact + subsidy_consultation
     var tabs = [{key:'all', label:'すべて'}];
     var tpl = cats.templates || {};
     var subs = tpl.subcategories || {};
     Object.keys(subs).forEach(function (k) {
       tabs.push({key:'tpl_'+k, label:(subs[k].icon||'')+' '+subs[k].label});
     });
-    if (cats.procedure_contact) tabs.push({key:'procedure_contact', label:'手続きご連絡票'});
-    if (cats.subsidy_consultation) tabs.push({key:'subsidy_consultation', label:'助成金ご相談票'});
+    if (cats.procedure_contact) tabs.push({key:'procedure_contact', label:'📨 手続きご連絡票'});
+    if (cats.subsidy_consultation) tabs.push({key:'subsidy_consultation', label:'💴 助成金ご相談票'});
     tabsEl.innerHTML = tabs.map(function (t, i) {
       return '<button class="'+(i===0?'is-active':'')+'" data-tab="'+esc(t.key)+'" type="button">'+esc(t.label)+'</button>';
     }).join('');
   }
 
-  function renderItem(it, request_only) {
+  function renderItem(it) {
     var doc = it.file_doc, pdf = it.file_pdf;
-    var name = it.name + (it.no ? ' <span class="aq-form-no">(No.'+esc(String(it.no))+')</span>' : '');
+    var nameHtml = esc(it.name) + (it.no ? ' <span class="aq-form-no">(No.'+esc(String(it.no))+')</span>' : '');
     var use  = it.use ? '<p class="aq-form-use">'+esc(it.use)+'</p>' : '';
-    if (request_only || (!doc && !pdf)) {
-      return '<div class="aq-form-card aq-form-card-req">' +
-        '<div class="aq-form-body"><h3 class="aq-form-name">'+name+'</h3>'+use+'</div>' +
-        '<div class="aq-form-actions"><span class="aq-form-req-badge">担当者へ請求</span></div>' +
-      '</div>';
-    }
-    var docPath = buildPath(doc), pdfPath = buildPath(pdf);
-    var docUrl  = buildFileUrl(doc), pdfUrl = buildFileUrl(pdf);
-    var docLabel = (/\.xlsx?$/i.test(doc)) ? 'Excel' : 'Word';
+    var docLabel = (/\.xlsx?$/i.test(doc || '')) ? 'Excel' : 'Word';
+    var docClass = (/\.xlsx?$/i.test(doc || '')) ? 'aq-form-open-xls' : 'aq-form-open-doc';
     var actions = '';
-    if (doc) {
-      actions += '<a class="aq-form-open aq-form-open-doc" href="'+esc(docUrl)+'" title="ファイルを開く (Vドライブ接続時)">'+docLabel+'を開く</a>';
-      actions += '<button class="aq-form-copy" type="button" data-copy="'+esc(docPath)+'">'+docLabel+'パスをコピー</button>';
-    }
-    if (pdf) {
-      actions += '<a class="aq-form-open aq-form-open-pdf" href="'+esc(pdfUrl)+'" title="PDFを開く (Vドライブ接続時)">PDFを開く</a>';
-      actions += '<button class="aq-form-copy" type="button" data-copy="'+esc(pdfPath)+'">PDFパスをコピー</button>';
-    }
+    if (doc) actions += '<a class="aq-form-open '+docClass+'" href="'+esc(urlEncodePath(doc))+'" download>📄 '+docLabel+' をダウンロード</a>';
+    if (pdf) actions += '<a class="aq-form-open aq-form-open-pdf" href="'+esc(urlEncodePath(pdf))+'" download>📕 PDF をダウンロード</a>';
+    if (!actions) actions = '<span class="aq-form-req-badge">準備中</span>';
     return '<div class="aq-form-card">' +
-      '<div class="aq-form-body"><h3 class="aq-form-name">'+name+'</h3>'+use+
-        (docPath ? '<code class="aq-form-path">'+esc(docPath)+'</code>' : '') +
-      '</div>' +
+      '<div class="aq-form-body"><h3 class="aq-form-name">'+nameHtml+'</h3>'+use+'</div>' +
       '<div class="aq-form-actions">'+actions+'</div>' +
     '</div>';
   }
 
-  function renderSubcatBlock(subKey, sub) {
+  function renderSubcatBlock(key, sub) {
     var items = sub.items || [];
     if (items.length === 0) return '';
     var html = '<section class="aq-forms-section">';
     html += '<h2 class="aq-forms-section-h"><span class="aq-forms-section-icon">'+esc(sub.icon||'')+'</span>'+esc(sub.label)+' <span class="aq-forms-count">'+items.length+'件</span></h2>';
     if (sub.desc) html += '<p class="aq-forms-section-desc">'+esc(sub.desc)+'</p>';
     html += '<div class="aq-forms-grid">';
-    items.forEach(function (it) {
-      html += renderItem(it, !!sub.request_only);
-    });
+    items.forEach(function (it) { html += renderItem(it); });
     html += '</div></section>';
     return html;
   }
@@ -136,18 +88,12 @@ data_page: forms
   function render() {
     if (!sections) return;
     var html = '';
-    var tpl = cats.templates;
-    var subs = tpl && tpl.subcategories ? tpl.subcategories : {};
+    var tpl  = cats.templates || {};
+    var subs = tpl.subcategories || {};
 
     if (state.tab === 'all' || state.tab.indexOf('tpl_') === 0) {
-      // Templates header (only if showing any templates)
       if (state.tab === 'all') {
-        html += '<header class="aq-forms-cat-header"><h2>'+esc(tpl.label||'便利書式')+'</h2>';
-        if (tpl.desc) html += '<p>'+esc(tpl.desc)+'</p>';
-        html += '</header>';
-        Object.keys(subs).forEach(function (k) {
-          html += renderSubcatBlock(k, subs[k]);
-        });
+        Object.keys(subs).forEach(function (k) { html += renderSubcatBlock(k, subs[k]); });
       } else {
         var key = state.tab.slice(4);
         if (subs[key]) html += renderSubcatBlock(key, subs[key]);
@@ -163,12 +109,6 @@ data_page: forms
 
     sections.innerHTML = html || '<p class="aq-subpage-empty">該当する書式がありません。</p>';
   }
-
-  // Event delegation
-  document.addEventListener('click', function (e) {
-    var copy = e.target.closest('[data-copy]');
-    if (copy) { copyToClipboard(copy.getAttribute('data-copy'), copy); return; }
-  });
 
   if (tabsEl) tabsEl.addEventListener('click', function (e) {
     var b = e.target.closest('button[data-tab]'); if (!b) return;

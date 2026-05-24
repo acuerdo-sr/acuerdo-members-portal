@@ -2687,6 +2687,8 @@ body.aq-is-news {
 .aq-form-open:hover { background: #1e293b; }
 .aq-form-open-pdf { background: #b91c1c; }
 .aq-form-open-pdf:hover { background: #991b1b; }
+.aq-form-open-xls { background: #15803d; }
+.aq-form-open-xls:hover { background: #166534; }
 .aq-form-copy {
   padding: 6px 12px;
   background: #fff; color: var(--aq-navy);
