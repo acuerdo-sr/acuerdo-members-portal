@@ -4,66 +4,188 @@ body_class: aq-is-josei
 data_page: joseikin-list
 #}
 
-<div id="aq-josei-wrap"><main class="aq-josei-main"><header class="aq-josei-hero"><div class="aq-josei-hero-text"><h1>助成金早見表</h1><p>目的・キーワードから使える助成金をすばやく確認。</p></div><div class="aq-josei-search"><svg class="aq-josei-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m21 21-4.3-4.3"></path></svg><input type="search" id="aq-josei-q" placeholder="キーワードで検索" aria-label="助成金をキーワードで検索"></div></header><div class="aq-josei-tabs" id="aq-josei-tabs" role="tablist"><button class="is-active" data-cat="all" type="button">すべて</button><button data-cat="hire" type="button">社員採用</button><button data-cat="edu" type="button">従業員教育</button><button data-cat="care" type="button">育児・介護</button><button data-cat="wage" type="button">有期処遇改善</button><button data-cat="env" type="button">職場環境改善</button><button data-cat="prod" type="button">設備・生産性</button></div><div class="aq-josei-tablewrap"><table class="aq-josei-table"><thead><tr><th class="aq-josei-icol" aria-hidden="true"></th><th>どんなとき？</th><th>何をしたら？</th><th>なんの助成金？</th><th>金額目安</th><th class="aq-josei-arrow" aria-hidden="true"></th></tr></thead><tbody id="aq-josei-rows"></tbody></table><p class="aq-josei-empty" id="aq-josei-empty" hidden>該当する制度が見つかりませんでした。</p></div><div class="aq-josei-info"><span class="aq-josei-info-icon">i</span>行をタップすると詳細ページ（要件・対象者・申請の流れ）を別タブで開きます。</div><h2 class="aq-josei-flow-h">詳細を見る流れ</h2><ol class="aq-josei-flow"><li><span class="aq-josei-step-no">1</span><span class="aq-josei-step-icon">📋</span><span class="aq-josei-step-title">早見表</span><span class="aq-josei-step-desc">気になる助成金を選択</span></li><li><span class="aq-josei-step-no">2</span><span class="aq-josei-step-icon">📄</span><span class="aq-josei-step-title">詳細ページ</span><span class="aq-josei-step-desc">要件や金額・申請方法を確認</span></li><li><span class="aq-josei-step-no">3</span><span class="aq-josei-step-icon">🤖</span><span class="aq-josei-step-title">AIボット相談</span><span class="aq-josei-step-desc">疑問点をその場で解決</span></li><li><span class="aq-josei-step-no">4</span><span class="aq-josei-step-icon">👤</span><span class="aq-josei-step-title">担当者へ相談</span><span class="aq-josei-step-desc">個別のご相談・サポート</span></li></ol></main></div>
+<div id="aq-josei-wrap"><main class="aq-josei-main">
+
+<header class="aq-josei-hero">
+  <div class="aq-josei-hero-text">
+    <p class="aq-hero-kicker">2026年度（令和8年度）最新版</p>
+    <h1>助成金早見表</h1>
+    <p>厚生労働省の主要な助成金26件を、目的別・キーワードで検索できます。</p>
+  </div>
+  <div class="aq-josei-search">
+    <svg class="aq-josei-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m21 21-4.3-4.3"></path></svg>
+    <input type="search" id="aq-josei-q" placeholder="キーワードで検索 (賃上げ、外国人、育休等)" aria-label="助成金をキーワードで検索">
+  </div>
+</header>
+
+<section class="aq-jl-navi-section">
+  <h2 class="aq-jl-section-h">どんなとき?<span class="aq-jl-section-en">PURPOSE</span></h2>
+  <div class="aq-jl-navi-grid" id="aq-jl-navi"></div>
+</section>
+
+<section class="aq-jl-list-section">
+  <h2 class="aq-jl-section-h">早見表から助成金を探す<span class="aq-jl-section-en">QUICK REFERENCE</span></h2>
+  <p class="aq-jl-section-sub">気になる助成金の行をタップすると、要件・支給額・申請の流れなどの詳細が開きます。</p>
+
+  <div class="aq-josei-tabs" id="aq-josei-tabs" role="tablist"></div>
+
+  <div class="aq-jl-table" id="aq-jl-table">
+    <div class="aq-jl-table-head">
+      <div class="aq-jl-col-cat">カテゴリ</div>
+      <div class="aq-jl-col-when">どんなとき?</div>
+      <div class="aq-jl-col-name">助成金</div>
+      <div class="aq-jl-col-amount">金額目安</div>
+      <div class="aq-jl-col-toggle" aria-hidden="true"></div>
+    </div>
+    <div class="aq-jl-rows" id="aq-jl-rows"></div>
+    <p class="aq-josei-empty" id="aq-josei-empty" hidden>該当する制度が見つかりませんでした。</p>
+  </div>
+
+  <div class="aq-josei-info">
+    <span class="aq-josei-info-icon">i</span>各助成金には予算があり、支給額が予算に達した場合は予告なく受付終了になることがあります。早めの準備・申請がお勧めです。
+  </div>
+</section>
+
+<h2 class="aq-josei-flow-h">詳細を見る流れ</h2>
+<ol class="aq-josei-flow">
+  <li><span class="aq-josei-step-no">1</span><span class="aq-josei-step-icon">📋</span><span class="aq-josei-step-title">早見表</span><span class="aq-josei-step-desc">気になる助成金を選択</span></li>
+  <li><span class="aq-josei-step-no">2</span><span class="aq-josei-step-icon">📄</span><span class="aq-josei-step-title">詳細を確認</span><span class="aq-josei-step-desc">要件や金額・申請方法を確認</span></li>
+  <li><span class="aq-josei-step-no">3</span><span class="aq-josei-step-icon">🤖</span><span class="aq-josei-step-title">AIボット相談</span><span class="aq-josei-step-desc">疑問点をその場で解決</span></li>
+  <li><span class="aq-josei-step-no">4</span><span class="aq-josei-step-icon">👤</span><span class="aq-josei-step-title">担当者へ相談</span><span class="aq-josei-step-desc">個別のご相談・サポート</span></li>
+</ol>
+
+</main></div>
 
 <script id="aq-josei-data" type="application/json">__JOSEI_DATA__</script>
 <script>
 (function () {
-  var EXT_BASE = 'https://acuerdo-sr.github.io/joseikin001/#';
-  var CAT_ICON = { hire:'👥', edu:'📖', care:'🤱', wage:'💰', env:'🏢', prod:'🏭' };
   var data;
-  try {
-    var el = document.getElementById('aq-josei-data');
-    data = el ? JSON.parse(el.textContent || el.innerText || '[]') : [];
-  } catch (e) { data = []; }
-  var tbody  = document.getElementById('aq-josei-rows');
-  var empty  = document.getElementById('aq-josei-empty');
-  var input  = document.getElementById('aq-josei-q');
-  var tabs   = document.getElementById('aq-josei-tabs');
-  var state  = { cat: 'all', q: '' };
+  try { data = JSON.parse(document.getElementById('aq-josei-data').textContent) || []; }
+  catch (e) { data = []; }
 
-  function escapeHtml(s){return String(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+  var CAT_DEFS = [
+    { key:'hire', label:'社員採用',         icon:'👥', desc:'正社員化・採用' },
+    { key:'edu',  label:'従業員教育',       icon:'📖', desc:'OFF-JT・DX人材育成' },
+    { key:'care', label:'育児・介護',       icon:'🤱', desc:'男性育休・両立支援' },
+    { key:'wage', label:'有期処遇改善',     icon:'💴', desc:'同一労働同一賃金' },
+    { key:'env',  label:'職場環境改善',     icon:'🏢', desc:'人事制度・テレワーク' },
+    { key:'prod', label:'設備・生産性',     icon:'🏭', desc:'労時短・最低賃金引上' }
+  ];
 
-  function render() {
-    if (!tbody) return;
-    var q = state.q.trim().toLowerCase();
-    var rows = data.filter(function (r) {
-      if (state.cat !== 'all' && r.c !== state.cat) return false;
-      if (!q) return true;
-      return (r.w + r.a + r.n + r.m).toLowerCase().indexOf(q) !== -1;
-    });
-    tbody.innerHTML = rows.map(function (r) {
-      var url = EXT_BASE + r.i;
-      return '<tr data-id="' + escapeHtml(r.i) + '" data-url="' + escapeHtml(url) + '">' +
-        '<td class="aq-josei-icol"><span class="aq-josei-row-icon">' + (CAT_ICON[r.c] || '・') + '</span></td>' +
-        '<td>' + escapeHtml(r.w) + '</td>' +
-        '<td>' + escapeHtml(r.a) + '</td>' +
-        '<td class="aq-josei-name">' + escapeHtml(r.n) + '</td>' +
-        '<td class="aq-josei-amt">' + escapeHtml(r.m) + '</td>' +
-        '<td class="aq-josei-arrow">›</td>' +
-        '</tr>';
-    }).join('');
-    if (empty) empty.hidden = rows.length > 0;
+  var rows    = document.getElementById('aq-jl-rows');
+  var empty   = document.getElementById('aq-josei-empty');
+  var input   = document.getElementById('aq-josei-q');
+  var tabs    = document.getElementById('aq-josei-tabs');
+  var navi    = document.getElementById('aq-jl-navi');
+  var state   = { cat: 'all', q: '' };
+
+  function esc(s){return String(s == null ? '' : s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+
+  function counts() {
+    var c = { all: data.length };
+    CAT_DEFS.forEach(function (cd) { c[cd.key] = data.filter(function (r) { return r.c === cd.key; }).length; });
+    return c;
   }
 
-  if (tbody) tbody.addEventListener('click', function (e) {
-    var tr = e.target.closest('tr[data-url]');
-    if (!tr) return;
-    window.open(tr.getAttribute('data-url'), '_blank', 'noopener');
+  function buildTabs() {
+    var ct = counts();
+    var html = '<button class="is-active" data-cat="all" type="button">すべて<span class="aq-jl-count">'+ct.all+'</span></button>';
+    CAT_DEFS.forEach(function (cd) {
+      html += '<button data-cat="'+cd.key+'" type="button">'+esc(cd.label)+'<span class="aq-jl-count">'+(ct[cd.key]||0)+'</span></button>';
+    });
+    tabs.innerHTML = html;
+  }
+
+  function buildNavi() {
+    var ct = counts();
+    var html = '';
+    CAT_DEFS.forEach(function (cd, i) {
+      html += '<button class="aq-jl-navi-card" data-cat="'+cd.key+'" type="button">' +
+        '<span class="aq-jl-navi-no">'+String(i+1).padStart(2,'0')+'</span>' +
+        '<span class="aq-jl-navi-icon">'+cd.icon+'</span>' +
+        '<span class="aq-jl-navi-title">'+esc(cd.label)+'</span>' +
+        '<span class="aq-jl-navi-meta">'+(ct[cd.key]||0)+'コース ／ '+esc(cd.desc)+'</span>' +
+        '<span class="aq-jl-navi-arrow">この目的の助成金 →</span>' +
+      '</button>';
+    });
+    navi.innerHTML = html;
+  }
+
+  function matchFilter(r) {
+    if (state.cat !== 'all' && r.c !== state.cat) return false;
+    var q = state.q.trim().toLowerCase();
+    if (!q) return true;
+    var hay = (r.w + ' ' + r.n + ' ' + r.m + ' ' + (r.cat_label || '')).toLowerCase();
+    return hay.indexOf(q) !== -1;
+  }
+
+  function render() {
+    if (!rows) return;
+    var rs = data.filter(matchFilter);
+    if (rs.length === 0) {
+      rows.innerHTML = '';
+      if (empty) empty.hidden = false;
+      return;
+    }
+    if (empty) empty.hidden = true;
+    rows.innerHTML = rs.map(function (r) {
+      var catLabel = r.cat_label || '';
+      return '<div class="aq-jl-item" data-cat="'+esc(r.c)+'" data-id="'+esc(r.i)+'">' +
+        '<button class="aq-jl-row" type="button" aria-expanded="false">' +
+          '<span class="aq-jl-col-cat"><span class="aq-jl-badge cat-'+esc(r.c)+'">'+esc(catLabel)+'</span></span>' +
+          '<span class="aq-jl-col-when">'+esc(r.w)+'</span>' +
+          '<span class="aq-jl-col-name">'+esc(r.n)+'</span>' +
+          '<span class="aq-jl-col-amount">'+esc(r.m)+'</span>' +
+          '<span class="aq-jl-col-toggle"><span class="aq-jl-chevron">▼</span></span>' +
+        '</button>' +
+        '<div class="aq-jl-detail" hidden><div class="aq-jl-detail-inner">' + (r.detail_html || '<p>詳細情報はまだ準備中です。</p>') + '</div></div>' +
+      '</div>';
+    }).join('');
+  }
+
+  // Event delegation: row toggle
+  if (rows) rows.addEventListener('click', function (e) {
+    var btn = e.target.closest('.aq-jl-row');
+    if (!btn) return;
+    var item = btn.closest('.aq-jl-item');
+    if (!item) return;
+    var det  = item.querySelector('.aq-jl-detail');
+    var open = btn.getAttribute('aria-expanded') === 'true';
+    btn.setAttribute('aria-expanded', open ? 'false' : 'true');
+    if (det) det.hidden = open;
+    item.classList.toggle('is-open', !open);
   });
 
+  // Tab clicks
   if (tabs) tabs.addEventListener('click', function (e) {
-    var b = e.target.closest('button[data-cat]');
-    if (!b) return;
+    var b = e.target.closest('button[data-cat]'); if (!b) return;
     tabs.querySelectorAll('button').forEach(function (x) { x.classList.remove('is-active'); });
     b.classList.add('is-active');
     state.cat = b.getAttribute('data-cat');
     render();
   });
+
+  // Navi card clicks → set filter & scroll to table
+  if (navi) navi.addEventListener('click', function (e) {
+    var b = e.target.closest('button[data-cat]'); if (!b) return;
+    var cat = b.getAttribute('data-cat');
+    state.cat = cat;
+    tabs.querySelectorAll('button').forEach(function (x) { x.classList.remove('is-active'); });
+    var tabBtn = tabs.querySelector('button[data-cat="'+cat+'"]');
+    if (tabBtn) tabBtn.classList.add('is-active');
+    render();
+    var listSec = document.querySelector('.aq-jl-list-section');
+    if (listSec) listSec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+
+  // Search input
   if (input) input.addEventListener('input', function () {
     state.q = input.value || '';
     render();
   });
+
+  buildNavi();
+  buildTabs();
   render();
 })();
 </script>
