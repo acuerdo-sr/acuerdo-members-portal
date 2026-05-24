@@ -3203,7 +3203,7 @@ body.aq-is-news {
 .aq-jl-table { margin-top: 14px; border-radius: 14px; overflow: hidden; border: 1px solid var(--aq-border); }
 .aq-jl-table-head {
   display: grid;
-  grid-template-columns: 110px minmax(0, 1.4fr) minmax(0, 1.6fr) 110px;
+  grid-template-columns: 110px minmax(0, 1.4fr) minmax(0, 1.6fr) 110px 36px;
   gap: 12px;
   padding: 12px 16px;
   background: #f8fafc;
@@ -3214,14 +3214,24 @@ body.aq-is-news {
 .aq-jl-item { border-bottom: 1px solid #eef0f3; }
 .aq-jl-item:last-child { border-bottom: 0; }
 .aq-jl-row {
-  width: 100%;
+  list-style: none; cursor: pointer; user-select: none;
   display: grid;
-  grid-template-columns: 110px minmax(0, 1.4fr) minmax(0, 1.6fr) 110px;
+  grid-template-columns: 110px minmax(0, 1.4fr) minmax(0, 1.6fr) 110px 36px;
   gap: 12px; align-items: center;
   padding: 14px 16px;
-  background: #f1f5f9;
+  background: #fff;
   font-family: inherit; text-align: left;
+  transition: background .12s;
 }
+.aq-jl-row::-webkit-details-marker { display: none; }
+.aq-jl-row:hover { background: #f8fafc; }
+.aq-jl-item[open] > .aq-jl-row { background: var(--aq-navy); color: #fff; }
+.aq-jl-item[open] > .aq-jl-row .aq-jl-col-name,
+.aq-jl-item[open] > .aq-jl-row .aq-jl-col-when { color: #fff; }
+.aq-jl-item[open] > .aq-jl-row .aq-jl-col-amount { color: #fff; }
+.aq-jl-col-toggle { text-align: center; }
+.aq-jl-chevron { display: inline-block; color: #94a3b8; font-size: 12px; transition: transform .2s; }
+.aq-jl-item[open] > .aq-jl-row .aq-jl-chevron { transform: rotate(180deg); color: #fff; }
 
 .aq-jl-badge {
   display: inline-flex; align-items: center; justify-content: center;
