@@ -2660,56 +2660,132 @@ body.aq-is-news {
 .aq-dl-ex  { color: #475569 !important; }
 .aq-dl-ex:hover  { background: #475569; }
 
-/* 書式ページ拡張 */
-.aq-forms-tabs-wrap { background:#fff; border:1px solid var(--aq-border); border-radius:14px; padding:14px 16px; }
-.aq-forms-cat-header { background:linear-gradient(135deg,#0f172a,#1e293b); color:#fff; border-radius:14px; padding:18px 22px; }
-.aq-forms-cat-header h2 { margin:0 0 4px !important; color:#fff !important; font-size:18px !important; font-weight:800 !important; }
-.aq-forms-cat-header p  { margin:0; color:#cbd5e1; font-size:13px; line-height:1.7; }
-.aq-forms-section-icon { font-size: 22px; margin-right:4px; }
-.aq-forms-section-desc { margin:0 0 12px !important; color: var(--aq-text-sub); font-size: 12.5px; line-height: 1.7; }
-.aq-form-no { font-size: 11px; color:#94a3b8; font-weight:700; margin-left: 4px; }
-.aq-form-path {
-  display: block; margin-top: 8px; padding: 6px 10px;
-  background: #f8fafc; border: 1px solid var(--aq-border); border-radius: 6px;
-  font-family: ui-monospace, Consolas, monospace; font-size: 11px; color: #475569;
-  word-break: break-all;
+/* 書式ページ ─ アコーディオン構造 */
+#aq-forms-cats { display: flex; flex-direction: column; gap: 22px; }
+
+.aq-form-cat {
+  background: #fff; border: 1px solid var(--aq-border); border-radius: 16px;
+  overflow: hidden;
 }
-.aq-form-actions {
-  display: flex; flex-wrap: wrap; gap: 6px;
-  margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--aq-border);
+.aq-form-cat-header {
+  padding: 22px 26px;
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  color: #fff;
+}
+.aq-form-cat-header h2 {
+  margin: 0 !important;
+  display: flex; align-items: center; gap: 10px;
+  color: #fff !important; font-size: 20px !important; font-weight: 800 !important;
+  line-height: 1.4 !important;
+}
+.aq-form-cat-icon { font-size: 24px; }
+.aq-form-cat-header p {
+  margin: 8px 0 0; color: #cbd5e1; font-size: 13px; line-height: 1.7;
+}
+.aq-form-cat-body { padding: 14px 18px; display: flex; flex-direction: column; gap: 10px; }
+
+.aq-form-subcat {
+  border: 1px solid var(--aq-border); border-radius: 12px; overflow: hidden;
+  background: #fff;
+}
+.aq-form-subcat[open] { box-shadow: 0 2px 8px rgba(15,23,42,.06); }
+.aq-form-subcat-summary {
+  list-style: none; cursor: pointer;
+  display: flex; align-items: center; gap: 12px;
+  padding: 16px 20px;
+  background: #f8fafc;
+  font-size: 15px; font-weight: 800; color: var(--aq-navy);
+  transition: background .12s;
+  user-select: none;
+}
+.aq-form-subcat-summary::-webkit-details-marker { display: none; }
+.aq-form-subcat-summary:hover { background: #eef3f8; }
+.aq-form-subcat[open] .aq-form-subcat-summary {
+  background: var(--aq-navy); color: #fff;
+  border-bottom: 1px solid var(--aq-border);
+}
+.aq-form-subcat-icon { font-size: 20px; }
+.aq-form-subcat-label { flex: 1; }
+.aq-form-subcat-count {
+  padding: 3px 12px; border-radius: 999px;
+  background: #fff; color: var(--aq-navy);
+  font-size: 12px; font-weight: 800;
+}
+.aq-form-subcat[open] .aq-form-subcat-count { background: rgba(255,255,255,.18); color: #fff; }
+.aq-form-subcat-chevron {
+  color: #94a3b8; font-size: 12px; transition: transform .2s;
+}
+.aq-form-subcat[open] .aq-form-subcat-chevron { transform: rotate(180deg); color: #fff; }
+.aq-form-subcat-body {
+  display: flex; flex-direction: column;
+  animation: aqFormSlide .25s ease-out;
+}
+@keyframes aqFormSlide {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.aq-form-row {
+  display: grid;
+  grid-template-columns: minmax(180px, 1.1fr) minmax(0, 2fr) auto;
+  gap: 16px; align-items: center;
+  padding: 14px 20px;
+  border-bottom: 1px solid #eef0f3;
+}
+.aq-form-row:last-child { border-bottom: 0; }
+.aq-form-row:hover { background: #fbfcfe; }
+
+.aq-form-row-name {
+  display: flex; align-items: baseline; gap: 8px;
+  min-width: 0;
+}
+.aq-form-no-pill {
+  flex: 0 0 auto;
+  padding: 2px 8px; border-radius: 6px;
+  background: #f1f5f9; color: #475569;
+  font-size: 10.5px; font-weight: 800; font-family: ui-monospace, Consolas, monospace;
+  letter-spacing: .02em;
+}
+.aq-form-row-title {
+  font-size: 14px; font-weight: 700; color: var(--aq-navy);
+  line-height: 1.5;
+}
+.aq-form-row-desc {
+  font-size: 12.5px; color: var(--aq-text-sub); line-height: 1.65;
+}
+.aq-form-row-btns {
+  display: flex; gap: 6px; flex-wrap: wrap;
 }
 .aq-form-open {
-  display: inline-flex; align-items: center; padding: 6px 12px;
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 7px 14px;
   background: var(--aq-navy); color: #fff !important;
-  border-radius: 8px; font-size: 12px; font-weight: 800; text-decoration: none;
-  transition: background .12s;
+  border-radius: 8px; font-size: 12px; font-weight: 800;
+  text-decoration: none;
+  transition: background .12s, transform .12s;
+  white-space: nowrap;
 }
-.aq-form-open:hover { background: #1e293b; }
+.aq-form-open:hover { background: #1e293b; transform: translateY(-1px); }
 .aq-form-open-pdf { background: #b91c1c; }
 .aq-form-open-pdf:hover { background: #991b1b; }
 .aq-form-open-xls { background: #15803d; }
 .aq-form-open-xls:hover { background: #166534; }
-.aq-form-copy {
-  padding: 6px 12px;
-  background: #fff; color: var(--aq-navy);
-  border: 1px solid var(--aq-border); border-radius: 8px;
-  font-size: 12px; font-weight: 700; font-family: inherit;
-  cursor: pointer; transition: background .12s, border-color .12s;
-}
-.aq-form-copy:hover { background: #f1f5f9; border-color: var(--aq-navy); }
-.aq-form-card-req { background: #fffbeb; border-color: #fed7aa; }
 .aq-form-req-badge {
   display: inline-flex; align-items: center; padding: 6px 12px;
-  background: #d97706; color: #fff;
-  border-radius: 8px; font-size: 12px; font-weight: 800;
+  background: #fef3c7; color: #92400e;
+  border-radius: 8px; font-size: 11px; font-weight: 800;
 }
-.aq-forms-help {
-  background: #eff6ff; border: 1px solid #dbeafe; border-left: 4px solid #1d4ed8;
-  border-radius: 12px; padding: 18px 22px;
+
+@media (max-width: 760px) {
+  .aq-form-row {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    padding: 14px 16px;
+  }
+  .aq-form-row-desc { font-size: 12px; }
+  .aq-form-cat-header { padding: 18px 20px; }
+  .aq-form-subcat-summary { padding: 14px 16px; }
 }
-.aq-forms-help h3 { margin: 0 0 8px !important; font-size: 14px !important; color: #1e3a8a !important; font-weight: 800 !important; }
-.aq-forms-help ul { margin: 0; padding-left: 22px; font-size: 12.5px; color: #1e3a8a; line-height: 1.8; }
-.aq-forms-help li { margin-bottom: 4px; }
 
 /* ============================================================
    共通: ピル / バッジ

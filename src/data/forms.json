@@ -9,35 +9,40 @@
           "name": "入社連絡票",
           "use": "新入社員手続き",
           "file_doc": "assets/forms/手続き関係ご連絡票/1.入社連絡票.xlsx",
-          "file_pdf": "assets/forms/手続き関係ご連絡票/1.入社連絡票.pdf"
+          "file_pdf": "assets/forms/手続き関係ご連絡票/1.入社連絡票.pdf",
+          "desc": "新入社員手続き"
         },
         {
           "no": 2,
           "name": "退社連絡票",
           "use": "退職者手続き",
           "file_doc": "assets/forms/手続き関係ご連絡票/2.退社連絡票.xlsx",
-          "file_pdf": "assets/forms/手続き関係ご連絡票/2.退社連絡票.pdf"
+          "file_pdf": "assets/forms/手続き関係ご連絡票/2.退社連絡票.pdf",
+          "desc": "退職者手続き"
         },
         {
           "no": 3,
           "name": "出産育児連絡票",
           "use": "出産・育休手続き",
           "file_doc": "assets/forms/手続き関係ご連絡票/3.出産育児連絡票.xlsx",
-          "file_pdf": "assets/forms/手続き関係ご連絡票/3.出産育児連絡票.pdf"
+          "file_pdf": "assets/forms/手続き関係ご連絡票/3.出産育児連絡票.pdf",
+          "desc": "出産・育休手続き"
         },
         {
           "no": 4,
           "name": "異動連絡票",
           "use": "扶養変更・人事異動等",
           "file_doc": "assets/forms/手続き関係ご連絡票/4.異動連絡票.xlsx",
-          "file_pdf": "assets/forms/手続き関係ご連絡票/4.異動連絡票.pdf"
+          "file_pdf": "assets/forms/手続き関係ご連絡票/4.異動連絡票.pdf",
+          "desc": "扶養変更・人事異動等"
         },
         {
           "no": 5,
           "name": "その他連絡票",
           "use": "住所・氏名変更等",
           "file_doc": "assets/forms/手続き関係ご連絡票/5.その他連絡票.xlsx",
-          "file_pdf": "assets/forms/手続き関係ご連絡票/5.その他連絡票.pdf"
+          "file_pdf": "assets/forms/手続き関係ご連絡票/5.その他連絡票.pdf",
+          "desc": "住所・氏名変更等"
         }
       ]
     },
@@ -50,28 +55,32 @@
           "name": "社員採用相談票",
           "use": "採用関連の助成金検討時",
           "file_doc": "assets/forms/助成金ご相談票/1.社員採用相談票.xlsx",
-          "file_pdf": "assets/forms/助成金ご相談票/1.社員採用相談票.pdf"
+          "file_pdf": "assets/forms/助成金ご相談票/1.社員採用相談票.pdf",
+          "desc": "採用関連の助成金検討時"
         },
         {
           "no": 2,
           "name": "教育実施相談票",
           "use": "教育・訓練の助成金検討時",
           "file_doc": "assets/forms/助成金ご相談票/2.教育実施相談票.xlsx",
-          "file_pdf": "assets/forms/助成金ご相談票/2.教育実施相談票.pdf"
+          "file_pdf": "assets/forms/助成金ご相談票/2.教育実施相談票.pdf",
+          "desc": "教育・訓練の助成金検討時"
         },
         {
           "no": 3,
           "name": "育児相談票",
           "use": "育児・出産関連の助成金検討時",
           "file_doc": "assets/forms/助成金ご相談票/3.育児相談票.xlsx",
-          "file_pdf": "assets/forms/助成金ご相談票/3.育児相談票.pdf"
+          "file_pdf": "assets/forms/助成金ご相談票/3.育児相談票.pdf",
+          "desc": "育児・出産関連の助成金検討時"
         },
         {
           "no": 4,
           "name": "その他相談票",
           "use": "設備投資・賃上げ等の検討時",
           "file_doc": "assets/forms/助成金ご相談票/4.その他相談票.xlsx",
-          "file_pdf": "assets/forms/助成金ご相談票/4.その他相談票.pdf"
+          "file_pdf": "assets/forms/助成金ご相談票/4.その他相談票.pdf",
+          "desc": "設備投資・賃上げ等の検討時"
         }
       ]
     },
@@ -87,67 +96,78 @@
               "no": 1,
               "name": "労働契約書",
               "file_doc": "assets/forms/お役立ち書式/1.労働契約書.doc",
-              "file_pdf": "assets/forms/お役立ち書式/1.労働契約書.pdf"
+              "file_pdf": "assets/forms/お役立ち書式/1.労働契約書.pdf",
+              "desc": "採用時に労働条件を書面で明示するための基本契約書。"
             },
             {
               "no": 2,
               "name": "健康状態告知書",
               "file_doc": "assets/forms/お役立ち書式/2.健康状態告知書.doc",
-              "file_pdf": "assets/forms/お役立ち書式/2.健康状態告知書.pdf"
+              "file_pdf": "assets/forms/お役立ち書式/2.健康状態告知書.pdf",
+              "desc": "採用前に既往症や健康状態を本人に申告してもらう書類。"
             },
             {
               "no": 3,
               "name": "入社誓約書",
               "file_doc": "assets/forms/お役立ち書式/3.入社誓約書.doc",
-              "file_pdf": "assets/forms/お役立ち書式/3.入社誓約書.pdf"
+              "file_pdf": "assets/forms/お役立ち書式/3.入社誓約書.pdf",
+              "desc": "入社時に会社ルール遵守などを誓約させる書類。"
             },
             {
               "no": 4,
               "name": "緊急連絡先告知書",
               "file_doc": "assets/forms/お役立ち書式/4.緊急連絡先告知書.doc",
-              "file_pdf": "assets/forms/お役立ち書式/4.緊急連絡先告知書.pdf"
+              "file_pdf": "assets/forms/お役立ち書式/4.緊急連絡先告知書.pdf",
+              "desc": "従業員本人および緊急連絡先(家族等)を把握する書類。"
             },
             {
               "no": 5,
               "name": "通勤経路届",
               "file_doc": "assets/forms/お役立ち書式/5.通勤経路届.doc",
-              "file_pdf": "assets/forms/お役立ち書式/5.通勤経路届.pdf"
+              "file_pdf": "assets/forms/お役立ち書式/5.通勤経路届.pdf",
+              "desc": "通勤手当の算定・通勤災害対応のため通勤経路を申告。"
             },
             {
               "no": 6,
               "name": "秘密保持誓約書",
               "file_doc": "assets/forms/お役立ち書式/6.秘密保持誓約書.doc",
-              "file_pdf": "assets/forms/お役立ち書式/6.秘密保持誓約書.pdf"
+              "file_pdf": "assets/forms/お役立ち書式/6.秘密保持誓約書.pdf",
+              "desc": "営業秘密・個人情報の漏えい防止を誓約させる書類。"
             },
             {
               "no": 7,
               "name": "個人情報の取得及び利用に関する同意書",
               "file_doc": "assets/forms/お役立ち書式/7.個人情報の取得及び利用に関する同意書.doc",
-              "file_pdf": "assets/forms/お役立ち書式/7.個人情報の取得及び利用に関する同意書.pdf"
+              "file_pdf": "assets/forms/お役立ち書式/7.個人情報の取得及び利用に関する同意書.pdf",
+              "desc": "個人情報の取得・利用について本人同意を取る書類。"
             },
             {
               "no": 8,
               "name": "身元保証書",
               "file_doc": "assets/forms/お役立ち書式/8.身元保証書.doc",
-              "file_pdf": "assets/forms/お役立ち書式/8.身元保証書.pdf"
+              "file_pdf": "assets/forms/お役立ち書式/8.身元保証書.pdf",
+              "desc": "入社時に身元保証人を立てる際の書類。"
             },
             {
               "no": 9,
               "name": "採用内定通知",
               "file_doc": "assets/forms/お役立ち書式/9.採用内定通知.doc",
-              "file_pdf": "assets/forms/お役立ち書式/9.採用内定通知.pdf"
+              "file_pdf": "assets/forms/お役立ち書式/9.採用内定通知.pdf",
+              "desc": "採用予定者に対する内定の通知書。"
             },
             {
               "no": 10,
               "name": "入社承諾書",
               "file_doc": "assets/forms/お役立ち書式/10.入社承諾書.doc",
-              "file_pdf": "assets/forms/お役立ち書式/10.入社承諾書.pdf"
+              "file_pdf": "assets/forms/お役立ち書式/10.入社承諾書.pdf",
+              "desc": "内定者から内定承諾の意思表示を受領する書類。"
             },
             {
               "no": 11,
               "name": "不採用のお知らせ",
               "file_doc": "assets/forms/お役立ち書式/11.不採用のお知らせ.doc",
-              "file_pdf": "assets/forms/お役立ち書式/11.不採用のお知らせ.pdf"
+              "file_pdf": "assets/forms/お役立ち書式/11.不採用のお知らせ.pdf",
+              "desc": "応募者に対する不採用の通知書。"
             }
           ]
         },
@@ -159,19 +179,22 @@
               "no": 12,
               "name": "契約期間満了通知書",
               "file_doc": "assets/forms/お役立ち書式/12.契約期間満了通知書.doc",
-              "file_pdf": "assets/forms/お役立ち書式/12.契約期間満了通知書.pdf"
+              "file_pdf": "assets/forms/お役立ち書式/12.契約期間満了通知書.pdf",
+              "desc": "有期雇用契約の期間満了を通知する書類。"
             },
             {
               "no": 13,
               "name": "退職意思確認のお知らせ",
               "file_doc": "assets/forms/お役立ち書式/13.退職意思確認のお知らせ.doc",
-              "file_pdf": "assets/forms/お役立ち書式/13.退職意思確認のお知らせ.pdf"
+              "file_pdf": "assets/forms/お役立ち書式/13.退職意思確認のお知らせ.pdf",
+              "desc": "退職意思の有無を本人に確認する書類。"
             },
             {
               "no": 14,
               "name": "退職合意書",
               "file_doc": "assets/forms/お役立ち書式/14.退職合意書.doc",
-              "file_pdf": "assets/forms/お役立ち書式/14.退職合意書.pdf"
+              "file_pdf": "assets/forms/お役立ち書式/14.退職合意書.pdf",
+              "desc": "双方合意による退職条件を明文化する書類。"
             }
           ]
         },
@@ -183,31 +206,36 @@
               "no": 15,
               "name": "休職届",
               "file_doc": "assets/forms/お役立ち書式/15.休職届.doc",
-              "file_pdf": "assets/forms/お役立ち書式/15.休職届 .pdf"
+              "file_pdf": "assets/forms/お役立ち書式/15.休職届 .pdf",
+              "desc": "私傷病等で休職する際に本人から提出する届出。"
             },
             {
               "no": 16,
               "name": "職場復帰支援に関する情報提供依頼書",
               "file_doc": "assets/forms/お役立ち書式/16.職場復帰支援に関する情報提供依頼書.doc",
-              "file_pdf": "assets/forms/お役立ち書式/16.職場復帰支援に関する情報提供依頼書.pdf"
+              "file_pdf": "assets/forms/お役立ち書式/16.職場復帰支援に関する情報提供依頼書.pdf",
+              "desc": "主治医に対し、復職可否判断のための情報提供を依頼する書類。"
             },
             {
               "no": 17,
               "name": "職場復帰支援に関する情報提供書(復職診断書)",
               "file_doc": "assets/forms/お役立ち書式/17.職場復帰支援に関する情報提供書（復職診断書）.doc",
-              "file_pdf": "assets/forms/お役立ち書式/17.職場復帰支援に関する情報提供書（復職診断書）.pdf"
+              "file_pdf": "assets/forms/お役立ち書式/17.職場復帰支援に関する情報提供書（復職診断書）.pdf",
+              "desc": "主治医による復職可否の診断書(様式例)。"
             },
             {
               "no": 18,
               "name": "復職辞令通知書",
               "file_doc": "assets/forms/お役立ち書式/18.復職辞令通知書.doc",
-              "file_pdf": "assets/forms/お役立ち書式/18.復職辞令通知書.pdf"
+              "file_pdf": "assets/forms/お役立ち書式/18.復職辞令通知書.pdf",
+              "desc": "復職を会社から辞令として通知する書類。"
             },
             {
               "no": 19,
               "name": "復職願い",
               "file_doc": "assets/forms/お役立ち書式/19.復職願い.doc",
-              "file_pdf": "assets/forms/お役立ち書式/19.復職願い.pdf"
+              "file_pdf": "assets/forms/お役立ち書式/19.復職願い.pdf",
+              "desc": "本人から復職を希望する旨を提出する書類。"
             }
           ]
         },
@@ -219,13 +247,15 @@
               "no": 20,
               "name": "始末書",
               "file_doc": "assets/forms/お役立ち書式/20.始末書.doc",
-              "file_pdf": "assets/forms/お役立ち書式/20.始末書.pdf"
+              "file_pdf": "assets/forms/お役立ち書式/20.始末書.pdf",
+              "desc": "違反行為等について本人が経緯と反省を記載する書面。"
             },
             {
               "no": 21,
               "name": "注意書",
               "file_doc": "assets/forms/お役立ち書式/21.注意書.doc",
-              "file_pdf": "assets/forms/お役立ち書式/21.注意書.pdf"
+              "file_pdf": "assets/forms/お役立ち書式/21.注意書.pdf",
+              "desc": "軽度な指導・注意を書面で残す際に用いる書類。"
             }
           ]
         },
@@ -237,25 +267,29 @@
               "no": 22,
               "name": "残業・休日出勤申請書",
               "file_doc": "assets/forms/お役立ち書式/22.残業・休日出勤申請書.doc",
-              "file_pdf": "assets/forms/お役立ち書式/22.残業・休日出勤申請書.pdf"
+              "file_pdf": "assets/forms/お役立ち書式/22.残業・休日出勤申請書.pdf",
+              "desc": "時間外労働や休日労働を行う際の事前申請書。"
             },
             {
               "no": 23,
               "name": "有給休暇申請書",
               "file_doc": "assets/forms/お役立ち書式/23.有給休暇申請書.doc",
-              "file_pdf": "assets/forms/お役立ち書式/23.有給休暇申請書.pdf"
+              "file_pdf": "assets/forms/お役立ち書式/23.有給休暇申請書.pdf",
+              "desc": "年次有給休暇の取得申請書。"
             },
             {
               "no": 24,
               "name": "出勤簿",
               "file_doc": "assets/forms/お役立ち書式/24.出勤簿.xlsx",
-              "file_pdf": "assets/forms/お役立ち書式/24.出勤簿.pdf"
+              "file_pdf": "assets/forms/お役立ち書式/24.出勤簿.pdf",
+              "desc": "日々の出勤・退勤を記録する書類(法定書類)。"
             },
             {
               "no": 28,
               "name": "有給休暇管理簿",
               "file_doc": "assets/forms/お役立ち書式/28.有給休暇管理簿.docx",
-              "file_pdf": "assets/forms/お役立ち書式/28.有給休暇管理簿.pdf"
+              "file_pdf": "assets/forms/お役立ち書式/28.有給休暇管理簿.pdf",
+              "desc": "年5日以上の有給休暇取得を管理する法定書類。"
             }
           ]
         },
@@ -267,19 +301,22 @@
               "no": 25,
               "name": "雇入れ時の雇用管理に関する説明事項の書面(均衡待遇版)",
               "file_doc": "assets/forms/お役立ち書式/25.雇入れ時の雇用管理に関する説明事項の書面（均衡待遇版）.docx",
-              "file_pdf": "assets/forms/お役立ち書式/25.雇入れ時の雇用管理に関する説明事項の書面（均衡待遇版）.pdf"
+              "file_pdf": "assets/forms/お役立ち書式/25.雇入れ時の雇用管理に関する説明事項の書面（均衡待遇版）.pdf",
+              "desc": "同一労働同一賃金対応の説明書面(均衡待遇版)。"
             },
             {
               "no": 26,
               "name": "雇入れ時の雇用管理に関する説明事項の書面(均等待遇版)",
               "file_doc": "assets/forms/お役立ち書式/26.雇入れ時の雇用管理に関する説明事項の書面（均等待遇版）.docx",
-              "file_pdf": "assets/forms/お役立ち書式/26.雇入れ時の雇用管理に関する説明事項の書面（均等待遇版）.pdf"
+              "file_pdf": "assets/forms/お役立ち書式/26.雇入れ時の雇用管理に関する説明事項の書面（均等待遇版）.pdf",
+              "desc": "同一労働同一賃金対応の説明書面(均等待遇版)。"
             },
             {
               "no": 27,
               "name": "短時間・有期雇用労働者から説明を求められた場合の説明事項文書の作成例",
               "file_doc": "assets/forms/お役立ち書式/27.短時間・有期雇用労働者から説明を求められた場合の説明事項文書の作成例.docx",
-              "file_pdf": "assets/forms/お役立ち書式/27.短時間・有期雇用労働者から説明を求められた場合の説明事項文書の作成例.pdf"
+              "file_pdf": "assets/forms/お役立ち書式/27.短時間・有期雇用労働者から説明を求められた場合の説明事項文書の作成例.pdf",
+              "desc": "短時間・有期労働者から説明を求められた際の作成例。"
             }
           ]
         },
@@ -291,7 +328,8 @@
               "no": 29,
               "name": "ハラスメント相談窓口周知文書",
               "file_doc": "assets/forms/お役立ち書式/29.ハラスメント相談窓口周知文書.docx",
-              "file_pdf": "assets/forms/お役立ち書式/29.ハラスメント相談窓口周知文書.pdf"
+              "file_pdf": "assets/forms/お役立ち書式/29.ハラスメント相談窓口周知文書.pdf",
+              "desc": "パワハラ・セクハラ等の相談窓口を社内に周知する文書。"
             }
           ]
         },
@@ -303,85 +341,99 @@
               "no": "i1",
               "name": "(出生時)育児休業申出書",
               "file_doc": "assets/forms/育児介護関係書式/1.（出生時）育児休業申出書.doc",
-              "file_pdf": "assets/forms/育児介護関係書式/1.（出生時）育児休業申出書.pdf"
+              "file_pdf": "assets/forms/育児介護関係書式/1.（出生時）育児休業申出書.pdf",
+              "desc": "産後の出生時育児休業・通常の育児休業を申し出る書類。"
             },
             {
               "no": "i2",
               "name": "(出生時)育児・介護休業取扱通知書",
               "file_doc": "assets/forms/育児介護関係書式/2.（出生時）育児・介護休業取扱通知書.doc",
-              "file_pdf": "assets/forms/育児介護関係書式/2.（出生時）育児・介護休業取扱通知書.pdf"
+              "file_pdf": "assets/forms/育児介護関係書式/2.（出生時）育児・介護休業取扱通知書.pdf",
+              "desc": "育休申出に対し会社が取扱を通知する書類。"
             },
             {
               "no": "i3",
               "name": "出生届",
               "file_doc": "assets/forms/育児介護関係書式/3.出生届.doc",
-              "file_pdf": "assets/forms/育児介護関係書式/3.出生届.pdf"
+              "file_pdf": "assets/forms/育児介護関係書式/3.出生届.pdf",
+              "desc": "子が生まれたことを会社へ届け出る書類。"
             },
             {
               "no": "i4",
               "name": "(出生時)育児・介護休業申出撤回届",
               "file_doc": "assets/forms/育児介護関係書式/4.（出生時）育児・介護休業申出撤回届.doc",
-              "file_pdf": "assets/forms/育児介護関係書式/4.（出生時）育児・介護休業申出撤回届.pdf"
+              "file_pdf": "assets/forms/育児介護関係書式/4.（出生時）育児・介護休業申出撤回届.pdf",
+              "desc": "提出済みの育休申出を撤回する書類。"
             },
             {
               "no": "i5",
               "name": "(出生時)育児・介護休業期間変更申出書",
               "file_doc": "assets/forms/育児介護関係書式/5.（出生時）育児・介護休業期間変更申出書.doc",
-              "file_pdf": "assets/forms/育児介護関係書式/5.（出生時）育児・介護休業期間変更申出書.pdf"
+              "file_pdf": "assets/forms/育児介護関係書式/5.（出生時）育児・介護休業期間変更申出書.pdf",
+              "desc": "育休期間の延長・短縮等を申し出る書類。"
             },
             {
               "no": "i6",
               "name": "介護休業申出書",
               "file_doc": "assets/forms/育児介護関係書式/6.介護休業申出書.doc",
-              "file_pdf": "assets/forms/育児介護関係書式/6.介護休業申出書.pdf"
+              "file_pdf": "assets/forms/育児介護関係書式/6.介護休業申出書.pdf",
+              "desc": "対象家族を介護するため介護休業を申し出る書類。"
             },
             {
               "no": "i7",
               "name": "子の看護休暇・介護休暇申出書",
               "file_doc": "assets/forms/育児介護関係書式/7.子の看護休暇・介護休暇申出書.doc",
-              "file_pdf": "assets/forms/育児介護関係書式/7.子の看護休暇・介護休暇申出書.pdf"
+              "file_pdf": "assets/forms/育児介護関係書式/7.子の看護休暇・介護休暇申出書.pdf",
+              "desc": "子の看護や家族介護のため休暇を取得する申出書。"
             },
             {
               "no": "i8",
               "name": "育児・介護のための所定外労働制限請求書",
               "file_doc": "assets/forms/育児介護関係書式/8.育児・介護のための所定外労働制限請求書.doc",
-              "file_pdf": "assets/forms/育児介護関係書式/8.育児・介護のための所定外労働制限請求書.pdf"
+              "file_pdf": "assets/forms/育児介護関係書式/8.育児・介護のための所定外労働制限請求書.pdf",
+              "desc": "所定外労働(残業)の免除を請求する書類。"
             },
             {
               "no": "i9",
               "name": "育児・介護のための時間外労働制限請求書",
               "file_doc": "assets/forms/育児介護関係書式/9.育児・介護のための時間外労働制限請求書.doc",
-              "file_pdf": "assets/forms/育児介護関係書式/9.育児・介護のための時間外労働制限請求書.pdf"
+              "file_pdf": "assets/forms/育児介護関係書式/9.育児・介護のための時間外労働制限請求書.pdf",
+              "desc": "法定時間外労働(月24時間等)の制限を請求する書類。"
             },
             {
               "no": "i10",
               "name": "育児・介護のための深夜業制限請求書",
               "file_doc": "assets/forms/育児介護関係書式/10.育児・介護のための深夜業制限請求書.doc",
-              "file_pdf": "assets/forms/育児介護関係書式/10.育児・介護のための深夜業制限請求書.pdf"
+              "file_pdf": "assets/forms/育児介護関係書式/10.育児・介護のための深夜業制限請求書.pdf",
+              "desc": "深夜業(22-5時)の免除を請求する書類。"
             },
             {
               "no": "i11",
               "name": "育児短時間勤務申出書",
               "file_doc": "assets/forms/育児介護関係書式/11.育児短時間勤務申出書.doc",
-              "file_pdf": "assets/forms/育児介護関係書式/11.育児短時間勤務申出書.pdf"
+              "file_pdf": "assets/forms/育児介護関係書式/11.育児短時間勤務申出書.pdf",
+              "desc": "育児短時間勤務(1日6時間等)を申し出る書類。"
             },
             {
               "no": "i12",
               "name": "介護短時間勤務申出書",
               "file_doc": "assets/forms/育児介護関係書式/12.介護短時間勤務申出書.doc",
-              "file_pdf": "assets/forms/育児介護関係書式/12.介護短時間勤務申出書.pdf"
+              "file_pdf": "assets/forms/育児介護関係書式/12.介護短時間勤務申出書.pdf",
+              "desc": "介護短時間勤務を申し出る書類。"
             },
             {
               "no": "i13",
               "name": "育児・介護短時間勤務取扱通知書",
               "file_doc": "assets/forms/育児介護関係書式/13.育児・介護短時間勤務取扱通知書.doc",
-              "file_pdf": "assets/forms/育児介護関係書式/13.育児・介護短時間勤務取扱通知書.pdf"
+              "file_pdf": "assets/forms/育児介護関係書式/13.育児・介護短時間勤務取扱通知書.pdf",
+              "desc": "短時間勤務申出に対し会社が取扱を通知する書類。"
             },
             {
               "no": "i14",
               "name": "育児目的休暇取得申出書",
               "file_doc": "assets/forms/育児介護関係書式/14.育児目的休暇取得申出書.doc",
-              "file_pdf": "assets/forms/育児介護関係書式/14.育児目的休暇取得申出書.pdf"
+              "file_pdf": "assets/forms/育児介護関係書式/14.育児目的休暇取得申出書.pdf",
+              "desc": "小学校就学前の子のための育児目的休暇を申し出る書類。"
             }
           ]
         },
@@ -393,37 +445,43 @@
               "no": "i15",
               "name": "出生時育児休業中の就業可能日等申出・変更申出書",
               "file_doc": "assets/forms/育児介護関係書式/15.出生時育児休業中の就業可能日等申出・変更申出書.doc",
-              "file_pdf": "assets/forms/育児介護関係書式/15.出生時育児休業中の就業可能日等申出・変更申出書.pdf"
+              "file_pdf": "assets/forms/育児介護関係書式/15.出生時育児休業中の就業可能日等申出・変更申出書.pdf",
+              "desc": "出生時育休中に就業する日・時間を申し出る書類。"
             },
             {
               "no": "i16",
               "name": "出生時育児休業中の就業可能日等申出撤回届",
               "file_doc": "assets/forms/育児介護関係書式/16.出生時育児休業中の就業可能日等申出撤回届.doc",
-              "file_pdf": "assets/forms/育児介護関係書式/16.出生時育児休業中の就業可能日等申出撤回届.pdf"
+              "file_pdf": "assets/forms/育児介護関係書式/16.出生時育児休業中の就業可能日等申出撤回届.pdf",
+              "desc": "出生時育休中の就業可能日申出を撤回する書類。"
             },
             {
               "no": "i17",
               "name": "出生時育児休業中の就業日等の提示について",
               "file_doc": "assets/forms/育児介護関係書式/17.出生時育児休業中の就業日等の提示について.doc",
-              "file_pdf": "assets/forms/育児介護関係書式/17.出生時育児休業中の就業日等の提示について.pdf"
+              "file_pdf": "assets/forms/育児介護関係書式/17.出生時育児休業中の就業日等の提示について.pdf",
+              "desc": "会社から就業日候補を提示する書類。"
             },
             {
               "no": "i18",
               "name": "出生時育児休業中の就業日等の〔同意・不同意〕書",
               "file_doc": "assets/forms/育児介護関係書式/18.出生時育児休業中の就業日等の〔同意・不同意〕書.doc",
-              "file_pdf": "assets/forms/育児介護関係書式/18.出生時育児休業中の就業日等の〔同意・不同意〕書.pdf"
+              "file_pdf": "assets/forms/育児介護関係書式/18.出生時育児休業中の就業日等の〔同意・不同意〕書.pdf",
+              "desc": "提示された就業日に同意・不同意を回答する書類。"
             },
             {
               "no": "i19",
               "name": "出生時育児休業中の就業日等撤回届",
               "file_doc": "assets/forms/育児介護関係書式/19.出生時育児休業中の就業日等撤回届.doc",
-              "file_pdf": "assets/forms/育児介護関係書式/19.出生時育児休業中の就業日等撤回届.pdf"
+              "file_pdf": "assets/forms/育児介護関係書式/19.出生時育児休業中の就業日等撤回届.pdf",
+              "desc": "一旦同意した就業日を撤回する書類。"
             },
             {
               "no": "i20",
               "name": "出生時育児休業中の就業日等通知書",
               "file_doc": "assets/forms/育児介護関係書式/20.出生時育児休業中の就業日等通知書.doc",
-              "file_pdf": "assets/forms/育児介護関係書式/20.出生時育児休業中の就業日等通知書.pdf"
+              "file_pdf": "assets/forms/育児介護関係書式/20.出生時育児休業中の就業日等通知書.pdf",
+              "desc": "確定した就業日を会社が通知する書類。"
             }
           ]
         },
@@ -435,25 +493,29 @@
               "no": "i21",
               "name": "育児休業研修の開催案内文書ひな形",
               "file_doc": "assets/forms/育児介護関係書式/21.育児休業研修の開催案内文書ひな形.doc",
-              "file_pdf": "assets/forms/育児介護関係書式/21.育児休業研修の開催案内文書ひな形.pdf"
+              "file_pdf": "assets/forms/育児介護関係書式/21.育児休業研修の開催案内文書ひな形.pdf",
+              "desc": "育児休業に関する研修開催を案内する文書ひな形。"
             },
             {
               "no": "i22",
               "name": "育児休業相談窓口周知文書ひな形",
               "file_doc": "assets/forms/育児介護関係書式/22.育児休業相談窓口周知文書ひな形.docx",
-              "file_pdf": "assets/forms/育児介護関係書式/22.育児休業相談窓口周知文書ひな形.pdf"
+              "file_pdf": "assets/forms/育児介護関係書式/22.育児休業相談窓口周知文書ひな形.pdf",
+              "desc": "育児休業の相談窓口を社内へ周知する文書ひな形。"
             },
             {
               "no": "i23",
               "name": "育児休業の取得事例",
               "file_doc": "assets/forms/育児介護関係書式/23.育児休業の取得事例.doc",
-              "file_pdf": "assets/forms/育児介護関係書式/23.育児休業の取得事例.pdf"
+              "file_pdf": "assets/forms/育児介護関係書式/23.育児休業の取得事例.pdf",
+              "desc": "社内で育児休業取得を促進するための事例紹介資料。"
             },
             {
               "no": "i24",
               "name": "育児休業制度及び取得促進方針周知例",
               "file_doc": "assets/forms/育児介護関係書式/24.育児休業制度及び取得促進方針周知例.doc",
-              "file_pdf": "assets/forms/育児介護関係書式/24.育児休業制度及び取得促進方針周知例.pdf"
+              "file_pdf": "assets/forms/育児介護関係書式/24.育児休業制度及び取得促進方針周知例.pdf",
+              "desc": "育児休業制度と取得促進方針を従業員へ周知する文例。"
             }
           ]
         }
