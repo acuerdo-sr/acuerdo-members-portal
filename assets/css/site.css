@@ -2542,7 +2542,7 @@ body.aq-is-joseikin {
   align-items: center;
   gap: 24px;
 }
-.aq-subpage-hero-text h1 { margin: 0 0 6px; font-size: 28px; letter-spacing: -.01em; color: #fff; }
+.aq-subpage-hero-text h1 { margin: 0 0 6px !important; font-size: 28px !important; letter-spacing: -.01em !important; color: #fff !important; font-weight: 800 !important; }
 .aq-subpage-hero-text p { margin: 0; color: #cbd5e1; font-size: 14px; }
 .aq-subpage-search {
   position: relative;
@@ -2852,7 +2852,7 @@ body.aq-is-joseikin {
   background: rgba(255,255,255,.14);
   color: #cbd5e1 !important; font-size: 12px; font-weight: 700;
 }
-#aq-joseikin-wrap .aq-subpage-hero-text h1 { font-size: 32px; line-height: 1.25; }
+#aq-joseikin-wrap .aq-subpage-hero-text h1 { font-size: 32px !important; line-height: 1.25 !important; }
 .aq-jos-hero-actions { display: flex; flex-direction: column; gap: 10px; }
 .aq-jos-cta-btn {
   display: inline-flex; align-items: center; justify-content: center;
