@@ -21,7 +21,7 @@ data_page: joseikin-list
 
 <section class="aq-jl-list-section">
   <h2 class="aq-jl-section-h">早見表から助成金を探す<span class="aq-jl-section-en">QUICK REFERENCE</span></h2>
-  <p class="aq-jl-section-sub">気になる助成金の行をタップすると、要件・支給額・申請の流れなどの詳細が開きます。</p>
+  <p class="aq-jl-section-sub">助成金別に要件・支給額・申請の流れを掲載しています。タブで目的別に絞り込めます。</p>
 
   <div class="aq-josei-tabs" id="aq-josei-tabs" role="tablist"></div>
 
@@ -31,7 +31,6 @@ data_page: joseikin-list
       <div class="aq-jl-col-when">どんなとき?</div>
       <div class="aq-jl-col-name">助成金</div>
       <div class="aq-jl-col-amount">金額目安</div>
-      <div class="aq-jl-col-toggle" aria-hidden="true"></div>
     </div>
     <div class="aq-jl-rows" id="aq-jl-rows"></div>
     <p class="aq-josei-empty" id="aq-josei-empty" hidden>該当する制度が見つかりませんでした。</p>
@@ -122,31 +121,17 @@ data_page: joseikin-list
     if (empty) empty.hidden = true;
     rows.innerHTML = rs.map(function (r) {
       var catLabel = r.cat_label || '';
-      return '<div class="aq-jl-item" data-cat="'+esc(r.c)+'" data-id="'+esc(r.i)+'">' +
-        '<button class="aq-jl-row" type="button" aria-expanded="false">' +
+      return '<div class="aq-jl-item is-open" data-cat="'+esc(r.c)+'" data-id="'+esc(r.i)+'">' +
+        '<div class="aq-jl-row">' +
           '<span class="aq-jl-col-cat"><span class="aq-jl-badge cat-'+esc(r.c)+'">'+esc(catLabel)+'</span></span>' +
           '<span class="aq-jl-col-when">'+esc(r.w)+'</span>' +
           '<span class="aq-jl-col-name">'+esc(r.n)+'</span>' +
           '<span class="aq-jl-col-amount">'+esc(r.m)+'</span>' +
-          '<span class="aq-jl-col-toggle"><span class="aq-jl-chevron">▼</span></span>' +
-        '</button>' +
-        '<div class="aq-jl-detail" hidden><div class="aq-jl-detail-inner">' + (r.detail_html || '<p>詳細情報はまだ準備中です。</p>') + '</div></div>' +
+        '</div>' +
+        '<div class="aq-jl-detail"><div class="aq-jl-detail-inner">' + (r.detail_html || '<p>詳細情報はまだ準備中です。</p>') + '</div></div>' +
       '</div>';
     }).join('');
   }
-
-  // Event delegation: row toggle
-  if (rows) rows.addEventListener('click', function (e) {
-    var btn = e.target.closest('.aq-jl-row');
-    if (!btn) return;
-    var item = btn.closest('.aq-jl-item');
-    if (!item) return;
-    var det  = item.querySelector('.aq-jl-detail');
-    var open = btn.getAttribute('aria-expanded') === 'true';
-    btn.setAttribute('aria-expanded', open ? 'false' : 'true');
-    if (det) det.hidden = open;
-    item.classList.toggle('is-open', !open);
-  });
 
   // Tab clicks
   if (tabs) tabs.addEventListener('click', function (e) {
