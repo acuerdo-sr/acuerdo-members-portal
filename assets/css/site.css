@@ -2504,6 +2504,17 @@ body.aq-is-subsidies #aq-home-wrap,
 body.aq-is-jimukumiai #aq-home-wrap,
 body.aq-is-joseikin #aq-home-wrap { display: none !important; }
 
+/* サブページは自身の margin-left を持つので body の margin-left をリセット */
+body.aq-is-josei,
+body.aq-is-forms,
+body.aq-is-lawrev,
+body.aq-is-calendar,
+body.aq-is-subsidies,
+body.aq-is-jimukumiai,
+body.aq-is-joseikin {
+  margin-left: 0 !important;
+}
+
 .aq-subpage-wrap {
   width: calc(100vw - var(--aq-sidebar-w));
   min-height: 100vh;
