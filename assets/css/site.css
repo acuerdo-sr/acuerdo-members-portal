@@ -2505,7 +2505,8 @@ body.aq-is-lawrev #aq-home-wrap,
 body.aq-is-calendar #aq-home-wrap,
 body.aq-is-subsidies #aq-home-wrap,
 body.aq-is-jimukumiai #aq-home-wrap,
-body.aq-is-joseikin #aq-home-wrap { display: none !important; }
+body.aq-is-joseikin #aq-home-wrap,
+body.aq-is-news #aq-home-wrap { display: none !important; }
 
 /* サブページは自身の margin-left を持つので body の margin-left をリセット */
 body.aq-is-josei,
@@ -2514,7 +2515,8 @@ body.aq-is-lawrev,
 body.aq-is-calendar,
 body.aq-is-subsidies,
 body.aq-is-jimukumiai,
-body.aq-is-joseikin {
+body.aq-is-joseikin,
+body.aq-is-news {
   margin-left: 0 !important;
 }
 
@@ -3255,6 +3257,114 @@ body.aq-is-joseikin {
   font-size: 12.5px; color: var(--aq-text); line-height: 1.7;
 }
 .js-supplement-block p:last-child { margin-bottom: 0 !important; }
+
+/* ============================================================
+   お知らせ (news) ページ
+   ============================================================ */
+.aq-news-list {
+  display: flex; flex-direction: column; gap: 18px;
+}
+.aq-news-card {
+  background: #fff;
+  border: 1px solid var(--aq-border);
+  border-left: 4px solid #1d4ed8;
+  border-radius: 14px;
+  padding: 24px 26px;
+}
+.aq-news-card.aq-tag-navy { border-left-color: #1d4ed8; }
+.aq-news-card.aq-tag-wine { border-left-color: #b91c1c; }
+.aq-news-card.aq-tag-gold { border-left-color: #d97706; }
+
+.aq-news-card-head {
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 12px;
+}
+.aq-news-icon {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 40px; height: 40px;
+  background: #f1f5f9; border-radius: 10px;
+  font-size: 20px;
+}
+.aq-news-meta {
+  display: flex; flex-direction: column; gap: 2px;
+}
+.aq-news-date {
+  font-size: 12.5px; color: var(--aq-text-sub); font-weight: 700;
+}
+.aq-news-cat {
+  display: inline-block; width: fit-content;
+  padding: 2px 10px; border-radius: 999px;
+  background: #e0e7ff; color: #1e3a8a;
+  font-size: 11px; font-weight: 800;
+}
+.aq-news-card.aq-tag-wine .aq-news-cat { background: #fee2e2; color: #b91c1c; }
+.aq-news-card.aq-tag-gold .aq-news-cat { background: #fef3c7; color: #92400e; }
+
+.aq-news-title {
+  margin: 0 0 10px !important;
+  font-size: 18px !important; font-weight: 800 !important;
+  color: var(--aq-navy) !important;
+  line-height: 1.5 !important;
+}
+.aq-news-lead {
+  margin: 0 0 14px;
+  font-size: 14px; color: var(--aq-text); line-height: 1.7;
+}
+.aq-news-body {
+  font-size: 13.5px; color: var(--aq-text); line-height: 1.8;
+}
+.aq-news-body h4 {
+  margin: 14px 0 8px !important;
+  font-size: 14px !important; font-weight: 800 !important;
+  color: var(--aq-navy) !important;
+  padding-bottom: 4px; border-bottom: 2px solid #e2e8f0;
+  line-height: 1.4 !important;
+}
+.aq-news-body h4:first-child { margin-top: 0 !important; }
+.aq-news-body ul, .aq-news-body ol {
+  margin: 0 0 12px; padding-left: 22px;
+}
+.aq-news-body li { margin-bottom: 4px; }
+.aq-news-body p { margin: 0 0 10px; }
+.aq-news-body strong { color: var(--aq-navy); font-weight: 800; }
+
+.aq-news-checks {
+  list-style: none !important;
+  margin: 0 0 12px !important; padding: 0 !important;
+}
+.aq-news-checks li {
+  position: relative;
+  padding: 8px 12px 8px 36px;
+  background: #f8fafc; border-radius: 8px;
+  margin-bottom: 6px !important;
+  font-size: 13.5px; line-height: 1.6;
+}
+.aq-news-checks li::before {
+  content: '✓';
+  position: absolute; left: 10px; top: 8px;
+  width: 18px; height: 18px;
+  background: #16a34a; color: #fff;
+  border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: 900;
+}
+
+.aq-news-note {
+  margin: 12px 0 0 !important;
+  padding: 10px 14px;
+  background: #fffbeb; border-left: 3px solid #d97706; border-radius: 6px;
+  font-size: 12.5px; color: #7c2d12; line-height: 1.7;
+}
+
+.aq-news-link {
+  display: inline-block; margin-top: 14px;
+  padding: 10px 18px;
+  background: var(--aq-navy); color: #fff !important;
+  border-radius: 10px; font-size: 13px; font-weight: 800;
+  text-decoration: none;
+  transition: background .12s, transform .12s;
+}
+.aq-news-link:hover { background: #1e293b; transform: translateY(-1px); }
 
 /* レスポンシブ */
 @media (max-width: 900px) {
