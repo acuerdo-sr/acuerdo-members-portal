@@ -13,6 +13,14 @@
 
 {% include '_layout/partials/chrome_pre.html' %}
 
+{% if 'aq-is-home' not in body_class %}
+<nav class="aq-breadcrumb" aria-label="パンくず">
+  <a href="./" class="aq-breadcrumb-home"><span class="aq-breadcrumb-arrow">←</span><span>ホームに戻る</span></a>
+  <span class="aq-breadcrumb-sep">／</span>
+  <span class="aq-breadcrumb-current">{{ title }}</span>
+</nav>
+{% endif %}
+
 {{ content | safe }}
 
 {% include '_layout/partials/chrome_post.html' %}
