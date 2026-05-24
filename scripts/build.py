@@ -58,14 +58,27 @@ def parse_meta(text: str) -> tuple[dict[str, str], str]:
     return meta, body.lstrip()
 
 
-def inject_josei_data(html: str) -> str:
-    """__JOSEI_DATA__ プレースホルダを助成金JSONで差し替える。"""
-    placeholder = "__JOSEI_DATA__"
-    if placeholder not in html:
-        return html
-    data_path = SRC / "data" / "joseikin.json"
-    data = data_path.read_text(encoding="utf-8").strip()
-    return html.replace(placeholder, data)
+DATA_PLACEHOLDERS = {
+    "__JOSEI_DATA__":     "joseikin.json",
+    "__FORMS_DATA__":     "forms.json",
+    "__LAWREV_DATA__":    "lawrev.json",
+    "__SUBSIDIES_DATA__": "subsidies.json",
+    "__JIMUKUMIAI_DATA__":"jimukumiai.json",
+    "__CALENDAR_DATA__":  "calendar.json",
+}
+
+
+def inject_data(html: str) -> str:
+    """各種 __XXX_DATA__ プレースホルダを対応するJSONで差し替える。"""
+    for placeholder, filename in DATA_PLACEHOLDERS.items():
+        if placeholder not in html:
+            continue
+        data_path = SRC / "data" / filename
+        if not data_path.exists():
+            continue
+        data = data_path.read_text(encoding="utf-8").strip()
+        html = html.replace(placeholder, data)
+    return html
 
 
 def main(base_href: str = "/") -> int:
@@ -91,7 +104,7 @@ def main(base_href: str = "/") -> int:
         rel = path.relative_to(pages_root)
         raw = path.read_text(encoding="utf-8")
         meta, content = parse_meta(raw)
-        content = inject_josei_data(content)
+        content = inject_data(content)
 
         # Jinja の構文（{{ ... }}）がpages内に無いことを前提に、content はそのまま安全に渡す
         rendered = base_tpl.render(

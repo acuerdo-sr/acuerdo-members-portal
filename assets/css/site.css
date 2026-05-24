@@ -2492,3 +2492,340 @@ body.aq-is-josei [data-block-id] {
   .aq-josei-flow { grid-template-columns: 1fr; }
   .aq-josei-flow li::after { display: none; }
 }
+
+/* ============================================================
+   汎用サブページレイアウト (forms / lawrev / calendar / subsidies / jimukumiai)
+   ============================================================ */
+
+body.aq-is-forms #aq-home-wrap,
+body.aq-is-lawrev #aq-home-wrap,
+body.aq-is-calendar #aq-home-wrap,
+body.aq-is-subsidies #aq-home-wrap,
+body.aq-is-jimukumiai #aq-home-wrap { display: none !important; }
+
+.aq-subpage-wrap {
+  width: calc(100vw - var(--aq-sidebar-w));
+  min-height: 100vh;
+  margin-left: var(--aq-sidebar-w);
+  padding: 28px 36px 56px;
+  background: #f3f6fb;
+  color: var(--aq-text);
+}
+
+.aq-subpage-main {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.aq-subpage-hero {
+  background: linear-gradient(135deg, #0f172a 0%, #172238 100%);
+  color: #fff;
+  border-radius: 22px;
+  padding: 26px 30px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  align-items: center;
+  gap: 24px;
+}
+.aq-subpage-hero-text h1 { margin: 0 0 6px; font-size: 28px; letter-spacing: -.01em; color: #fff; }
+.aq-subpage-hero-text p { margin: 0; color: #cbd5e1; font-size: 14px; }
+.aq-subpage-search {
+  position: relative;
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.2);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  padding: 0 14px;
+  height: 44px;
+}
+.aq-subpage-search svg { width: 18px; height: 18px; color: #94a3b8; flex: 0 0 18px; }
+.aq-subpage-search input {
+  flex: 1; min-width: 0;
+  background: transparent; border: 0;
+  color: #fff !important;
+  font-size: 14px;
+  margin-left: 10px;
+  outline: none;
+}
+.aq-subpage-search input::placeholder { color: #94a3b8; }
+
+.aq-subpage-tabs { display: flex; flex-wrap: wrap; gap: 8px; }
+.aq-subpage-tabs button {
+  border: 1px solid var(--aq-border);
+  background: #fff;
+  border-radius: 999px;
+  padding: 8px 18px;
+  font-size: 14px;
+  color: var(--aq-text);
+  cursor: pointer;
+  transition: background .12s, color .12s, border-color .12s;
+}
+.aq-subpage-tabs button:hover { background: var(--aq-bg-alt); }
+.aq-subpage-tabs button.is-active {
+  background: var(--aq-navy);
+  color: #fff;
+  border-color: var(--aq-navy);
+}
+
+.aq-subpage-empty {
+  padding: 28px; text-align: center;
+  color: var(--aq-text-sub); font-size: 14px;
+  background: #fff; border: 1px solid var(--aq-border); border-radius: 16px;
+}
+
+.aq-subpage-note {
+  margin: 8px 4px 0 !important;
+  color: var(--aq-text-sub); font-size: 12px; line-height: 1.7;
+}
+
+@media (max-width: 1100px) { .aq-subpage-hero { grid-template-columns: 1fr; } }
+@media (max-width: 820px) {
+  .aq-subpage-wrap { width: 100vw; margin-left: 0; padding: 18px 14px 48px; }
+  .aq-subpage-hero { padding: 22px; }
+  .aq-subpage-hero-text h1 { font-size: 24px; }
+  .aq-subpage-tabs { overflow-x: auto; flex-wrap: nowrap; padding-bottom: 4px; }
+  .aq-subpage-tabs button { white-space: nowrap; flex-shrink: 0; }
+}
+
+/* ============================================================
+   forms ページ
+   ============================================================ */
+
+.aq-forms-section { display: flex; flex-direction: column; gap: 12px; }
+.aq-forms-section-h {
+  margin: 8px 0 0; font-size: 22px; color: var(--aq-text);
+  display: flex; align-items: center; gap: 12px;
+}
+.aq-forms-count {
+  font-size: 12px; font-weight: 700;
+  background: #eef3f8; color: #475569;
+  padding: 3px 10px; border-radius: 999px;
+}
+.aq-forms-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 14px;
+}
+.aq-form-card {
+  position: relative;
+  background: #fff;
+  border: 1px solid var(--aq-border);
+  border-radius: 16px;
+  padding: 16px 16px 14px;
+  display: flex; flex-direction: column; gap: 12px;
+  transition: border-color .12s, box-shadow .12s, transform .12s;
+}
+.aq-form-card:hover { border-color: var(--aq-navy); box-shadow: 0 4px 12px rgba(15,23,42,.08); }
+.aq-form-no {
+  position: absolute; top: 12px; right: 14px;
+  font-size: 11px; font-weight: 700; color: #94a3b8;
+}
+.aq-form-body { display: flex; flex-direction: column; gap: 4px; min-width: 0; padding-right: 40px; }
+.aq-form-name { margin: 0; font-size: 15px; font-weight: 700; color: var(--aq-navy); line-height: 1.35; }
+.aq-form-use  { margin: 0; font-size: 12px; color: var(--aq-text-sub); line-height: 1.5; }
+.aq-form-dls { display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto; }
+.aq-dl {
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 6px 12px; border-radius: 8px; border: 1px solid var(--aq-border);
+  background: #f8fafc; color: var(--aq-navy) !important;
+  font-size: 12px; font-weight: 700;
+  transition: background .12s, color .12s, border-color .12s;
+}
+.aq-dl:hover { background: var(--aq-navy); color: #fff !important; border-color: var(--aq-navy); }
+.aq-dl-doc { color: #1d4ed8 !important; }
+.aq-dl-doc:hover { background: #1d4ed8; }
+.aq-dl-pdf { color: #b91c1c !important; }
+.aq-dl-pdf:hover { background: #b91c1c; }
+.aq-dl-ex  { color: #475569 !important; }
+.aq-dl-ex:hover  { background: #475569; }
+
+/* ============================================================
+   共通: ピル / バッジ
+   ============================================================ */
+
+.aq-pill {
+  display: inline-flex; align-items: center;
+  padding: 3px 10px;
+  background: #eef3f8; color: #475569;
+  border-radius: 999px;
+  font-size: 11.5px; font-weight: 700;
+  line-height: 1.4; white-space: nowrap;
+}
+.aq-pill-cat { background: #e0e7ff; color: #1e3a8a; }
+.aq-pill-sev.aq-sev-high { background: #fee2e2; color: #b91c1c; }
+.aq-pill-sev.aq-sev-mid  { background: #fef3c7; color: #92400e; }
+.aq-pill-sev.aq-sev-low  { background: #e0f2fe; color: #075985; }
+
+/* ============================================================
+   法改正カレンダー
+   ============================================================ */
+
+.aq-lawrev-list { display: flex; flex-direction: column; gap: 14px; }
+.aq-lawrev-card {
+  display: grid;
+  grid-template-columns: 180px minmax(0, 1fr);
+  gap: 18px;
+  background: #fff;
+  border: 1px solid var(--aq-border);
+  border-radius: 16px;
+  padding: 18px 20px;
+  border-left: 4px solid #cbd5e1;
+}
+.aq-lawrev-card.aq-lawrev-upcoming { border-left-color: #b91c1c; }
+.aq-lawrev-card.aq-lawrev-active   { border-left-color: #16a34a; }
+.aq-lawrev-date { display: flex; flex-direction: column; gap: 6px; }
+.aq-lawrev-date time {
+  font-size: 16px; font-weight: 800; color: var(--aq-navy);
+  white-space: nowrap;
+}
+.aq-lawrev-status {
+  display: inline-block; width: fit-content;
+  padding: 3px 10px; border-radius: 999px;
+  font-size: 11.5px; font-weight: 700;
+  background: #f1f5f9; color: #475569;
+}
+.aq-lawrev-card.aq-lawrev-upcoming .aq-lawrev-status { background: #fee2e2; color: #b91c1c; }
+.aq-lawrev-card.aq-lawrev-active   .aq-lawrev-status { background: #dcfce7; color: #166534; }
+.aq-lawrev-body { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.aq-lawrev-head { display: flex; flex-wrap: wrap; gap: 6px; }
+.aq-lawrev-cat {
+  padding: 3px 10px; border-radius: 999px;
+  background: #e0e7ff; color: #1e3a8a;
+  font-size: 11.5px; font-weight: 700;
+}
+.aq-lawrev-sev {
+  padding: 3px 10px; border-radius: 999px;
+  font-size: 11.5px; font-weight: 700;
+}
+.aq-sev-high { background: #fee2e2; color: #b91c1c; }
+.aq-sev-mid  { background: #fef3c7; color: #92400e; }
+.aq-sev-low  { background: #e0f2fe; color: #075985; }
+.aq-lawrev-title { margin: 0; font-size: 17px; color: var(--aq-text); font-weight: 700; line-height: 1.4; }
+.aq-lawrev-summary { margin: 0; color: var(--aq-text-sub); font-size: 13.5px; line-height: 1.6; }
+.aq-lawrev-scope { display: flex; flex-wrap: wrap; gap: 6px; }
+.aq-lawrev-details summary {
+  cursor: pointer; padding: 6px 0; font-size: 13px; color: #1d4ed8; font-weight: 700;
+  list-style: none;
+}
+.aq-lawrev-details summary::before { content: '▶ '; font-size: 10px; transition: transform .12s; display: inline-block; }
+.aq-lawrev-details[open] summary::before { content: '▼ '; }
+.aq-lawrev-actions {
+  margin: 6px 0 0; padding-left: 22px;
+  color: var(--aq-text); font-size: 13px; line-height: 1.7;
+}
+.aq-lawrev-actions li { margin-bottom: 2px; }
+
+@media (max-width: 700px) {
+  .aq-lawrev-card { grid-template-columns: 1fr; gap: 10px; }
+}
+
+/* ============================================================
+   月別カレンダー (calendar / jimukumiai 共通)
+   ============================================================ */
+
+.aq-cal-months { display: flex; flex-direction: column; gap: 18px; }
+.aq-cal-month-block {
+  background: #fff;
+  border: 1px solid var(--aq-border);
+  border-radius: 16px;
+  padding: 18px 20px;
+}
+.aq-cal-month-h {
+  margin: 0 0 12px; padding-bottom: 12px;
+  border-bottom: 1px solid var(--aq-border);
+  display: flex; align-items: baseline; gap: 6px;
+  font-size: 16px; color: var(--aq-text);
+}
+.aq-cal-month-no {
+  font-size: 28px; font-weight: 900; color: var(--aq-navy);
+}
+.aq-cal-month-label { font-size: 14px; font-weight: 700; color: var(--aq-navy); }
+.aq-cal-month-count {
+  margin-left: auto;
+  padding: 3px 10px; border-radius: 999px;
+  background: #f1f5f9; color: #475569;
+  font-size: 11.5px; font-weight: 700;
+}
+.aq-cal-items { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.aq-cal-item {
+  display: grid;
+  grid-template-columns: 70px minmax(0, 1fr);
+  gap: 14px;
+  padding: 12px 14px;
+  background: #f8fafc;
+  border-radius: 12px;
+}
+.aq-cal-day { display: flex; flex-direction: column; gap: 4px; align-items: center; padding-top: 2px; }
+.aq-cal-day time {
+  font-size: 18px; font-weight: 800; color: var(--aq-navy);
+  white-space: nowrap;
+}
+.aq-cal-day small { font-size: 10px; color: var(--aq-text-sub); white-space: nowrap; }
+.aq-cal-body { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.aq-cal-itemhead { display: flex; flex-wrap: wrap; gap: 6px; }
+.aq-cal-title { margin: 0; font-size: 15px; font-weight: 700; color: var(--aq-text); line-height: 1.4; }
+.aq-cal-summary { margin: 0; font-size: 13px; color: var(--aq-text-sub); line-height: 1.6; }
+.aq-cal-details summary {
+  cursor: pointer; padding: 4px 0; font-size: 12.5px; color: #1d4ed8; font-weight: 700;
+  list-style: none;
+}
+.aq-cal-details summary::before { content: '▶ '; font-size: 10px; }
+.aq-cal-details[open] summary::before { content: '▼ '; }
+.aq-cal-actions { margin: 4px 0 0; padding-left: 22px; font-size: 12.5px; line-height: 1.7; color: var(--aq-text); }
+.aq-cal-actions li { margin-bottom: 2px; }
+
+.aq-jim-block { margin-top: 8px; padding: 10px 12px; background: #fff; border: 1px solid var(--aq-border); border-radius: 10px; }
+.aq-jim-block h4 { margin: 0 0 6px; font-size: 12px; color: var(--aq-navy); font-weight: 800; }
+.aq-jim-block ul { margin: 0; padding-left: 18px; font-size: 12.5px; color: var(--aq-text); line-height: 1.7; }
+.aq-jim-block p { margin: 0; font-size: 12.5px; color: var(--aq-text); line-height: 1.6; }
+.aq-jim-support { background: #f0fdf4; border-color: #bbf7d0; }
+.aq-jim-support h4 { color: #166534; }
+
+@media (max-width: 560px) {
+  .aq-cal-item { grid-template-columns: 1fr; gap: 8px; }
+  .aq-cal-day { flex-direction: row; align-items: baseline; gap: 8px; }
+}
+
+/* ============================================================
+   補助金カレンダー
+   ============================================================ */
+
+.aq-sub-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 14px;
+}
+.aq-sub-card {
+  background: #fff;
+  border: 1px solid var(--aq-border);
+  border-radius: 16px;
+  padding: 16px 18px;
+  display: flex; flex-direction: column; gap: 10px;
+  border-left: 4px solid #cbd5e1;
+}
+.aq-sub-card.aq-sub-open     { border-left-color: #16a34a; }
+.aq-sub-card.aq-sub-upcoming { border-left-color: #d97706; }
+.aq-sub-card.aq-sub-closed   { opacity: .72; }
+.aq-sub-head { display: flex; flex-wrap: wrap; gap: 6px; }
+.aq-pill-status.aq-status-open     { background: #dcfce7; color: #166534; }
+.aq-pill-status.aq-status-upcoming { background: #fed7aa; color: #9a3412; }
+.aq-pill-status.aq-status-closed   { background: #e2e8f0; color: #475569; }
+.aq-pill-diff.aq-diff-easy { background: #dcfce7; color: #166534; }
+.aq-pill-diff.aq-diff-mid  { background: #fef3c7; color: #92400e; }
+.aq-pill-diff.aq-diff-hard { background: #fee2e2; color: #b91c1c; }
+.aq-sub-title { margin: 0; font-size: 16px; font-weight: 800; color: var(--aq-navy); line-height: 1.4; }
+.aq-sub-summary { margin: 0; font-size: 13px; color: var(--aq-text-sub); line-height: 1.6; }
+.aq-sub-meta { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 4px 12px; font-size: 12.5px; }
+.aq-sub-meta dt { color: var(--aq-text-sub); font-weight: 700; }
+.aq-sub-meta dd { margin: 0; color: var(--aq-text); }
+.aq-sub-targets { display: flex; flex-wrap: wrap; gap: 6px; }
+.aq-sub-link {
+  margin-top: 4px;
+  font-size: 13px; font-weight: 800; color: #1d4ed8 !important;
+  text-decoration: none;
+}
+.aq-sub-link:hover { color: #1e3a8a !important; text-decoration: underline; }

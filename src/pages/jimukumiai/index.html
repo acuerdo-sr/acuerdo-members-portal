@@ -1,13 +1,127 @@
 {# meta:
 title: 事務組合カレンダー
-body_class: aq-is-page
+body_class: aq-is-jimukumiai
 data_page: jimukumiai
 #}
 
-<main class="aq-portal-body aq-notion-body">
-  <section class="aq-panel">
+<div id="aq-jim-wrap" class="aq-subpage-wrap"><main class="aq-subpage-main">
+
+<header class="aq-subpage-hero">
+  <div class="aq-subpage-hero-text">
     <h1>事務組合カレンダー</h1>
-    <p>このページは準備中です。Notion API 連携完了後、自動で内容が取り込まれます。</p>
-    <p style="color: var(--aq-text-sub); font-size: 13px;">Notion ID: <code>3587a82f-ba9a-814e-81ea-c211d978f839</code> / 種別: database</p>
-  </section>
-</main>
+    <p>労働保険事務組合の月別業務一覧。必要書類・弊社の支援内容を確認できます。</p>
+  </div>
+  <div class="aq-subpage-search">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m21 21-4.3-4.3"></path></svg>
+    <input type="search" id="aq-jim-q" placeholder="業務名・概要で検索" aria-label="業務を検索">
+  </div>
+</header>
+
+<div class="aq-subpage-tabs" id="aq-jim-cat" role="tablist"></div>
+
+<div class="aq-cal-months" id="aq-jim-months"></div>
+
+<p class="aq-subpage-note">※ 委託内容・特別加入の状況により、業務範囲が異なります。詳細は事務組合担当へお問い合わせください。</p>
+
+</main></div>
+
+<script id="aq-jim-data" type="application/json">__JIMUKUMIAI_DATA__</script>
+<script>
+(function () {
+  var data;
+  try { data = JSON.parse(document.getElementById('aq-jim-data').textContent) || []; }
+  catch (e) { data = []; }
+  var months  = document.getElementById('aq-jim-months');
+  var input   = document.getElementById('aq-jim-q');
+  var tabsEl  = document.getElementById('aq-jim-cat');
+  var state   = { cat: 'all', q: '' };
+
+  function esc(s){return String(s == null ? '' : s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+
+  function monthsOf(arr) {
+    if (!arr || !arr.length) return [];
+    return arr.map(function (s) { var m = (s||'').match(/(\d+)月/); return m ? parseInt(m[1],10) : 0; }).filter(function(n){return n>0;});
+  }
+
+  function buildTabs() {
+    var cats = {};
+    data.forEach(function (r) { if (r['業務カテゴリ']) cats[r['業務カテゴリ']] = true; });
+    var html = '<button class="is-active" data-cat="all" type="button">すべて</button>';
+    Object.keys(cats).forEach(function (c) {
+      html += '<button data-cat="'+esc(c)+'" type="button">'+esc(c)+'</button>';
+    });
+    if (tabsEl) tabsEl.innerHTML = html;
+  }
+
+  function matchFilter(r) {
+    if (state.cat !== 'all' && r['業務カテゴリ'] !== state.cat) return false;
+    var q = state.q.trim().toLowerCase();
+    if (!q) return true;
+    var hay = (r['業務名'] || '') + ' ' + (r['概要'] || '') + ' ' + (r['業務カテゴリ'] || '');
+    return hay.toLowerCase().indexOf(q) !== -1;
+  }
+
+  function severityClass(s) { return (s === '必須') ? 'high' : 'mid'; }
+
+  function render() {
+    if (!months) return;
+    var rows = data.filter(matchFilter);
+    if (rows.length === 0) {
+      months.innerHTML = '<p class="aq-subpage-empty">該当する業務が見つかりませんでした。</p>';
+      return;
+    }
+    var grouped = {};
+    rows.forEach(function (r) {
+      var ms = monthsOf(r['実施月']);
+      if (!ms.length) ms = [0];
+      ms.forEach(function (m) { (grouped[m] = grouped[m] || []).push(r); });
+    });
+    var html = '';
+    for (var m = 1; m <= 12; m++) {
+      if (!grouped[m]) continue;
+      html += '<section class="aq-cal-month-block">';
+      html += '<h2 class="aq-cal-month-h"><span class="aq-cal-month-no">'+m+'</span><span class="aq-cal-month-label">月</span><span class="aq-cal-month-count">'+grouped[m].length+'件</span></h2>';
+      html += '<ul class="aq-cal-items">';
+      grouped[m].forEach(function (r) {
+        var docs = (r['必要書類'] || '').split(/\n/).filter(function(x){return x.trim();});
+        var docsHtml = docs.length
+          ? '<div class="aq-jim-block"><h4>必要書類</h4><ul>' + docs.map(function (a) {
+              return '<li>' + esc(a.replace(/^[・\-•]\s*/, '')) + '</li>';
+            }).join('') + '</ul></div>'
+          : '';
+        var support = r['弊社の支援内容']
+          ? '<div class="aq-jim-block aq-jim-support"><h4>弊社の支援内容</h4><p>'+esc(r['弊社の支援内容'])+'</p></div>'
+          : '';
+        html += '<li class="aq-cal-item">' +
+          '<div class="aq-cal-day"><time>'+esc(m)+'月</time>' + (r['期限日'] ? '<small>期限 '+esc((r['期限日']||'').replace(/^\d{4}-/, '').replace('-','/'))+'</small>' : '') +'</div>' +
+          '<div class="aq-cal-body">' +
+            '<header class="aq-cal-itemhead">' +
+              '<span class="aq-pill aq-pill-cat">'+esc(r['業務カテゴリ'] || '')+'</span>' +
+              '<span class="aq-pill aq-pill-sev aq-sev-'+severityClass(r['重要度'])+'">'+esc(r['重要度'] || '')+'</span>' +
+            '</header>' +
+            '<h3 class="aq-cal-title">'+esc(r['業務名'])+'</h3>' +
+            (r['概要'] ? '<p class="aq-cal-summary">'+esc(r['概要'])+'</p>' : '') +
+            ((docsHtml || support) ? '<details class="aq-cal-details"><summary>必要書類・支援内容を見る</summary>'+docsHtml+support+'</details>' : '') +
+          '</div>' +
+        '</li>';
+      });
+      html += '</ul></section>';
+    }
+    months.innerHTML = html;
+  }
+
+  buildTabs();
+  if (tabsEl) tabsEl.addEventListener('click', function (e) {
+    var b = e.target.closest('button[data-cat]'); if (!b) return;
+    tabsEl.querySelectorAll('button').forEach(function (x) { x.classList.remove('is-active'); });
+    b.classList.add('is-active');
+    state.cat = b.getAttribute('data-cat');
+    render();
+  });
+  if (input) input.addEventListener('input', function () {
+    state.q = input.value || '';
+    render();
+  });
+  render();
+})();
+</script>

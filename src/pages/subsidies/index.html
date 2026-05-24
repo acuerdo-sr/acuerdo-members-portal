@@ -1,13 +1,133 @@
 {# meta:
 title: 補助金カレンダー
-body_class: aq-is-page
+body_class: aq-is-subsidies
 data_page: subsidies
 #}
 
-<main class="aq-portal-body aq-notion-body">
-  <section class="aq-panel">
+<div id="aq-subsidies-wrap" class="aq-subpage-wrap"><main class="aq-subpage-main">
+
+<header class="aq-subpage-hero">
+  <div class="aq-subpage-hero-text">
     <h1>補助金カレンダー</h1>
-    <p>このページは準備中です。Notion API 連携完了後、自動で内容が取り込まれます。</p>
-    <p style="color: var(--aq-text-sub); font-size: 13px;">Notion ID: <code>3587a82f-ba9a-81e4-aebc-ed272b08f783</code> / 種別: database</p>
-  </section>
-</main>
+    <p>設備投資・IT・販路開拓など、公募中の補助金を一覧で確認できます。</p>
+  </div>
+  <div class="aq-subpage-search">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m21 21-4.3-4.3"></path></svg>
+    <input type="search" id="aq-sub-q" placeholder="補助金名・概要で検索" aria-label="補助金を検索">
+  </div>
+</header>
+
+<div class="aq-subpage-tabs" id="aq-sub-status" role="tablist">
+  <button class="is-active" data-status="all" type="button">すべて</button>
+  <button data-status="open" type="button">公募中</button>
+  <button data-status="upcoming" type="button">公募予定</button>
+  <button data-status="closed" type="button">受付終了</button>
+</div>
+
+<div class="aq-sub-grid" id="aq-sub-grid"></div>
+
+<p class="aq-subpage-note">※ 補助金は要件・対象が頻繁に変わります。申請前に必ず最新情報を確認してください。</p>
+
+</main></div>
+
+<script id="aq-sub-data" type="application/json">__SUBSIDIES_DATA__</script>
+<script>
+(function () {
+  var data;
+  try { data = JSON.parse(document.getElementById('aq-sub-data').textContent) || []; }
+  catch (e) { data = []; }
+  var grid    = document.getElementById('aq-sub-grid');
+  var input   = document.getElementById('aq-sub-q');
+  var tabs    = document.getElementById('aq-sub-status');
+  var state   = { status: 'all', q: '' };
+
+  function esc(s){return String(s == null ? '' : s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+
+  function fmtDate(s) {
+    if (!s) return '';
+    var m = s.match(/^(\d{4})-(\d{2})-(\d{2})/);
+    if (!m) return s;
+    return m[1] + '/' + m[2] + '/' + m[3];
+  }
+
+  function statusKey(s) {
+    if (s === '公募中') return 'open';
+    if (s === '公募予定') return 'upcoming';
+    if (s === '受付終了') return 'closed';
+    return 'other';
+  }
+
+  function difficultyClass(s) {
+    if (s === '難') return 'hard';
+    if (s === '中') return 'mid';
+    if (s === '易') return 'easy';
+    return '';
+  }
+
+  function matchFilter(r) {
+    if (state.status !== 'all' && statusKey(r['ステータス']) !== state.status) return false;
+    var q = state.q.trim().toLowerCase();
+    if (!q) return true;
+    var hay = (r['補助金名'] || '') + ' ' + (r['概要'] || '') + ' ' + (r['補助金カテゴリ'] || '');
+    return hay.toLowerCase().indexOf(q) !== -1;
+  }
+
+  function render() {
+    if (!grid) return;
+    var rows = data.filter(matchFilter).slice().sort(function (a, b) {
+      // 公募中を最優先、次に公募予定、最後に受付終了
+      var order = { '公募中': 0, '公募予定': 1, '受付終了': 2 };
+      var oa = order[a['ステータス']] !== undefined ? order[a['ステータス']] : 9;
+      var ob = order[b['ステータス']] !== undefined ? order[b['ステータス']] : 9;
+      if (oa !== ob) return oa - ob;
+      var da = a['公募終了日'] || '', db = b['公募終了日'] || '';
+      return da < db ? -1 : 1;
+    });
+    if (rows.length === 0) {
+      grid.innerHTML = '<p class="aq-subpage-empty">該当する補助金が見つかりませんでした。</p>';
+      return;
+    }
+    grid.innerHTML = rows.map(function (r) {
+      var targets = (r['対象事業者'] || []).concat(r['対象規模'] || []);
+      var targetsHtml = targets.length
+        ? '<div class="aq-sub-targets">' + targets.map(function(t){ return '<span class="aq-pill">'+esc(t)+'</span>'; }).join('') + '</div>'
+        : '';
+      var meta = [];
+      if (r['補助率']) meta.push('<dt>補助率</dt><dd>'+esc(r['補助率'])+'</dd>');
+      if (r['上限額']) meta.push('<dt>上限額</dt><dd>'+esc(r['上限額'])+'万円</dd>');
+      if (r['公募開始日'] || r['公募終了日']) {
+        meta.push('<dt>公募期間</dt><dd>'+esc(fmtDate(r['公募開始日']))+' 〜 '+esc(fmtDate(r['公募終了日']))+'</dd>');
+      }
+      var metaHtml = meta.length ? '<dl class="aq-sub-meta">'+meta.join('')+'</dl>' : '';
+      var detailLink = r['詳細URL']
+        ? '<a class="aq-sub-link" href="'+esc(r['詳細URL'])+'" target="_blank" rel="noopener">公式ページを見る ›</a>'
+        : '';
+      return '<article class="aq-sub-card aq-sub-' + statusKey(r['ステータス']) + '">' +
+        '<header class="aq-sub-head">' +
+          '<span class="aq-pill aq-pill-cat">'+esc(r['補助金カテゴリ'] || '')+'</span>' +
+          '<span class="aq-pill aq-pill-status aq-status-'+statusKey(r['ステータス'])+'">'+esc(r['ステータス'] || '')+'</span>' +
+          (r['申請難易度'] ? '<span class="aq-pill aq-pill-diff aq-diff-'+difficultyClass(r['申請難易度'])+'">難易度: '+esc(r['申請難易度'])+'</span>' : '') +
+        '</header>' +
+        '<h2 class="aq-sub-title">'+esc(r['補助金名'])+'</h2>' +
+        (r['概要'] ? '<p class="aq-sub-summary">'+esc(r['概要'])+'</p>' : '') +
+        metaHtml +
+        targetsHtml +
+        detailLink +
+      '</article>';
+    }).join('');
+  }
+
+  if (tabs) tabs.addEventListener('click', function (e) {
+    var b = e.target.closest('button[data-status]'); if (!b) return;
+    tabs.querySelectorAll('button').forEach(function (x) { x.classList.remove('is-active'); });
+    b.classList.add('is-active');
+    state.status = b.getAttribute('data-status');
+    render();
+  });
+  if (input) input.addEventListener('input', function () {
+    state.q = input.value || '';
+    render();
+  });
+  render();
+})();
+</script>

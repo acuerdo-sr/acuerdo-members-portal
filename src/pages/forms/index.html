@@ -1,13 +1,128 @@
 {# meta:
 title: お役立ち書式
-body_class: aq-is-page
+body_class: aq-is-forms
 data_page: forms
 #}
 
-<main class="aq-portal-body aq-notion-body">
-  <section class="aq-panel">
+<div id="aq-forms-wrap" class="aq-subpage-wrap"><main class="aq-subpage-main">
+
+<header class="aq-subpage-hero">
+  <div class="aq-subpage-hero-text">
     <h1>お役立ち書式</h1>
-    <p>このページは準備中です。Notion API 連携完了後、自動で内容が取り込まれます。</p>
-    <p style="color: var(--aq-text-sub); font-size: 13px;">Notion ID: <code>(未設定)</code> / 種別: page</p>
-  </section>
-</main>
+    <p>手続きご連絡票・助成金ご相談票・労務便利書式を一括ダウンロードできます。</p>
+  </div>
+  <div class="aq-subpage-search">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m21 21-4.3-4.3"></path></svg>
+    <input type="search" id="aq-forms-q" placeholder="書式名で検索" aria-label="書式を検索">
+  </div>
+</header>
+
+<div class="aq-subpage-tabs" id="aq-forms-tabs" role="tablist">
+  <button class="is-active" data-cat="all" type="button">すべて</button>
+  <button data-cat="procedure_contact" type="button">手続きご連絡票</button>
+  <button data-cat="subsidy_consultation" type="button">助成金ご相談票</button>
+  <button data-cat="templates" type="button">便利書式</button>
+</div>
+
+<div id="aq-forms-sections"></div>
+
+<p class="aq-subpage-note">※ 書式は一般的なひな形です。重要な場面では担当者へご相談ください。</p>
+
+</main></div>
+
+<script id="aq-forms-data" type="application/json">__FORMS_DATA__</script>
+<script>
+(function () {
+  var raw;
+  try { raw = JSON.parse(document.getElementById('aq-forms-data').textContent); }
+  catch (e) { raw = { base_url:'', categories:{} }; }
+  var base    = raw.base_url || '';
+  var cats    = raw.categories || {};
+  var sections= document.getElementById('aq-forms-sections');
+  var input   = document.getElementById('aq-forms-q');
+  var tabs    = document.getElementById('aq-forms-tabs');
+  var state   = { cat: 'all', q: '' };
+
+  function esc(s){return String(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+
+  function urlOf(category, item, kind) {
+    if (category === 'templates') {
+      var nn = String(item.no).padStart(2,'0');
+      var p = cats.templates.url_pattern || {};
+      var rel;
+      if (kind === 'doc')         rel = item.doc || (p.doc || '').replace('{nn}', nn);
+      else if (kind === 'pdf')    rel = (p.pdf || '').replace('{nn}', nn);
+      else if (kind === 'ex')     rel = (p.explanation || '').replace('{nn}', nn);
+      return rel ? base + rel : null;
+    } else {
+      if (kind === 'doc' && item.excel) return base + item.excel;
+      if (kind === 'pdf' && item.pdf)   return base + item.pdf;
+      return null;
+    }
+  }
+
+  function downloadButtons(category, item) {
+    var buttons = [];
+    var docLabel = (category === 'templates')
+      ? (item.format === 'excel' ? 'Excel' : 'Word')
+      : 'Excel';
+    var doc = urlOf(category, item, 'doc');
+    var pdf = urlOf(category, item, 'pdf');
+    var ex  = urlOf(category, item, 'ex');
+    if (doc) buttons.push('<a class="aq-dl aq-dl-doc" href="'+esc(doc)+'" target="_blank" rel="noopener">'+docLabel+'</a>');
+    if (pdf) buttons.push('<a class="aq-dl aq-dl-pdf" href="'+esc(pdf)+'" target="_blank" rel="noopener">PDF</a>');
+    if (ex)  buttons.push('<a class="aq-dl aq-dl-ex" href="'+esc(ex)+'" target="_blank" rel="noopener">解説</a>');
+    return buttons.join('');
+  }
+
+  function matchQ(item) {
+    var q = state.q.trim().toLowerCase();
+    if (!q) return true;
+    var hay = (item.name || '') + ' ' + (item.use || '') + ' ' + (item.no || '');
+    return hay.toLowerCase().indexOf(q) !== -1;
+  }
+
+  function render() {
+    if (!sections) return;
+    var html = '';
+    var catOrder = ['procedure_contact','subsidy_consultation','templates'];
+    catOrder.forEach(function (key) {
+      if (state.cat !== 'all' && state.cat !== key) return;
+      var cat = cats[key]; if (!cat) return;
+      var items = (cat.items || []).filter(matchQ);
+      if (items.length === 0) return;
+      html += '<section class="aq-forms-section">';
+      html += '<h2 class="aq-forms-section-h">'+esc(cat.label)+' <span class="aq-forms-count">'+items.length+'件</span></h2>';
+      html += '<div class="aq-forms-grid">';
+      items.forEach(function (it) {
+        html += '<div class="aq-form-card">';
+        if (key === 'templates') {
+          html += '<span class="aq-form-no">No.'+esc(String(it.no).padStart(2,'0'))+'</span>';
+        }
+        html += '<div class="aq-form-body">';
+        html += '<h3 class="aq-form-name">'+esc(it.name)+'</h3>';
+        if (it.use) html += '<p class="aq-form-use">'+esc(it.use)+'</p>';
+        html += '</div>';
+        html += '<div class="aq-form-dls">'+downloadButtons(key, it)+'</div>';
+        html += '</div>';
+      });
+      html += '</div></section>';
+    });
+    if (!html) html = '<p class="aq-subpage-empty">該当する書式が見つかりませんでした。</p>';
+    sections.innerHTML = html;
+  }
+
+  if (tabs) tabs.addEventListener('click', function (e) {
+    var b = e.target.closest('button[data-cat]'); if (!b) return;
+    tabs.querySelectorAll('button').forEach(function (x) { x.classList.remove('is-active'); });
+    b.classList.add('is-active');
+    state.cat = b.getAttribute('data-cat');
+    render();
+  });
+  if (input) input.addEventListener('input', function () {
+    state.q = input.value || '';
+    render();
+  });
+  render();
+})();
+</script>

@@ -1,13 +1,128 @@
 {# meta:
 title: 法改正カレンダー
-body_class: aq-is-page
+body_class: aq-is-lawrev
 data_page: lawrev
 #}
 
-<main class="aq-portal-body aq-notion-body">
-  <section class="aq-panel">
+<div id="aq-lawrev-wrap" class="aq-subpage-wrap"><main class="aq-subpage-main">
+
+<header class="aq-subpage-hero">
+  <div class="aq-subpage-hero-text">
     <h1>法改正カレンダー</h1>
-    <p>このページは準備中です。Notion API 連携完了後、自動で内容が取り込まれます。</p>
-    <p style="color: var(--aq-text-sub); font-size: 13px;">Notion ID: <code>3587a82f-ba9a-814f-9e63-d3c749a71779</code> / 種別: database</p>
-  </section>
-</main>
+    <p>労働・社会保険関連の法改正情報を施行日順に確認できます。</p>
+  </div>
+  <div class="aq-subpage-search">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m21 21-4.3-4.3"></path></svg>
+    <input type="search" id="aq-lawrev-q" placeholder="改正名・概要で検索" aria-label="法改正を検索">
+  </div>
+</header>
+
+<div class="aq-subpage-tabs" id="aq-lawrev-status" role="tablist">
+  <button class="is-active" data-status="all" type="button">すべて</button>
+  <button data-status="upcoming" type="button">施行予定</button>
+  <button data-status="active" type="button">施行済み</button>
+</div>
+
+<div class="aq-lawrev-list" id="aq-lawrev-list"></div>
+
+<p class="aq-subpage-note">※ 個別の対応が必要なケースは担当者へご相談ください。</p>
+
+</main></div>
+
+<script id="aq-lawrev-data" type="application/json">__LAWREV_DATA__</script>
+<script>
+(function () {
+  var data;
+  try { data = JSON.parse(document.getElementById('aq-lawrev-data').textContent) || []; }
+  catch (e) { data = []; }
+  var list   = document.getElementById('aq-lawrev-list');
+  var input  = document.getElementById('aq-lawrev-q');
+  var tabs   = document.getElementById('aq-lawrev-status');
+  var state  = { status: 'all', q: '' };
+
+  function esc(s){return String(s == null ? '' : s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+
+  function fmtDate(s) {
+    if (!s) return '';
+    var m = s.match(/^(\d{4})-(\d{2})-(\d{2})/);
+    if (!m) return s;
+    return m[1] + '年' + parseInt(m[2],10) + '月' + parseInt(m[3],10) + '日';
+  }
+
+  function severityClass(s) {
+    if (s === '必読') return 'high';
+    if (s === '要注目') return 'mid';
+    return 'low';
+  }
+
+  function statusClass(s) {
+    if (s === '施行済み') return 'active';
+    if (s === '施行予定') return 'upcoming';
+    return 'other';
+  }
+
+  function categoryFromName(n) { return n || '法改正'; }
+
+  function matchFilter(r) {
+    if (state.status === 'upcoming' && r['ステータス'] !== '施行予定') return false;
+    if (state.status === 'active'   && r['ステータス'] !== '施行済み') return false;
+    var q = state.q.trim().toLowerCase();
+    if (!q) return true;
+    var hay = (r['改正名'] || '') + ' ' + (r['概要'] || '') + ' ' + (r['法律カテゴリ'] || '');
+    return hay.toLowerCase().indexOf(q) !== -1;
+  }
+
+  function render() {
+    if (!list) return;
+    var rows = data.filter(matchFilter).slice().sort(function (a, b) {
+      var da = a['施行日'] || '', db = b['施行日'] || '';
+      return da < db ? -1 : da > db ? 1 : 0;
+    });
+    if (rows.length === 0) {
+      list.innerHTML = '<p class="aq-subpage-empty">該当する法改正が見つかりませんでした。</p>';
+      return;
+    }
+    list.innerHTML = rows.map(function (r) {
+      var actions = (r['必要な対応'] || '').split(/\n/).filter(function(x){return x.trim();});
+      var actionsHtml = actions.length
+        ? '<ul class="aq-lawrev-actions">' + actions.map(function (a) {
+            return '<li>' + esc(a.replace(/^[・\-•]\s*/, '')) + '</li>';
+          }).join('') + '</ul>'
+        : '';
+      var scope = (r['影響範囲'] || []).concat(r['対象業種'] || []);
+      var scopeHtml = scope.length
+        ? '<div class="aq-lawrev-scope">' + scope.map(function(s){ return '<span class="aq-pill">'+esc(s)+'</span>'; }).join('') + '</div>'
+        : '';
+      return '<article class="aq-lawrev-card aq-lawrev-' + statusClass(r['ステータス']) + '">' +
+        '<div class="aq-lawrev-date">' +
+          '<time>' + esc(fmtDate(r['施行日'])) + '</time>' +
+          '<span class="aq-lawrev-status">' + esc(r['ステータス'] || '') + '</span>' +
+        '</div>' +
+        '<div class="aq-lawrev-body">' +
+          '<header class="aq-lawrev-head">' +
+            '<span class="aq-lawrev-cat">' + esc(r['法律カテゴリ'] || '') + '</span>' +
+            '<span class="aq-lawrev-sev aq-sev-' + severityClass(r['重要度']) + '">' + esc(r['重要度'] || '') + '</span>' +
+          '</header>' +
+          '<h2 class="aq-lawrev-title">' + esc(r['改正名']) + '</h2>' +
+          (r['概要'] ? '<p class="aq-lawrev-summary">' + esc(r['概要']) + '</p>' : '') +
+          scopeHtml +
+          (actionsHtml ? '<details class="aq-lawrev-details"><summary>必要な対応を見る</summary>' + actionsHtml + '</details>' : '') +
+        '</div>' +
+      '</article>';
+    }).join('');
+  }
+
+  if (tabs) tabs.addEventListener('click', function (e) {
+    var b = e.target.closest('button[data-status]'); if (!b) return;
+    tabs.querySelectorAll('button').forEach(function (x) { x.classList.remove('is-active'); });
+    b.classList.add('is-active');
+    state.status = b.getAttribute('data-status');
+    render();
+  });
+  if (input) input.addEventListener('input', function () {
+    state.q = input.value || '';
+    render();
+  });
+  render();
+})();
+</script>
