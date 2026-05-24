@@ -165,7 +165,7 @@ data_page: joseikin-list
     render();
   });
 
-  // Navi card clicks → set filter & scroll to table
+  // Navi card clicks → set filter only (no scroll)
   if (navi) navi.addEventListener('click', function (e) {
     var b = e.target.closest('button[data-cat]'); if (!b) return;
     var cat = b.getAttribute('data-cat');
@@ -174,8 +174,6 @@ data_page: joseikin-list
     var tabBtn = tabs.querySelector('button[data-cat="'+cat+'"]');
     if (tabBtn) tabBtn.classList.add('is-active');
     render();
-    var listSec = document.querySelector('.aq-jl-list-section');
-    if (listSec) listSec.scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
 
   // Search input
