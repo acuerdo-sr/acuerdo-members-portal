@@ -2271,23 +2271,25 @@ body.aq-is-josei [data-block-id] {
   background: linear-gradient(135deg, #0f172a 0%, #172238 100%);
   color: #fff;
   border-radius: 22px;
-  padding: 26px 30px;
+  padding: 36px 36px;
   display: grid;
   grid-template-columns: minmax(0, 1fr) 320px;
   align-items: center;
   gap: 24px;
 }
 .aq-josei-hero-text h1 {
-  margin: 0 0 6px !important;
+  margin: 8px 0 12px !important;
   font-size: 28px !important;
   letter-spacing: -.01em !important;
   color: #fff !important;
   font-weight: 800 !important;
+  line-height: 1.4 !important;
 }
 .aq-josei-hero-text p {
   margin: 0;
   color: #cbd5e1;
   font-size: 14px;
+  line-height: 1.75;
 }
 .aq-josei-search {
   position: relative;
@@ -2537,14 +2539,14 @@ body.aq-is-joseikin {
   background: linear-gradient(135deg, #0f172a 0%, #172238 100%);
   color: #fff;
   border-radius: 22px;
-  padding: 26px 30px;
+  padding: 36px 36px;
   display: grid;
   grid-template-columns: minmax(0, 1fr) 320px;
   align-items: center;
   gap: 24px;
 }
-.aq-subpage-hero-text h1 { margin: 0 0 6px !important; font-size: 28px !important; letter-spacing: -.01em !important; color: #fff !important; font-weight: 800 !important; }
-.aq-subpage-hero-text p { margin: 0; color: #cbd5e1; font-size: 14px; }
+.aq-subpage-hero-text h1 { margin: 8px 0 12px !important; font-size: 28px !important; letter-spacing: -.01em !important; color: #fff !important; font-weight: 800 !important; line-height: 1.4 !important; }
+.aq-subpage-hero-text p { margin: 0; color: #cbd5e1; font-size: 14px; line-height: 1.75; }
 .aq-subpage-search {
   position: relative;
   background: rgba(255,255,255,.08);
@@ -2848,10 +2850,11 @@ body.aq-is-joseikin {
    ============================================================ */
 
 .aq-hero-kicker {
-  display: inline-block; margin: 0 0 8px;
-  padding: 4px 12px; border-radius: 999px;
+  display: inline-block; margin: 0 0 14px;
+  padding: 6px 14px; border-radius: 999px;
   background: rgba(255,255,255,.14);
   color: #cbd5e1 !important; font-size: 12px; font-weight: 700;
+  line-height: 1.4;
 }
 #aq-joseikin-wrap .aq-subpage-hero-text h1 { font-size: 32px !important; line-height: 1.25 !important; }
 .aq-jos-hero-actions { display: flex; flex-direction: column; gap: 10px; }
@@ -2872,13 +2875,14 @@ body.aq-is-joseikin {
   background: #fff;
   border: 1px solid var(--aq-border);
   border-radius: 16px;
-  padding: 24px 26px;
+  padding: 32px 30px;
 }
 .aq-jos-h2 {
-  margin: 0 0 12px; font-size: 22px; color: var(--aq-navy); font-weight: 800;
-  padding-bottom: 12px; border-bottom: 2px solid var(--aq-navy);
+  margin: 0 0 18px !important; font-size: 22px !important; color: var(--aq-navy) !important; font-weight: 800 !important;
+  padding-bottom: 14px; border-bottom: 2px solid var(--aq-navy);
+  line-height: 1.5 !important;
 }
-.aq-jos-sub { margin: 0 0 16px; color: var(--aq-text-sub); font-size: 13.5px; }
+.aq-jos-sub { margin: 0 0 20px !important; color: var(--aq-text-sub); font-size: 13.5px; line-height: 1.75; }
 
 .aq-jos-bene-grid {
   display: grid;
@@ -2989,10 +2993,11 @@ body.aq-is-joseikin {
 
 /* 共通セクション見出し */
 .aq-jl-section-h {
-  margin: 0 0 8px !important;
+  margin: 0 0 14px !important;
   font-size: 24px !important;
   color: var(--aq-navy) !important;
   font-weight: 800 !important;
+  line-height: 1.5 !important;
   display: flex; align-items: baseline; gap: 14px;
 }
 .aq-jl-section-en {
@@ -3000,8 +3005,9 @@ body.aq-is-joseikin {
   font-weight: 800; letter-spacing: .18em;
 }
 .aq-jl-section-sub {
-  margin: 0 0 16px !important;
+  margin: 0 0 22px !important;
   color: var(--aq-text-sub); font-size: 13px;
+  line-height: 1.75;
 }
 
 /* PURPOSE ナビ */
@@ -3009,7 +3015,7 @@ body.aq-is-joseikin {
   background: #fff;
   border: 1px solid var(--aq-border);
   border-radius: 16px;
-  padding: 22px 24px;
+  padding: 30px 28px;
 }
 .aq-jl-navi-grid {
   display: grid;
@@ -3051,7 +3057,7 @@ body.aq-is-joseikin {
   background: #fff;
   border: 1px solid var(--aq-border);
   border-radius: 16px;
-  padding: 22px 24px;
+  padding: 30px 28px;
 }
 
 /* タブのカウントピル */
