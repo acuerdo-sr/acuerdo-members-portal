@@ -8,9 +8,27 @@
   if (overlay)   overlay.addEventListener('click', closeSB);
   document.querySelectorAll('.aq-nav a.aq-nav-item').forEach(function (a) { a.addEventListener('click', closeSB); });
 
-  // Highlight active sidebar item by data-page set on body
+  // Accordion toggle for grouped nav items (e.g. カレンダー)
+  document.querySelectorAll('#aq-nav .aq-nav-toggle').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var group = btn.closest('.aq-nav-group');
+      if (!group) return;
+      var open = group.classList.toggle('is-open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+  });
+
+  // Highlight active sidebar item by data-page set on body, expand parent group if needed
   var page = document.body.getAttribute('data-page') || 'home';
   document.querySelectorAll('#aq-nav a.aq-nav-item').forEach(function (a) {
-    if (a.getAttribute('data-nav') === page) a.classList.add('is-active');
+    if (a.getAttribute('data-nav') === page) {
+      a.classList.add('is-active');
+      var group = a.closest('.aq-nav-group');
+      if (group) {
+        group.classList.add('is-open');
+        var toggle = group.querySelector('.aq-nav-toggle');
+        if (toggle) toggle.setAttribute('aria-expanded', 'true');
+      }
+    }
   });
 })();
