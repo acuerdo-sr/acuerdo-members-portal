@@ -3549,9 +3549,43 @@ body.aq-is-news {
 }
 .aq-news-body h4:first-child { margin-top: 0 !important; }
 .aq-news-body ul, .aq-news-body ol {
-  margin: 0 0 12px; padding-left: 22px;
+  margin: 0 0 14px; padding-left: 4px;
+  list-style: none;
 }
-.aq-news-body li { margin-bottom: 4px; }
+/* card-body list items must NOT inherit the homepage .aq-news-list li grid */
+.aq-news-body li {
+  display: block;
+  position: relative;
+  min-height: 0;
+  grid-template-columns: none;
+  align-items: stretch;
+  gap: 0;
+  padding: 4px 0 4px 24px;
+  margin: 0 0 4px;
+  border: 0;
+  background: none;
+  font-size: 15px;
+  line-height: 1.7;
+}
+.aq-news-body ul > li::before {
+  content: '';
+  position: absolute; left: 6px; top: 13px;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--aq-navy);
+}
+.aq-news-card.aq-tag-wine .aq-news-body ul > li::before { background: #b91c1c; }
+.aq-news-card.aq-tag-gold .aq-news-body ul > li::before { background: #d97706; }
+.aq-news-body ol { counter-reset: aq-li; padding-left: 4px; }
+.aq-news-body ol > li { counter-increment: aq-li; }
+.aq-news-body ol > li::before {
+  content: counter(aq-li);
+  position: absolute; left: 0; top: 5px;
+  width: 18px; height: 18px;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: var(--aq-navy); color: #fff;
+  border-radius: 50%; font-size: 10px; font-weight: 800;
+}
 .aq-news-body p { margin: 0 0 10px; }
 .aq-news-body strong { color: var(--aq-navy); font-weight: 800; }
 
@@ -3560,15 +3594,19 @@ body.aq-is-news {
   margin: 0 0 12px !important; padding: 0 !important;
 }
 .aq-news-checks li {
+  display: block;
+  grid-template-columns: none;
+  min-height: 0;
+  border: 0;
   position: relative;
-  padding: 8px 12px 8px 36px;
+  padding: 10px 14px 10px 40px;
   background: #f8fafc; border-radius: 8px;
-  margin-bottom: 6px !important;
-  font-size: 13.5px; line-height: 1.6;
+  margin: 0 0 8px !important;
+  font-size: 14px; line-height: 1.65;
 }
 .aq-news-checks li::before {
   content: '✓';
-  position: absolute; left: 10px; top: 8px;
+  position: absolute; left: 12px; top: 11px;
   width: 18px; height: 18px;
   background: #16a34a; color: #fff;
   border-radius: 50%;
