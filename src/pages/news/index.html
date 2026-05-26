@@ -14,82 +14,27 @@ data_page: news
   </div>
 </header>
 
-<div class="aq-subpage-tabs" id="aq-news-cat" role="tablist"></div>
+<div class="aq-subpage-tabs" id="aq-news-cat" role="tablist">__NEWS_TABS_HTML__</div>
 
-<div class="aq-news-list" id="aq-news-list"></div>
+<div class="aq-news-list" id="aq-news-list">__NEWS_CARDS_HTML__</div>
 
 <p class="aq-subpage-note">※ 各お知らせの末尾に詳細ページや関連リンクを掲載しています。気になる項目があれば担当者へお気軽にお問い合わせください。</p>
 
 </main></div>
 
-<script id="aq-news-data" type="application/json">__NEWS_DATA__</script>
 <script>
 (function () {
-  var data;
-  try { data = JSON.parse(document.getElementById('aq-news-data').textContent) || []; }
-  catch (e) { data = []; }
-  var list   = document.getElementById('aq-news-list');
   var tabsEl = document.getElementById('aq-news-cat');
-  var state  = { cat: 'all' };
-
-  function esc(s){return String(s == null ? '' : s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
-
-  function fmtDate(s) {
-    if (!s) return '';
-    var m = s.match(/^(\d{4})-(\d{2})-(\d{2})/);
-    if (!m) return s;
-    return m[1] + '年' + parseInt(m[2],10) + '月' + parseInt(m[3],10) + '日';
-  }
-
-  function buildTabs() {
-    var cats = {};
-    data.forEach(function (r) { if (r.category) cats[r.category] = true; });
-    var html = '<button class="is-active" data-cat="all" type="button">すべて</button>';
-    Object.keys(cats).forEach(function (c) {
-      html += '<button data-cat="'+esc(c)+'" type="button">'+esc(c)+'</button>';
-    });
-    if (tabsEl) tabsEl.innerHTML = html;
-  }
-
-  function render() {
-    if (!list) return;
-    var rows = data.filter(function (r) {
-      return state.cat === 'all' || r.category === state.cat;
-    }).slice().sort(function (a, b) {
-      return (a.date < b.date) ? 1 : -1;
-    });
-    if (rows.length === 0) {
-      list.innerHTML = '<p class="aq-subpage-empty">該当するお知らせがありません。</p>';
-      return;
-    }
-    list.innerHTML = rows.map(function (r) {
-      var linkHtml = r.url
-        ? '<a class="aq-news-link" href="'+esc(r.url)+'" target="_blank" rel="noopener">' + esc(r.url_label || 'ページを開く') + ' ›</a>'
-        : '';
-      return '<article class="aq-news-card aq-tag-'+esc(r.tag_color||'navy')+'">' +
-        '<header class="aq-news-card-head">' +
-          '<span class="aq-news-icon">'+esc(r.icon || '📌')+'</span>' +
-          '<div class="aq-news-meta">' +
-            '<time class="aq-news-date">'+esc(fmtDate(r.date))+'</time>' +
-            '<span class="aq-news-cat">'+esc(r.category || '')+'</span>' +
-          '</div>' +
-        '</header>' +
-        '<h2 class="aq-news-title">'+esc(r.title)+'</h2>' +
-        (r.lead ? '<p class="aq-news-lead">'+esc(r.lead)+'</p>' : '') +
-        '<div class="aq-news-body">' + (r.body_html || '') + '</div>' +
-        linkHtml +
-      '</article>';
-    }).join('');
-  }
-
-  buildTabs();
-  if (tabsEl) tabsEl.addEventListener('click', function (e) {
+  var list   = document.getElementById('aq-news-list');
+  if (!tabsEl || !list) return;
+  tabsEl.addEventListener('click', function (e) {
     var b = e.target.closest('button[data-cat]'); if (!b) return;
     tabsEl.querySelectorAll('button').forEach(function (x) { x.classList.remove('is-active'); });
     b.classList.add('is-active');
-    state.cat = b.getAttribute('data-cat');
-    render();
+    var cat = b.getAttribute('data-cat');
+    list.querySelectorAll('.aq-news-card').forEach(function (card) {
+      card.style.display = (cat === 'all' || card.getAttribute('data-cat') === cat) ? '' : 'none';
+    });
   });
-  render();
 })();
 </script>

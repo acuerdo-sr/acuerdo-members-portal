@@ -82,6 +82,79 @@ def inject_data(html: str) -> str:
     return html
 
 
+def _esc(s) -> str:
+    if s is None:
+        return ""
+    return (
+        str(s)
+        .replace("&", "&amp;")
+        .replace("<", "&lt;")
+        .replace(">", "&gt;")
+        .replace('"', "&quot;")
+        .replace("'", "&#39;")
+    )
+
+
+def _fmt_date_ja(s: str) -> str:
+    if not s:
+        return ""
+    m = re.match(r"^(\d{4})-(\d{2})-(\d{2})", s)
+    if not m:
+        return s
+    return f"{m.group(1)}年{int(m.group(2))}月{int(m.group(3))}日"
+
+
+def render_news(html: str) -> str:
+    """お知らせカード/タブをビルド時に静的HTMLとして埋め込む(ブラウザ拡張等でJSが
+    妨げられてもカードが必ず表示されるようにするため)。"""
+    if "__NEWS_CARDS_HTML__" not in html and "__NEWS_TABS_HTML__" not in html:
+        return html
+    data_path = SRC / "data" / "news.json"
+    if not data_path.exists():
+        return html
+    items = json.loads(data_path.read_text(encoding="utf-8"))
+    items_sorted = sorted(items, key=lambda r: r.get("date", ""), reverse=True)
+
+    # タブ(カテゴリ)
+    cats: list[str] = []
+    for r in items_sorted:
+        c = r.get("category")
+        if c and c not in cats:
+            cats.append(c)
+    tabs_html = '<button class="is-active" data-cat="all" type="button">すべて</button>'
+    for c in cats:
+        tabs_html += f'<button data-cat="{_esc(c)}" type="button">{_esc(c)}</button>'
+
+    # カード
+    cards_html = ""
+    for r in items_sorted:
+        link_html = ""
+        if r.get("url"):
+            link_html = (
+                f'<a class="aq-news-link" href="{_esc(r["url"])}" target="_blank" rel="noopener">'
+                f'{_esc(r.get("url_label") or "ページを開く")} ›</a>'
+            )
+        cards_html += (
+            f'<article class="aq-news-card aq-tag-{_esc(r.get("tag_color") or "navy")}" data-cat="{_esc(r.get("category") or "")}">'
+            f'<header class="aq-news-card-head">'
+            f'<span class="aq-news-icon">{_esc(r.get("icon") or "📌")}</span>'
+            f'<div class="aq-news-meta">'
+            f'<time class="aq-news-date">{_esc(_fmt_date_ja(r.get("date") or ""))}</time>'
+            f'<span class="aq-news-cat">{_esc(r.get("category") or "")}</span>'
+            f"</div>"
+            f"</header>"
+            f'<h2 class="aq-news-title">{_esc(r.get("title") or "")}</h2>'
+            + (f'<p class="aq-news-lead">{_esc(r["lead"])}</p>' if r.get("lead") else "")
+            + f'<div class="aq-news-body">{r.get("body_html") or ""}</div>'
+            + link_html
+            + "</article>"
+        )
+
+    html = html.replace("__NEWS_TABS_HTML__", tabs_html)
+    html = html.replace("__NEWS_CARDS_HTML__", cards_html)
+    return html
+
+
 def main(base_href: str = "/") -> int:
     if DIST.exists():
         shutil.rmtree(DIST)
@@ -105,6 +178,7 @@ def main(base_href: str = "/") -> int:
         rel = path.relative_to(pages_root)
         raw = path.read_text(encoding="utf-8")
         meta, content = parse_meta(raw)
+        content = render_news(content)
         content = inject_data(content)
 
         # Jinja の構文（{{ ... }}）がpages内に無いことを前提に、content はそのまま安全に渡す
