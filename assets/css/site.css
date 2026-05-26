@@ -515,6 +515,45 @@ body.aq-is-home #aq-portal {
   font-size: 13px;
 }
 
+/* カレンダー枠 (常時展開、JS不要) */
+.aq-nav-calendar {
+  margin: 8px 4px 6px;
+  padding: 10px 10px 12px;
+  border: 1px solid var(--aq-bg-sub);
+  border-radius: 10px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.aq-nav-calendar-title {
+  margin: 0 0 6px;
+  padding: 0 4px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .04em;
+  color: var(--aq-gold);
+}
+.aq-nav-calendar-item {
+  display: block;
+  padding: 8px 10px;
+  border: 1px solid var(--aq-bg-sub);
+  border-radius: 8px;
+  background: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--aq-text) !important;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color .14s ease, border-color .14s ease, color .14s ease;
+}
+.aq-nav-calendar-item:hover,
+.aq-nav-calendar-item.is-active {
+  background: var(--aq-bg-alt);
+  border-color: var(--aq-wine);
+  color: var(--aq-navy) !important;
+}
+
 .aq-sidebar-cta {
   margin-top: auto;
   padding: 16px 18px;
