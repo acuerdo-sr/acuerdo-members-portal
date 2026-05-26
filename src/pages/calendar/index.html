@@ -76,10 +76,11 @@ data_page: calendar
     var grouped = {};
     rows.forEach(function (r) { var m = monthOf(r['実施日']); (grouped[m] = grouped[m] || []).push(r); });
     var html = '';
+    var currentMonth = new Date().getMonth() + 1;
     for (var m = 1; m <= 12; m++) {
       if (!grouped[m]) continue;
-      html += '<section class="aq-cal-month-block">';
-      html += '<h2 class="aq-cal-month-h"><span class="aq-cal-month-no">'+m+'</span><span class="aq-cal-month-label">月</span><span class="aq-cal-month-count">'+grouped[m].length+'件</span></h2>';
+      html += '<details class="aq-cal-month-block"' + (m === currentMonth ? ' open' : '') + '>';
+      html += '<summary class="aq-cal-month-h"><span class="aq-cal-month-no">'+m+'</span><span class="aq-cal-month-label">月</span><span class="aq-cal-month-count">'+grouped[m].length+'件</span><span class="aq-cal-month-chev" aria-hidden="true">▾</span></summary>';
       html += '<ul class="aq-cal-items">';
       grouped[m].forEach(function (r) {
         var actions = (r['必要な対応'] || '').split(/\n/).filter(function(x){return x.trim();});
@@ -102,7 +103,7 @@ data_page: calendar
           '</div>' +
         '</li>';
       });
-      html += '</ul></section>';
+      html += '</ul></details>';
     }
     months.innerHTML = html;
   }

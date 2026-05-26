@@ -2979,12 +2979,20 @@ body.aq-is-news {
   border-radius: 16px;
   padding: 18px 20px;
 }
+.aq-cal-month-block[open] .aq-cal-month-h { margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid var(--aq-border); }
+.aq-cal-month-block > summary.aq-cal-month-h { list-style: none; cursor: pointer; }
+.aq-cal-month-block > summary.aq-cal-month-h::-webkit-details-marker { display: none; }
 .aq-cal-month-h {
-  margin: 0 0 12px; padding-bottom: 12px;
-  border-bottom: 1px solid var(--aq-border);
+  margin: 0; padding: 0;
   display: flex; align-items: baseline; gap: 6px;
   font-size: 16px; color: var(--aq-text);
 }
+.aq-cal-month-chev {
+  margin-left: 12px;
+  font-size: 14px; color: var(--aq-navy);
+  transition: transform .18s ease;
+}
+.aq-cal-month-block[open] > summary .aq-cal-month-chev { transform: rotate(180deg); }
 .aq-cal-month-no {
   font-size: 28px; font-weight: 900; color: var(--aq-navy);
 }
