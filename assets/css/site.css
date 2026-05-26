@@ -526,13 +526,12 @@ body.aq-is-home #aq-portal {
   background: transparent;
 }
 .aq-nav-calendar-title {
-  margin: 6px 6px 0;
+  margin: 8px 6px 2px;
   padding: 0;
-  font-size: 11px;
+  font-size: 15px;
   font-weight: 800;
-  letter-spacing: .08em;
+  letter-spacing: .04em;
   color: var(--aq-gold);
-  text-transform: uppercase;
 }
 .aq-nav-calendar-item {
   display: flex;
