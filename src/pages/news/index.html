@@ -4,7 +4,14 @@ body_class: aq-is-news
 data_page: news
 #}
 
-<div id="aq-news-wrap" class="aq-subpage-wrap"><main class="aq-subpage-main">
+<div id="aq-news-wrap" class="aq-subpage-wrap">
+
+<input type="radio" name="news-cat" id="news-cat-all"   class="aq-news-cat-radio" checked>
+<input type="radio" name="news-cat" id="news-cat-josei" class="aq-news-cat-radio">
+<input type="radio" name="news-cat" id="news-cat-hojo"  class="aq-news-cat-radio">
+<input type="radio" name="news-cat" id="news-cat-law"   class="aq-news-cat-radio">
+
+<main class="aq-subpage-main">
 
 <header class="aq-subpage-hero">
   <div class="aq-subpage-hero-text">
@@ -14,27 +21,15 @@ data_page: news
   </div>
 </header>
 
-<div class="aq-subpage-tabs" id="aq-news-cat" role="tablist">__NEWS_TABS_HTML__</div>
+<div class="aq-subpage-tabs" role="tablist">
+  <label class="aq-news-tab" for="news-cat-all">すべて</label>
+  <label class="aq-news-tab" for="news-cat-josei">助成金</label>
+  <label class="aq-news-tab" for="news-cat-hojo">補助金</label>
+  <label class="aq-news-tab" for="news-cat-law">法改正</label>
+</div>
 
 <div class="aq-news-list" id="aq-news-list">__NEWS_CARDS_HTML__</div>
 
 <p class="aq-subpage-note">※ 各お知らせの末尾に詳細ページや関連リンクを掲載しています。気になる項目があれば担当者へお気軽にお問い合わせください。</p>
 
 </main></div>
-
-<script>
-(function () {
-  var tabsEl = document.getElementById('aq-news-cat');
-  var list   = document.getElementById('aq-news-list');
-  if (!tabsEl || !list) return;
-  tabsEl.addEventListener('click', function (e) {
-    var b = e.target.closest('button[data-cat]'); if (!b) return;
-    tabsEl.querySelectorAll('button').forEach(function (x) { x.classList.remove('is-active'); });
-    b.classList.add('is-active');
-    var cat = b.getAttribute('data-cat');
-    list.querySelectorAll('.aq-news-card').forEach(function (card) {
-      card.style.display = (cat === 'all' || card.getAttribute('data-cat') === cat) ? '' : 'none';
-    });
-  });
-})();
-</script>

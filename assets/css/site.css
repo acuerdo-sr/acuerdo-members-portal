@@ -3621,15 +3621,50 @@ body.aq-is-news {
   font-size: 12.5px; color: #7c2d12; line-height: 1.7;
 }
 
-.aq-news-link {
+.aq-news-card a.aq-news-link {
   display: inline-block; margin-top: 14px;
   padding: 10px 18px;
-  background: var(--aq-navy); color: #fff !important;
+  background: var(--aq-navy);
+  color: #fff !important;
   border-radius: 10px; font-size: 13px; font-weight: 800;
-  text-decoration: none;
+  text-decoration: none !important;
   transition: background .12s, transform .12s;
 }
-.aq-news-link:hover { background: #1e293b; transform: translateY(-1px); }
+.aq-news-card a.aq-news-link:hover { background: #1e293b; transform: translateY(-1px); }
+
+/* CSS-only タブ絞り込み (ラジオ + ラベル方式 — JS不要) */
+#aq-news-wrap input.aq-news-cat-radio {
+  position: absolute; opacity: 0; pointer-events: none;
+  width: 0; height: 0;
+}
+#aq-news-wrap .aq-subpage-tabs label.aq-news-tab {
+  display: inline-block;
+  border: 1px solid var(--aq-border);
+  background: #fff;
+  border-radius: 999px;
+  padding: 8px 18px;
+  font-size: 14px;
+  color: var(--aq-text);
+  cursor: pointer;
+  user-select: none;
+  transition: background .12s, color .12s, border-color .12s;
+}
+#aq-news-wrap .aq-subpage-tabs label.aq-news-tab:hover { background: var(--aq-bg-alt); }
+
+/* デフォルト: すべて表示 */
+#aq-news-wrap #news-cat-all:checked ~ main .aq-subpage-tabs label[for="news-cat-all"],
+#aq-news-wrap #news-cat-josei:checked ~ main .aq-subpage-tabs label[for="news-cat-josei"],
+#aq-news-wrap #news-cat-hojo:checked ~ main .aq-subpage-tabs label[for="news-cat-hojo"],
+#aq-news-wrap #news-cat-law:checked ~ main .aq-subpage-tabs label[for="news-cat-law"] {
+  background: var(--aq-navy);
+  color: #fff;
+  border-color: var(--aq-navy);
+}
+
+/* カテゴリ絞り込み */
+#aq-news-wrap #news-cat-josei:checked ~ main .aq-news-card:not([data-cat="助成金"]) { display: none; }
+#aq-news-wrap #news-cat-hojo:checked  ~ main .aq-news-card:not([data-cat="補助金"]) { display: none; }
+#aq-news-wrap #news-cat-law:checked   ~ main .aq-news-card:not([data-cat="法改正"]) { display: none; }
 
 /* レスポンシブ */
 @media (max-width: 900px) {
