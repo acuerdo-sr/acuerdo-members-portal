@@ -2579,10 +2579,10 @@ body.aq-is-news {
 /* パンくず (サブページ識別) */
 .aq-breadcrumb {
   position: sticky; top: 0; z-index: 50;
-  width: calc(100vw - var(--aq-sidebar-w));
-  margin-left: var(--aq-sidebar-w);
+  width: 100%;
+  margin-left: 0;
   display: flex; align-items: center; gap: 12px;
-  padding: 12px 36px;
+  padding: 12px 24px;
   background: linear-gradient(135deg, #06152e 0%, #1e293b 100%);
   color: #fff;
   font-size: 13px; font-weight: 700;
@@ -2613,10 +2613,10 @@ body.aq-is-news {
 }
 
 .aq-subpage-wrap {
-  width: calc(100vw - var(--aq-sidebar-w));
+  width: 100%;
   min-height: 100vh;
-  margin-left: var(--aq-sidebar-w);
-  padding: 28px 12px 56px 12px;
+  margin-left: 0;
+  padding: 28px 24px 56px 24px;
   background: #f3f6fb;
   color: var(--aq-text);
   overflow-x: clip;
