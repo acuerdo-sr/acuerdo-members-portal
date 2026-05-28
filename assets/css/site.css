@@ -3795,8 +3795,6 @@ body.aq-is-news {
 @media (max-width: 700px) { .aq-pc-only { display: none; } }
 
 .aq-bot-card {
-  max-width: 860px;
-  margin: 0 auto;
   background: #fff;
   border: 1px solid var(--aq-border);
   border-top: 4px solid var(--aq-bot-accent);
