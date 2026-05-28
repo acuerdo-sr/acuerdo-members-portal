@@ -164,6 +164,16 @@ def main(base_href: str = "/") -> int:
     shutil.copytree(ASSETS, DIST / "assets")
     print(f"[copy] assets/ -> dist/assets/")
 
+    # キャッシュバスター: site.css の mtime + 短いハッシュをビルドバージョンとして使う
+    import hashlib
+    css_path = ASSETS / "css" / "site.css"
+    js_path = ASSETS / "js" / "site.js"
+    parts: list[str] = []
+    for p in (css_path, js_path):
+        if p.exists():
+            parts.append(hashlib.md5(p.read_bytes()).hexdigest()[:8])
+    build_version = "".join(parts) or "1"
+
     env = Environment(
         loader=FileSystemLoader(str(SRC)),
         autoescape=False,  # ページ本文は信頼ソース。Jinja で {{ content|safe }} 経由
@@ -188,6 +198,7 @@ def main(base_href: str = "/") -> int:
             body_class=meta.get("body_class", "aq-is-page") + " " + ("data-page-" + meta.get("data_page", "")),
             content=content,
             base_href=base_href,
+            build_version=build_version,
         )
         # data-page 属性を body にもセット（site.js が active hover に使う）
         data_page = meta.get("data_page", "")
