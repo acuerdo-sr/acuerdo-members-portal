@@ -3062,6 +3062,7 @@ body.aq-is-news {
 .aq-cal-actions { margin: 4px 0 0; padding-left: 22px; font-size: 12.5px; line-height: 1.7; color: var(--aq-text); }
 .aq-cal-actions li { margin-bottom: 2px; }
 
+.aq-cal-item.is-noday { grid-template-columns: minmax(0, 1fr); }
 .aq-cal-anytime { border-style: dashed; background: #fafafa; }
 .aq-cal-anytime-label {
   font-size: 17px; font-weight: 800; color: var(--aq-navy);

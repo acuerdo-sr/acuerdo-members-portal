@@ -76,7 +76,7 @@ data_page: jimukumiai
       if (!ms.length) ms = [0];
       ms.forEach(function (m) { (grouped[m] = grouped[m] || []).push(r); });
     });
-    function itemHtml(r, monthLabel) {
+    function itemHtml(r, dayLabel, deadlineLabel) {
       var docs = (r['ご準備いただくもの'] || r['必要書類'] || '').split(/\n/).filter(function(x){return x.trim();});
       var docsHtml = docs.length
         ? '<div class="aq-jim-block"><h4>ご準備いただくもの</h4><ul>' + docs.map(function (a) {
@@ -87,8 +87,11 @@ data_page: jimukumiai
       var support = supportText
         ? '<div class="aq-jim-block aq-jim-support"><h4>弊社で対応すること</h4><p>'+esc(supportText)+'</p></div>'
         : '';
-      return '<li class="aq-cal-item">' +
-        '<div class="aq-cal-day"><time>'+esc(monthLabel)+'</time>' + (r['期限日'] ? '<small>期限 '+esc((r['期限日']||'').replace(/^\d{4}-/, '').replace('-','/'))+'</small>' : '') +'</div>' +
+      var dayHtml = dayLabel
+        ? '<div class="aq-cal-day"><time>'+esc(dayLabel)+'</time>' + (deadlineLabel ? '<small>'+esc(deadlineLabel)+'</small>' : '') + '</div>'
+        : '';
+      return '<li class="aq-cal-item' + (dayHtml ? '' : ' is-noday') + '">' +
+        dayHtml +
         '<div class="aq-cal-body">' +
           '<header class="aq-cal-itemhead">' +
             '<span class="aq-pill aq-pill-cat">'+esc(r['業務カテゴリ'] || '')+'</span>' +
@@ -106,7 +109,13 @@ data_page: jimukumiai
       html += '<section class="aq-cal-month-block">';
       html += '<h2 class="aq-cal-month-h"><span class="aq-cal-month-no">'+m+'</span><span class="aq-cal-month-label">月</span><span class="aq-cal-month-count">'+grouped[m].length+'件</span></h2>';
       html += '<ul class="aq-cal-items">';
-      grouped[m].forEach(function (r) { html += itemHtml(r, m + '月'); });
+      grouped[m].forEach(function (r) {
+        var dl = r['期限日'] || '';
+        var dayMatch = dl.match(/^\d{4}-\d{2}-(\d{2})/);
+        var dayLabel = dayMatch ? (parseInt(dayMatch[1],10) + '日') : '';
+        var deadlineLabel = dayLabel ? '期限' : '';
+        html += itemHtml(r, dayLabel, deadlineLabel);
+      });
       html += '</ul></section>';
     }
     if (grouped[0] && grouped[0].length) {
@@ -114,7 +123,7 @@ data_page: jimukumiai
       html += '<h2 class="aq-cal-month-h"><span class="aq-cal-anytime-label">随時のご連絡</span><span class="aq-cal-month-count">'+grouped[0].length+'件</span></h2>';
       html += '<p class="aq-cal-anytime-desc">必要が生じたタイミングで、弊社までお声がけください。</p>';
       html += '<ul class="aq-cal-items">';
-      grouped[0].forEach(function (r) { html += itemHtml(r, '随時'); });
+      grouped[0].forEach(function (r) { html += itemHtml(r, '随時', ''); });
       html += '</ul></section>';
     }
     months.innerHTML = html;
