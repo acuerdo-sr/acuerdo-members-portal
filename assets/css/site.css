@@ -3062,6 +3062,16 @@ body.aq-is-news {
 .aq-cal-actions { margin: 4px 0 0; padding-left: 22px; font-size: 12.5px; line-height: 1.7; color: var(--aq-text); }
 .aq-cal-actions li { margin-bottom: 2px; }
 
+.aq-cal-anytime { border-style: dashed; background: #fafafa; }
+.aq-cal-anytime-label {
+  font-size: 17px; font-weight: 800; color: var(--aq-navy);
+  padding: 4px 12px; background: #fff; border: 1px solid var(--aq-border); border-radius: 999px;
+}
+.aq-cal-anytime-desc {
+  margin: 6px 0 12px; font-size: 13.5px; color: var(--aq-text-sub);
+}
+.aq-cal-anytime .aq-cal-day time { font-size: 14px; }
+
 .aq-jim-block { margin-top: 8px; padding: 10px 12px; background: #fff; border: 1px solid var(--aq-border); border-radius: 10px; }
 .aq-jim-block h4 { margin: 0 0 6px; font-size: 12px; color: var(--aq-navy); font-weight: 800; }
 .aq-jim-block ul { margin: 0; padding-left: 18px; font-size: 12.5px; color: var(--aq-text); line-height: 1.7; }

@@ -76,35 +76,45 @@ data_page: jimukumiai
       if (!ms.length) ms = [0];
       ms.forEach(function (m) { (grouped[m] = grouped[m] || []).push(r); });
     });
+    function itemHtml(r, monthLabel) {
+      var docs = (r['ご準備いただくもの'] || r['必要書類'] || '').split(/\n/).filter(function(x){return x.trim();});
+      var docsHtml = docs.length
+        ? '<div class="aq-jim-block"><h4>ご準備いただくもの</h4><ul>' + docs.map(function (a) {
+            return '<li>' + esc(a.replace(/^[・\-•]\s*/, '')) + '</li>';
+          }).join('') + '</ul></div>'
+        : '';
+      var supportText = r['弊社で対応すること'] || r['弊社の支援内容'];
+      var support = supportText
+        ? '<div class="aq-jim-block aq-jim-support"><h4>弊社で対応すること</h4><p>'+esc(supportText)+'</p></div>'
+        : '';
+      return '<li class="aq-cal-item">' +
+        '<div class="aq-cal-day"><time>'+esc(monthLabel)+'</time>' + (r['期限日'] ? '<small>期限 '+esc((r['期限日']||'').replace(/^\d{4}-/, '').replace('-','/'))+'</small>' : '') +'</div>' +
+        '<div class="aq-cal-body">' +
+          '<header class="aq-cal-itemhead">' +
+            '<span class="aq-pill aq-pill-cat">'+esc(r['業務カテゴリ'] || '')+'</span>' +
+            '<span class="aq-pill aq-pill-sev aq-sev-'+severityClass(r['重要度'])+'">'+esc(r['重要度'] || '')+'</span>' +
+          '</header>' +
+          '<h3 class="aq-cal-title">'+esc(r['業務名'])+'</h3>' +
+          (r['概要'] ? '<p class="aq-cal-summary">'+esc(r['概要'])+'</p>' : '') +
+          ((docsHtml || support) ? '<details class="aq-cal-details"><summary>ご準備・対応内容を見る</summary>'+docsHtml+support+'</details>' : '') +
+        '</div>' +
+      '</li>';
+    }
     var html = '';
     for (var m = 1; m <= 12; m++) {
       if (!grouped[m]) continue;
       html += '<section class="aq-cal-month-block">';
       html += '<h2 class="aq-cal-month-h"><span class="aq-cal-month-no">'+m+'</span><span class="aq-cal-month-label">月</span><span class="aq-cal-month-count">'+grouped[m].length+'件</span></h2>';
       html += '<ul class="aq-cal-items">';
-      grouped[m].forEach(function (r) {
-        var docs = (r['必要書類'] || '').split(/\n/).filter(function(x){return x.trim();});
-        var docsHtml = docs.length
-          ? '<div class="aq-jim-block"><h4>必要書類</h4><ul>' + docs.map(function (a) {
-              return '<li>' + esc(a.replace(/^[・\-•]\s*/, '')) + '</li>';
-            }).join('') + '</ul></div>'
-          : '';
-        var support = r['弊社の支援内容']
-          ? '<div class="aq-jim-block aq-jim-support"><h4>弊社の支援内容</h4><p>'+esc(r['弊社の支援内容'])+'</p></div>'
-          : '';
-        html += '<li class="aq-cal-item">' +
-          '<div class="aq-cal-day"><time>'+esc(m)+'月</time>' + (r['期限日'] ? '<small>期限 '+esc((r['期限日']||'').replace(/^\d{4}-/, '').replace('-','/'))+'</small>' : '') +'</div>' +
-          '<div class="aq-cal-body">' +
-            '<header class="aq-cal-itemhead">' +
-              '<span class="aq-pill aq-pill-cat">'+esc(r['業務カテゴリ'] || '')+'</span>' +
-              '<span class="aq-pill aq-pill-sev aq-sev-'+severityClass(r['重要度'])+'">'+esc(r['重要度'] || '')+'</span>' +
-            '</header>' +
-            '<h3 class="aq-cal-title">'+esc(r['業務名'])+'</h3>' +
-            (r['概要'] ? '<p class="aq-cal-summary">'+esc(r['概要'])+'</p>' : '') +
-            ((docsHtml || support) ? '<details class="aq-cal-details"><summary>必要書類・支援内容を見る</summary>'+docsHtml+support+'</details>' : '') +
-          '</div>' +
-        '</li>';
-      });
+      grouped[m].forEach(function (r) { html += itemHtml(r, m + '月'); });
+      html += '</ul></section>';
+    }
+    if (grouped[0] && grouped[0].length) {
+      html += '<section class="aq-cal-month-block aq-cal-anytime">';
+      html += '<h2 class="aq-cal-month-h"><span class="aq-cal-anytime-label">随時のご連絡</span><span class="aq-cal-month-count">'+grouped[0].length+'件</span></h2>';
+      html += '<p class="aq-cal-anytime-desc">必要が生じたタイミングで、弊社までお声がけください。</p>';
+      html += '<ul class="aq-cal-items">';
+      grouped[0].forEach(function (r) { html += itemHtml(r, '随時'); });
       html += '</ul></section>';
     }
     months.innerHTML = html;
