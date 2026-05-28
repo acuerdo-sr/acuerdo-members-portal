@@ -84,7 +84,7 @@ data_page: calendar
     for (var m = 1; m <= 12; m++) {
       if (!grouped[m]) continue;
       var isNow = (m === currentMonth);
-      jumpHtml += '<a href="#aq-cal-m-'+m+'" class="aq-cal-jump-btn'+(isNow ? ' is-now' : '')+'">'+m+'月</a>';
+      jumpHtml += '<button type="button" data-target="aq-cal-m-'+m+'" class="aq-cal-jump-btn'+(isNow ? ' is-now' : '')+'">'+m+'月</button>';
       html += '<section id="aq-cal-m-'+m+'" class="aq-cal-month-block'+(isNow ? ' is-now' : '')+'">';
       html += '<h2 class="aq-cal-month-h"><span class="aq-cal-month-no">'+m+'</span><span class="aq-cal-month-label">月</span>'+(isNow ? '<span class="aq-cal-month-now">今月</span>' : '')+'<span class="aq-cal-month-count">'+grouped[m].length+'件</span></h2>';
       html += '<ul class="aq-cal-items">';
@@ -116,6 +116,11 @@ data_page: calendar
   }
 
   buildTabs();
+  if (jumpEl) jumpEl.addEventListener('click', function (e) {
+    var b = e.target.closest('button[data-target]'); if (!b) return;
+    var el = document.getElementById(b.getAttribute('data-target'));
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
   if (tabsEl) tabsEl.addEventListener('click', function (e) {
     var b = e.target.closest('button[data-cat]'); if (!b) return;
     tabsEl.querySelectorAll('button').forEach(function (x) { x.classList.remove('is-active'); });

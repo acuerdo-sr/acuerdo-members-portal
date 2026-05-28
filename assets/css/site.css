@@ -3023,8 +3023,10 @@ body.aq-is-news {
   border-radius: 8px;
   background: #f1f5f9; color: var(--aq-navy);
   font-size: 13px; font-weight: 700;
+  font-family: inherit;
   text-decoration: none;
   border: 1px solid transparent;
+  cursor: pointer;
   transition: background .15s ease, color .15s ease, border-color .15s ease;
 }
 .aq-cal-jump-btn:hover { background: #e2e8f0; }
