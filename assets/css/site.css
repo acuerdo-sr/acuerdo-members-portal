@@ -3796,6 +3796,13 @@ body.aq-is-news {
 @media (max-width: 700px) { .aq-pc-only { display: none; } }
 
 .aq-subpage-main > * { min-width: 0; }
+
+/* このページだけ中央寄せをやめて左寄せ + 適正な最大幅 */
+body.aq-is-joseikin-bot .aq-subpage-main {
+  max-width: 980px;
+  margin: 0;
+}
+
 .aq-bot-card {
   min-width: 0;
   background: #fff;
