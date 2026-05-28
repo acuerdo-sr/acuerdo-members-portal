@@ -2616,7 +2616,7 @@ body.aq-is-news {
   width: calc(100vw - var(--aq-sidebar-w));
   min-height: 100vh;
   margin-left: var(--aq-sidebar-w);
-  padding: 28px 36px 56px;
+  padding: 28px 12px 56px 12px;
   background: #f3f6fb;
   color: var(--aq-text);
   overflow-x: clip;
@@ -2624,7 +2624,9 @@ body.aq-is-news {
 
 .aq-subpage-main {
   max-width: 1280px;
-  margin: 0;
+  margin: 0 !important;
+  margin-left: 0 !important;
+  margin-right: auto !important;
   display: flex;
   flex-direction: column;
   gap: 22px;
