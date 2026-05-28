@@ -19,6 +19,8 @@ data_page: calendar
 
 <div class="aq-subpage-tabs" id="aq-cal-cat" role="tablist"></div>
 
+<nav class="aq-cal-jump" id="aq-cal-jump" aria-label="月別ジャンプ"></nav>
+
 <div class="aq-cal-months" id="aq-cal-months"></div>
 
 <p class="aq-subpage-note">※ 業務範囲・担当区分はご契約内容により異なります。担当者にご確認ください。</p>
@@ -34,7 +36,9 @@ data_page: calendar
   var months  = document.getElementById('aq-cal-months');
   var input   = document.getElementById('aq-cal-q');
   var tabsEl  = document.getElementById('aq-cal-cat');
+  var jumpEl  = document.getElementById('aq-cal-jump');
   var state   = { cat: 'all', q: '' };
+  var currentMonth = new Date().getMonth() + 1;
 
   function esc(s){return String(s == null ? '' : s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
 
@@ -76,11 +80,13 @@ data_page: calendar
     var grouped = {};
     rows.forEach(function (r) { var m = monthOf(r['実施日']); (grouped[m] = grouped[m] || []).push(r); });
     var html = '';
-    var currentMonth = new Date().getMonth() + 1;
+    var jumpHtml = '';
     for (var m = 1; m <= 12; m++) {
       if (!grouped[m]) continue;
-      html += '<details class="aq-cal-month-block"' + (m === currentMonth ? ' open' : '') + '>';
-      html += '<summary class="aq-cal-month-h"><span class="aq-cal-month-no">'+m+'</span><span class="aq-cal-month-label">月</span><span class="aq-cal-month-count">'+grouped[m].length+'件</span><span class="aq-cal-month-chev" aria-hidden="true">▾</span></summary>';
+      var isNow = (m === currentMonth);
+      jumpHtml += '<a href="#aq-cal-m-'+m+'" class="aq-cal-jump-btn'+(isNow ? ' is-now' : '')+'">'+m+'月</a>';
+      html += '<section id="aq-cal-m-'+m+'" class="aq-cal-month-block'+(isNow ? ' is-now' : '')+'">';
+      html += '<h2 class="aq-cal-month-h"><span class="aq-cal-month-no">'+m+'</span><span class="aq-cal-month-label">月</span>'+(isNow ? '<span class="aq-cal-month-now">今月</span>' : '')+'<span class="aq-cal-month-count">'+grouped[m].length+'件</span></h2>';
       html += '<ul class="aq-cal-items">';
       grouped[m].forEach(function (r) {
         var actions = (r['必要な対応'] || '').split(/\n/).filter(function(x){return x.trim();});
@@ -103,9 +109,10 @@ data_page: calendar
           '</div>' +
         '</li>';
       });
-      html += '</ul></details>';
+      html += '</ul></section>';
     }
     months.innerHTML = html;
+    if (jumpEl) jumpEl.innerHTML = jumpHtml;
   }
 
   buildTabs();

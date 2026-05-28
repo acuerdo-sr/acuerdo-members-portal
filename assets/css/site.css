@@ -2972,36 +2972,65 @@ body.aq-is-news {
    月別カレンダー (calendar / jimukumiai 共通)
    ============================================================ */
 
-.aq-cal-months { display: flex; flex-direction: column; gap: 18px; }
+.aq-cal-months { display: flex; flex-direction: column; gap: 18px; scroll-margin-top: 80px; }
 .aq-cal-month-block {
   background: #fff;
   border: 1px solid var(--aq-border);
   border-radius: 16px;
   padding: 18px 20px;
+  scroll-margin-top: 80px;
 }
-.aq-cal-month-block[open] .aq-cal-month-h { margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid var(--aq-border); }
-.aq-cal-month-block > summary.aq-cal-month-h { list-style: none; cursor: pointer; }
-.aq-cal-month-block > summary.aq-cal-month-h::-webkit-details-marker { display: none; }
+.aq-cal-month-block.is-now {
+  border-color: var(--aq-gold);
+  box-shadow: 0 0 0 1px var(--aq-gold) inset, 0 6px 18px -10px rgba(144,106,59,.35);
+}
 .aq-cal-month-h {
-  margin: 0; padding: 0;
+  margin: 0 0 12px; padding-bottom: 12px;
+  border-bottom: 1px solid var(--aq-border);
   display: flex; align-items: baseline; gap: 6px;
   font-size: 16px; color: var(--aq-text);
 }
-.aq-cal-month-chev {
-  margin-left: 12px;
-  font-size: 14px; color: var(--aq-navy);
-  transition: transform .18s ease;
-}
-.aq-cal-month-block[open] > summary .aq-cal-month-chev { transform: rotate(180deg); }
 .aq-cal-month-no {
   font-size: 28px; font-weight: 900; color: var(--aq-navy);
 }
 .aq-cal-month-label { font-size: 14px; font-weight: 700; color: var(--aq-navy); }
+.aq-cal-month-now {
+  margin-left: 10px;
+  padding: 3px 9px; border-radius: 999px;
+  background: var(--aq-gold); color: #fff;
+  font-size: 11px; font-weight: 800; letter-spacing: .04em;
+}
 .aq-cal-month-count {
   margin-left: auto;
   padding: 3px 10px; border-radius: 999px;
   background: #f1f5f9; color: #475569;
   font-size: 11.5px; font-weight: 700;
+}
+
+/* 月ジャンプバー */
+.aq-cal-jump {
+  display: flex; flex-wrap: wrap; gap: 6px;
+  margin: 4px 0 14px;
+  padding: 10px 12px;
+  background: #fff;
+  border: 1px solid var(--aq-border);
+  border-radius: 12px;
+  position: sticky; top: 64px; z-index: 5;
+}
+.aq-cal-jump-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 44px; padding: 6px 10px;
+  border-radius: 8px;
+  background: #f1f5f9; color: var(--aq-navy);
+  font-size: 13px; font-weight: 700;
+  text-decoration: none;
+  border: 1px solid transparent;
+  transition: background .15s ease, color .15s ease, border-color .15s ease;
+}
+.aq-cal-jump-btn:hover { background: #e2e8f0; }
+.aq-cal-jump-btn.is-now {
+  background: var(--aq-gold); color: #fff;
+  border-color: var(--aq-gold);
 }
 .aq-cal-items { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
 .aq-cal-item {
@@ -3041,6 +3070,8 @@ body.aq-is-news {
 @media (max-width: 560px) {
   .aq-cal-item { grid-template-columns: 1fr; gap: 8px; }
   .aq-cal-day { flex-direction: row; align-items: baseline; gap: 8px; }
+  .aq-cal-jump { top: 56px; padding: 8px 10px; gap: 4px; }
+  .aq-cal-jump-btn { min-width: 38px; padding: 5px 8px; font-size: 12px; }
 }
 
 /* ============================================================
