@@ -119,7 +119,10 @@ data_page: calendar
   if (jumpEl) jumpEl.addEventListener('click', function (e) {
     var b = e.target.closest('button[data-target]'); if (!b) return;
     var el = document.getElementById(b.getAttribute('data-target'));
-    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (!el) return;
+    var jumpH = jumpEl.getBoundingClientRect().height || 0;
+    var y = el.getBoundingClientRect().top + window.pageYOffset - jumpH - 16;
+    window.scrollTo({ top: y, behavior: 'smooth' });
   });
   if (tabsEl) tabsEl.addEventListener('click', function (e) {
     var b = e.target.closest('button[data-cat]'); if (!b) return;
