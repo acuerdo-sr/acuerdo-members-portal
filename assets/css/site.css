@@ -10374,22 +10374,166 @@ body.aq-is-home #aq-hero {
   gap: 18px !important;
   padding: 28px 30px !important;
   border-radius: 18px !important;
+  height: 260px !important;
+  min-height: 260px !important;
 }
 
 body.aq-is-home .aq-hero-title {
-  font-size: 39px !important;
+  font-size: 36px !important;
 }
 
 body.aq-is-home .aq-hero-sub {
-  font-size: 14px !important;
+  font-size: 13.5px !important;
+  line-height: 1.55 !important;
 }
 
 body.aq-is-home .aq-hero-check-card li {
-  min-height: 126px !important;
+  min-height: 104px !important;
+  padding: 10px 8px 8px !important;
+  grid-template-rows: 38px minmax(0, 1fr) 14px !important;
+}
+
+body.aq-is-home .aq-check-icon {
+  width: 36px !important;
+  height: 36px !important;
+}
+
+body.aq-is-home .aq-check-icon svg {
+  width: 20px !important;
+  height: 20px !important;
 }
 
 body.aq-is-home .aq-portal-body {
-  padding: 12px 8px 0 !important;
+  padding: 10px 8px 0 !important;
+  gap: 9px !important;
+}
+
+body.aq-is-home .aq-home-grid,
+body.aq-is-home .aq-home-grid-top {
+  gap: 16px !important;
+}
+
+body.aq-is-home .aq-panel-head {
+  min-height: 24px !important;
+  margin-bottom: 5px !important;
+}
+
+body.aq-is-home .aq-panel-head h2 {
+  font-size: 20px !important;
+}
+
+body.aq-is-home .aq-purpose-grid {
+  gap: 8px !important;
+}
+
+body.aq-is-home .aq-purpose-card {
+  min-height: 104px !important;
+  padding: 10px 9px !important;
+  gap: 5px !important;
+}
+
+body.aq-is-home .aq-purpose-icon {
+  width: 38px !important;
+  height: 38px !important;
+}
+
+body.aq-is-home .aq-purpose-icon::before {
+  font-size: 32px !important;
+}
+
+body.aq-is-home .aq-purpose-text strong {
+  font-size: 13.5px !important;
+}
+
+body.aq-is-home .aq-purpose-text small {
+  font-size: 10.5px !important;
+  line-height: 1.25 !important;
+}
+
+body.aq-is-home .aq-news-list li {
+  min-height: 30px !important;
+  padding: 3px 10px !important;
+}
+
+body.aq-is-home .aq-news-list a {
+  font-size: 12px !important;
+}
+
+body.aq-is-home .aq-content-grid {
+  gap: 6px !important;
+}
+
+body.aq-is-home .aq-content-card {
+  min-height: 82px !important;
+  padding: 8px 6px !important;
+  gap: 4px !important;
+}
+
+body.aq-is-home .aq-content-icon {
+  width: 32px !important;
+  height: 32px !important;
+}
+
+body.aq-is-home .aq-content-card strong {
+  font-size: 11.3px !important;
+  line-height: 1.25 !important;
+}
+
+body.aq-is-home .aq-content-card small {
+  font-size: 9.5px !important;
+  line-height: 1.2 !important;
+}
+
+body.aq-is-home .aq-recommend-card {
+  height: 124px !important;
+  min-height: 124px !important;
+  padding: 9px 10px 20px !important;
+}
+
+body.aq-is-home .aq-recommend-card strong {
+  font-size: 12.2px !important;
+  line-height: 1.25 !important;
+}
+
+body.aq-is-home .aq-recommend-card p {
+  font-size: 10.2px !important;
+  line-height: 1.22 !important;
+}
+
+body.aq-is-home .aq-flow-step {
+  min-height: 86px !important;
+  padding: 8px 8px !important;
+}
+
+body.aq-is-home .aq-flow-body svg {
+  width: 26px !important;
+  height: 26px !important;
+}
+
+body.aq-is-home .aq-flow-body strong {
+  font-size: 12.5px !important;
+}
+
+body.aq-is-home .aq-flow-body p {
+  font-size: 10px !important;
+  line-height: 1.2 !important;
+}
+
+body.aq-is-home .aq-faq-q {
+  min-height: 25px !important;
+  padding: 3px 9px !important;
+  font-size: 11.2px !important;
+  line-height: 1.2 !important;
+}
+
+body.aq-is-home .aq-home-contact {
+  padding: 12px 16px !important;
+}
+
+body.aq-is-home .aq-trouble-card,
+body.aq-is-home .aq-trouble-grid::after {
+  height: 64px !important;
+  min-height: 64px !important;
 }
 
 @media (max-width: 1500px) {
@@ -10899,4 +11043,151 @@ body.aq-is-josei .aq-josei-step-desc {
   font-size: 12px !important;
   color: #64748b !important;
   line-height: 1.5 !important;
+}
+
+/* ============================================================
+   全ページ共通サイドバー: 助成金ページスタイルに統一
+   ============================================================ */
+
+/* サイドバー本体: 浮いた角丸パネル */
+body:not(.aq-is-home) #aq-sidebar {
+  inset: 36px auto 36px 36px !important;
+  width: var(--aq-sidebar-box-w) !important;
+  height: auto !important;
+  display: flex !important;
+  border: 1px solid #d9e0ea !important;
+  border-radius: 28px !important;
+  background: #fff !important;
+  box-shadow: 0 8px 28px rgba(10,25,52,.06) !important;
+  overflow: hidden !important;
+}
+
+body:not(.aq-is-home) .aq-sidebar-inner {
+  gap: 28px !important;
+  padding: 36px 26px 28px !important;
+}
+
+/* ロゴ */
+body:not(.aq-is-home) .aq-logo {
+  grid-template-columns: 62px minmax(0, 1fr) !important;
+  gap: 16px !important;
+  padding: 0 0 18px !important;
+  border-bottom: 0 !important;
+}
+
+body:not(.aq-is-home) .aq-logo-badge {
+  width: 62px !important;
+  height: 62px !important;
+}
+
+body:not(.aq-is-home) .aq-logo-name {
+  color: #0d1930 !important;
+  font-size: 24px !important;
+  font-weight: 900 !important;
+  line-height: 1.12 !important;
+}
+
+body:not(.aq-is-home) .aq-logo-sub {
+  color: #6d7a8f !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+}
+
+/* ナビゲーション */
+body:not(.aq-is-home) .aq-nav {
+  gap: 10px !important;
+}
+
+body:not(.aq-is-home) .aq-nav-item {
+  min-height: 48px !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  gap: 14px !important;
+  padding: 10px 14px !important;
+  border: 0 !important;
+  border-bottom: 1px solid #dfe6f0 !important;
+  border-radius: 0 !important;
+  color: #182844 !important;
+  background: transparent !important;
+  justify-content: flex-start !important;
+}
+
+body:not(.aq-is-home) .aq-nav-item.is-active,
+body:not(.aq-is-home) .aq-nav-item:hover {
+  border-bottom-color: transparent !important;
+  border-radius: 6px !important;
+  background: #07142d !important;
+  color: #fff !important;
+}
+
+body:not(.aq-is-home) .aq-nav-icon {
+  width: 22px !important;
+  height: 22px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  color: inherit !important;
+  background: transparent !important;
+}
+
+body:not(.aq-is-home) .aq-nav-icon svg {
+  width: 20px !important;
+  height: 20px !important;
+  color: inherit !important;
+  stroke: currentColor !important;
+}
+
+body:not(.aq-is-home) .aq-nav-ja {
+  font-size: 15px !important;
+  font-weight: 900 !important;
+  color: inherit !important;
+  white-space: nowrap !important;
+}
+
+/* サイドバー下部ノート */
+body:not(.aq-is-home) .aq-sidebar-note {
+  margin-top: auto !important;
+  padding: 16px 14px !important;
+  border: 0 !important;
+  border-radius: 8px !important;
+  background: #f0f4f8 !important;
+  color: #5f6d83 !important;
+  font-size: 11px !important;
+  line-height: 1.8 !important;
+  flex-direction: column !important;
+  gap: 4px !important;
+}
+
+body:not(.aq-is-home) .aq-sidebar-note-icon {
+  color: #3466b3 !important;
+}
+
+body:not(.aq-is-home) .aq-sidebar-note strong {
+  margin-bottom: 4px !important;
+  color: #13213a !important;
+  font-size: 13px !important;
+  font-weight: 900 !important;
+}
+
+/* メインコンテンツ: サイドバー分のマージン */
+body:not(.aq-is-home) #aq-portal {
+  width: calc(100vw - var(--aq-sidebar-w)) !important;
+  margin-left: 0 !important;
+  min-height: 100vh !important;
+}
+
+/* レスポンシブ */
+@media (max-width: 820px) {
+  body:not(.aq-is-home) #aq-sidebar {
+    inset: 0 auto 0 0 !important;
+    width: min(88vw, 320px) !important;
+    height: 100vh !important;
+    border-radius: 0 28px 28px 0 !important;
+    transform: translateX(-100%) !important;
+    z-index: 1150 !important;
+  }
+
+  body:not(.aq-is-home) #aq-sidebar.is-open {
+    transform: translateX(0) !important;
+  }
 }
