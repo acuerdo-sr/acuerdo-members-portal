@@ -247,7 +247,7 @@ data_page: forms
   function rowCard(row, options) {
     options = options || {};
     var url = primaryUrl(row);
-    var count = options.count ? '<span class="aq-forms-count-text"><small>今月のダウンロード数</small><strong>'+esc(options.count)+'件</strong></span>' : '';
+    var count = '';
     var date = options.date ? '<time>'+esc(options.date)+'</time>' : '';
     var badge = options.badge ? '<span class="aq-forms-new-badge">'+esc(options.badge)+'</span>' : '';
     var rank = options.rank ? '<span class="aq-forms-rank">'+esc(options.rank)+'</span>' : '';
