@@ -14227,6 +14227,27 @@ body.aq-is-lawrev .aq-lr-cta-btn-bot svg {
   height: 19px;
 }
 
+body.aq-is-lawrev .aq-lr-source-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  margin-top: 18px;
+  padding: 0 18px;
+  border: 1px solid #c9d8ea;
+  border-radius: 8px;
+  background: #f7fbff;
+  color: #164d9d !important;
+  font-size: 13px;
+  font-weight: 900;
+  text-decoration: none !important;
+}
+
+body.aq-is-lawrev .aq-lr-source-link::after {
+  content: "↗";
+  margin-left: 8px;
+}
+
 @media (max-width: 1320px) {
   body.aq-is-lawrev .aq-lr-head,
   body.aq-is-lawrev .aq-lr-mid-grid,

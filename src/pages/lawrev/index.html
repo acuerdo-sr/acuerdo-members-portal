@@ -33,7 +33,7 @@ data_page: lawrev
 <!-- 注目の法改正 -->
 <section class="aq-lr-section">
   <div class="aq-lr-section-head">
-    <h2>注目の法改正 <span id="aq-lr-featured-label">（2025年対応が必要なもの）</span></h2>
+    <h2>注目の法改正 <span id="aq-lr-featured-label">（令和8年度対応が必要なもの）</span></h2>
     <button class="aq-lr-see-all" id="aq-lr-featured-more" type="button">すべて見る ›</button>
   </div>
   <div class="aq-lr-featured-grid" id="aq-lr-featured"></div>
@@ -170,7 +170,7 @@ data_page: lawrev
 
   /* ---- 注目の法改正（必読優先で4件） ---- */
   function renderFeatured() {
-    var featuredNames = ['育児・介護休業法の改正', '改正労働安全衛生法（化学物質規制）', '最低賃金の引上げ（2025年度）', '労働条件明示ルールの変更'];
+    var featuredNames = ['雇用保険料率の引き下げ（雇用保険法）', '在職老齢年金 支給停止基準額の引き上げ（厚生年金保険法）', '障害者法定雇用率 2.5% → 2.7% 引き上げ', 'カスタマーハラスメント対策の義務化'];
     var items = featuredNames.map(function (name) {
       return data.find(function (d) { return d['改正名'] === name; });
     }).filter(Boolean);
@@ -264,8 +264,8 @@ data_page: lawrev
 
   /* ---- ポイント解説 ---- */
   function renderPoints() {
-    var featured = data.find(function (d) { return d['改正名'] === '育児・介護休業法の改正'; }) || allRows[0];
-    var rest = ['高年齢者雇用安定法の改正', '改正労働安全衛生法（化学物質規制）', '最低賃金の引上げ（2025年度）', '労働条件明示ルールの変更'].map(function (name) {
+    var featured = data.find(function (d) { return d['改正名'] === '雇用保険料率の引き下げ（雇用保険法）'; }) || allRows[0];
+    var rest = ['在職老齢年金 支給停止基準額の引き上げ（厚生年金保険法）', '障害者法定雇用率 2.5% → 2.7% 引き上げ', 'カスタマーハラスメント対策の義務化', '短時間労働者への社会保険適用拡大（段階的実施）'].map(function (name) {
       return data.find(function (d) { return d['改正名'] === name; });
     }).filter(Boolean);
     var i = imp(featured);
@@ -311,7 +311,8 @@ data_page: lawrev
       '<div class="aq-lr-modal-summary">' + esc(d['概要'] || '') + '</div>' +
       (actions.length ? '<div class="aq-lr-modal-actions"><h4>必要な対応</h4><ul>' +
         actions.map(function (a) { return '<li>' + esc(a.replace(/^[・\-]\s*/, '')) + '</li>'; }).join('') +
-        '</ul></div>' : '');
+        '</ul></div>' : '') +
+      (d['参照URL'] ? '<a class="aq-lr-source-link" href="' + esc(d['参照URL']) + '" target="_blank" rel="noopener">元記事を見る</a>' : '');
     overlay.hidden = false;
     document.body.style.overflow = 'hidden';
   }
