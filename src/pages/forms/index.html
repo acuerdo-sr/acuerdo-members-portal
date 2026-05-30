@@ -290,13 +290,15 @@ data_page: forms
       '<div class="aq-forms-row-body">' +
         '<div class="aq-forms-row-line1">' +
           '<h3>'+esc(row.name)+'</h3>' +
-          '<div class="aq-forms-row-actions">'+count+date+preview+download+'</div>' +
+          count+date +
         '</div>' +
         '<div class="aq-forms-row-line2">' +
           (row.desc || row.use ? '<p>'+esc(row.desc || row.use || '')+'</p>' : '') +
           '<div class="aq-forms-tags">'+tags(row)+'</div>' +
         '</div>' +
       '</div>' +
+      preview +
+      download +
     '</article>';
   }
 
