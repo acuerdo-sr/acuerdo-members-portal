@@ -83,12 +83,6 @@ data_page: joseikin-list
       <option value="small">中小企業・小規模事業者</option>
       <option value="all">規模問わず</option>
     </select>
-    <select id="aq-jl2-status" aria-label="現在の状況で絞り込む">
-      <option value="">すべての状況</option>
-      <option value="open">受付中</option>
-      <option value="soon">受付予定</option>
-      <option value="anytime">随時</option>
-    </select>
   </div>
   <div class="aq-jl2-filter-actions">
     <button class="aq-jl2-search-btn" id="aq-jl2-search" type="button">
@@ -103,11 +97,6 @@ data_page: joseikin-list
 <section class="aq-jl2-table-section">
   <div class="aq-jl2-table-head">
     <h2>助成金一覧 <span id="aq-jl2-count">(26件)</span></h2>
-    <div class="aq-jl2-status-legend">
-      <span class="leg open">●：受付中</span>
-      <span class="leg soon">○：受付予定</span>
-      <span class="leg anytime">―：未定／随時</span>
-    </div>
   </div>
   <div class="aq-jl2-table-wrap">
     <table class="aq-jl2-table">
@@ -118,7 +107,6 @@ data_page: joseikin-list
           <th>対象者・対象事業主</th>
           <th>助成上限額</th>
           <th>助成率</th>
-          <th>現在の状況</th>
           <th>主な申請期限</th>
           <th>詳細</th>
         </tr>
@@ -302,12 +290,11 @@ data_page: joseikin-list
     var tbody = document.getElementById('aq-jl2-rows');
     tbody.innerHTML = shown.map(function (r) {
       return '<tr class="aq-jl2-row" data-id="' + esc(r.id) + '">' +
-        '<td class="aq-jl2-name"><div>' + statusBadge(r.status) + '<span>' + esc(r.n) + '</span></div></td>' +
+        '<td class="aq-jl2-name"><span>' + esc(r.n) + '</span></td>' +
         '<td class="aq-jl2-purpose">' + esc(r.cat_label) + '</td>' +
         '<td class="aq-jl2-target">' + esc(r.target) + '</td>' +
         '<td class="aq-jl2-amount">' + esc(r.m) + '</td>' +
         '<td class="aq-jl2-rate">' + esc(r.rate) + '</td>' +
-        '<td class="aq-jl2-status">' + statusBadge(r.status) + '</td>' +
         '<td class="aq-jl2-deadline">' + esc(r.deadline) + '</td>' +
         '<td class="aq-jl2-detail-cell"><button class="aq-jl2-detail-btn" type="button" data-id="' + esc(r.id) + '">詳細を見る ›</button></td>' +
       '</tr>';
@@ -330,7 +317,6 @@ data_page: joseikin-list
     document.getElementById('aq-jl2-modal-title').textContent = r.n;
     document.getElementById('aq-jl2-modal-body').innerHTML =
       '<div class="aq-jl2-modal-meta">' +
-        statusBadge(r.status) +
         '<span class="aq-jl2-modal-cat">' + esc(r.cat_label) + '</span>' +
         '<span class="aq-jl2-modal-amount">' + esc(r.m) + '</span>' +
       '</div>' +
