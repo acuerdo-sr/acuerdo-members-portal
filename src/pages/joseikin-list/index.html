@@ -4,161 +4,408 @@ body_class: aq-is-josei
 data_page: joseikin-list
 #}
 
-<div id="aq-josei-wrap"><main class="aq-josei-main">
+<div id="aq-josei-wrap" class="aq-subpage-wrap aq-jl2-wrap">
+<main class="aq-subpage-main aq-jl2-main">
 
-<header class="aq-josei-hero">
-  <div class="aq-josei-hero-text">
-    <p class="aq-hero-kicker">2026年度（令和8年度）最新版</p>
+<!-- ヒーロー -->
+<header class="aq-jl2-hero">
+  <div class="aq-jl2-hero-body">
+    <p class="aq-jl2-kicker">2026年度（令和8年度）最新版</p>
     <h1>助成金早見表</h1>
-    <p>厚生労働省の主要な助成金26件を、目的別に確認できます。</p>
+    <p>採用、育成、働き方改革、設備投資などに活用できる主な助成金を一覧でご確認いただけます。<br>助成金の活用を検討される際は、必ず事前にご相談ください。制度内容は変更される場合があります。</p>
+  </div>
+  <div class="aq-jl2-hero-illust" aria-hidden="true">
+    <svg viewBox="0 0 220 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="30" y="20" width="120" height="155" rx="10" fill="#e8f0fe" stroke="#4285f4" stroke-width="2"/>
+      <rect x="44" y="38" width="88" height="12" rx="3" fill="#4285f4" opacity=".3"/>
+      <rect x="44" y="58" width="70" height="8" rx="3" fill="#9ab4e8" opacity=".7"/>
+      <rect x="44" y="74" width="80" height="8" rx="3" fill="#9ab4e8" opacity=".5"/>
+      <rect x="44" y="90" width="60" height="8" rx="3" fill="#9ab4e8" opacity=".4"/>
+      <circle cx="56" cy="114" r="10" fill="#4285f4" opacity=".9"/>
+      <path d="M51 114l4 4 8-8" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="56" cy="138" r="10" fill="#34a853" opacity=".9"/>
+      <path d="M51 138l4 4 8-8" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="56" cy="162" r="10" fill="#4285f4" opacity=".6"/>
+      <path d="M51 162l4 4 8-8" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="165" cy="90" r="42" fill="#ffd700" opacity=".85"/>
+      <text x="155" y="102" fill="#c8960c" font-size="28" font-weight="900">¥</text>
+      <circle cx="180" cy="130" r="22" fill="#ffd700" opacity=".6"/>
+      <circle cx="148" cy="125" r="16" fill="#ffd700" opacity=".5"/>
+    </svg>
   </div>
 </header>
 
-<section class="aq-jl-navi-section">
-  <h2 class="aq-jl-section-h">どんなとき?<span class="aq-jl-section-en">PURPOSE</span></h2>
-  <div class="aq-jl-navi-grid" id="aq-jl-navi"></div>
-</section>
-
-<section class="aq-jl-list-section">
-  <h2 class="aq-jl-section-h">早見表から助成金を探す<span class="aq-jl-section-en">QUICK REFERENCE</span></h2>
-  <p class="aq-jl-section-sub">気になる助成金の行をタップすると、要件・支給額・申請の流れなどの詳細が開きます。タブで目的別に絞り込めます。</p>
-
-  <div class="aq-josei-tabs" id="aq-josei-tabs" role="tablist"></div>
-
-  <div class="aq-jl-table" id="aq-jl-table">
-    <div class="aq-jl-table-head">
-      <div class="aq-jl-col-cat">カテゴリ</div>
-      <div class="aq-jl-col-when">どんなとき?</div>
-      <div class="aq-jl-col-name">助成金</div>
-      <div class="aq-jl-col-amount">金額目安</div>
-      <div class="aq-jl-col-toggle" aria-hidden="true"></div>
+<!-- 特徴カード -->
+<div class="aq-jl2-feats">
+  <div class="aq-jl2-feat">
+    <div class="aq-jl2-feat-icon blue">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v2H4zM4 10h16v2H4zM4 16h10v2H4z"/><circle cx="19" cy="17" r="3"/><path d="M19 15v2h2"/></svg>
     </div>
-    <div class="aq-jl-rows" id="aq-jl-rows"></div>
-    <p class="aq-josei-empty" id="aq-josei-empty" hidden>該当する制度が見つかりませんでした。</p>
+    <div><strong>最新情報を随時更新</strong><small>公募開始や締切情報を定期的に更新しています</small></div>
   </div>
+  <div class="aq-jl2-feat">
+    <div class="aq-jl2-feat-icon green">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M7 8h10M7 12h10M7 16h6"/></svg>
+    </div>
+    <div><strong>条件・金額を一覧比較</strong><small>目的や対象で絞り込み、比較検討できます</small></div>
+  </div>
+  <div class="aq-jl2-feat">
+    <div class="aq-jl2-feat-icon orange">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77 5.82 21.02 7 14.14 2 9.27l6.91-1.01z"/></svg>
+    </div>
+    <div><strong>活用のポイントも掲載</strong><small>受給までの流れや注意点を確認できます</small></div>
+  </div>
+  <div class="aq-jl2-feat">
+    <div class="aq-jl2-feat-icon purple">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+    </div>
+    <div><strong>専門家にすぐ相談</strong><small>制度に迷ったら担当者へお気軽にご相談ください</small></div>
+  </div>
+</div>
 
-  <div class="aq-josei-info">
-    <span class="aq-josei-info-icon">i</span>各助成金には予算があり、支給額が予算に達した場合は予告なく受付終了になることがあります。早めの準備・申請がお勧めです。
+<!-- 検索・フィルター -->
+<div class="aq-jl2-filter-card">
+  <div class="aq-jl2-filters">
+    <div class="aq-jl2-kw-wrap">
+      <input type="search" id="aq-jl2-q" placeholder="例：採用、正社員化、設備投資" aria-label="キーワードで検索">
+    </div>
+    <select id="aq-jl2-cat" aria-label="目的で絞り込む">
+      <option value="">すべての目的</option>
+      <option value="hire">採用・定着</option>
+      <option value="edu">人材育成・教育</option>
+      <option value="care">育児・介護支援</option>
+      <option value="wage">処遇改善・賃上げ</option>
+      <option value="env">働き方改革・職場環境</option>
+      <option value="prod">設備投資・生産性向上</option>
+    </select>
+    <select id="aq-jl2-target" aria-label="対象者で絞り込む">
+      <option value="">すべての対象</option>
+      <option value="small">中小企業・小規模事業者</option>
+      <option value="all">規模問わず</option>
+    </select>
+    <select id="aq-jl2-status" aria-label="現在の状況で絞り込む">
+      <option value="">すべての状況</option>
+      <option value="open">受付中</option>
+      <option value="soon">受付予定</option>
+      <option value="anytime">随時</option>
+    </select>
+  </div>
+  <div class="aq-jl2-filter-actions">
+    <button class="aq-jl2-search-btn" id="aq-jl2-search" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      検索する
+    </button>
+    <button class="aq-jl2-clear-btn" id="aq-jl2-clear" type="button">条件をクリア</button>
+  </div>
+</div>
+
+<!-- テーブル -->
+<section class="aq-jl2-table-section">
+  <div class="aq-jl2-table-head">
+    <h2>助成金一覧 <span id="aq-jl2-count">(26件)</span></h2>
+    <div class="aq-jl2-status-legend">
+      <span class="leg open">●：受付中</span>
+      <span class="leg soon">○：受付予定</span>
+      <span class="leg anytime">―：未定／随時</span>
+    </div>
+  </div>
+  <div class="aq-jl2-table-wrap">
+    <table class="aq-jl2-table">
+      <thead>
+        <tr>
+          <th>助成金名</th>
+          <th>目的</th>
+          <th>対象者・対象事業主</th>
+          <th>助成上限額</th>
+          <th>助成率</th>
+          <th>現在の状況</th>
+          <th>主な申請期限</th>
+          <th>詳細</th>
+        </tr>
+      </thead>
+      <tbody id="aq-jl2-rows"></tbody>
+    </table>
+  </div>
+  <div class="aq-jl2-more-wrap" id="aq-jl2-more-wrap" hidden>
+    <button class="aq-jl2-more-btn" id="aq-jl2-more" type="button">すべての助成金を見る</button>
   </div>
 </section>
 
-<h2 class="aq-josei-flow-h">詳細を見る流れ</h2>
-<ol class="aq-josei-flow">
-  <li><span class="aq-josei-step-no">1</span><span class="aq-josei-step-icon">📋</span><span class="aq-josei-step-title">早見表</span><span class="aq-josei-step-desc">気になる助成金を選択</span></li>
-  <li><span class="aq-josei-step-no">2</span><span class="aq-josei-step-icon">📄</span><span class="aq-josei-step-title">詳細を確認</span><span class="aq-josei-step-desc">要件や金額・申請方法を確認</span></li>
-  <li><span class="aq-josei-step-no">3</span><span class="aq-josei-step-icon">🤖</span><span class="aq-josei-step-title">AIボット相談</span><span class="aq-josei-step-desc">疑問点をその場で解決</span></li>
-  <li><span class="aq-josei-step-no">4</span><span class="aq-josei-step-icon">👤</span><span class="aq-josei-step-title">担当者へ相談</span><span class="aq-josei-step-desc">個別のご相談・サポート</span></li>
-</ol>
+<!-- 活用のポイント + 目的から探す -->
+<div class="aq-jl2-bottom-grid">
+  <section class="aq-jl2-tips">
+    <h2>助成金活用のポイント</h2>
+    <ul class="aq-jl2-tips-list">
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="m5 13 4 4L19 7"/></svg>助成金は「実施前の計画・申請」が必要です</li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="m5 13 4 4L19 7"/></svg>要件や書類は制度ごとに異なります</li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="m5 13 4 4L19 7"/></svg>提出期限に余裕をもって準備ください</li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="m5 13 4 4L19 7"/></svg>制度内容や金額は変更される場合があります</li>
+    </ul>
+    <a href="contact/" class="aq-jl2-tips-btn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      助成金のご相談はこちら
+    </a>
+  </section>
 
-</main></div>
+  <section class="aq-jl2-purpose">
+    <h2>助成金を目的から探す</h2>
+    <div class="aq-jl2-purpose-grid" id="aq-jl2-purpose-grid">
+      <button type="button" data-cat="hire">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        <span>採用・定着</span>
+      </button>
+      <button type="button" data-cat="hire" data-sub="seishainka">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77 5.82 21.02 7 14.14 2 9.27l6.91-1.01z"/></svg>
+        <span>正社員化・<br>待遇改善</span>
+      </button>
+      <button type="button" data-cat="edu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        <span>人材育成・<br>教育訓練</span>
+      </button>
+      <button type="button" data-cat="care">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        <span>育児・介護支援</span>
+      </button>
+      <button type="button" data-cat="env">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+        <span>働き方改革</span>
+      </button>
+      <button type="button" data-cat="prod">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+        <span>設備投資・<br>生産性向上</span>
+      </button>
+      <button type="button" data-cat="hire" data-sub="startup">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg>
+        <span>創業・新規事業</span>
+      </button>
+      <button type="button" data-cat="wage">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 3H8a4 4 0 0 0-4 4v10a4 4 0 0 0 4 4h8a4 4 0 0 0 4-4V7a4 4 0 0 0-4-4z"/><path d="M12 8v8M8 12h8"/></svg>
+        <span>経営承継・連携</span>
+      </button>
+    </div>
+    <button class="aq-jl2-purpose-all" id="aq-jl2-purpose-all" type="button">すべての目的を見る</button>
+  </section>
+</div>
+
+<!-- CTAバー -->
+<div class="aq-jl2-cta-bar">
+  <div class="aq-jl2-cta-text">
+    <strong>助成金のご相談はお気軽にご連絡ください</strong>
+    <small>制度の適合から申請、受給までしっかりサポートします。</small>
+  </div>
+  <a href="tel:0120XXXXXXX" class="aq-jl2-cta-phone">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2A19.79 19.79 0 0 1 4.9 11.73 19.79 19.79 0 0 1 1.87 3.1 2 2 0 0 1 3.85 1h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+    <div><strong>電話で相談する</strong><small>平日 9:00〜18:00</small></div>
+  </a>
+  <a href="contact/" class="aq-jl2-cta-form">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+    <div><strong>お問い合わせフォーム</strong><small>24時間受付</small></div>
+  </a>
+</div>
+
+<!-- 詳細モーダル -->
+<div id="aq-jl2-modal-overlay" class="aq-jl2-modal-overlay" hidden>
+  <div class="aq-jl2-modal" role="dialog" aria-labelledby="aq-jl2-modal-title">
+    <div class="aq-jl2-modal-head">
+      <h2 id="aq-jl2-modal-title"></h2>
+      <button id="aq-jl2-modal-close" type="button" aria-label="閉じる">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div id="aq-jl2-modal-body" class="aq-jl2-modal-body"></div>
+  </div>
+</div>
+
+<p class="aq-jl2-footnote">助成金の情報は随時更新しておりますが、最新かつ正確な情報は各公的機関のホームページ等でご確認ください。</p>
+
+</main>
+</div>
 
 <script id="aq-josei-data" type="application/json">__JOSEI_DATA__</script>
 <script>
 (function () {
-  var data;
-  try { data = JSON.parse(document.getElementById('aq-josei-data').textContent) || []; }
-  catch (e) { data = []; }
+  var raw;
+  try { raw = JSON.parse(document.getElementById('aq-josei-data').textContent) || []; }
+  catch (e) { raw = []; }
 
-  var CAT_DEFS = [
-    { key:'hire', label:'社員採用',         icon:'👥', desc:'正社員化・採用' },
-    { key:'edu',  label:'従業員教育',       icon:'📖', desc:'OFF-JT・DX人材育成' },
-    { key:'care', label:'育児・介護',       icon:'🤱', desc:'男性育休・両立支援' },
-    { key:'wage', label:'有期処遇改善',     icon:'💴', desc:'同一労働同一賃金' },
-    { key:'env',  label:'職場環境改善',     icon:'🏢', desc:'人事制度・テレワーク' },
-    { key:'prod', label:'設備・生産性',     icon:'🏭', desc:'労時短・最低賃金引上' }
-  ];
+  /* カテゴリ別メタ情報 */
+  var CAT_META = {
+    hire: { label: '採用・定着',       rate: '定額',      status: 'open',    deadline: '随時' },
+    edu:  { label: '人材育成・教育',   rate: '経費助成',  status: 'open',    deadline: '随時（計画届後）' },
+    care: { label: '育児・介護支援',   rate: '定額',      status: 'open',    deadline: '随時' },
+    wage: { label: '処遇改善・賃上げ', rate: '定額',      status: 'open',    deadline: '随時' },
+    env:  { label: '働き方改革',       rate: '定額',      status: 'open',    deadline: '随時' },
+    prod: { label: '設備投資・生産性', rate: '定額',      status: 'open',    deadline: '随時' }
+  };
 
-  var rows    = document.getElementById('aq-jl-rows');
-  var empty   = document.getElementById('aq-josei-empty');
-  var tabs    = document.getElementById('aq-josei-tabs');
-  var navi    = document.getElementById('aq-jl-navi');
-  var state   = { cat: 'all' };
+  /* 対象事業主の簡易マッピング */
+  var TARGET_MAP = {
+    hire: '雇用保険適用の事業主',
+    edu:  '雇用保険適用の事業主',
+    care: '中小企業事業主',
+    wage: '雇用保険適用の事業主',
+    env:  '中小企業・小規模事業者',
+    prod: '中小企業・小規模事業者'
+  };
 
-  function esc(s){return String(s == null ? '' : s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
-
-  function counts() {
-    var c = { all: data.length };
-    CAT_DEFS.forEach(function (cd) { c[cd.key] = data.filter(function (r) { return r.c === cd.key; }).length; });
-    return c;
-  }
-
-  function buildTabs() {
-    var ct = counts();
-    var html = '<button class="is-active" data-cat="all" type="button">すべて<span class="aq-jl-count">'+ct.all+'</span></button>';
-    CAT_DEFS.forEach(function (cd) {
-      html += '<button data-cat="'+cd.key+'" type="button">'+esc(cd.label)+'<span class="aq-jl-count">'+(ct[cd.key]||0)+'</span></button>';
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
     });
-    tabs.innerHTML = html;
   }
 
-  function buildNavi() {
-    var ct = counts();
-    var html = '';
-    CAT_DEFS.forEach(function (cd, i) {
-      html += '<button class="aq-jl-navi-card" data-cat="'+cd.key+'" type="button">' +
-        '<span class="aq-jl-navi-no">'+String(i+1).padStart(2,'0')+'</span>' +
-        '<span class="aq-jl-navi-icon">'+cd.icon+'</span>' +
-        '<span class="aq-jl-navi-title">'+esc(cd.label)+'</span>' +
-        '<span class="aq-jl-navi-meta">'+(ct[cd.key]||0)+'コース ／ '+esc(cd.desc)+'</span>' +
-        '<span class="aq-jl-navi-arrow">この目的の助成金 →</span>' +
-      '</button>';
+  function statusBadge(st) {
+    if (st === 'open')    return '<span class="aq-jl2-st open">受付中</span>';
+    if (st === 'soon')    return '<span class="aq-jl2-st soon">受付予定</span>';
+    return '<span class="aq-jl2-st anytime">随時</span>';
+  }
+
+  var rows = raw.map(function (r) {
+    var meta = CAT_META[r.c] || {};
+    return {
+      id: r.i, c: r.c, w: r.w, n: r.n, m: r.m,
+      cat_label: r.cat_label || meta.label || '',
+      target: TARGET_MAP[r.c] || '雇用保険適用の事業主',
+      rate: meta.rate || '定額',
+      status: meta.status || 'open',
+      deadline: meta.deadline || '随時',
+      detail_html: r.detail_html || ''
+    };
+  });
+
+  var state = { q: '', cat: '', target: '', status: '', showAll: false };
+  var PAGE_SIZE = 8;
+
+  function filtered() {
+    return rows.filter(function (r) {
+      if (state.cat && r.c !== state.cat) return false;
+      if (state.status) {
+        var st = state.status;
+        if (st === 'open' && r.status !== 'open') return false;
+        if (st === 'soon' && r.status !== 'soon') return false;
+        if (st === 'anytime' && r.status !== 'anytime') return false;
+      }
+      if (state.q) {
+        var q = state.q.toLowerCase();
+        if ((r.n + ' ' + r.w + ' ' + r.cat_label).toLowerCase().indexOf(q) === -1) return false;
+      }
+      return true;
     });
-    navi.innerHTML = html;
-  }
-
-  function matchFilter(r) {
-    if (state.cat !== 'all' && r.c !== state.cat) return false;
-    return true;
   }
 
   function render() {
-    if (!rows) return;
-    var rs = data.filter(matchFilter);
-    if (rs.length === 0) {
-      rows.innerHTML = '';
-      if (empty) empty.hidden = false;
-      return;
-    }
-    if (empty) empty.hidden = true;
-    rows.innerHTML = rs.map(function (r) {
-      var catLabel = r.cat_label || '';
-      return '<details class="aq-jl-item" data-cat="'+esc(r.c)+'" data-id="'+esc(r.i)+'">' +
-        '<summary class="aq-jl-row">' +
-          '<span class="aq-jl-col-cat"><span class="aq-jl-badge cat-'+esc(r.c)+'">'+esc(catLabel)+'</span></span>' +
-          '<span class="aq-jl-col-when">'+esc(r.w)+'</span>' +
-          '<span class="aq-jl-col-name">'+esc(r.n)+'</span>' +
-          '<span class="aq-jl-col-amount">'+esc(r.m)+'</span>' +
-          '<span class="aq-jl-col-toggle"><span class="aq-jl-chevron">▼</span></span>' +
-        '</summary>' +
-        '<div class="aq-jl-detail"><div class="aq-jl-detail-inner">' + (r.detail_html || '<p>詳細情報はまだ準備中です。</p>') + '</div></div>' +
-      '</details>';
+    var items = filtered();
+    var count = document.getElementById('aq-jl2-count');
+    if (count) count.textContent = '(' + items.length + '件)';
+
+    var shown = state.showAll ? items : items.slice(0, PAGE_SIZE);
+    var tbody = document.getElementById('aq-jl2-rows');
+    tbody.innerHTML = shown.map(function (r) {
+      return '<tr class="aq-jl2-row" data-id="' + esc(r.id) + '">' +
+        '<td class="aq-jl2-name"><div>' + statusBadge(r.status) + '<span>' + esc(r.n) + '</span></div></td>' +
+        '<td class="aq-jl2-purpose">' + esc(r.cat_label) + '</td>' +
+        '<td class="aq-jl2-target">' + esc(r.target) + '</td>' +
+        '<td class="aq-jl2-amount">' + esc(r.m) + '</td>' +
+        '<td class="aq-jl2-rate">' + esc(r.rate) + '</td>' +
+        '<td class="aq-jl2-status">' + statusBadge(r.status) + '</td>' +
+        '<td class="aq-jl2-deadline">' + esc(r.deadline) + '</td>' +
+        '<td class="aq-jl2-detail-cell"><button class="aq-jl2-detail-btn" type="button" data-id="' + esc(r.id) + '">詳細を見る ›</button></td>' +
+      '</tr>';
     }).join('');
+
+    var moreWrap = document.getElementById('aq-jl2-more-wrap');
+    var moreBtn = document.getElementById('aq-jl2-more');
+    if (items.length > PAGE_SIZE && !state.showAll) {
+      moreWrap.hidden = false;
+      moreBtn.textContent = 'すべての助成金を見る（' + items.length + '件）';
+    } else {
+      moreWrap.hidden = true;
+    }
   }
 
-  // Tab clicks
-  if (tabs) tabs.addEventListener('click', function (e) {
-    var b = e.target.closest('button[data-cat]'); if (!b) return;
-    tabs.querySelectorAll('button').forEach(function (x) { x.classList.remove('is-active'); });
-    b.classList.add('is-active');
-    state.cat = b.getAttribute('data-cat');
+  function openModal(id) {
+    var r = rows.find(function (x) { return x.id === id; });
+    if (!r) return;
+    var overlay = document.getElementById('aq-jl2-modal-overlay');
+    document.getElementById('aq-jl2-modal-title').textContent = r.n;
+    document.getElementById('aq-jl2-modal-body').innerHTML =
+      '<div class="aq-jl2-modal-meta">' +
+        statusBadge(r.status) +
+        '<span class="aq-jl2-modal-cat">' + esc(r.cat_label) + '</span>' +
+        '<span class="aq-jl2-modal-amount">' + esc(r.m) + '</span>' +
+      '</div>' +
+      (r.detail_html || '<p>詳細情報はまだ準備中です。担当者へお問い合わせください。</p>');
+    overlay.hidden = false;
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    document.getElementById('aq-jl2-modal-overlay').hidden = true;
+    document.body.style.overflow = '';
+  }
+
+  /* イベント */
+  document.getElementById('aq-jl2-search').addEventListener('click', function () {
+    state.q = document.getElementById('aq-jl2-q').value.trim();
+    state.cat = document.getElementById('aq-jl2-cat').value;
+    state.target = document.getElementById('aq-jl2-target').value;
+    state.status = document.getElementById('aq-jl2-status').value;
+    state.showAll = false;
     render();
   });
 
-  // Navi card clicks → set filter + scroll to list section
-  if (navi) navi.addEventListener('click', function (e) {
-    var b = e.target.closest('button[data-cat]'); if (!b) return;
-    var cat = b.getAttribute('data-cat');
-    state.cat = cat;
-    tabs.querySelectorAll('button').forEach(function (x) { x.classList.remove('is-active'); });
-    var tabBtn = tabs.querySelector('button[data-cat="'+cat+'"]');
-    if (tabBtn) tabBtn.classList.add('is-active');
+  document.getElementById('aq-jl2-clear').addEventListener('click', function () {
+    state = { q: '', cat: '', target: '', status: '', showAll: false };
+    document.getElementById('aq-jl2-q').value = '';
+    document.getElementById('aq-jl2-cat').value = '';
+    document.getElementById('aq-jl2-target').value = '';
+    document.getElementById('aq-jl2-status').value = '';
     render();
-    var listSec = document.querySelector('.aq-jl-list-section');
-    if (listSec) listSec.scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
 
-  buildNavi();
-  buildTabs();
+  document.getElementById('aq-jl2-q').addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') document.getElementById('aq-jl2-search').click();
+  });
+
+  document.getElementById('aq-jl2-more').addEventListener('click', function () {
+    state.showAll = true;
+    render();
+  });
+
+  document.getElementById('aq-jl2-rows').addEventListener('click', function (e) {
+    var btn = e.target.closest('.aq-jl2-detail-btn, .aq-jl2-row');
+    if (!btn) return;
+    var id = btn.getAttribute('data-id');
+    if (id) openModal(id);
+  });
+
+  document.getElementById('aq-jl2-purpose-grid').addEventListener('click', function (e) {
+    var btn = e.target.closest('button[data-cat]');
+    if (!btn) return;
+    var cat = btn.getAttribute('data-cat');
+    state = { q: '', cat: cat, target: '', status: '', showAll: false };
+    document.getElementById('aq-jl2-cat').value = cat;
+    document.getElementById('aq-jl2-q').value = '';
+    document.getElementById('aq-jl2-status').value = '';
+    document.getElementById('aq-jl2-target').value = '';
+    render();
+    document.querySelector('.aq-jl2-table-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+
+  document.getElementById('aq-jl2-purpose-all').addEventListener('click', function () {
+    state = { q: '', cat: '', target: '', status: '', showAll: false };
+    document.getElementById('aq-jl2-cat').value = '';
+    render();
+  });
+
+  document.getElementById('aq-jl2-modal-close').addEventListener('click', closeModal);
+  document.getElementById('aq-jl2-modal-overlay').addEventListener('click', function (e) {
+    if (e.target === this) closeModal();
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && !document.getElementById('aq-jl2-modal-overlay').hidden) closeModal();
+  });
+
   render();
 })();
 </script>
