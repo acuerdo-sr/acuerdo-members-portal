@@ -10374,8 +10374,8 @@ body.aq-is-home #aq-hero {
   gap: 18px !important;
   padding: 28px 30px !important;
   border-radius: 18px !important;
-  height: 260px !important;
-  min-height: 260px !important;
+  height: 250px !important;
+  min-height: 250px !important;
 }
 
 body.aq-is-home .aq-hero-title {
@@ -10427,7 +10427,7 @@ body.aq-is-home .aq-purpose-grid {
 }
 
 body.aq-is-home .aq-purpose-card {
-  min-height: 104px !important;
+  min-height: 96px !important;
   padding: 10px 9px !important;
   gap: 5px !important;
 }
@@ -10485,8 +10485,8 @@ body.aq-is-home .aq-content-card small {
 }
 
 body.aq-is-home .aq-recommend-card {
-  height: 124px !important;
-  min-height: 124px !important;
+  height: 116px !important;
+  min-height: 116px !important;
   padding: 9px 10px 20px !important;
 }
 
@@ -10501,7 +10501,7 @@ body.aq-is-home .aq-recommend-card p {
 }
 
 body.aq-is-home .aq-flow-step {
-  min-height: 86px !important;
+  min-height: 76px !important;
   padding: 8px 8px !important;
 }
 
@@ -10520,7 +10520,7 @@ body.aq-is-home .aq-flow-body p {
 }
 
 body.aq-is-home .aq-faq-q {
-  min-height: 25px !important;
+  min-height: 23px !important;
   padding: 3px 9px !important;
   font-size: 11.2px !important;
   line-height: 1.2 !important;
