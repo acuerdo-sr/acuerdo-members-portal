@@ -6743,7 +6743,8 @@ body.aq-is-forms .aq-nav-item.is-active {
    ============================================================ */
 
 body.aq-is-home {
-  --aq-sidebar-w: 240px;
+  --aq-sidebar-w: 336px;
+  --aq-sidebar-box-w: 280px;
   --aq-home-gap: 16px;
   margin-left: var(--aq-sidebar-w) !important;
   background: #f4f7fb !important;
@@ -6752,58 +6753,57 @@ body.aq-is-home {
 }
 
 body.aq-is-home #aq-sidebar {
-  inset: 0 auto 0 0 !important;
-  width: var(--aq-sidebar-w) !important;
-  height: 100vh !important;
+  inset: 36px auto 36px 36px !important;
+  width: var(--aq-sidebar-box-w) !important;
+  height: auto !important;
   display: flex !important;
-  border: 1px solid #dfe6f0 !important;
-  border-left: 0 !important;
-  border-radius: 8px !important;
+  border: 1px solid #d9e0ea !important;
+  border-radius: 28px !important;
   background: #fff !important;
   box-shadow: 0 8px 28px rgba(10, 25, 52, .06) !important;
   overflow: hidden !important;
 }
 
 body.aq-is-home .aq-sidebar-inner {
-  gap: 18px !important;
-  padding: 36px 15px 16px !important;
+  gap: 28px !important;
+  padding: 36px 26px 28px !important;
 }
 
 body.aq-is-home .aq-logo {
-  grid-template-columns: 58px minmax(0, 1fr) !important;
-  gap: 10px !important;
-  padding: 0 6px 18px !important;
+  grid-template-columns: 62px minmax(0, 1fr) !important;
+  gap: 16px !important;
+  padding: 0 0 18px !important;
   border-bottom: 0 !important;
 }
 
 body.aq-is-home .aq-logo-badge {
-  width: 58px !important;
-  height: 58px !important;
+  width: 62px !important;
+  height: 62px !important;
 }
 
 body.aq-is-home .aq-logo-name {
   color: #0d1930 !important;
-  font-size: 20px !important;
+  font-size: 24px !important;
   font-weight: 900 !important;
   line-height: 1.12 !important;
 }
 
 body.aq-is-home .aq-logo-sub {
   color: #6d7a8f !important;
-  font-size: 11px !important;
+  font-size: 12px !important;
   font-weight: 700 !important;
 }
 
 body.aq-is-home .aq-nav {
-  gap: 7px !important;
+  gap: 10px !important;
 }
 
 body.aq-is-home .aq-nav-item {
-  min-height: 41px !important;
+  min-height: 48px !important;
   flex-direction: row !important;
   align-items: center !important;
-  gap: 13px !important;
-  padding: 9px 13px !important;
+  gap: 14px !important;
+  padding: 10px 14px !important;
   border: 0 !important;
   border-bottom: 1px solid #dfe6f0 !important;
   border-radius: 0 !important;
@@ -6834,7 +6834,7 @@ body.aq-is-home .aq-nav-icon svg {
 }
 
 body.aq-is-home .aq-nav-ja {
-  font-size: 14px !important;
+  font-size: 15px !important;
   font-weight: 900 !important;
   color: inherit !important;
   white-space: nowrap !important;
@@ -6873,7 +6873,7 @@ body.aq-is-home #aq-hero {
   height: 270px !important;
   min-height: 270px !important;
   display: grid !important;
-  grid-template-columns: minmax(390px, 1fr) minmax(230px, 310px) minmax(390px, 514px) !important;
+  grid-template-columns: minmax(450px, 1fr) minmax(190px, 250px) minmax(360px, 500px) !important;
   gap: 20px !important;
   align-items: center !important;
   padding: 18px 28px 18px 40px !important;
@@ -6925,7 +6925,7 @@ body.aq-is-home .aq-hero-sub {
 body.aq-is-home .aq-hero-actions {
   display: flex !important;
   flex-wrap: wrap !important;
-  gap: 18px !important;
+  gap: 12px !important;
   margin-top: 14px !important;
 }
 
@@ -6949,14 +6949,14 @@ body.aq-is-home .aq-btn-secondary svg {
 }
 
 body.aq-is-home .aq-btn-primary {
-  min-width: 234px !important;
+  min-width: 210px !important;
   border: 1px solid #fff !important;
   background: #fff !important;
   color: #0a1730 !important;
 }
 
 body.aq-is-home .aq-btn-secondary {
-  min-width: 220px !important;
+  min-width: 205px !important;
   border: 1px solid rgba(255,255,255,.78) !important;
   background: rgba(255,255,255,.03) !important;
   color: #fff !important;
@@ -7852,19 +7852,52 @@ button.aq-forms-guide-link {
   border-bottom: 1px solid #f1f5f9;
 }
 
+/* 記入例 / ひな形 バッジ */
+.aq-guide-type-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+
+.aq-guide-type-example {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.aq-guide-type-template {
+  background: #f1f5f9;
+  color: #475569;
+}
+
+.aq-guide-cat-desc {
+  margin: -4px 0 10px !important;
+  padding: 0 4px;
+  font-size: 12px;
+  color: #64748b;
+  line-height: 1.6;
+}
+
 .aq-guide-detail-head h3 {
-  margin: 0 0 6px !important;
+  margin: 0 0 8px !important;
   font-size: 16px !important;
   font-weight: 900 !important;
   color: #0f172a !important;
   line-height: 1.4 !important;
 }
 
-.aq-guide-detail-head p {
-  margin: 0 0 12px !important;
-  font-size: 13px;
-  color: #475569;
-  line-height: 1.6;
+.aq-guide-detail-desc {
+  margin: 0 0 14px !important;
+  padding: 10px 14px;
+  background: #f8fafc;
+  border-left: 3px solid #e2e9f2;
+  border-radius: 0 8px 8px 0;
+  font-size: 13px !important;
+  color: #334155 !important;
+  line-height: 1.7;
 }
 
 .aq-guide-detail-actions {
@@ -7876,7 +7909,8 @@ button.aq-forms-guide-link {
 .aq-guide-dl-btn {
   display: inline-flex;
   align-items: center;
-  padding: 6px 14px;
+  gap: 6px;
+  padding: 7px 14px;
   border-radius: 8px;
   background: #1d4ed8;
   color: #fff !important;
@@ -7885,6 +7919,9 @@ button.aq-forms-guide-link {
   text-decoration: none !important;
 }
 
+.aq-guide-dl-btn svg { width: 14px; height: 14px; }
+.aq-guide-dl-pdf { background: #dc2626 !important; }
+.aq-guide-dl-pdf:hover { background: #b91c1c !important; }
 .aq-guide-dl-btn:hover { background: #1e40af !important; }
 
 .aq-guide-dl-doc {

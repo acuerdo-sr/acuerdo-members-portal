@@ -399,23 +399,50 @@ data_page: forms
     document.getElementById('aq-forms-results-clear').addEventListener('click', clearResults);
   }
 
+  /* 連絡票カテゴリは記入例あり、それ以外はひな形（空白レイアウト） */
+  function viewLabel(row) {
+    return row.category === 'procedure_contact' ? '記入例を見る' : 'ひな形を見る';
+  }
+  function viewType(row) {
+    return row.category === 'procedure_contact' ? '記入例' : 'ひな形・書式レイアウト';
+  }
+
+  /* カテゴリ説明テキスト */
+  var catDesc = {
+    procedure_contact: '入退社・出産育休・各種変更の際に担当者へ提出いただく連絡票です。記入例付きで確認できます。',
+    subsidy_consultation: '助成金活用をご検討の際にご記入いただく相談票です（空白のひな形）。',
+    join: '採用・入社時に必要な書類のひな形です。会社のルールに合わせてご利用ください。',
+    leave: '退職・契約終了の際に使用する書類のひな形です。',
+    absence: '休職・復職に関する書類のひな形です。',
+    discipline: '懲戒・指導に関する書類のひな形です。',
+    attendance: '勤怠管理に使用する書類のひな形です（法定書類を含みます）。',
+    hr_explanation: '雇入れ時の説明義務や有期労働者への対応書類のひな形です。',
+    harassment: 'ハラスメント対策に関する社内周知文書のひな形です。',
+    child_care_basic: '育児・介護休業の申出から取扱通知まで、基本書類のひな形です。',
+    child_care_shussei: '出生時育児休業（産後パパ育休）に関する書類のひな形です。',
+    child_care_promo: '育児休業の社内周知・取得促進に使用する文書のひな形です。'
+  };
+
   function renderGuide() {
     var html = '';
     groups.forEach(function (group) {
       var groupRows = rows.filter(function (r) { return r.group === group.key; });
       if (!groupRows.length) return;
+      var desc = catDesc[group.key] || '';
       html += '<section class="aq-guide-cat">';
       html += '<h3 class="aq-guide-cat-title"><span class="aq-guide-cat-icon">' + icon(group.icon) + '</span>' + esc(group.label) + '</h3>';
+      if (desc) html += '<p class="aq-guide-cat-desc">' + esc(desc) + '</p>';
       html += '<div class="aq-guide-list">';
       html += groupRows.map(function (row) {
         var hasPdf = !!row.file_pdf;
+        var label = viewLabel(row);
         return '<div class="aq-guide-item' + (hasPdf ? ' aq-guide-item-clickable' : '') + '" ' +
           (hasPdf ? 'role="button" tabindex="0" data-row="' + row._index + '"' : '') + '>' +
           '<div class="aq-guide-item-info">' +
           '<strong>' + esc(row.name) + '</strong>' +
-          '<p>' + esc(row.desc || row.use || '') + '</p>' +
+          (row.desc ? '<p>' + esc(row.desc) + '</p>' : '') +
           '</div>' +
-          (hasPdf ? '<span class="aq-guide-item-arrow">記入例を見る ›</span>' : '') +
+          (hasPdf ? '<span class="aq-guide-item-arrow">' + label + ' ›</span>' : '') +
           '</div>';
       }).join('');
       html += '</div></section>';
@@ -438,6 +465,8 @@ data_page: forms
   function showFormPdf(row) {
     var pdfUrl = urlEncodePath(row.file_pdf || '');
     var docUrl = urlEncodePath(row.file_doc || '');
+    var type = viewType(row);
+    var isExample = row.category === 'procedure_contact';
     var body = document.getElementById('aq-guide-body');
     body.innerHTML =
       '<div class="aq-guide-detail">' +
@@ -446,11 +475,12 @@ data_page: forms
           '一覧に戻る' +
         '</button>' +
         '<div class="aq-guide-detail-head">' +
+          '<div class="aq-guide-type-badge' + (isExample ? ' aq-guide-type-example' : ' aq-guide-type-template') + '">' + esc(type) + '</div>' +
           '<h3>' + esc(row.name) + '</h3>' +
-          '<p>' + esc(row.desc || row.use || '') + '</p>' +
+          (row.desc ? '<p class="aq-guide-detail-desc">' + esc(row.desc) + '</p>' : '') +
           '<div class="aq-guide-detail-actions">' +
-            (pdfUrl ? '<a href="' + pdfUrl + '" download class="aq-guide-dl-btn">PDFをダウンロード</a>' : '') +
-            (docUrl ? '<a href="' + docUrl + '" download class="aq-guide-dl-btn aq-guide-dl-doc">Wordをダウンロード</a>' : '') +
+            (pdfUrl ? '<a href="' + pdfUrl + '" download class="aq-guide-dl-btn aq-guide-dl-pdf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>PDFをダウンロード</a>' : '') +
+            (docUrl ? '<a href="' + docUrl + '" download class="aq-guide-dl-btn aq-guide-dl-doc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H7a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7z"/><path d="M14 2v5h5"/></svg>Word/Excelをダウンロード</a>' : '') +
           '</div>' +
         '</div>' +
         (pdfUrl ?
