@@ -11191,3 +11191,23 @@ body:not(.aq-is-home) #aq-portal {
     transform: translateX(0) !important;
   }
 }
+
+/* ============================================================
+   サイドバー first-child (トップ) 文字消え修正
+   .aq-nav > .aq-nav-item:first-child { color:#fff } が詳細度[0,3,0]で
+   body:not(.aq-is-home) .aq-nav-item [0,2,1] を上回るため白文字→透明になる。
+   より詳細度の高いセレクタで上書きする。
+   ============================================================ */
+
+body:not(.aq-is-home) .aq-nav > .aq-nav-item:first-child {
+  color: #182844 !important;
+  background: transparent !important;
+  border-radius: 0 !important;
+}
+
+body:not(.aq-is-home) .aq-nav > .aq-nav-item:first-child.is-active,
+body:not(.aq-is-home) .aq-nav > .aq-nav-item:first-child:hover {
+  background: #07142d !important;
+  color: #fff !important;
+  border-radius: 6px !important;
+}
