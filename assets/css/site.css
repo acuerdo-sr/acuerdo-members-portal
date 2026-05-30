@@ -8126,3 +8126,119 @@ button.aq-forms-guide-link {
   color: #64748b;
   font-size: 14px;
 }
+
+/* ============================================================
+   v9.7 - カードはみ出し修正・サイズ拡大
+   ============================================================ */
+
+/* ---- よく使うコンテンツ: カードを大きく ---- */
+.aq-content-card {
+  padding: 24px 14px 20px !important;
+  gap: 12px !important;
+  min-height: 0 !important;
+  height: auto !important;
+  overflow: visible !important;
+}
+
+.aq-content-card strong {
+  white-space: normal !important;
+  word-break: keep-all;
+  line-height: 1.4 !important;
+  font-size: 13px !important;
+  text-align: center;
+}
+
+.aq-content-card small {
+  font-size: 11px !important;
+  text-align: center;
+}
+
+/* ---- 今月のおすすめ情報: はみ出し修正 ---- */
+.aq-recommend-card {
+  padding: 18px 18px 16px !important;
+  overflow: visible !important;
+  height: auto !important;
+  min-height: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 10px !important;
+}
+
+.aq-recommend-card > * {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+.aq-recommend-tag {
+  margin-top: 0 !important;
+}
+
+.aq-recommend-icon {
+  margin: 0 !important;
+  width: 48px !important;
+  height: 48px !important;
+}
+
+.aq-recommend-icon svg {
+  width: 24px !important;
+  height: 24px !important;
+}
+
+.aq-recommend-card strong {
+  font-size: 15px !important;
+  font-weight: 900 !important;
+  line-height: 1.4 !important;
+  color: #0f172a !important;
+  word-break: keep-all;
+}
+
+.aq-recommend-card p {
+  font-size: 13px !important;
+  color: #475569 !important;
+  line-height: 1.65 !important;
+  flex: 1;
+}
+
+.aq-recommend-link {
+  padding: 0 !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  color: #2563eb !important;
+}
+
+/* ---- 目的から探す: カードを大きく・テキスト収める ---- */
+.aq-purpose-card {
+  padding: 22px 12px 18px !important;
+  min-height: 160px !important;
+  gap: 10px !important;
+}
+
+.aq-purpose-text strong {
+  font-size: 14px !important;
+  font-weight: 900 !important;
+  word-break: keep-all;
+  line-height: 1.4 !important;
+}
+
+.aq-purpose-text small {
+  font-size: 12px !important;
+  line-height: 1.5 !important;
+}
+
+/* ---- ご利用の流れ: 文字を収める ---- */
+.aq-flow-body strong {
+  font-size: 14px !important;
+  font-weight: 900 !important;
+  word-break: keep-all;
+}
+
+.aq-flow-body p {
+  font-size: 12px !important;
+  line-height: 1.5 !important;
+  word-break: keep-all;
+}
+
+/* ---- セクション間の余白を詰める ---- */
+.aq-portal-body {
+  gap: 14px !important;
+}
