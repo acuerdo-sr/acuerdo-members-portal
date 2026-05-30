@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "acuerdo-members-portal": {
+      "command": "cmd",
+      "args": [
+        "/c",
+        "scripts\\run_mcp_server.cmd"
+      ]
+    }
+  }
+}
