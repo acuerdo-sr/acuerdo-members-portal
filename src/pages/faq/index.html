@@ -152,11 +152,12 @@ data_page: faq
   }
 
   function faqMarkup(f) {
+    var answerBody = f.answerHtml || ('<p>' + esc(f.answer) + '</p>');
     return '<article class="aq-faq-card" data-faq="' + f.id + '">' +
       '<button class="aq-faq-question" type="button" aria-expanded="false">' +
       '<span class="aq-faq-q-badge">Q</span><span class="aq-faq-q-text">' + esc(f.question) + '</span><span class="aq-faq-chev">⌄</span>' +
       '</button>' +
-      '<div class="aq-faq-answer"><div class="aq-faq-answer-label"><span>A</span><strong>模範回答</strong></div><p>' + esc(f.answer) + '</p></div>' +
+      '<div class="aq-faq-answer"><div class="aq-faq-answer-label"><span>A</span><strong>模範回答</strong></div><div class="aq-faq-answer-body">' + answerBody + '</div></div>' +
       '</article>';
   }
 
