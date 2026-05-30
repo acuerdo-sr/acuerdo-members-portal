@@ -1,128 +1,345 @@
 {# meta:
-title: 法改正カレンダー
+title: 法改正情報
 body_class: aq-is-lawrev
 data_page: lawrev
 #}
 
-<div id="aq-lawrev-wrap" class="aq-subpage-wrap"><main class="aq-subpage-main">
+<div id="aq-lawrev-wrap" class="aq-subpage-wrap aq-lr-wrap">
+<main class="aq-subpage-main aq-lr-main">
 
-<header class="aq-subpage-hero">
-  <div class="aq-subpage-hero-text">
-    <h1>法改正カレンダー</h1>
-    <p>労働・社会保険関連の法改正情報を施行日順に確認できます。</p>
+<!-- ヘッダー -->
+<header class="aq-lr-head">
+  <div class="aq-lr-head-left">
+    <h1>法改正情報</h1>
+    <p>最新の法改正情報をわかりやすくお届けします。自社に影響がある改正をチェックしましょう。</p>
   </div>
-  <div class="aq-subpage-search">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m21 21-4.3-4.3"></path></svg>
-    <input type="search" id="aq-lawrev-q" placeholder="改正名・概要で検索" aria-label="法改正を検索">
+  <div class="aq-lr-head-right">
+    <div class="aq-lr-search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      <input type="search" id="aq-lr-q" placeholder="キーワードで検索（法改正名・内容など）" aria-label="法改正を検索">
+    </div>
+    <a class="aq-lr-guide-link" href="faq/">
+      <span class="aq-lr-guide-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H7a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7z"/><path d="M14 2v5h5"/><path d="M9 13h6M9 17h4"/></svg>
+      </span>
+      <span>
+        <strong>法改正のポイント解説ガイド</strong>
+        <small>法改正の基本をわかりやすく解説</small>
+      </span>
+    </a>
   </div>
 </header>
 
-<div class="aq-subpage-tabs" id="aq-lawrev-status" role="tablist">
-  <button class="is-active" data-status="all" type="button">すべて</button>
-  <button data-status="upcoming" type="button">施行予定</button>
-  <button data-status="active" type="button">施行済み</button>
+<!-- 注目の法改正 -->
+<section class="aq-lr-section">
+  <div class="aq-lr-section-head">
+    <h2>注目の法改正 <span id="aq-lr-featured-label">（2026年度対応が必要なもの）</span></h2>
+    <button class="aq-lr-see-all" id="aq-lr-featured-more" type="button">すべて見る ›</button>
+  </div>
+  <div class="aq-lr-featured-grid" id="aq-lr-featured"></div>
+</section>
+
+<!-- 新着 + カレンダー -->
+<div class="aq-lr-mid-grid">
+  <section class="aq-lr-news-section">
+    <div class="aq-lr-section-head">
+      <h2>新着の法改正情報</h2>
+      <button class="aq-lr-see-all" id="aq-lr-news-more" type="button">すべて見る ›</button>
+    </div>
+    <div class="aq-lr-news-table-wrap">
+      <table class="aq-lr-news-table">
+        <thead>
+          <tr>
+            <th>法改正名・内容</th>
+            <th>施行日</th>
+            <th>対象</th>
+          </tr>
+        </thead>
+        <tbody id="aq-lr-news-body"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="aq-lr-timeline-section">
+    <div class="aq-lr-section-head">
+      <h2>法改正カレンダー <small>（施行月別）</small></h2>
+    </div>
+    <div class="aq-lr-timeline" id="aq-lr-timeline"></div>
+    <a class="aq-lr-timeline-link" href="calendar/">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="15" rx="3"/><path d="M8 3v4M16 3v4M4 10h16"/></svg>
+      年間の法改正スケジュールを見る
+    </a>
+  </section>
 </div>
 
-<div class="aq-lawrev-list" id="aq-lawrev-list"></div>
+<!-- ポイント解説 + 影響確認 -->
+<div class="aq-lr-bottom-grid">
+  <section class="aq-lr-points-section">
+    <h2>法改正のポイント解説</h2>
+    <div class="aq-lr-points-layout">
+      <div class="aq-lr-point-featured" id="aq-lr-point-featured"></div>
+      <ul class="aq-lr-point-list" id="aq-lr-point-list"></ul>
+    </div>
+  </section>
 
-<p class="aq-subpage-note">※ 個別の対応が必要なケースは担当者へご相談ください。</p>
+  <section class="aq-lr-impact-section">
+    <h2>自社への影響を確認しましょう</h2>
+    <p>自社の状況に合わせて、対応が必要な法改正を確認できます。</p>
+    <ul class="aq-lr-impact-list">
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="m5 13 4 4L19 7"/></svg>業種・業態に応じた影響度を診断</li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="m5 13 4 4L19 7"/></svg>必要な対応事項をチェックリスト化</li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="m5 13 4 4L19 7"/></svg>社内規程の見直しポイントを確認</li>
+    </ul>
+    <a href="contact/" class="aq-lr-impact-btn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8 9h8M8 12h8M8 15h5"/></svg>
+      影響診断をはじめる
+    </a>
+  </section>
+</div>
 
-</main></div>
+<!-- 詳細モーダル -->
+<div id="aq-lr-modal-overlay" class="aq-lr-modal-overlay" hidden>
+  <div class="aq-lr-modal" role="dialog" aria-labelledby="aq-lr-modal-title">
+    <div class="aq-lr-modal-head">
+      <h2 id="aq-lr-modal-title"></h2>
+      <button id="aq-lr-modal-close" class="aq-lr-modal-close" type="button" aria-label="閉じる">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div id="aq-lr-modal-body" class="aq-lr-modal-body"></div>
+  </div>
+</div>
 
-<script id="aq-lawrev-data" type="application/json">__LAWREV_DATA__</script>
+<!-- CTAバー -->
+<div class="aq-lr-cta-bar">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+  <span>法改正に関するご相談は、<strong>担当者</strong>までお気軽にご連絡ください。</span>
+  <a href="contact/" class="aq-lr-cta-btn-primary">担当者に相談する</a>
+</div>
+
+</main>
+</div>
+
+<script id="aq-lr-data" type="application/json">__LAWREV_DATA__</script>
 <script>
 (function () {
   var data;
-  try { data = JSON.parse(document.getElementById('aq-lawrev-data').textContent) || []; }
+  try { data = JSON.parse(document.getElementById('aq-lr-data').textContent) || []; }
   catch (e) { data = []; }
-  var list   = document.getElementById('aq-lawrev-list');
-  var input  = document.getElementById('aq-lawrev-q');
-  var tabs   = document.getElementById('aq-lawrev-status');
-  var state  = { status: 'all', q: '' };
 
-  function esc(s){return String(s == null ? '' : s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+
+  function imp(d) {
+    var v = d['重要度'] || '';
+    if (v === '必読')   return { cls: 'critical', label: '重要' };
+    if (v === '要注目') return { cls: 'caution',  label: '要確認' };
+    return { cls: 'info', label: 'チェック' };
+  }
 
   function fmtDate(s) {
     if (!s) return '';
+    var m = s.match(/^(\d{4})-(\d{2})/);
+    return m ? m[1] + '年' + parseInt(m[2]) + '月施行' : s;
+  }
+
+  function fmtDateShort(s) {
+    if (!s) return '';
     var m = s.match(/^(\d{4})-(\d{2})-(\d{2})/);
-    if (!m) return s;
-    return m[1] + '年' + parseInt(m[2],10) + '月' + parseInt(m[3],10) + '日';
+    return m ? m[1] + '.' + m[2] + '.' + m[3] : s;
   }
 
-  function severityClass(s) {
-    if (s === '必読') return 'high';
-    if (s === '要注目') return 'mid';
-    return 'low';
+  function target(d) {
+    var r = d['影響範囲'] || [];
+    return Array.isArray(r) ? r[0] || '全企業' : r;
   }
 
-  function statusClass(s) {
-    if (s === '施行済み') return 'active';
-    if (s === '施行予定') return 'upcoming';
-    return 'other';
-  }
+  var state = { q: '', showAll: false };
+  var allRows = data.slice().sort(function (a, b) {
+    return new Date(a['施行日']) - new Date(b['施行日']);
+  });
 
-  function categoryFromName(n) { return n || '法改正'; }
-
-  function matchFilter(r) {
-    if (state.status === 'upcoming' && r['ステータス'] !== '施行予定') return false;
-    if (state.status === 'active'   && r['ステータス'] !== '施行済み') return false;
-    var q = state.q.trim().toLowerCase();
-    if (!q) return true;
-    var hay = (r['改正名'] || '') + ' ' + (r['概要'] || '') + ' ' + (r['法律カテゴリ'] || '');
-    return hay.toLowerCase().indexOf(q) !== -1;
-  }
-
-  function render() {
-    if (!list) return;
-    var rows = data.filter(matchFilter).slice().sort(function (a, b) {
-      var da = a['施行日'] || '', db = b['施行日'] || '';
-      return da < db ? -1 : da > db ? 1 : 0;
-    });
-    if (rows.length === 0) {
-      list.innerHTML = '<p class="aq-subpage-empty">該当する法改正が見つかりませんでした。</p>';
-      return;
+  /* ---- 注目の法改正（必読優先で4件） ---- */
+  function renderFeatured() {
+    var items = data.filter(function (d) { return d['重要度'] === '必読'; });
+    if (items.length < 4) {
+      items = items.concat(data.filter(function (d) { return d['重要度'] === '要注目'; }));
     }
-    list.innerHTML = rows.map(function (r) {
-      var actions = (r['必要な対応'] || '').split(/\n/).filter(function(x){return x.trim();});
-      var actionsHtml = actions.length
-        ? '<ul class="aq-lawrev-actions">' + actions.map(function (a) {
-            return '<li>' + esc(a.replace(/^[・\-•]\s*/, '')) + '</li>';
-          }).join('') + '</ul>'
-        : '';
-      var scope = (r['影響範囲'] || []).concat(r['対象業種'] || []);
-      var scopeHtml = scope.length
-        ? '<div class="aq-lawrev-scope">' + scope.map(function(s){ return '<span class="aq-pill">'+esc(s)+'</span>'; }).join('') + '</div>'
-        : '';
-      return '<article class="aq-lawrev-card aq-lawrev-' + statusClass(r['ステータス']) + '">' +
-        '<div class="aq-lawrev-date">' +
-          '<time>' + esc(fmtDate(r['施行日'])) + '</time>' +
-          '<span class="aq-lawrev-status">' + esc(r['ステータス'] || '') + '</span>' +
+    items = items.slice(0, 4);
+    var el = document.getElementById('aq-lr-featured');
+    el.innerHTML = items.map(function (d) {
+      var i = imp(d);
+      return '<div class="aq-lr-feat-card" data-id="' + esc(d['改正名']) + '">' +
+        '<div class="aq-lr-feat-head">' +
+          '<span class="aq-lr-badge ' + i.cls + '">' + esc(i.label) + '</span>' +
+          '<span class="aq-lr-feat-date">' + esc(fmtDate(d['施行日'])) + '</span>' +
         '</div>' +
-        '<div class="aq-lawrev-body">' +
-          '<header class="aq-lawrev-head">' +
-            '<span class="aq-lawrev-cat">' + esc(r['法律カテゴリ'] || '') + '</span>' +
-            '<span class="aq-lawrev-sev aq-sev-' + severityClass(r['重要度']) + '">' + esc(r['重要度'] || '') + '</span>' +
-          '</header>' +
-          '<h2 class="aq-lawrev-title">' + esc(r['改正名']) + '</h2>' +
-          (r['概要'] ? '<p class="aq-lawrev-summary">' + esc(r['概要']) + '</p>' : '') +
-          scopeHtml +
-          (actionsHtml ? '<details class="aq-lawrev-details"><summary>必要な対応を見る</summary>' + actionsHtml + '</details>' : '') +
+        '<h3>' + esc(d['改正名']) + '</h3>' +
+        '<p>' + esc((d['概要'] || '').substring(0, 60)) + '…</p>' +
+        '<div class="aq-lr-feat-foot">' +
+          '<span class="aq-lr-target">' + esc(target(d)) + '</span>' +
+          '<span class="aq-lr-arrow">→</span>' +
         '</div>' +
-      '</article>';
+      '</div>';
     }).join('');
+
+    el.querySelectorAll('.aq-lr-feat-card').forEach(function (card) {
+      card.addEventListener('click', function () {
+        var name = card.getAttribute('data-id');
+        var d = data.find(function (x) { return x['改正名'] === name; });
+        if (d) openModal(d);
+      });
+    });
   }
 
-  if (tabs) tabs.addEventListener('click', function (e) {
-    var b = e.target.closest('button[data-status]'); if (!b) return;
-    tabs.querySelectorAll('button').forEach(function (x) { x.classList.remove('is-active'); });
-    b.classList.add('is-active');
-    state.status = b.getAttribute('data-status');
-    render();
+  /* ---- 新着テーブル ---- */
+  function renderTable() {
+    var q = state.q.toLowerCase();
+    var filtered = allRows.filter(function (d) {
+      if (!q) return true;
+      return (d['改正名'] + ' ' + (d['概要'] || '')).toLowerCase().indexOf(q) !== -1;
+    });
+    var items = state.showAllNews ? filtered : filtered.slice(0, 5);
+    var tbody = document.getElementById('aq-lr-news-body');
+    tbody.innerHTML = items.map(function (d) {
+      var isNew = d['ステータス'] === '施行予定' || d['ステータス'] === '施行済み';
+      var badge = d['ステータス'] === '施行済み'
+        ? '<span class="aq-lr-news-badge updated">更新</span>'
+        : '<span class="aq-lr-news-badge new">NEW</span>';
+      return '<tr class="aq-lr-news-row" data-id="' + esc(d['改正名']) + '">' +
+        '<td><div class="aq-lr-news-cell">' + badge +
+          '<div><strong>' + esc(d['改正名']) + '</strong><small>' + esc((d['概要'] || '').substring(0, 30)) + '…</small></div></div></td>' +
+        '<td class="aq-lr-news-date">' + esc(fmtDateShort(d['施行日'])) + '</td>' +
+        '<td class="aq-lr-news-target">' + esc(target(d)) + '</td>' +
+      '</tr>';
+    }).join('');
+
+    tbody.querySelectorAll('.aq-lr-news-row').forEach(function (row) {
+      row.addEventListener('click', function () {
+        var name = row.getAttribute('data-id');
+        var d = data.find(function (x) { return x['改正名'] === name; });
+        if (d) openModal(d);
+      });
+    });
+  }
+
+  /* ---- タイムライン ---- */
+  function renderTimeline() {
+    var grouped = {};
+    allRows.forEach(function (d) {
+      var m = (d['施行日'] || '').substring(0, 7);
+      if (!m) return;
+      (grouped[m] = grouped[m] || []).push(d);
+    });
+    var months = Object.keys(grouped).sort();
+    var el = document.getElementById('aq-lr-timeline');
+    var html = '<div class="aq-lr-tl-track">';
+    months.forEach(function (m) {
+      var parts = m.split('-');
+      var label = parts[0] + '年' + parseInt(parts[1]) + '月';
+      var items = grouped[m];
+      html += '<div class="aq-lr-tl-month">' +
+        '<div class="aq-lr-tl-label">' + esc(label) + '</div>' +
+        '<div class="aq-lr-tl-dot"></div>' +
+        '<ul class="aq-lr-tl-items">' +
+        items.map(function (d) {
+          var i = imp(d);
+          return '<li class="aq-lr-tl-item ' + i.cls + '">' + esc(d['改正名']) + '</li>';
+        }).join('') +
+        '</ul></div>';
+    });
+    html += '</div>';
+    el.innerHTML = html;
+  }
+
+  /* ---- ポイント解説 ---- */
+  function renderPoints() {
+    var featured = allRows[0];
+    var rest = allRows.slice(1, 5);
+    var i = imp(featured);
+    document.getElementById('aq-lr-point-featured').innerHTML =
+      '<div class="aq-lr-pf-badge">' +
+        '<span class="aq-lr-badge ' + i.cls + '">' + esc(i.label) + '</span>' +
+        '<span class="aq-lr-pf-label">おすすめ</span>' +
+      '</div>' +
+      '<h3>' + esc(featured['改正名']) + '</h3>' +
+      '<p>' + esc((featured['概要'] || '').substring(0, 80)) + '…</p>' +
+      '<button class="aq-lr-pf-btn" type="button" data-id="' + esc(featured['改正名']) + '">詳しく見る</button>';
+
+    document.getElementById('aq-lr-point-featured').querySelector('.aq-lr-pf-btn').addEventListener('click', function () {
+      openModal(featured);
+    });
+
+    document.getElementById('aq-lr-point-list').innerHTML = rest.map(function (d) {
+      return '<li data-id="' + esc(d['改正名']) + '">' + esc(d['改正名']) + 'のポイント<span>›</span></li>';
+    }).join('');
+
+    document.getElementById('aq-lr-point-list').querySelectorAll('li').forEach(function (li) {
+      li.addEventListener('click', function () {
+        var name = li.getAttribute('data-id');
+        var d = data.find(function (x) { return x['改正名'] === name; });
+        if (d) openModal(d);
+      });
+    });
+  }
+
+  /* ---- モーダル ---- */
+  function openModal(d) {
+    var i = imp(d);
+    var overlay = document.getElementById('aq-lr-modal-overlay');
+    document.getElementById('aq-lr-modal-title').textContent = d['改正名'];
+    var actions = (d['必要な対応'] || '').split(/\n/).filter(function (x) { return x.trim(); });
+    document.getElementById('aq-lr-modal-body').innerHTML =
+      '<div class="aq-lr-modal-meta">' +
+        '<span class="aq-lr-badge ' + i.cls + '">' + esc(i.label) + '</span>' +
+        '<span class="aq-lr-modal-cat">' + esc(d['法律カテゴリ'] || '') + '</span>' +
+        '<span class="aq-lr-modal-date">' + esc(fmtDate(d['施行日'])) + '</span>' +
+        '<span class="aq-lr-modal-target">' + esc(target(d)) + '</span>' +
+      '</div>' +
+      '<div class="aq-lr-modal-summary">' + esc(d['概要'] || '') + '</div>' +
+      (actions.length ? '<div class="aq-lr-modal-actions"><h4>必要な対応</h4><ul>' +
+        actions.map(function (a) { return '<li>' + esc(a.replace(/^[・\-]\s*/, '')) + '</li>'; }).join('') +
+        '</ul></div>' : '');
+    overlay.hidden = false;
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    document.getElementById('aq-lr-modal-overlay').hidden = true;
+    document.body.style.overflow = '';
+  }
+
+  /* ---- イベント ---- */
+  document.getElementById('aq-lr-q').addEventListener('input', function () {
+    state.q = this.value.trim();
+    renderTable();
   });
-  if (input) input.addEventListener('input', function () {
-    state.q = input.value || '';
-    render();
+
+  document.getElementById('aq-lr-featured-more').addEventListener('click', function () {
+    state.showAllFeatured = !state.showAllFeatured;
+    renderFeatured();
   });
-  render();
+
+  document.getElementById('aq-lr-news-more').addEventListener('click', function () {
+    state.showAllNews = !state.showAllNews;
+    this.textContent = state.showAllNews ? '折り畳む ↑' : 'すべて見る ›';
+    renderTable();
+  });
+
+  document.getElementById('aq-lr-modal-close').addEventListener('click', closeModal);
+  document.getElementById('aq-lr-modal-overlay').addEventListener('click', function (e) {
+    if (e.target === this) closeModal();
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && !document.getElementById('aq-lr-modal-overlay').hidden) closeModal();
+  });
+
+  renderFeatured();
+  renderTable();
+  renderTimeline();
+  renderPoints();
 })();
 </script>
