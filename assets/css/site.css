@@ -5595,7 +5595,7 @@ body.aq-is-forms .aq-nav-item.is-active {
 
 .aq-forms-category-grid {
   display: grid;
-  grid-template-columns: repeat(7, minmax(0, 1fr));
+  grid-template-columns: repeat(6, minmax(0, 1fr));
   gap: 12px;
 }
 
@@ -5647,9 +5647,9 @@ body.aq-is-forms .aq-nav-item.is-active {
   display: block;
   max-width: 100%;
   color: #07142d;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 900;
-  line-height: 1.25;
+  line-height: 1.32;
   overflow-wrap: anywhere;
 }
 
@@ -6125,7 +6125,7 @@ body.aq-is-forms .aq-nav-item.is-active {
   }
 
   .aq-forms-category-grid {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
