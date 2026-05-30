@@ -4,113 +4,103 @@ body_class: aq-is-faq
 data_page: faq
 #}
 
-<div id="aq-faq-wrap" class="aq-subpage-wrap aq-faq-dashboard">
-  <main class="aq-subpage-main aq-faq-main">
-    <section class="aq-faq-hero">
-      <div class="aq-faq-hero-copy">
-        <span class="aq-faq-eyebrow">顧問先メンバーページ</span>
-        <h1><span>FAQ</span><span>（よくあるご質問）</span></h1>
-        <p>労務管理・採用・入社・退職・各種手続きや助成金、調査対応など、日々の実務でよくいただくご質問をカテゴリごとにまとめています。</p>
+<div id="aq-faq-wrap" class="aq-subpage-wrap aq-faq-v2">
+  <main class="aq-subpage-main aq-faq-v2-main">
+    <section class="aq-faq-v2-head">
+      <div class="aq-faq-v2-title">
+        <h1>FAQ <span>（よくあるご質問）</span></h1>
+        <p>よくいただくご質問をカテゴリごとにまとめています。キーワード検索やカテゴリからご確認ください。</p>
       </div>
-      <div class="aq-faq-hero-visual" aria-hidden="true">
-        <div class="aq-faq-illust-doc">
-          <span></span><span></span><span></span>
-        </div>
-        <div class="aq-faq-illust-lens"></div>
-        <div class="aq-faq-illust-bubble">?</div>
-        <div class="aq-faq-illust-check"></div>
-      </div>
-    </section>
-
-    <section class="aq-faq-feature-row" aria-label="FAQの特徴">
-      <article class="aq-faq-feature-card">
-        <span class="aq-faq-feature-icon aq-faq-blue" data-icon="grid"></span>
-        <div><strong>掲載カテゴリ</strong><p><span id="aq-faq-cat-total">17</span>カテゴリで整理<br>目的の情報を見つけやすく</p></div>
-      </article>
-      <article class="aq-faq-feature-card">
-        <span class="aq-faq-feature-icon aq-faq-amber" data-icon="bulb"></span>
-        <div><strong>よくあるテーマ</strong><p>実務で多い質問を厳選<br>すぐに解決できる内容を中心に</p></div>
-      </article>
-      <article class="aq-faq-feature-card">
-        <span class="aq-faq-feature-icon aq-faq-cyan" data-icon="sync"></span>
-        <div><strong>更新中のFAQ</strong><p>法改正・制度改正に合わせて<br>順次最新情報を反映</p></div>
-      </article>
-      <article class="aq-faq-feature-card">
-        <span class="aq-faq-feature-icon aq-faq-indigo" data-icon="check"></span>
-        <div><strong>手続き前に確認</strong><p>事前チェックでミスや遅延を防止<br>安心して手続きを進められます</p></div>
-      </article>
-    </section>
-
-    <section class="aq-faq-search-panel" aria-label="FAQ検索">
-      <label class="aq-faq-search">
+      <label class="aq-faq-v2-search">
+        <input id="aq-faq-search" type="search" placeholder="キーワードで検索（例：育休、社会保険、助成金）">
         <span data-icon="search"></span>
-        <input id="aq-faq-search" type="search" placeholder="キーワードで検索（例：入社手続き、社会保険、退職証明書 など）">
       </label>
-      <div class="aq-faq-keywords" id="aq-faq-keywords" aria-label="人気のキーワード"></div>
+      <a class="aq-faq-v2-guide" href="forms/">
+        <span data-icon="book"></span>
+        <strong>FAQの使い方ガイド</strong>
+        <small>探し方や便利な機能をご紹介</small>
+      </a>
     </section>
 
-    <section class="aq-faq-main-grid">
-      <div class="aq-faq-left">
-        <header class="aq-faq-section-head">
-          <h2>カテゴリから探す</h2>
-          <span id="aq-faq-category-summary">全17カテゴリ</span>
-        </header>
-        <div class="aq-faq-categories" id="aq-faq-categories"></div>
+    <section class="aq-faq-v2-feature-row" aria-label="FAQの特徴">
+      <article>
+        <span class="aq-faq-v2-feature-icon" data-icon="chat"></span>
+        <div>
+          <h2>FAQの特徴</h2>
+          <ul>
+            <li>実務でよくある質問を厳選して掲載</li>
+            <li>最新の法改正・制度改正に合わせて更新</li>
+            <li>専門スタッフが監修した安心の回答</li>
+          </ul>
+          <button type="button" data-jump="popular">詳しく見る</button>
+        </div>
+      </article>
+      <article>
+        <span class="aq-faq-v2-feature-icon" data-icon="bulb"></span>
+        <div>
+          <h2>こんなときにご活用ください</h2>
+          <ul>
+            <li>手続きや申請方法を確認したいとき</li>
+            <li>制度やルールの基本を知りたいとき</li>
+            <li>社内での対応方法を調べたいとき</li>
+          </ul>
+          <button type="button" data-jump="categories">詳しく見る</button>
+        </div>
+      </article>
+      <article>
+        <span class="aq-faq-v2-feature-icon" data-icon="headset"></span>
+        <div>
+          <h2>解決しない場合は</h2>
+          <p>FAQで解決しないご質問は、担当者へお気軽にご相談ください。</p>
+          <a href="contact/">相談する</a>
+        </div>
+      </article>
+    </section>
+
+    <section class="aq-faq-v2-cats" id="aq-faq-categories-wrap">
+      <header>
+        <h2>カテゴリから探す</h2>
+        <button type="button" id="aq-faq-all">すべて見る</button>
+      </header>
+      <div id="aq-faq-categories" class="aq-faq-v2-cat-grid"></div>
+    </section>
+
+    <section class="aq-faq-v2-content">
+      <div class="aq-faq-v2-list-panel">
+        <nav class="aq-faq-v2-tabs" aria-label="FAQ表示切替">
+          <button type="button" class="is-active" data-tab="popular">よく見られている質問</button>
+          <button type="button" data-tab="new">新着の質問</button>
+          <button type="button" data-tab="law">制度・法改正に関する質問</button>
+        </nav>
+        <div class="aq-faq-v2-list" id="aq-faq-list"></div>
+        <button class="aq-faq-v2-more" id="aq-faq-more" type="button">もっと見る（すべてのFAQ）<span>→</span></button>
       </div>
 
-      <section class="aq-faq-panel">
-        <header class="aq-faq-result-head">
+      <aside class="aq-faq-v2-side">
+        <section class="aq-faq-v2-rank">
+          <h2>人気のFAQ TOP5</h2>
+          <div id="aq-faq-rank"></div>
+        </section>
+        <section class="aq-faq-v2-consult">
           <div>
-            <h2 id="aq-faq-result-title">よく見られる質問</h2>
-            <p id="aq-faq-result-count">0件のFAQを表示</p>
+            <h2>解決しない場合はこちら</h2>
+            <p>FAQで解決しない場合は、担当者までご相談ください。</p>
+            <a href="contact/">担当者へ相談する</a>
           </div>
-          <button class="aq-faq-btn aq-faq-btn-soft" id="aq-faq-popular" type="button">人気の質問に戻す</button>
-        </header>
-        <div class="aq-faq-list" id="aq-faq-list"></div>
-        <button class="aq-faq-btn aq-faq-btn-soft aq-faq-more" id="aq-faq-more" type="button">さらに表示する</button>
-      </section>
-
-      <aside class="aq-faq-right">
-        <section class="aq-faq-side-card">
-          <header><h2>新着FAQ</h2><button type="button" data-faq-filter="new">すべて見る</button></header>
-          <div class="aq-faq-side-list" id="aq-faq-new-list"></div>
+          <span data-icon="person"></span>
         </section>
-        <section class="aq-faq-side-card">
-          <header><h2>注目テーマ</h2><button type="button" data-faq-filter="topic">すべて見る</button></header>
-          <div class="aq-faq-topic-list" id="aq-faq-topic-list"></div>
-        </section>
-        <section class="aq-faq-side-card">
-          <header><h2>手続き前に確認したいFAQ</h2><button type="button" data-faq-filter="check">すべて見る</button></header>
-          <div class="aq-faq-check-list" id="aq-faq-check-list"></div>
+        <section class="aq-faq-v2-request">
+          <div>
+            <h2>FAQに関するご要望をお聞かせください</h2>
+            <p>「こんな質問を追加してほしい」「わかりづらいので改善してほしい」など、ご意見・ご要望をお待ちしております。</p>
+            <a href="contact/">ご意見・ご要望を送る</a>
+          </div>
+          <span data-icon="mailbox"></span>
         </section>
       </aside>
     </section>
 
-    <section class="aq-faq-guide-links" aria-label="目的別ガイド">
-      <header class="aq-faq-section-head"><h2>目的別ガイド（よく使う導線）</h2></header>
-      <div class="aq-faq-guide-grid" id="aq-faq-guide-grid"></div>
-    </section>
-
-    <section class="aq-faq-bottom-grid">
-      <div class="aq-faq-howto">
-        <header class="aq-faq-section-head"><h2>FAQの使い方</h2></header>
-        <div class="aq-faq-howto-grid">
-          <article><span>1</span><strong>検索する</strong><p>キーワードで検索して該当するFAQを探します</p></article>
-          <article><span>2</span><strong>カテゴリを選ぶ</strong><p>カテゴリから絞り込んで目的のテーマを選びます</p></article>
-          <article><span>3</span><strong>内容を確認する</strong><p>質問を開いて模範回答と確認ポイントを読みます</p></article>
-          <article><span>4</span><strong>必要に応じて相談する</strong><p>判断に迷う場合は担当者にご相談ください</p></article>
-        </div>
-      </div>
-      <div class="aq-faq-support">
-        <header class="aq-faq-section-head"><h2>サポート・お問い合わせ</h2></header>
-        <div class="aq-faq-support-grid">
-          <a href="contact/"><span data-icon="phone"></span><strong>電話で相談</strong><small>営業時間内にお電話でご相談</small></a>
-          <a href="contact/"><span data-icon="mail"></span><strong>メールで相談</strong><small>営業時間外でも送信可能</small></a>
-          <a href="contact/"><span data-icon="chat"></span><strong>チャットで相談</strong><small>担当者が順次ご返信します</small></a>
-          <a href="forms/"><span data-icon="file"></span><strong>お問い合わせフォーム</strong><small>必要事項を入力してお問い合わせ</small></a>
-        </div>
-      </div>
-    </section>
+    <p class="aq-faq-v2-note">FAQの内容は随時更新しています。最新の情報は各制度の詳細ページやお知らせもあわせてご確認ください。</p>
   </main>
 </div>
 
@@ -124,68 +114,43 @@ data_page: faq
   var categories = data.categories || [];
   var faqs = data.faqs || [];
   var popularIds = data.popularIds || [];
-  var state = { categoryId: 0, query: '', visible: 7, popular: true };
+  var state = { mode: 'popular', group: null, query: '', visible: 8 };
 
   var icons = {
-    grid: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="6" height="6" rx="1"></rect><rect x="14" y="4" width="6" height="6" rx="1"></rect><rect x="4" y="14" width="6" height="6" rx="1"></rect><rect x="14" y="14" width="6" height="6" rx="1"></rect></svg>',
-    bulb: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18h6"></path><path d="M10 22h4"></path><path d="M8 14a6 6 0 1 1 8 0c-.9.8-1.2 1.7-1.2 3H9.2c0-1.3-.3-2.2-1.2-3z"></path></svg>',
-    sync: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11a8 8 0 0 0-14.8-4"></path><path d="M20 5v6h-6"></path><path d="M4 13a8 8 0 0 0 14.8 4"></path><path d="M4 19v-6h6"></path></svg>',
-    check: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="4" width="14" height="16" rx="2"></rect><path d="M9 12l2 2 4-5"></path></svg>',
-    search: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m21 21-4.3-4.3"></path></svg>',
-    person: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 21a8 8 0 0 0-16 0"></path><circle cx="12" cy="7" r="4"></circle></svg>',
-    people: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 21a6 6 0 0 0-12 0"></path><circle cx="10" cy="7" r="4"></circle><path d="M22 21a5 5 0 0 0-5-5"></path><path d="M17 3a4 4 0 0 1 0 8"></path></svg>',
-    doc: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l4 4v14H7z"></path><path d="M14 3v5h5"></path><path d="M9 13h6"></path><path d="M9 17h5"></path></svg>',
-    clock: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>',
-    yen: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4l6 8 6-8"></path><path d="M8 12h8"></path><path d="M8 16h8"></path><path d="M12 12v8"></path></svg>',
-    shield: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v5c0 5-3 8-7 10-4-2-7-5-7-10V6z"></path><path d="M9 12l2 2 4-5"></path></svg>',
-    care: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.6-7 10-7 10z"></path></svg>',
-    safety: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"></path><path d="M7 12V8a5 5 0 0 1 10 0v4"></path><path d="M7 12l-2 8h14l-2-8"></path></svg>',
-    building: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 21h16"></path><path d="M6 21V5h10v16"></path><path d="M16 10h2v11"></path><path d="M9 9h1"></path><path d="M12 9h1"></path><path d="M9 13h1"></path><path d="M12 13h1"></path></svg>',
-    phone: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.6 19.6 0 0 1-8.5-3A19.3 19.3 0 0 1 3 8.7 19.6 19.6 0 0 1 2 4.2 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.7.6 2.5a2 2 0 0 1-.5 2.1L7.8 9.6a16 16 0 0 0 6.6 6.6l1.3-1.3a2 2 0 0 1 2.1-.5c.8.3 1.6.5 2.5.6A2 2 0 0 1 22 16.9z"></path></svg>',
-    mail: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m3 7 9 6 9-6"></path></svg>',
-    chat: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H8l-5 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path><path d="M8 9h8"></path><path d="M8 13h5"></path></svg>',
-    file: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l4 4v14H7z"></path><path d="M14 3v5h5"></path><path d="M9 13h6"></path></svg>'
+    search: '<svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"></circle><path d="m21 21-4.3-4.3"></path></svg>',
+    book: '<svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5z"></path><path d="M8 6h8"></path><path d="M8 10h6"></path></svg>',
+    chat: '<svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H8l-5 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path><path d="M8 9h8"></path><path d="M8 13h5"></path></svg>',
+    bulb: '<svg viewBox="0 0 24 24"><path d="M9 18h6"></path><path d="M10 22h4"></path><path d="M8 14a6 6 0 1 1 8 0c-.9.8-1.2 1.7-1.2 3H9.2c0-1.3-.3-2.2-1.2-3z"></path></svg>',
+    headset: '<svg viewBox="0 0 24 24"><path d="M4 14v-2a8 8 0 0 1 16 0v2"></path><path d="M4 14a2 2 0 0 0 2 2h1v-5H6a2 2 0 0 0-2 2z"></path><path d="M20 14a2 2 0 0 1-2 2h-1v-5h1a2 2 0 0 1 2 2z"></path><path d="M14 20h2a4 4 0 0 0 4-4"></path></svg>',
+    people: '<svg viewBox="0 0 24 24"><path d="M16 21a6 6 0 0 0-12 0"></path><circle cx="10" cy="7" r="4"></circle><path d="M22 21a5 5 0 0 0-5-5"></path><path d="M17 3a4 4 0 0 1 0 8"></path></svg>',
+    doc: '<svg viewBox="0 0 24 24"><path d="M7 3h7l4 4v14H7z"></path><path d="M14 3v5h5"></path><path d="M9 13h6"></path><path d="M9 17h5"></path></svg>',
+    shield: '<svg viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 5-3 8-7 10-4-2-7-5-7-10V6z"></path><path d="M9 12l2 2 4-5"></path></svg>',
+    helmet: '<svg viewBox="0 0 24 24"><path d="M5 12h14"></path><path d="M7 12V8a5 5 0 0 1 10 0v4"></path><path d="M7 12l-2 8h14l-2-8"></path></svg>',
+    yen: '<svg viewBox="0 0 24 24"><path d="M6 4l6 8 6-8"></path><path d="M8 12h8"></path><path d="M8 16h8"></path><path d="M12 12v8"></path></svg>',
+    care: '<svg viewBox="0 0 24 24"><path d="M12 21s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.6-7 10-7 10z"></path></svg>',
+    more: '<svg viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.5"></circle><circle cx="12" cy="12" r="1.5"></circle><circle cx="19" cy="12" r="1.5"></circle></svg>',
+    person: '<svg viewBox="0 0 24 24"><path d="M20 21a8 8 0 0 0-16 0"></path><circle cx="12" cy="7" r="4"></circle><path d="M12 12v5"></path><path d="M10 15h4"></path></svg>',
+    mailbox: '<svg viewBox="0 0 24 24"><path d="M4 20h16"></path><path d="M6 20V9a6 6 0 0 1 12 0v11"></path><path d="M8 12h8"></path><path d="M15 6h3"></path></svg>'
   };
 
-  var categoryIcons = ['person','people','check','doc','clock','yen','shield','care','safety','yen','building','care','doc','shield','building','doc','file'];
-  var keywords = ['採用', '入社', '退職', '社会保険', '助成金', '調査対応', '育児・介護', '給与'];
-  var topics = [
-    ['採用', '面接時の注意点とよくある質問'],
-    ['入社', '入社手続きの流れと必要書類まとめ'],
-    ['退職', '退職時の必要確認と手続きチェックリスト'],
-    ['助成金', '助成金の事前確認と申請のポイント'],
-    ['調査対応', '労働基準監督署から連絡が来たときの対応']
-  ];
-  var checks = [
-    '入社前に確認すべき契約条件・労働条件のポイント',
-    '社会保険の届出漏れを防ぐチェックポイント',
-    '36協定の締結・届出で注意すべきFAQ',
-    '就業規則の作成・変更時によくある質問'
-  ];
-  var guideLinks = [
-    ['入社連絡票を提出する', 'forms/', 'doc'],
-    ['退職連絡票を提出する', 'forms/', 'file'],
-    ['扶養追加の相談', 'contact/', 'people'],
-    ['労災事故を連絡する', 'contact/', 'safety'],
-    ['年度更新の確認', 'calendar/', 'check'],
-    ['就業規則の相談', 'forms/', 'doc']
+  var groups = [
+    { id: 'employment', label: '入退社・雇用', ids: [3,4,5,10], icon: 'people' },
+    { id: 'contract', label: '労働条件・契約', ids: [1,2,6], icon: 'doc' },
+    { id: 'social', label: '社会保険', ids: [8], icon: 'shield' },
+    { id: 'labor', label: '労働保険', ids: [11,16], icon: 'helmet' },
+    { id: 'payroll', label: '給与・賞与・年末調整', ids: [7], icon: 'yen' },
+    { id: 'grant', label: '助成金', ids: [12], icon: 'care' },
+    { id: 'care', label: '育児・介護休業', ids: [9], icon: 'care' },
+    { id: 'other', label: 'その他・全般', ids: [13,14,15,17], icon: 'more' }
   ];
 
   var els = {
-    catTotal: document.getElementById('aq-faq-cat-total'),
-    summary: document.getElementById('aq-faq-category-summary'),
-    keywords: document.getElementById('aq-faq-keywords'),
-    categories: document.getElementById('aq-faq-categories'),
-    list: document.getElementById('aq-faq-list'),
-    resultTitle: document.getElementById('aq-faq-result-title'),
-    resultCount: document.getElementById('aq-faq-result-count'),
     search: document.getElementById('aq-faq-search'),
+    cats: document.getElementById('aq-faq-categories'),
+    list: document.getElementById('aq-faq-list'),
+    rank: document.getElementById('aq-faq-rank'),
     more: document.getElementById('aq-faq-more'),
-    popular: document.getElementById('aq-faq-popular'),
-    newList: document.getElementById('aq-faq-new-list'),
-    topicList: document.getElementById('aq-faq-topic-list'),
-    checkList: document.getElementById('aq-faq-check-list'),
-    guideGrid: document.getElementById('aq-faq-guide-grid')
+    all: document.getElementById('aq-faq-all')
   };
 
   function esc(s) {
@@ -196,85 +161,80 @@ data_page: faq
   function normalize(s) { return String(s || '').toLowerCase().replace(/\s+/g, ''); }
   function icon(name) { return icons[name] || icons.doc; }
   function findFaq(id) { return faqs.find(function (f) { return f.id === id; }); }
+  function groupCount(g) { return faqs.filter(function (f) { return g.ids.indexOf(f.categoryId) !== -1; }).length; }
 
-  function setQuery(q) {
-    state.query = q || '';
-    state.categoryId = 0;
-    state.visible = 7;
-    state.popular = false;
-    els.search.value = state.query;
-    renderAll();
+  function listForState() {
+    var list;
+    if (state.mode === 'new') {
+      list = faqs.slice(-18).reverse();
+    } else if (state.mode === 'law') {
+      list = faqs.filter(function (f) {
+        return /法|制度|改正|規程|就業規則|36協定|監督署|労働基準/.test([f.question, f.answer, f.categoryTitle].join(' '));
+      });
+    } else if (state.mode === 'all') {
+      list = faqs.slice();
+    } else {
+      list = popularIds.map(findFaq).filter(Boolean);
+    }
+    if (state.group) {
+      list = list.filter(function (f) { return state.group.ids.indexOf(f.categoryId) !== -1; });
+    }
+    if (state.query) {
+      var q = normalize(state.query);
+      list = faqs.filter(function (f) {
+        var inGroup = !state.group || state.group.ids.indexOf(f.categoryId) !== -1;
+        var hay = normalize([f.question, f.answer, f.categoryTitle].join(' '));
+        return inGroup && hay.indexOf(q) !== -1;
+      });
+    }
+    return list;
   }
 
-  function renderStaticIcons() {
+  function renderIcons() {
     document.querySelectorAll('[data-icon]').forEach(function (el) {
       el.innerHTML = icon(el.getAttribute('data-icon'));
     });
   }
 
-  function renderMeta() {
-    if (els.catTotal) els.catTotal.textContent = categories.length;
-  }
-
-  function renderKeywords() {
-    els.keywords.innerHTML = '<span>人気のキーワード：</span>' + keywords.map(function (k) {
-      return '<button type="button" data-keyword="' + esc(k) + '">' + esc(k) + '</button>';
-    }).join('');
-    els.keywords.querySelectorAll('button[data-keyword]').forEach(function (btn) {
-      btn.addEventListener('click', function () { setQuery(btn.getAttribute('data-keyword')); });
-    });
-  }
-
   function renderCategories() {
-    var html = categories.map(function (c, i) {
-      var active = state.categoryId === c.id ? ' is-active' : '';
-      return '<button type="button" class="aq-faq-category-card' + active + '" data-id="' + c.id + '">' +
-        '<span class="aq-faq-category-icon">' + icon(categoryIcons[i] || 'doc') + '</span>' +
-        '<strong>' + esc(c.title) + '</strong>' +
-        '<small>' + c.items.length + '件</small>' +
-      '</button>';
+    els.cats.innerHTML = groups.map(function (g) {
+      var active = state.group && state.group.id === g.id ? ' is-active' : '';
+      return '<button type="button" class="aq-faq-v2-cat' + active + '" data-group="' + g.id + '">' +
+        '<span>' + icon(g.icon) + '</span><strong>' + esc(g.label) + '</strong><small>' + groupCount(g) + '件</small><i>›</i></button>';
     }).join('');
-    els.categories.innerHTML = html;
-    els.categories.querySelectorAll('button[data-id]').forEach(function (btn) {
+    els.cats.querySelectorAll('[data-group]').forEach(function (btn) {
       btn.addEventListener('click', function () {
-        state.categoryId = Number(btn.getAttribute('data-id') || 0);
-        state.query = '';
-        state.popular = false;
-        state.visible = 7;
-        els.search.value = '';
-        renderAll();
+        state.group = groups.find(function (g) { return g.id === btn.getAttribute('data-group'); }) || null;
+        state.mode = 'all';
+        state.visible = 8;
+        renderTabs();
+        renderList();
       });
     });
   }
 
-  function filteredFaqs() {
-    if (state.popular && !state.query && !state.categoryId) {
-      return popularIds.map(findFaq).filter(Boolean);
-    }
-    var q = normalize(state.query);
-    return faqs.filter(function (f) {
-      var catOk = !state.categoryId || f.categoryId === state.categoryId;
-      var hay = normalize([f.question, f.answer, f.categoryTitle].join(' '));
-      return catOk && (!q || hay.indexOf(q) !== -1);
+  function renderTabs() {
+    document.querySelectorAll('.aq-faq-v2-tabs button').forEach(function (btn) {
+      btn.classList.toggle('is-active', btn.getAttribute('data-tab') === state.mode);
     });
   }
 
-  function faqMarkup(f, index) {
+  function faqRow(f) {
+    var tags = [f.categoryTitle];
+    if (/社会保険/.test(f.question + f.answer)) tags.push('社会保険');
+    if (/有給|休暇|育休|介護/.test(f.question + f.answer)) tags.push('休暇');
     var answerBody = f.answerHtml || ('<p>' + esc(f.answer) + '</p>');
-    var isOpen = index === 0 ? ' is-open' : '';
-    var expanded = index === 0 ? 'true' : 'false';
-    return '<article class="aq-faq-card' + isOpen + '" data-faq="' + f.id + '">' +
-      '<button class="aq-faq-question" type="button" aria-expanded="' + expanded + '">' +
-      '<span class="aq-faq-q-badge">Q</span><span class="aq-faq-q-text">' + esc(f.question) + '</span><span class="aq-faq-chev"></span>' +
-      '</button>' +
-      '<div class="aq-faq-answer"><div class="aq-faq-answer-label"><span>A</span><strong>模範回答</strong></div><div class="aq-faq-answer-body">' + answerBody + '</div></div>' +
+    return '<article class="aq-faq-v2-item" data-faq="' + f.id + '">' +
+      '<button type="button" class="aq-faq-v2-q" aria-expanded="false">' +
+      '<span>Q</span><strong>' + esc(f.question) + '</strong><em>' + tags.slice(0, 2).map(function (t) { return '<b>' + esc(t) + '</b>'; }).join('') + '</em><i></i></button>' +
+      '<div class="aq-faq-v2-a"><div><span>A</span><strong>模範回答</strong></div><section>' + answerBody + '</section></div>' +
       '</article>';
   }
 
-  function bindAccordions() {
-    els.list.querySelectorAll('.aq-faq-question').forEach(function (btn) {
+  function bindRows() {
+    els.list.querySelectorAll('.aq-faq-v2-q').forEach(function (btn) {
       btn.addEventListener('click', function () {
-        var card = btn.closest('.aq-faq-card');
+        var card = btn.closest('.aq-faq-v2-item');
         var open = !card.classList.contains('is-open');
         card.classList.toggle('is-open', open);
         btn.setAttribute('aria-expanded', open ? 'true' : 'false');
@@ -282,120 +242,88 @@ data_page: faq
     });
   }
 
-  function renderFaqs() {
-    var list = filteredFaqs();
+  function renderList() {
+    var list = listForState();
     var pageList = list.slice(0, state.visible);
-    if (!pageList.length) {
-      els.list.innerHTML = '<div class="aq-faq-empty">該当するFAQが見つかりませんでした。別のキーワードでお試しください。</div>';
-    } else {
-      els.list.innerHTML = pageList.map(faqMarkup).join('');
-    }
-    bindAccordions();
+    els.list.innerHTML = pageList.length ? pageList.map(faqRow).join('') : '<p class="aq-faq-v2-empty">該当するFAQが見つかりませんでした。</p>';
     els.more.style.display = list.length > state.visible ? 'inline-flex' : 'none';
-    els.resultCount.textContent = list.length + '件のFAQを表示';
-    if (state.popular && !state.query && !state.categoryId) {
-      els.resultTitle.textContent = 'よく見られる質問';
-    } else if (state.categoryId) {
-      var cat = categories.find(function (c) { return c.id === state.categoryId; });
-      els.resultTitle.textContent = cat ? cat.title : 'FAQ';
-    } else {
-      els.resultTitle.textContent = state.query ? '検索結果：' + state.query : 'すべてのFAQ';
-    }
-    if (els.summary) {
-      els.summary.textContent = state.categoryId
-        ? ((categories.find(function (c) { return c.id === state.categoryId; }) || {}).items || []).length + '件'
-        : '全' + categories.length + 'カテゴリ';
-    }
+    bindRows();
   }
 
-  function jumpToFaq(id) {
-    state.categoryId = 0;
-    state.query = '';
-    state.visible = Math.max(30, faqs.length);
-    state.popular = false;
-    els.search.value = '';
-    renderAll();
-    setTimeout(function () {
-      var card = document.querySelector('[data-faq="' + id + '"]');
-      if (!card) return;
-      card.classList.add('is-open');
-      var q = card.querySelector('.aq-faq-question');
-      if (q) q.setAttribute('aria-expanded', 'true');
-      card.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }, 40);
-  }
-
-  function renderSideLists() {
-    var newFaqs = faqs.slice(-5).reverse();
-    els.newList.innerHTML = newFaqs.map(function (f, i) {
-      var day = ['2026.05.15','2026.05.14','2026.05.12','2026.05.10','2026.05.08'][i] || '2026.05.01';
-      return '<button type="button" data-id="' + f.id + '"><span>NEW</span><strong>' + esc(f.question) + '</strong><time>' + day + '</time></button>';
+  function renderRank() {
+    els.rank.innerHTML = popularIds.slice(0, 5).map(function (id, index) {
+      var f = findFaq(id);
+      if (!f) return '';
+      return '<button type="button" data-rank="' + f.id + '"><span>' + (index + 1) + '</span><strong>' + esc(f.question) + '</strong><small>' + esc(f.categoryTitle) + '</small></button>';
     }).join('');
-    els.newList.querySelectorAll('button[data-id]').forEach(function (btn) {
-      btn.addEventListener('click', function () { jumpToFaq(Number(btn.getAttribute('data-id'))); });
-    });
-
-    els.topicList.innerHTML = topics.map(function (t) {
-      return '<button type="button" data-topic="' + esc(t[0]) + '"><span>' + esc(t[0]) + '</span><strong>' + esc(t[1]) + '</strong></button>';
-    }).join('');
-    els.topicList.querySelectorAll('button[data-topic]').forEach(function (btn) {
-      btn.addEventListener('click', function () { setQuery(btn.getAttribute('data-topic')); });
-    });
-
-    els.checkList.innerHTML = checks.map(function (label) {
-      return '<button type="button" data-check="' + esc(label) + '"><span></span><strong>' + esc(label) + '</strong></button>';
-    }).join('');
-    els.checkList.querySelectorAll('button[data-check]').forEach(function (btn) {
-      btn.addEventListener('click', function () { setQuery(btn.textContent); });
+    els.rank.querySelectorAll('[data-rank]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var id = Number(btn.getAttribute('data-rank'));
+        state.mode = 'all';
+        state.group = null;
+        state.query = '';
+        state.visible = faqs.length;
+        els.search.value = '';
+        renderTabs();
+        renderCategories();
+        renderList();
+        setTimeout(function () {
+          var card = document.querySelector('[data-faq="' + id + '"]');
+          if (!card) return;
+          card.classList.add('is-open');
+          var q = card.querySelector('.aq-faq-v2-q');
+          if (q) q.setAttribute('aria-expanded', 'true');
+          card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 40);
+      });
     });
   }
 
-  function renderGuides() {
-    els.guideGrid.innerHTML = guideLinks.map(function (g) {
-      return '<a href="' + esc(g[1]) + '"><span>' + icon(g[2]) + '</span><strong>' + esc(g[0]) + '</strong></a>';
-    }).join('');
-  }
-
-  function renderAll() {
-    renderCategories();
-    renderFaqs();
-  }
-
+  document.querySelectorAll('.aq-faq-v2-tabs button').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      state.mode = btn.getAttribute('data-tab') || 'popular';
+      state.group = null;
+      state.query = '';
+      state.visible = 8;
+      els.search.value = '';
+      renderTabs();
+      renderCategories();
+      renderList();
+    });
+  });
+  document.querySelectorAll('[data-jump]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var target = btn.getAttribute('data-jump') === 'categories' ? document.getElementById('aq-faq-categories-wrap') : document.querySelector('.aq-faq-v2-content');
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
   els.search.addEventListener('input', function () {
     state.query = els.search.value || '';
-    state.categoryId = 0;
-    state.popular = false;
-    state.visible = 7;
-    renderAll();
-  });
-  els.popular.addEventListener('click', function () {
-    state.categoryId = 0;
-    state.query = '';
-    state.visible = 7;
-    state.popular = true;
-    els.search.value = '';
-    renderAll();
+    state.group = null;
+    state.mode = 'all';
+    state.visible = 8;
+    renderTabs();
+    renderCategories();
+    renderList();
   });
   els.more.addEventListener('click', function () {
-    state.visible += 7;
-    renderFaqs();
+    state.visible += 8;
+    renderList();
   });
-  document.querySelectorAll('[data-faq-filter]').forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      state.categoryId = 0;
-      state.query = '';
-      state.visible = 18;
-      state.popular = false;
-      els.search.value = '';
-      renderAll();
-    });
+  els.all.addEventListener('click', function () {
+    state.mode = 'all';
+    state.group = null;
+    state.query = '';
+    state.visible = 8;
+    els.search.value = '';
+    renderTabs();
+    renderCategories();
+    renderList();
   });
 
-  renderStaticIcons();
-  renderMeta();
-  renderKeywords();
-  renderSideLists();
-  renderGuides();
-  renderAll();
+  renderIcons();
+  renderCategories();
+  renderRank();
+  renderList();
 })();
 </script>
