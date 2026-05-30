@@ -11,7 +11,7 @@
   // Highlight active sidebar item by data-page set on body
   var page = document.body.getAttribute('data-page') || 'home';
   // カレンダー関連ページは「年間カレンダー」をアクティブにする
-  var calGroup = { 'jimukumiai': 'calendar', 'joseikin-list': 'joseikin' };
+  var calGroup = { 'jimukumiai': 'calendar', 'joseikin-list': 'joseikin', 'joseikin-bot': 'joseikin' };
   var activeNav = calGroup[page] || page;
   document.querySelectorAll('#aq-sidebar a[data-nav]').forEach(function (a) {
     if (a.getAttribute('data-nav') === activeNav) a.classList.add('is-active');
