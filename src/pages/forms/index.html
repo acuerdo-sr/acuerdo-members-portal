@@ -408,14 +408,60 @@ data_page: forms
       html += '<h3 class="aq-guide-cat-title"><span class="aq-guide-cat-icon">' + icon(group.icon) + '</span>' + esc(group.label) + '</h3>';
       html += '<div class="aq-guide-list">';
       html += groupRows.map(function (row) {
-        return '<div class="aq-guide-item">' +
+        var hasPdf = !!row.file_pdf;
+        return '<div class="aq-guide-item' + (hasPdf ? ' aq-guide-item-clickable' : '') + '" ' +
+          (hasPdf ? 'role="button" tabindex="0" data-row="' + row._index + '"' : '') + '>' +
+          '<div class="aq-guide-item-info">' +
           '<strong>' + esc(row.name) + '</strong>' +
           '<p>' + esc(row.desc || row.use || '') + '</p>' +
+          '</div>' +
+          (hasPdf ? '<span class="aq-guide-item-arrow">記入例を見る ›</span>' : '') +
           '</div>';
       }).join('');
       html += '</div></section>';
     });
-    document.getElementById('aq-guide-body').innerHTML = html;
+    var body = document.getElementById('aq-guide-body');
+    body.innerHTML = html;
+
+    body.querySelectorAll('.aq-guide-item-clickable').forEach(function (el) {
+      function open() {
+        var idx = parseInt(el.getAttribute('data-row'), 10);
+        showFormPdf(rows[idx]);
+      }
+      el.addEventListener('click', open);
+      el.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); }
+      });
+    });
+  }
+
+  function showFormPdf(row) {
+    var pdfUrl = urlEncodePath(row.file_pdf || '');
+    var docUrl = urlEncodePath(row.file_doc || '');
+    var body = document.getElementById('aq-guide-body');
+    body.innerHTML =
+      '<div class="aq-guide-detail">' +
+        '<button class="aq-guide-back" id="aq-guide-back" type="button">' +
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>' +
+          '一覧に戻る' +
+        '</button>' +
+        '<div class="aq-guide-detail-head">' +
+          '<h3>' + esc(row.name) + '</h3>' +
+          '<p>' + esc(row.desc || row.use || '') + '</p>' +
+          '<div class="aq-guide-detail-actions">' +
+            (pdfUrl ? '<a href="' + pdfUrl + '" download class="aq-guide-dl-btn">PDFをダウンロード</a>' : '') +
+            (docUrl ? '<a href="' + docUrl + '" download class="aq-guide-dl-btn aq-guide-dl-doc">Wordをダウンロード</a>' : '') +
+          '</div>' +
+        '</div>' +
+        (pdfUrl ?
+          '<div class="aq-guide-pdf-wrap">' +
+            '<iframe class="aq-guide-pdf" src="' + pdfUrl + '" title="' + esc(row.name) + '"></iframe>' +
+          '</div>' :
+          '<p class="aq-guide-no-pdf">PDFファイルが見つかりません。担当者にお問い合わせください。</p>'
+        ) +
+      '</div>';
+    document.getElementById('aq-guide-back').addEventListener('click', renderGuide);
+    body.scrollTop = 0;
   }
 
   function bindGuide() {
