@@ -12497,3 +12497,13 @@ body.aq-is-jimukumiai .aq-subpage-tabs button.is-active {
   border-color: #0b1730 !important;
   color: #fff !important;
 }
+
+/* カレンダー系ページのSVG: fill:noneを強制（黒丸防止） */
+body.aq-is-calendar svg,
+body.aq-is-jimukumiai svg {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
