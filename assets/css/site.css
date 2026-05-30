@@ -2613,10 +2613,10 @@ body.aq-is-news {
 }
 
 .aq-subpage-wrap {
-  width: 100%;
+  width: calc(100vw - var(--aq-sidebar-w));
   min-height: 100vh;
-  margin-left: 0;
-  padding: 28px 24px 56px 24px;
+  margin-left: var(--aq-sidebar-w);
+  padding: 28px 24px 56px 28px;
   background: #f3f6fb;
   color: var(--aq-text);
   overflow-x: clip;
