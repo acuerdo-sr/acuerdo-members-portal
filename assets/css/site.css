@@ -5063,3 +5063,94 @@ body.aq-is-news {
     gap: 8px !important;
   }
 }
+
+/* ============================================================
+   v9.1 - Visual precision fixes
+   ============================================================ */
+
+/* Hero: 3-column layout (copy | illustration | check card) */
+#aq-hero {
+  grid-template-columns: minmax(0, 1fr) 240px 290px !important;
+  gap: 28px !important;
+  min-height: 370px !important;
+  align-items: center !important;
+}
+
+/* Hero title: larger + thinner weight to match target */
+.aq-hero-title {
+  font-size: 62px !important;
+  font-weight: 400 !important;
+  line-height: 1.08 !important;
+  letter-spacing: -0.01em !important;
+}
+
+.aq-hero-sub {
+  font-size: 18px !important;
+  line-height: 1.75 !important;
+  max-width: 520px !important;
+}
+
+/* Hero illustration column */
+.aq-hero-illust {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  min-height: 260px;
+}
+
+.aq-hero-illust svg {
+  width: 100%;
+  height: auto;
+  max-height: 280px;
+}
+
+/* Purpose cards: vertical icon-on-top layout */
+.aq-purpose-card {
+  flex-direction: column !important;
+  align-items: center !important;
+  text-align: center !important;
+  padding: 20px 10px 16px !important;
+  gap: 10px !important;
+  min-height: 128px !important;
+  justify-content: flex-start !important;
+}
+
+.aq-purpose-text {
+  align-items: center !important;
+  text-align: center !important;
+}
+
+.aq-purpose-text strong {
+  font-size: 13px !important;
+  text-align: center;
+}
+
+.aq-purpose-text small {
+  text-align: center;
+}
+
+.aq-purpose-icon {
+  width: 54px !important;
+  height: 54px !important;
+}
+
+/* Responsive: hide illustration when not enough space */
+@media (max-width: 1280px) {
+  #aq-hero {
+    grid-template-columns: minmax(0, 1fr) 280px !important;
+  }
+  .aq-hero-illust {
+    display: none !important;
+  }
+}
+
+@media (max-width: 820px) {
+  #aq-hero {
+    grid-template-columns: 1fr !important;
+    min-height: auto !important;
+  }
+  .aq-hero-title {
+    font-size: 42px !important;
+  }
+}
