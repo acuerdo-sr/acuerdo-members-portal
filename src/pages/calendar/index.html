@@ -9,7 +9,7 @@ data_page: calendar
     <header class="aq-cal-page-head">
       <div>
         <h1>年間カレンダー</h1>
-        <p>労務、労働保険事務組合に関する年間の重要スケジュールを一括で確認できます。</p>
+        <p>労務管理・社会保険・法令対応など、年間の重要な手続きスケジュールを月別に確認できます。</p>
       </div>
       <a class="aq-cal-help" href="faq/">
         <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M9.5 9a2.7 2.7 0 0 1 5 1.5c0 2-2.5 2.1-2.5 4"></path><path d="M12 18h.01"></path></svg>
@@ -30,163 +30,13 @@ data_page: calendar
           </a>
         </nav>
 
-        <div class="aq-cal-filterbar">
-          <label>
-            <span>年月を選択</span>
-            <select aria-label="年度を選択">
-              <option>2026年度（2026.04-2027.03）</option>
-              <option>2025年度（2025.04-2026.03）</option>
-            </select>
-          </label>
-          <label>
-            <span>カテゴリで絞り込む</span>
-            <select aria-label="カテゴリで絞り込む">
-              <option>すべてのカテゴリ</option>
-              <option>労務管理</option>
-              <option>労働保険</option>
-              <option>社会保険</option>
-              <option>入退社・手続き</option>
-            </select>
-          </label>
-          <label class="aq-cal-search">
-            <span>キーワードで検索</span>
-            <span class="aq-cal-searchbox">
-              <input type="search" placeholder="例：算定基礎届、年末調整" aria-label="キーワードで検索">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m21 21-4.3-4.3"></path></svg>
-            </span>
-          </label>
-          <button class="aq-cal-clear" type="button">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 0 1 15-6.7L21 8"></path><path d="M21 3v5h-5"></path><path d="M21 12a9 9 0 0 1-15 6.7L3 16"></path><path d="M3 21v-5h5"></path></svg>
-            条件をクリア
-          </button>
-        </div>
+        <div class="aq-subpage-tabs" id="aq-cal-cat" role="tablist"></div>
+        <div id="aq-cal-months"></div>
 
-        <div class="aq-cal-table-card">
-          <table class="aq-cal-year-table">
-            <thead>
-              <tr>
-                <th>月</th>
-                <th>主な予定</th>
-                <th>確認ポイント</th>
-                <th>詳細を見る</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><span class="aq-cal-month m04">4月</span></td>
-                <td>
-                  <div class="aq-cal-tags"><span class="green">入退社・手続き</span><span class="orange">労務管理</span></div>
-                  <strong>入退社手続き確認・社会保険の資格取得</strong>
-                </td>
-                <td>入社者の社会保険・雇用保険の取得手続き、退職者の資格喪失手続きを漏れなく確認しましょう。</td>
-                <td><a class="aq-cal-detail" href="forms/">詳細を見る</a></td>
-              </tr>
-              <tr>
-                <td><span class="aq-cal-month m05">5月</span></td>
-                <td>
-                  <div class="aq-cal-tags"><span class="orange">労務管理</span></div>
-                  <strong>36協定の点検・必要に応じて締結・届出</strong>
-                </td>
-                <td>時間外・休日労働の実績を確認し、協定内容の見直しと届出準備を行いましょう。</td>
-                <td><a class="aq-cal-detail" href="forms/">詳細を見る</a></td>
-              </tr>
-              <tr>
-                <td><span class="aq-cal-month m06">6月</span></td>
-                <td>
-                  <div class="aq-cal-tags"><span class="orange">労務管理</span><span class="green">労働保険</span></div>
-                  <strong>健康診断の実施時期（前期）</strong>
-                </td>
-                <td>常時使用する労働者の定期健康診断の計画、実施状況を確認しましょう。</td>
-                <td><a class="aq-cal-detail" href="faq/">詳細を見る</a></td>
-              </tr>
-              <tr>
-                <td><span class="aq-cal-month m07">7月</span></td>
-                <td>
-                  <div class="aq-cal-tags"><span class="purple">労働保険</span><span class="blue">届出・申請</span></div>
-                  <strong>労働保険年度更新の準備開始</strong>
-                </td>
-                <td>概算・確定保険料の見込みを確認し、申告書作成に必要な資料を集めましょう。</td>
-                <td><a class="aq-cal-detail" href="jimukumiai/">詳細を見る</a></td>
-              </tr>
-              <tr>
-                <td><span class="aq-cal-month m08">8月</span></td>
-                <td>
-                  <div class="aq-cal-tags"><span class="orange">労務管理</span></div>
-                  <strong>賞与支払届の提出</strong>
-                </td>
-                <td>賞与を支給した場合は、支給日から5日以内に健康保険組合へ届出を行いましょう。</td>
-                <td><a class="aq-cal-detail" href="forms/">詳細を見る</a></td>
-              </tr>
-              <tr>
-                <td><span class="aq-cal-month m09">9月</span></td>
-                <td>
-                  <div class="aq-cal-tags"><span class="purple">労働保険</span><span class="blue">届出・申請</span></div>
-                  <strong>算定基礎届の提出確認</strong>
-                </td>
-                <td>提出済み内容と標準報酬月額の反映を確認し、給与計算へ反映しましょう。</td>
-                <td><a class="aq-cal-detail" href="forms/">詳細を見る</a></td>
-              </tr>
-              <tr>
-                <td><span class="aq-cal-month m10">10月</span></td>
-                <td>
-                  <div class="aq-cal-tags"><span class="orange">労務管理</span></div>
-                  <strong>年末調整の準備開始</strong>
-                </td>
-                <td>扶養控除等申告書、保険料控除証明書の案内など、早めに準備を始めましょう。</td>
-                <td><a class="aq-cal-detail" href="forms/">詳細を見る</a></td>
-              </tr>
-              <tr>
-                <td><span class="aq-cal-month m11">11月</span></td>
-                <td>
-                  <div class="aq-cal-tags"><span class="orange">労務管理</span></div>
-                  <strong>年末調整の実施（11月〜12月）</strong>
-                </td>
-                <td>年末調整を正確に行い、源泉徴収票の作成・交付準備を進めましょう。</td>
-                <td><a class="aq-cal-detail" href="forms/">詳細を見る</a></td>
-              </tr>
-              <tr>
-                <td><span class="aq-cal-month m12">12月</span></td>
-                <td>
-                  <div class="aq-cal-tags"><span class="orange">労務管理</span></div>
-                  <strong>年末調整の完了・源泉徴収票の交付</strong>
-                </td>
-                <td>源泉徴収票の交付準備を整え、従業員へ確実に交付しましょう。</td>
-                <td><a class="aq-cal-detail" href="forms/">詳細を見る</a></td>
-              </tr>
-              <tr>
-                <td><span class="aq-cal-month m01">1月</span></td>
-                <td>
-                  <div class="aq-cal-tags"><span class="purple">労働保険</span></div>
-                  <strong>労働保険料の納付（第3期分）</strong>
-                </td>
-                <td>労働保険料の納付期限を確認し、遅れなく納付しましょう。</td>
-                <td><a class="aq-cal-detail" href="jimukumiai/">詳細を見る</a></td>
-              </tr>
-              <tr>
-                <td><span class="aq-cal-month m02">2月</span></td>
-                <td>
-                  <div class="aq-cal-tags"><span class="orange">労務管理</span></div>
-                  <strong>健康診断の実施時期（後期）</strong>
-                </td>
-                <td>未実施者がいないか確認し、結果の保管と事後措置まで点検しましょう。</td>
-                <td><a class="aq-cal-detail" href="faq/">詳細を見る</a></td>
-              </tr>
-              <tr>
-                <td><span class="aq-cal-month m03">3月</span></td>
-                <td>
-                  <div class="aq-cal-tags"><span class="green">入退社・手続き</span><span class="orange">労務管理</span></div>
-                  <strong>年度末の入退社手続き・労務管理の総点検</strong>
-                </td>
-                <td>退職者の手続き、各種届出の漏れ、雇用契約書や労働条件通知書を確認しましょう。</td>
-                <td><a class="aq-cal-detail" href="forms/">詳細を見る</a></td>
-              </tr>
-            </tbody>
-          </table>
-          <p class="aq-cal-footnote">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 8h.01"></path><path d="M11 12h1v5h1"></path></svg>
-            上記は一般的なスケジュールです。企業の状況や所轄労働局の指導により、期限や内容が異なる場合があります。
-          </p>
-        </div>
+        <p class="aq-subpage-note">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 8h.01"></path><path d="M11 12h1v5h1"></path></svg>
+          上記は一般的なスケジュールです。期限・内容は企業の状況や所轄機関の指導により異なる場合があります。
+        </p>
       </section>
 
       <aside class="aq-cal-side" aria-label="補足情報">
@@ -198,7 +48,7 @@ data_page: calendar
             <label><input type="checkbox">退職者の資格喪失手続き</label>
             <label><input type="checkbox">保険料の納付状況の確認</label>
           </div>
-          <a class="aq-cal-side-link" href="contact/">すべてのタスクを見る</a>
+          <a class="aq-cal-side-link" href="faq/">よくある質問を見る</a>
         </section>
 
         <section class="aq-cal-side-card">
@@ -223,14 +73,143 @@ data_page: calendar
 
         <section class="aq-cal-side-card">
           <h2>カレンダーの見方</h2>
-          <p>月ごとの主な予定と確認ポイントをまとめたスケジュールです。</p>
+          <p>月ごとの主な手続きと確認ポイントをまとめたスケジュールです。</p>
           <ul class="aq-cal-guide">
-            <li><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="3"></rect><path d="M8 3v4M16 3v4M4 10h16"></path></svg><span><strong>主な予定</strong>その月に必要な手続き・行事です。</span></li>
-            <li><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="m9 12 2 2 4-5"></path></svg><span><strong>確認ポイント</strong>手続きの注意点や確認すべき事項です。</span></li>
-            <li><svg viewBox="0 0 24 24"><path d="M7 3h7l4 4v14H7z"></path><path d="M14 3v5h5"></path></svg><span><strong>詳細を見る</strong>詳しい解説や関連書式へ移動します。</span></li>
+            <li><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="3"></rect><path d="M8 3v4M16 3v4M4 10h16"></path></svg><span><strong>期限</strong>期限のある手続きは日付が表示されます。</span></li>
+            <li><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="m9 12 2 2 4-5"></path></svg><span><strong>重要度</strong>「必須」は期限のある重要手続きです。</span></li>
+            <li><svg viewBox="0 0 24 24"><path d="M12 3v18M5 7h14M7 7l-3 6h6zM17 7l-3 6h6z"></path></svg><span><strong>担当区分</strong>自社対応・事務所代行・協同対応があります。</span></li>
           </ul>
         </section>
       </aside>
     </div>
   </main>
 </div>
+
+<script id="aq-cal-data" type="application/json">__CALENDAR_DATA__</script>
+<script>
+(function () {
+  var data;
+  try { data = JSON.parse(document.getElementById('aq-cal-data').textContent) || []; }
+  catch (e) { data = []; }
+
+  var monthsEl = document.getElementById('aq-cal-months');
+  var tabsEl   = document.getElementById('aq-cal-cat');
+  var state    = { cat: 'all' };
+
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+
+  function monthOf(d) {
+    var m = (d || '').match(/^\d{4}-(\d{2})/);
+    return m ? parseInt(m[1], 10) : 0;
+  }
+
+  function dayOf(d) {
+    var m = (d || '').match(/^\d{4}-\d{2}-(\d{2})/);
+    return m ? parseInt(m[1], 10) : 0;
+  }
+
+  function impClass(s) {
+    if (!s) return 'low';
+    if (s.indexOf('必須') !== -1) return 'high';
+    if (s.indexOf('要確認') !== -1) return 'mid';
+    return 'low';
+  }
+
+  function buildTabs() {
+    var cats = {};
+    data.forEach(function (r) { if (r['カテゴリ']) cats[r['カテゴリ']] = true; });
+    var html = '<button class="is-active" data-cat="all" type="button">すべて</button>';
+    Object.keys(cats).forEach(function (c) {
+      html += '<button data-cat="' + esc(c) + '" type="button">' + esc(c) + '</button>';
+    });
+    if (tabsEl) tabsEl.innerHTML = html;
+  }
+
+  function matchFilter(r) {
+    return state.cat === 'all' || r['カテゴリ'] === state.cat;
+  }
+
+  function itemHtml(r) {
+    var day = dayOf(r['実施日']);
+    var dayLabel = day ? day + '日' : '';
+    var actions = (r['必要な対応'] || '').split(/\n/).filter(function (x) { return x.trim(); });
+    var actHtml = actions.length
+      ? '<div class="aq-jim-block"><h4>必要な対応</h4><ul>' +
+        actions.map(function (a) { return '<li>' + esc(a.replace(/^[・\-•]\s*/, '')) + '</li>'; }).join('') +
+        '</ul></div>'
+      : '';
+    return '<li class="aq-cal-item' + (dayLabel ? '' : ' is-noday') + '">' +
+      (dayLabel ? '<div class="aq-cal-day"><time>' + esc(dayLabel) + '</time><small>期限</small></div>' : '') +
+      '<div class="aq-cal-body">' +
+        '<header class="aq-cal-itemhead">' +
+          '<span class="aq-pill aq-pill-cat">' + esc(r['カテゴリ'] || '') + '</span>' +
+          '<span class="aq-pill aq-pill-sev aq-sev-' + impClass(r['重要度']) + '">' + esc(r['重要度'] || '') + '</span>' +
+          (r['担当区分'] ? '<span class="aq-pill aq-pill-tanto">' + esc(r['担当区分']) + '</span>' : '') +
+        '</header>' +
+        '<h3 class="aq-cal-title">' + esc(r['業務名']) + '</h3>' +
+        (r['概要'] ? '<p class="aq-cal-summary">' + esc(r['概要']) + '</p>' : '') +
+        (actHtml ? '<details class="aq-cal-details"><summary>必要な対応を見る</summary>' + actHtml + '</details>' : '') +
+      '</div>' +
+    '</li>';
+  }
+
+  function render() {
+    if (!monthsEl) return;
+    var rows = data.filter(matchFilter);
+    if (!rows.length) {
+      monthsEl.innerHTML = '<p class="aq-subpage-empty">該当する項目が見つかりませんでした。</p>';
+      return;
+    }
+
+    /* 月ごとにグループ化し、日付順ソート */
+    var grouped = {};
+    rows.forEach(function (r) {
+      var m = monthOf(r['実施日']) || 0;
+      (grouped[m] = grouped[m] || []).push(r);
+    });
+    Object.keys(grouped).forEach(function (m) {
+      grouped[m].sort(function (a, b) { return dayOf(a['実施日']) - dayOf(b['実施日']); });
+    });
+
+    /* 年度順（4月始まり）で表示 */
+    var order = [4, 5, 6, 7, 8, 9, 10, 11, 12, 1, 2, 3];
+    var html = '';
+    order.forEach(function (m) {
+      if (!grouped[m] || !grouped[m].length) return;
+      html += '<section class="aq-cal-month-block">';
+      html += '<h2 class="aq-cal-month-h">' +
+        '<span class="aq-cal-month-no">' + m + '</span>' +
+        '<span class="aq-cal-month-label">月</span>' +
+        '<span class="aq-cal-month-count">' + grouped[m].length + '件</span>' +
+        '</h2>';
+      html += '<ul class="aq-cal-items">';
+      grouped[m].forEach(function (r) { html += itemHtml(r); });
+      html += '</ul></section>';
+    });
+
+    if (grouped[0] && grouped[0].length) {
+      html += '<section class="aq-cal-month-block aq-cal-anytime">';
+      html += '<h2 class="aq-cal-month-h"><span class="aq-cal-anytime-label">随時</span><span class="aq-cal-month-count">' + grouped[0].length + '件</span></h2>';
+      html += '<ul class="aq-cal-items">';
+      grouped[0].forEach(function (r) { html += itemHtml(r); });
+      html += '</ul></section>';
+    }
+
+    monthsEl.innerHTML = html;
+  }
+
+  buildTabs();
+  if (tabsEl) tabsEl.addEventListener('click', function (e) {
+    var b = e.target.closest('button[data-cat]'); if (!b) return;
+    tabsEl.querySelectorAll('button').forEach(function (x) { x.classList.remove('is-active'); });
+    b.classList.add('is-active');
+    state.cat = b.getAttribute('data-cat');
+    render();
+  });
+  render();
+})();
+</script>
