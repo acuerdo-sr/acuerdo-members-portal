@@ -287,10 +287,16 @@ data_page: forms
     var preview = pdfUrl ? '<button class="aq-forms-preview-btn" type="button" data-pdf="'+pdfUrl+'" data-name="'+esc(row.name)+'" title="プレビューを表示" aria-label="'+esc(row.name)+'をプレビュー">'+previewIcon+'</button>' : '<span class="aq-forms-preview-btn is-disabled">'+previewIcon+'</span>';
     return '<article class="aq-forms-list-row" data-group="'+esc(row.group)+'">' +
       '<div class="aq-forms-row-lead">'+rank+badge+'</div>' +
-      '<div class="aq-forms-row-main"><h3>'+esc(row.name)+'</h3><p>'+esc(row.desc || row.use || '')+'</p><div class="aq-forms-tags">'+tags(row)+'</div></div>' +
-      '<div class="aq-forms-row-meta">'+date+count+'</div>' +
-      preview +
-      download +
+      '<div class="aq-forms-row-body">' +
+        '<div class="aq-forms-row-line1">' +
+          '<h3>'+esc(row.name)+'</h3>' +
+          '<div class="aq-forms-row-actions">'+count+date+preview+download+'</div>' +
+        '</div>' +
+        '<div class="aq-forms-row-line2">' +
+          (row.desc || row.use ? '<p>'+esc(row.desc || row.use || '')+'</p>' : '') +
+          '<div class="aq-forms-tags">'+tags(row)+'</div>' +
+        '</div>' +
+      '</div>' +
     '</article>';
   }
 

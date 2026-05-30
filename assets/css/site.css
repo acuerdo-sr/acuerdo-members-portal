@@ -5690,27 +5690,52 @@ body.aq-is-forms .aq-nav-item.is-active {
 
 .aq-forms-list-row {
   min-width: 0;
-  min-height: 56px;
   display: grid;
-  grid-template-columns: 40px minmax(0, 1fr) 100px 44px 44px;
-  align-items: stretch;
+  grid-template-columns: 40px minmax(0, 1fr);
+  align-items: start;
   gap: 0;
-  padding: 0 0 0 12px;
+  padding: 10px 0 10px 12px;
   border-bottom: 1px solid #e2e9f2;
   background: #fff;
 }
 
-.aq-forms-row-lead,
-.aq-forms-row-meta {
+.aq-forms-row-lead {
+  padding-top: 3px;
   display: flex;
-  align-items: center;
-  padding: 8px 6px 8px 0;
+  align-items: flex-start;
+  justify-content: center;
 }
 
-.aq-forms-row-main {
+.aq-forms-row-body {
   min-width: 0;
-  align-self: center;
-  padding: 8px 10px 8px 0;
+}
+
+.aq-forms-row-line1 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.aq-forms-row-line1 h3 {
+  flex: 1;
+  min-width: 0;
+  margin: 0 !important;
+}
+
+.aq-forms-row-actions {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.aq-forms-row-line2 {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  padding-right: 8px;
 }
 
 .aq-forms-list-row:last-child {
@@ -5759,21 +5784,25 @@ body.aq-is-forms .aq-nav-item.is-active {
   min-width: 0;
 }
 
-.aq-forms-row-main h3 {
-  margin: 0 0 2px !important;
+.aq-forms-row-main h3,
+.aq-forms-row-line1 h3 {
+  margin: 0 !important;
   color: #07142d !important;
-  font-size: 16px !important;
+  font-size: 15px !important;
   font-weight: 900 !important;
-  line-height: 1.42 !important;
+  line-height: 1.4 !important;
   letter-spacing: 0 !important;
-  overflow-wrap: anywhere;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
+.aq-forms-row-body p,
 .aq-forms-row-main p {
   margin: 0 !important;
   color: #5d6a7e !important;
-  font-size: 14px;
-  line-height: 1.65;
+  font-size: 12px;
+  line-height: 1.5;
   overflow-wrap: anywhere;
 }
 
@@ -5830,27 +5859,28 @@ body.aq-is-forms .aq-nav-item.is-active {
   white-space: nowrap;
 }
 
-.aq-forms-row-meta time {
-  color: #526179;
-  font-size: 13px;
+.aq-forms-row-meta time,
+.aq-forms-row-actions time {
+  color: #94a3b8;
+  font-size: 11px;
   white-space: nowrap;
 }
 
 .aq-forms-download {
-  width: 38px;
-  height: 38px;
+  width: 32px;
+  height: 32px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   border: 1px solid #d5e0ee;
-  border-radius: 8px;
+  border-radius: 7px;
   background: #fff;
   color: #1450a3 !important;
 }
 
 .aq-forms-download svg {
-  width: 20px;
-  height: 20px;
+  width: 16px;
+  height: 16px;
   fill: none;
   stroke: currentColor;
   stroke-width: 2.4;
@@ -7811,14 +7841,14 @@ body.aq-is-home .aq-float-widget {
 
 /* プレビューボタン */
 .aq-forms-preview-btn {
-  height: 100%;
-  width: 44px;
-  display: flex;
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  border: 0;
-  border-left: 1px solid #e8edf5;
-  background: transparent;
+  border: 1px solid #e8edf5;
+  border-radius: 7px;
+  background: #fff;
   color: #64748b;
   cursor: pointer;
   transition: background .12s, color .12s;
