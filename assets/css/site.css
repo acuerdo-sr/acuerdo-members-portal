@@ -15497,19 +15497,33 @@ body.aq-is-lawrev .aq-lr-impact-section {
   overflow: hidden !important;
 }
 
+body.aq-is-lawrev .aq-lr-bottom-grid {
+  align-items: start !important;
+}
+
 body.aq-is-lawrev .aq-lr-points-layout {
-  grid-template-columns: minmax(0, 1fr) minmax(120px, 170px) minmax(220px, .9fr) !important;
-  align-items: end !important;
+  grid-template-columns: minmax(0, 1fr) minmax(104px, 150px) minmax(220px, .95fr) !important;
+  align-items: center !important;
+  gap: 12px !important;
 }
 
 body.aq-is-lawrev .aq-lr-points-illust {
-  align-self: end;
+  align-self: center;
   justify-self: center;
-  width: min(172px, 100%);
-  max-height: 136px;
+  width: min(150px, 100%);
+  max-height: 112px;
   object-fit: contain;
-  margin-bottom: -4px;
+  margin: 0;
   pointer-events: none;
+}
+
+body.aq-is-lawrev .aq-lr-point-featured p {
+  margin-bottom: 10px !important;
+}
+
+body.aq-is-lawrev .aq-lr-point-list li {
+  padding-top: 8px !important;
+  padding-bottom: 8px !important;
 }
 
 body.aq-is-lawrev .aq-lr-impact-section {
@@ -15535,7 +15549,7 @@ body.aq-is-lawrev .aq-lr-impact-btn {
 
 @media (max-width: 1180px) {
   body.aq-is-lawrev .aq-lr-points-layout {
-    grid-template-columns: minmax(0, 1fr) minmax(120px, 160px) minmax(220px, .9fr) !important;
+    grid-template-columns: minmax(0, 1fr) minmax(96px, 140px) minmax(220px, .95fr) !important;
   }
 }
 
