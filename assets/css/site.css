@@ -13684,7 +13684,7 @@ body.aq-is-subsidies .aq-breadcrumb { display: none !important; }
   display: grid;
   grid-template-columns: 240px 1fr 80px;
   border-bottom: 1px solid #eef1f6;
-  align-items: center;
+  align-items: stretch;
   min-height: 58px;
 }
 .aq-sub-gantt-row:last-child { border-bottom: 0; }
@@ -13695,12 +13695,14 @@ body.aq-is-subsidies .aq-breadcrumb { display: none !important; }
   border-right: 1px solid #eef1f6;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   gap: 4px;
+  color: #0b1730;
 }
 .aq-sub-col-label strong {
-  font-size: 14px; font-weight: 800; color: #0b1730; line-height: 1.35;
+  font-size: 14px; font-weight: 800; color: #0b1730 !important; line-height: 1.35;
 }
-.aq-sub-col-label small { font-size: 11px; color: #64748b; }
+.aq-sub-col-label small { font-size: 11px; color: #64748b !important; }
 
 /* ステータスバッジ */
 .aq-sub-badge {
@@ -13716,9 +13718,8 @@ body.aq-is-subsidies .aq-breadcrumb { display: none !important; }
 /* バーエリア */
 .aq-sub-bar-area {
   position: relative;
-  height: 100%;
-  min-height: 58px;
   border-right: 1px solid #eef1f6;
+  overflow: hidden;
 }
 
 /* 月区切り線 */
@@ -13726,6 +13727,7 @@ body.aq-is-subsidies .aq-breadcrumb { display: none !important; }
   content: '';
   position: absolute;
   inset: 0;
+  z-index: 0;
   background-image: repeating-linear-gradient(
     90deg,
     transparent,
@@ -13741,9 +13743,10 @@ body.aq-is-subsidies .aq-breadcrumb { display: none !important; }
   position: absolute;
   top: 50%; transform: translateY(-50%);
   height: 14px; border-radius: 7px;
+  z-index: 1;
 }
-.aq-gantt-bar.prepare { background: #f59e0b; opacity: .9; }
-.aq-gantt-bar.apply   { background: #3b82f6; opacity: .9; }
+.aq-gantt-bar.prepare { background: #f59e0b; }
+.aq-gantt-bar.apply   { background: #3b82f6; }
 
 /* マーカー */
 .aq-gantt-marker {
@@ -13855,6 +13858,14 @@ body.aq-is-subsidies .aq-breadcrumb { display: none !important; }
   .aq-sub-gantt-row { grid-template-columns: 180px 1fr 60px; }
   .aq-sub-col-label strong { font-size: 12px; }
   .aq-sub-filter-row select { min-width: 110px; }
+}
+
+/* 補助金カレンダー: サイドバー項目を確実に表示 */
+body:not(.aq-is-home) a.aq-nav-item[data-nav="subsidies"] {
+  display: flex !important;
+  visibility: visible !important;
+  color: #182844 !important;
+  opacity: 1 !important;
 }
 
 /* カレンダー系ページのSVG circle: fill:noneのみ個別指定 */
