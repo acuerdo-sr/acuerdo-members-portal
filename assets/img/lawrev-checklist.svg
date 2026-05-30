@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 210 180" role="img" aria-label="法改正の影響を確認するチェックボード">
+  <defs>
+    <linearGradient id="paper" x1="42" y1="18" x2="166" y2="157" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#eef6ff"/>
+    </linearGradient>
+    <linearGradient id="pen" x1="146" y1="58" x2="184" y2="146" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#f1b86a"/>
+      <stop offset="1" stop-color="#c98037"/>
+    </linearGradient>
+  </defs>
+  <ellipse cx="106" cy="158" rx="70" ry="10" fill="#eadfca" opacity=".6"/>
+  <rect x="48" y="24" width="102" height="128" rx="10" fill="url(#paper)" stroke="#7190bd" stroke-width="3"/>
+  <path d="M82 27c3-13 30-13 34 0h18c6 0 10 4 10 10v10H54V37c0-6 4-10 10-10z" fill="#dceafe" stroke="#7190bd" stroke-width="3"/>
+  <rect x="86" y="17" width="26" height="19" rx="7" fill="#7190bd"/>
+  <g stroke="#5274a5" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="69" y="63" width="17" height="17" rx="3" fill="#fff"/>
+    <path d="m72 71 5 5 10-12"/>
+    <path d="M98 67h32M98 77h25"/>
+    <rect x="69" y="94" width="17" height="17" rx="3" fill="#fff"/>
+    <path d="m72 102 5 5 10-12"/>
+    <path d="M98 98h30M98 108h22"/>
+    <rect x="69" y="125" width="17" height="17" rx="3" fill="#fff"/>
+    <path d="M98 129h25M98 139h18"/>
+  </g>
+  <g transform="rotate(26 160 107)">
+    <rect x="151" y="56" width="18" height="88" rx="7" fill="url(#pen)" stroke="#7c5f45" stroke-width="3"/>
+    <path d="M151 66h18" stroke="#fff7e6" stroke-width="3"/>
+    <path d="M153 144h14l-7 19z" fill="#6f4c36" stroke="#7c5f45" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M155 54c0-5 4-9 9-9s9 4 9 9v7h-18z" fill="#dbeafe" stroke="#7c5f45" stroke-width="3"/>
+  </g>
+  <g fill="#2563eb" opacity=".16">
+    <circle cx="34" cy="58" r="8"/>
+    <circle cx="172" cy="34" r="6"/>
+    <circle cx="177" cy="151" r="5"/>
+  </g>
+</svg>

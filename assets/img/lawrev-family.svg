@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 180" role="img" aria-label="法改正の相談をする家族と担当者">
+  <defs>
+    <linearGradient id="bg" x1="36" y1="22" x2="204" y2="158" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#eff6ff"/>
+      <stop offset="1" stop-color="#dbeafe"/>
+    </linearGradient>
+    <linearGradient id="suit" x1="70" y1="76" x2="112" y2="150" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#9ab6dc"/>
+      <stop offset="1" stop-color="#637fa8"/>
+    </linearGradient>
+    <linearGradient id="dress" x1="143" y1="93" x2="176" y2="151" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#d6e5f8"/>
+      <stop offset="1" stop-color="#86a8d7"/>
+    </linearGradient>
+  </defs>
+  <ellipse cx="120" cy="155" rx="86" ry="12" fill="#dbe7f6"/>
+  <circle cx="78" cy="56" r="30" fill="url(#bg)"/>
+  <circle cx="168" cy="58" r="34" fill="#edf5ff"/>
+  <g stroke="#6984ad" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M95 67c13-15 42-16 55 0" fill="none" opacity=".3"/>
+    <path d="M61 116c-13 0-22-6-26-18" fill="none" opacity=".35"/>
+    <path d="M188 111c12-4 20-12 22-25" fill="none" opacity=".35"/>
+  </g>
+  <g>
+    <path d="M72 86c-18 7-28 28-29 67h76c-1-38-11-60-29-67z" fill="url(#suit)"/>
+    <path d="M61 151v-38M103 151v-38" stroke="#4f6f9d" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="81" cy="58" r="24" fill="#f5cbb7"/>
+    <path d="M58 58c1-21 16-32 34-27 12 4 18 13 18 28-8-10-17-18-33-18-9 0-14 5-19 17z" fill="#344767"/>
+    <path d="M71 65c6 6 15 7 22 0" stroke="#344767" stroke-width="3" stroke-linecap="round" fill="none"/>
+    <path d="M74 83l7 13 8-13" fill="#fff"/>
+    <path d="M81 96v55" stroke="#36577e" stroke-width="3" stroke-linecap="round"/>
+  </g>
+  <g>
+    <path d="M139 108c-13 7-21 24-21 44h67c-1-21-9-38-22-44z" fill="url(#dress)"/>
+    <circle cx="152" cy="80" r="21" fill="#f2c1ad"/>
+    <path d="M130 80c0-18 12-30 28-29 17 1 25 17 19 34-11-4-27-10-47-5z" fill="#253a5b"/>
+    <path d="M143 87c5 5 13 5 18 0" stroke="#253a5b" stroke-width="3" stroke-linecap="round" fill="none"/>
+    <path d="M153 105l-10 47h31l-10-47z" fill="#f6fbff" opacity=".72"/>
+  </g>
+  <g>
+    <path d="M105 125c-9 4-14 14-14 27h41c-1-13-6-23-14-27z" fill="#85aee0"/>
+    <circle cx="112" cy="110" r="14" fill="#f0bfa8"/>
+    <path d="M99 111c0-12 8-19 18-18 9 1 14 8 13 18-9-4-18-5-31 0z" fill="#2e4666"/>
+    <path d="M108 115c3 3 7 3 10 0" stroke="#2e4666" stroke-width="2.4" stroke-linecap="round" fill="none"/>
+  </g>
+  <g fill="#2563eb" opacity=".18">
+    <circle cx="43" cy="52" r="5"/>
+    <circle cx="199" cy="95" r="6"/>
+    <circle cx="184" cy="34" r="4"/>
+  </g>
+</svg>
