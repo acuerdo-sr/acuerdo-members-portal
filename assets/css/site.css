@@ -5701,10 +5701,15 @@ body.aq-is-forms .aq-nav-item.is-active {
 }
 
 .aq-forms-row-lead,
-.aq-forms-row-main,
 .aq-forms-row-meta {
   display: flex;
   align-items: center;
+  padding: 8px 6px 8px 0;
+}
+
+.aq-forms-row-main {
+  min-width: 0;
+  align-self: center;
   padding: 8px 10px 8px 0;
 }
 
