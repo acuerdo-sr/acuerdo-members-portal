@@ -5158,21 +5158,21 @@ body.aq-is-news {
   font-size: 16px !important;
 }
 
-/* ---- Purpose grid: 6-column single row ---- */
+/* ---- Purpose grid: 3-column × 2-row for LARGE cards ---- */
 .aq-purpose-grid {
-  grid-template-columns: repeat(6, minmax(0,1fr)) !important;
-  gap: 10px !important;
+  grid-template-columns: repeat(3, minmax(0,1fr)) !important;
+  gap: 14px !important;
 }
 
 .aq-purpose-card {
   flex-direction: column !important;
   align-items: center !important;
   text-align: center !important;
-  padding: 22px 8px 16px !important;
-  gap: 10px !important;
-  min-height: 150px !important;
+  padding: 28px 16px 24px !important;
+  gap: 14px !important;
+  min-height: 190px !important;
   justify-content: flex-start !important;
-  border-radius: 16px !important;
+  border-radius: 18px !important;
 }
 
 .aq-purpose-text {
@@ -5181,53 +5181,55 @@ body.aq-is-news {
 }
 
 .aq-purpose-text strong {
-  font-size: 14px !important;
+  font-size: 16px !important;
   font-weight: 900 !important;
   word-break: keep-all;
-  line-height: 1.3 !important;
+  line-height: 1.35 !important;
 }
 
 .aq-purpose-text small {
-  font-size: 11px !important;
+  font-size: 13px !important;
   color: #6b7280 !important;
-  line-height: 1.4 !important;
+  line-height: 1.5 !important;
 }
 
 .aq-purpose-icon {
-  width: 64px !important;
-  height: 64px !important;
+  width: 72px !important;
+  height: 72px !important;
   border-radius: 50% !important;
   color: #fff !important;
-  box-shadow: 0 4px 14px rgba(0,0,0,.22) !important;
+  box-shadow: 0 6px 18px rgba(0,0,0,.25) !important;
 }
 
 .aq-purpose-icon svg {
-  width: 28px !important;
-  height: 28px !important;
+  width: 34px !important;
+  height: 34px !important;
   stroke: #fff !important;
   color: #fff !important;
+  stroke-width: 1.8 !important;
 }
 
 /* ---- Content cards: bigger, colored icons ---- */
 .aq-content-grid {
-  gap: 12px !important;
+  grid-template-columns: repeat(6, minmax(0,1fr)) !important;
+  gap: 14px !important;
 }
 
 .aq-content-card {
-  padding: 22px 12px 18px !important;
-  gap: 12px !important;
+  padding: 26px 14px 22px !important;
+  gap: 14px !important;
   border-radius: 18px !important;
 }
 
 .aq-content-icon {
-  width: 60px !important;
-  height: 60px !important;
-  border-radius: 16px !important;
+  width: 64px !important;
+  height: 64px !important;
+  border-radius: 18px !important;
 }
 
 .aq-content-icon svg {
-  width: 28px !important;
-  height: 28px !important;
+  width: 30px !important;
+  height: 30px !important;
 }
 
 .aq-content-card strong {
@@ -5334,7 +5336,7 @@ body.aq-is-news {
     padding: 38px 40px !important;
   }
   .aq-hero-illust { display: none !important; }
-  .aq-purpose-grid {
+  .aq-content-grid {
     grid-template-columns: repeat(3, minmax(0,1fr)) !important;
   }
 }
@@ -5350,6 +5352,6 @@ body.aq-is-news {
     grid-template-columns: repeat(2, minmax(0,1fr)) !important;
   }
   .aq-content-grid {
-    grid-template-columns: repeat(3, minmax(0,1fr)) !important;
+    grid-template-columns: repeat(2, minmax(0,1fr)) !important;
   }
 }
