@@ -12460,3 +12460,40 @@ body.aq-is-calendar .aq-subpage-main {
     min-width: 860px;
   }
 }
+
+/* ============================================================
+   カレンダー系ページ: ブレッドクラム非表示・タブ形状修正
+   ============================================================ */
+
+/* 年間カレンダー・事務組合カレンダー: ブレッドクラム不要 */
+body.aq-is-calendar .aq-breadcrumb,
+body.aq-is-jimukumiai .aq-breadcrumb {
+  display: none !important;
+}
+
+/* カレンダーページのタブ: 丸型→角丸矩形に変更（黒い丸を防止） */
+body.aq-is-calendar .aq-subpage-tabs,
+body.aq-is-jimukumiai .aq-subpage-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+body.aq-is-calendar .aq-subpage-tabs button,
+body.aq-is-jimukumiai .aq-subpage-tabs button {
+  border-radius: 8px !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  padding: 7px 14px !important;
+  border: 1px solid #dce5ef !important;
+  background: #fff !important;
+  color: #334155 !important;
+  box-shadow: 0 1px 4px rgba(11,23,48,.06) !important;
+}
+
+body.aq-is-calendar .aq-subpage-tabs button.is-active,
+body.aq-is-jimukumiai .aq-subpage-tabs button.is-active {
+  background: #0b1730 !important;
+  border-color: #0b1730 !important;
+  color: #fff !important;
+}
