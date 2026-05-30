@@ -1,13 +1,189 @@
 {# meta:
 title: お問い合わせ
-body_class: aq-is-page
+body_class: aq-is-contact
 data_page: contact
 #}
 
-<main class="aq-portal-body aq-notion-body">
-  <section class="aq-panel">
-    <h1>お問い合わせ</h1>
-    <p>このページは準備中です。Notion API 連携完了後、自動で内容が取り込まれます。</p>
-    <p style="color: var(--aq-text-sub); font-size: 13px;">Notion ID: <code>(未設定)</code> / 種別: page</p>
-  </section>
-</main>
+<div id="aq-contact-wrap" class="aq-subpage-wrap aq-contact-page">
+  <main class="aq-subpage-main aq-contact-main">
+    <section class="aq-contact-hero">
+      <div class="aq-contact-hero-copy">
+        <span class="aq-contact-kicker">CONTACT</span>
+        <h1>お問い合わせ・ご相談</h1>
+        <p>労務管理、社会保険手続き、助成金、法改正対応など、顧問先様のご相談を担当者が確認してご案内します。</p>
+        <div class="aq-contact-hero-actions">
+          <a class="aq-contact-primary" href="tel:0927537550">
+            <span class="aq-contact-btn-icon">
+              <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.18 3.1 2 2 0 0 1 4.16 1h3a2 2 0 0 1 2 1.72c.14.95.37 1.88.7 2.77a2 2 0 0 1-.45 2.11L8.09 8.91a16 16 0 0 0 6 6l1.31-1.31a2 2 0 0 1 2.11-.45c.89.33 1.82.56 2.77.7A2 2 0 0 1 22 16.92z"/></svg>
+            </span>
+            電話で相談する
+          </a>
+          <a class="aq-contact-secondary" href="https://acuerdo-sr.jp/contact/" target="_blank" rel="noopener">
+            公式フォームを開く
+            <span>→</span>
+          </a>
+        </div>
+      </div>
+      <figure class="aq-contact-hero-visual">
+        <img src="assets/img/contact-meeting-room.png" alt="プライバシーが守られた応接室">
+        <figcaption>プライバシーが守られ、ゆったりとした応接室です。</figcaption>
+      </figure>
+    </section>
+
+    <section class="aq-contact-route-grid" aria-label="お問い合わせ方法">
+      <a class="aq-contact-route-card aq-contact-route-phone" href="tel:0927537550">
+        <span class="aq-contact-route-icon">
+          <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.18 3.1 2 2 0 0 1 4.16 1h3a2 2 0 0 1 2 1.72c.14.95.37 1.88.7 2.77a2 2 0 0 1-.45 2.11L8.09 8.91a16 16 0 0 0 6 6l1.31-1.31a2 2 0 0 1 2.11-.45c.89.33 1.82.56 2.77.7A2 2 0 0 1 22 16.92z"/></svg>
+        </span>
+        <span class="aq-contact-route-body">
+          <strong>お電話でのお問い合わせ</strong>
+          <em>092-753-7550</em>
+          <small>受付時間 9:00-18:00（土日祝休）</small>
+        </span>
+      </a>
+      <a class="aq-contact-route-card aq-contact-route-mail" href="mailto:info@acuerdo-sr.jp">
+        <span class="aq-contact-route-icon">
+          <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="m22 6-10 7L2 6"/></svg>
+        </span>
+        <span class="aq-contact-route-body">
+          <strong>メールでのお問い合わせ</strong>
+          <em>info@acuerdo-sr.jp</em>
+          <small>内容を確認し、担当者よりご連絡します。</small>
+        </span>
+      </a>
+      <a class="aq-contact-route-card aq-contact-route-form" href="https://acuerdo-sr.jp/contact/" target="_blank" rel="noopener">
+        <span class="aq-contact-route-icon">
+          <svg viewBox="0 0 24 24"><path d="M14 2H7a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7z"/><path d="M14 2v5h5"/><path d="M9 13h6M9 17h4"/></svg>
+        </span>
+        <span class="aq-contact-route-body">
+          <strong>公式お問い合わせフォーム</strong>
+          <em>必要事項を入力</em>
+          <small>労務管理・組織に関する相談や資料請求はこちら。</small>
+        </span>
+      </a>
+      <a class="aq-contact-route-card aq-contact-route-chat" href="https://acuerdo-sr.jp/chatwork/" target="_blank" rel="noopener">
+        <span class="aq-contact-route-icon">
+          <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H8l-5 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M8 9h8M8 13h5"/></svg>
+        </span>
+        <span class="aq-contact-route-body">
+          <strong>Chatworkでのお問い合わせ</strong>
+          <em>ご利用方法を見る</em>
+          <small>Chatworkでの連絡方法を確認できます。</small>
+        </span>
+      </a>
+    </section>
+
+    <div class="aq-contact-content-grid">
+      <section class="aq-contact-panel aq-contact-consult">
+        <div class="aq-contact-section-head">
+          <span>FOR CLIENTS</span>
+          <h2>ご相談時にお知らせください</h2>
+        </div>
+        <p class="aq-contact-lead">状況が分かる範囲で構いません。先に概要をご連絡いただくと、担当者が確認すべき事項を整理しやすくなります。</p>
+        <div class="aq-contact-topic-grid">
+          <article>
+            <span class="aq-contact-topic-icon blue">
+              <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6M22 11h-6"/></svg>
+            </span>
+            <h3>入退社・雇用</h3>
+            <p>対象者名、入社日・退職日、雇用形態、必要な手続きの概要</p>
+          </article>
+          <article>
+            <span class="aq-contact-topic-icon green">
+              <svg viewBox="0 0 24 24"><path d="M12 1v22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7H14a3.5 3.5 0 0 1 0 7H6"/></svg>
+            </span>
+            <h3>給与・助成金</h3>
+            <p>相談したい制度、対象人数、実施予定日、現在の検討状況</p>
+          </article>
+          <article>
+            <span class="aq-contact-topic-icon orange">
+              <svg viewBox="0 0 24 24"><path d="M12 3v18"/><path d="M5 7h14"/><path d="M7 7l-3 6h6z"/><path d="M17 7l-3 6h6z"/><path d="M8 21h8"/></svg>
+            </span>
+            <h3>法改正・労務相談</h3>
+            <p>確認したいテーマ、社内規程の有無、対応期限、困っている点</p>
+          </article>
+          <article>
+            <span class="aq-contact-topic-icon purple">
+              <svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="3"/><path d="M8 3v4M16 3v4M4 10h16"/></svg>
+            </span>
+            <h3>年次業務・期限管理</h3>
+            <p>年度更新、算定基礎、年末調整などの対象期間と現在の進捗</p>
+          </article>
+        </div>
+      </section>
+
+      <aside class="aq-contact-panel aq-contact-office">
+        <div class="aq-contact-section-head">
+          <span>OFFICE</span>
+          <h2>事務所情報</h2>
+        </div>
+        <dl>
+          <div>
+            <dt>事務所名</dt>
+            <dd>アクエルド社会保険労務士法人</dd>
+          </div>
+          <div>
+            <dt>所在地</dt>
+            <dd>福岡県福岡市中央区舞鶴1丁目2番地8号<br>セントラルビル4階</dd>
+          </div>
+          <div>
+            <dt>電話番号</dt>
+            <dd><a href="tel:0927537550">092-753-7550</a></dd>
+          </div>
+          <div>
+            <dt>FAX</dt>
+            <dd>092-753-7551</dd>
+          </div>
+          <div>
+            <dt>メール</dt>
+            <dd><a href="mailto:info@acuerdo-sr.jp">info@acuerdo-sr.jp</a></dd>
+          </div>
+          <div>
+            <dt>受付時間</dt>
+            <dd>9:00-18:00（土日祝休）</dd>
+          </div>
+          <div>
+            <dt>アクセス</dt>
+            <dd>天神駅・赤坂駅から徒歩5分</dd>
+          </div>
+        </dl>
+        <a class="aq-contact-map-link" href="https://goo.gl/maps/ZtpBNYnVR8ftXM7i7" target="_blank" rel="noopener">Google Mapを見る</a>
+      </aside>
+    </div>
+
+    <section class="aq-contact-flow-panel">
+      <div class="aq-contact-section-head">
+        <span>FLOW</span>
+        <h2>ご相談の流れ</h2>
+      </div>
+      <ol class="aq-contact-flow">
+        <li>
+          <span>1</span>
+          <strong>内容を送る</strong>
+          <small>電話・メール・公式フォーム・Chatworkからご連絡ください。</small>
+        </li>
+        <li>
+          <span>2</span>
+          <strong>担当者が確認</strong>
+          <small>必要な資料や確認事項を整理してご案内します。</small>
+        </li>
+        <li>
+          <span>3</span>
+          <strong>対応方針を共有</strong>
+          <small>期限や優先度に応じて、手続き・助言・追加確認を進めます。</small>
+        </li>
+      </ol>
+    </section>
+
+    <section class="aq-contact-bottom-cta">
+      <div>
+        <span>急ぎの確認はお電話がおすすめです</span>
+        <strong>ご不明点やご要望がございましたら、お気軽にご連絡ください。</strong>
+      </div>
+      <div class="aq-contact-bottom-actions">
+        <a href="tel:0927537550">092-753-7550</a>
+        <a href="https://acuerdo-sr.jp/contact/" target="_blank" rel="noopener">お問い合わせフォーム</a>
+      </div>
+    </section>
+  </main>
+</div>
