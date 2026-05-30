@@ -7320,10 +7320,15 @@ body.aq-is-home .aq-recommend-tag.green { color: #187248 !important; background:
 
 body.aq-is-home .aq-recommend-icon {
   width: 50px !important;
-  height: 34px !important;
+  height: 32px !important;
   margin: 0 !important;
   background: transparent !important;
   color: #2d63c7 !important;
+}
+
+body.aq-is-home .aq-recommend-icon svg {
+  width: 28px !important;
+  height: 28px !important;
 }
 
 body.aq-is-home .aq-recommend-card:nth-child(2) .aq-recommend-icon { color: #7149c8 !important; }
@@ -7331,9 +7336,9 @@ body.aq-is-home .aq-recommend-card:nth-child(3) .aq-recommend-icon { color: #159
 
 body.aq-is-home .aq-recommend-card strong {
   color: #13213a !important;
-  font-size: 13px !important;
+  font-size: 12.5px !important;
   font-weight: 900 !important;
-  line-height: 1.38 !important;
+  line-height: 1.35 !important;
   display: -webkit-box !important;
   -webkit-line-clamp: 2 !important;
   -webkit-box-orient: vertical !important;
@@ -7343,11 +7348,11 @@ body.aq-is-home .aq-recommend-card strong {
 body.aq-is-home .aq-recommend-card p {
   margin: 0 !important;
   color: #34445f !important;
-  font-size: 12px !important;
+  font-size: 11.5px !important;
   font-weight: 700 !important;
-  line-height: 1.42 !important;
+  line-height: 1.36 !important;
   display: -webkit-box !important;
-  -webkit-line-clamp: 3 !important;
+  -webkit-line-clamp: 2 !important;
   -webkit-box-orient: vertical !important;
   overflow: hidden !important;
 }
