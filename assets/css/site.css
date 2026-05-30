@@ -11198,6 +11198,43 @@ body:not(.aq-is-home) #aq-portal {
 }
 
 /* ============================================================
+   jimukumiai 専用検索バー
+   ============================================================ */
+
+.aq-jim-searchbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  background: #fff;
+  border: 1px solid #d5deea;
+  border-radius: 12px;
+  box-shadow: 0 4px 14px rgba(15,35,70,.04);
+}
+
+.aq-jim-searchbar svg {
+  flex: 0 0 auto;
+  width: 18px;
+  height: 18px;
+  color: #94a3b8;
+}
+
+.aq-jim-searchbar input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  font-family: inherit;
+  font-size: 14px;
+  color: #0b1730;
+}
+
+.aq-jim-searchbar input::placeholder {
+  color: #94a3b8;
+}
+
+/* ============================================================
    サイドバー first-child (トップ) 文字消え修正
    .aq-nav > .aq-nav-item:first-child { color:#fff } が詳細度[0,3,0]で
    body:not(.aq-is-home) .aq-nav-item [0,2,1] を上回るため白文字→透明になる。

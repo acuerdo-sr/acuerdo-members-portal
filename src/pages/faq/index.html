@@ -1,13 +1,279 @@
 {# meta:
-title: よくある質問
-body_class: aq-is-page
+title: FAQ（よくあるご質問）
+body_class: aq-is-faq
 data_page: faq
 #}
 
-<main class="aq-portal-body aq-notion-body">
-  <section class="aq-panel">
-    <h1>よくある質問</h1>
-    <p>このページは準備中です。Notion API 連携完了後、自動で内容が取り込まれます。</p>
-    <p style="color: var(--aq-text-sub); font-size: 13px;">Notion ID: <code>(未設定)</code> / 種別: page</p>
-  </section>
-</main>
+<div id="aq-faq-wrap" class="aq-subpage-wrap aq-faq-dashboard">
+  <main class="aq-subpage-main aq-faq-main">
+    <section class="aq-faq-hero">
+      <div class="aq-faq-hero-main">
+        <span class="aq-faq-eyebrow">顧問先専用</span>
+        <h1>FAQ（よくあるご質問）</h1>
+        <p>採用、入社、退職、労務管理、助成金、行政調査など、日々の実務で迷いやすいポイントをカテゴリ別に確認できます。</p>
+        <div class="aq-faq-stats">
+          <span><strong id="aq-faq-total">164</strong><small>掲載FAQ</small></span>
+          <span><strong id="aq-faq-cat-total">17</strong><small>カテゴリ</small></span>
+          <span><strong>随時更新</strong><small>制度変更・実務対応に合わせて更新</small></span>
+        </div>
+      </div>
+      <aside class="aq-faq-hero-side">
+        <h2>よく使う連絡票</h2>
+        <div class="aq-faq-quick" id="aq-faq-quick"></div>
+      </aside>
+    </section>
+
+    <section class="aq-faq-search-panel" aria-label="FAQ検索">
+      <label class="aq-faq-search">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m21 21-4.3-4.3"></path></svg>
+        <input id="aq-faq-search" type="search" placeholder="キーワードで検索（例：面接、入社、退職、助成金、監督署）">
+      </label>
+      <button class="aq-faq-btn aq-faq-btn-primary" id="aq-faq-search-btn" type="button">検索する</button>
+      <button class="aq-faq-btn aq-faq-btn-soft" id="aq-faq-reset" type="button">条件をクリア</button>
+    </section>
+
+    <section class="aq-faq-category-block" aria-label="カテゴリから探す">
+      <header class="aq-faq-section-head">
+        <div>
+          <h2>カテゴリから探す</h2>
+          <p>テーマを選ぶと、関連するFAQだけを表示します。</p>
+        </div>
+        <span id="aq-faq-category-summary">全17カテゴリ</span>
+      </header>
+      <div class="aq-faq-categories" id="aq-faq-categories"></div>
+    </section>
+
+    <section class="aq-faq-content-grid">
+      <div class="aq-faq-panel">
+        <header class="aq-faq-result-head">
+          <div>
+            <h2 id="aq-faq-result-title">よく見られている質問</h2>
+            <p id="aq-faq-result-count"></p>
+          </div>
+          <button class="aq-faq-btn aq-faq-btn-soft" id="aq-faq-popular" type="button">人気の質問を表示</button>
+        </header>
+        <div class="aq-faq-list" id="aq-faq-list"></div>
+        <button class="aq-faq-btn aq-faq-btn-soft aq-faq-more" id="aq-faq-more" type="button">さらに表示する</button>
+      </div>
+
+      <aside class="aq-faq-side">
+        <section class="aq-faq-side-card">
+          <h2>人気のFAQ TOP5</h2>
+          <div id="aq-faq-popular-list"></div>
+        </section>
+        <section class="aq-faq-side-card aq-faq-tip">
+          <h2>こんなときに活用ください</h2>
+          <p>手続きの期限や必要書類を確認したいとき、面接・採用で注意する点を調べたいとき、行政機関から連絡が来たときにご利用ください。</p>
+        </section>
+        <section class="aq-faq-side-card aq-faq-consult">
+          <h2>解決しない場合はこちら</h2>
+          <p>一般的な案内で判断できない場合は、担当者へご相談ください。</p>
+          <a href="contact/">担当者へ相談する</a>
+        </section>
+      </aside>
+    </section>
+  </main>
+</div>
+
+<script id="aq-faq-data" type="application/json">__FAQ_DATA__</script>
+<script>
+(function () {
+  var data;
+  try { data = JSON.parse(document.getElementById('aq-faq-data').textContent) || {}; }
+  catch (e) { data = {}; }
+
+  var categories = data.categories || [];
+  var faqs = data.faqs || [];
+  var popularIds = data.popularIds || [];
+  var quickLinks = data.quickLinks || [];
+  var state = { categoryId: 0, query: '', visible: 18, popular: true };
+
+  var quickEl = document.getElementById('aq-faq-quick');
+  var catsEl = document.getElementById('aq-faq-categories');
+  var listEl = document.getElementById('aq-faq-list');
+  var popularEl = document.getElementById('aq-faq-popular-list');
+  var resultTitleEl = document.getElementById('aq-faq-result-title');
+  var resultCountEl = document.getElementById('aq-faq-result-count');
+  var summaryEl = document.getElementById('aq-faq-category-summary');
+  var searchEl = document.getElementById('aq-faq-search');
+  var moreBtn = document.getElementById('aq-faq-more');
+
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+    });
+  }
+  function normalize(s) { return String(s || '').toLowerCase().replace(/\s+/g, ''); }
+  function findFaq(id) { return faqs.find(function (f) { return f.id === id; }); }
+
+  function renderMeta() {
+    var total = document.getElementById('aq-faq-total');
+    var catTotal = document.getElementById('aq-faq-cat-total');
+    if (total) total.textContent = faqs.length;
+    if (catTotal) catTotal.textContent = categories.length;
+  }
+
+  function renderQuick() {
+    quickEl.innerHTML = quickLinks.slice(0, 4).map(function (q) {
+      return '<a href="forms/"><strong>' + esc(q.scene) + '</strong><span>' + esc(q.label) + ' ›</span></a>';
+    }).join('');
+  }
+
+  function renderCategories() {
+    var html = '<button type="button" class="aq-faq-category-card' + (state.categoryId === 0 ? ' is-active' : '') + '" data-id="0">' +
+      '<span class="aq-faq-category-icon">全</span><strong>すべてのFAQ</strong><small>' + faqs.length + '件</small></button>';
+    html += categories.map(function (c) {
+      var icon = String(c.id).padStart(2, '0');
+      return '<button type="button" class="aq-faq-category-card' + (state.categoryId === c.id ? ' is-active' : '') + '" data-id="' + c.id + '">' +
+        '<span class="aq-faq-category-icon">' + icon + '</span><strong>' + esc(c.title) + '</strong><small>' + c.items.length + '件</small></button>';
+    }).join('');
+    catsEl.innerHTML = html;
+    catsEl.querySelectorAll('button[data-id]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        state.categoryId = Number(btn.getAttribute('data-id') || 0);
+        state.popular = false;
+        state.visible = 18;
+        renderAll();
+        var grid = document.querySelector('.aq-faq-content-grid');
+        if (grid) grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+  }
+
+  function filteredFaqs() {
+    if (state.popular && !state.query && state.categoryId === 0) {
+      return popularIds.map(findFaq).filter(Boolean);
+    }
+    var q = normalize(state.query);
+    return faqs.filter(function (f) {
+      var catOk = !state.categoryId || f.categoryId === state.categoryId;
+      var hay = normalize([f.question, f.answer, f.action, f.categoryTitle].join(' '));
+      return catOk && (!q || hay.indexOf(q) !== -1);
+    });
+  }
+
+  function faqMarkup(f) {
+    var action = f.action || '担当者へ相談する';
+    return '<article class="aq-faq-card" data-faq="' + f.id + '">' +
+      '<button class="aq-faq-question" type="button" aria-expanded="false">' +
+      '<span class="aq-faq-q-badge">Q</span><span class="aq-faq-q-text">' + esc(f.question) + '</span><span class="aq-faq-chev">⌄</span>' +
+      '</button>' +
+      '<div class="aq-faq-answer"><p>' + esc(f.answer) + '</p><a class="aq-faq-action" href="contact/">' + esc(action) + ' ›</a></div>' +
+      '</article>';
+  }
+
+  function bindAccordions() {
+    listEl.querySelectorAll('.aq-faq-question').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var card = btn.closest('.aq-faq-card');
+        var open = !card.classList.contains('is-open');
+        card.classList.toggle('is-open', open);
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+    });
+  }
+
+  function renderFaqs() {
+    var list = filteredFaqs();
+    var pageList = list.slice(0, state.visible);
+    if (!pageList.length) {
+      listEl.innerHTML = '<div class="aq-faq-empty">該当するFAQが見つかりませんでした。別のキーワードでお試しください。</div>';
+    } else {
+      listEl.innerHTML = pageList.map(faqMarkup).join('');
+    }
+    bindAccordions();
+    moreBtn.style.display = list.length > state.visible ? 'inline-flex' : 'none';
+    resultCountEl.textContent = list.length + '件のFAQを表示';
+    if (state.popular && !state.query && state.categoryId === 0) {
+      resultTitleEl.textContent = 'よく見られている質問';
+    } else if (state.categoryId) {
+      var cat = categories.find(function (c) { return c.id === state.categoryId; });
+      resultTitleEl.textContent = cat ? cat.title : 'FAQ';
+    } else {
+      resultTitleEl.textContent = state.query ? '検索結果' : 'すべてのFAQ';
+    }
+  }
+
+  function renderPopular() {
+    popularEl.innerHTML = popularIds.slice(0, 5).map(function (id, i) {
+      var f = findFaq(id);
+      if (!f) return '';
+      return '<button type="button" class="aq-faq-popular-item" data-id="' + id + '">' +
+        '<span>' + (i + 1) + '</span><strong>' + esc(f.question) + '</strong></button>';
+    }).join('');
+    popularEl.querySelectorAll('button[data-id]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var id = Number(btn.getAttribute('data-id'));
+        state.categoryId = 0;
+        state.query = '';
+        state.visible = 220;
+        state.popular = false;
+        searchEl.value = '';
+        renderAll();
+        setTimeout(function () {
+          var card = document.querySelector('[data-faq="' + id + '"]');
+          if (!card) return;
+          card.classList.add('is-open');
+          var q = card.querySelector('.aq-faq-question');
+          if (q) q.setAttribute('aria-expanded', 'true');
+          card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 50);
+      });
+    });
+  }
+
+  function renderSummary() {
+    if (!summaryEl) return;
+    if (!state.categoryId) {
+      summaryEl.textContent = '全' + categories.length + 'カテゴリ';
+      return;
+    }
+    var cat = categories.find(function (c) { return c.id === state.categoryId; });
+    summaryEl.textContent = cat ? cat.items.length + '件' : '';
+  }
+
+  function renderAll() {
+    renderCategories();
+    renderFaqs();
+    renderPopular();
+    renderSummary();
+  }
+
+  document.getElementById('aq-faq-search-btn').addEventListener('click', function () {
+    state.query = searchEl.value || '';
+    state.popular = false;
+    state.visible = 18;
+    renderAll();
+  });
+  searchEl.addEventListener('input', function () {
+    state.query = searchEl.value || '';
+    state.popular = false;
+    state.visible = 18;
+    renderAll();
+  });
+  document.getElementById('aq-faq-reset').addEventListener('click', function () {
+    state.categoryId = 0;
+    state.query = '';
+    state.visible = 18;
+    state.popular = true;
+    searchEl.value = '';
+    renderAll();
+  });
+  document.getElementById('aq-faq-popular').addEventListener('click', function () {
+    state.categoryId = 0;
+    state.query = '';
+    state.visible = 18;
+    state.popular = true;
+    searchEl.value = '';
+    renderAll();
+  });
+  moreBtn.addEventListener('click', function () {
+    state.visible += 18;
+    renderFaqs();
+  });
+
+  renderMeta();
+  renderQuick();
+  renderAll();
+})();
+</script>
