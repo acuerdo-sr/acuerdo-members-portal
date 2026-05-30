@@ -22,12 +22,12 @@ data_page: forms
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2-5.6-3-5.6 3 1.1-6.2L3 9.6l6.2-.9L12 3z"></path></svg>
           よく使う書式
         </button>
-        <a class="aq-forms-guide-link" href="contact/">
+        <button class="aq-forms-guide-link" id="aq-guide-open-btn" type="button">
           <span class="aq-forms-guide-icon" aria-hidden="true">
             <svg viewBox="0 0 24 24"><path d="M14 2H7a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7z"></path><path d="M14 2v5h5"></path><path d="M9 13h6"></path><path d="M9 17h4"></path></svg>
           </span>
           <span><strong>書式の使い方・記入例はこちら</strong><small>書式の使い方ガイドを見る</small></span>
-        </a>
+        </button>
       </div>
     </header>
 
@@ -135,6 +135,22 @@ data_page: forms
       </a>
     </div>
   </main>
+
+  <!-- 記入例ガイド ドロワー -->
+  <div id="aq-guide-overlay" class="aq-guide-overlay" hidden>
+    <aside class="aq-guide-drawer" role="dialog" aria-labelledby="aq-guide-title">
+      <div class="aq-guide-drawer-head">
+        <div>
+          <h2 id="aq-guide-title">書式の使い方・記入例ガイド</h2>
+          <p>各書式の目的と使い方をカテゴリ別にご確認いただけます。</p>
+        </div>
+        <button id="aq-guide-close-btn" class="aq-guide-close" type="button" aria-label="閉じる">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div id="aq-guide-body" class="aq-guide-body"></div>
+    </aside>
+  </div>
 </div>
 
 <script id="aq-forms-data" type="application/json">__FORMS_DATA__</script>
@@ -383,10 +399,59 @@ data_page: forms
     document.getElementById('aq-forms-results-clear').addEventListener('click', clearResults);
   }
 
+  function renderGuide() {
+    var html = '';
+    groups.forEach(function (group) {
+      var groupRows = rows.filter(function (r) { return r.group === group.key; });
+      if (!groupRows.length) return;
+      html += '<section class="aq-guide-cat">';
+      html += '<h3 class="aq-guide-cat-title"><span class="aq-guide-cat-icon">' + icon(group.icon) + '</span>' + esc(group.label) + '</h3>';
+      html += '<div class="aq-guide-list">';
+      html += groupRows.map(function (row) {
+        return '<div class="aq-guide-item">' +
+          '<strong>' + esc(row.name) + '</strong>' +
+          '<p>' + esc(row.desc || row.use || '') + '</p>' +
+          '</div>';
+      }).join('');
+      html += '</div></section>';
+    });
+    document.getElementById('aq-guide-body').innerHTML = html;
+  }
+
+  function bindGuide() {
+    var openBtn = document.getElementById('aq-guide-open-btn');
+    var overlay = document.getElementById('aq-guide-overlay');
+    var closeBtn = document.getElementById('aq-guide-close-btn');
+    if (!openBtn || !overlay) return;
+
+    openBtn.addEventListener('click', function () {
+      renderGuide();
+      overlay.hidden = false;
+      document.body.style.overflow = 'hidden';
+    });
+    closeBtn.addEventListener('click', function () {
+      overlay.hidden = true;
+      document.body.style.overflow = '';
+    });
+    overlay.addEventListener('click', function (e) {
+      if (e.target === overlay) {
+        overlay.hidden = true;
+        document.body.style.overflow = '';
+      }
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && !overlay.hidden) {
+        overlay.hidden = true;
+        document.body.style.overflow = '';
+      }
+    });
+  }
+
   flatten();
   renderCategories();
   renderLists();
   renderFilterOptions();
   bindEvents();
+  bindGuide();
 })();
 </script>
