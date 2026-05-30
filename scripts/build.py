@@ -66,6 +66,7 @@ DATA_PLACEHOLDERS = {
     "__JIMUKUMIAI_DATA__":"jimukumiai.json",
     "__CALENDAR_DATA__":  "calendar.json",
     "__NEWS_DATA__":      "news.json",
+    "__FAQ_DATA__":       "faq.json",
 }
 
 
