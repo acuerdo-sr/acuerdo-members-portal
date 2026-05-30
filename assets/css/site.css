@@ -8242,3 +8242,132 @@ button.aq-forms-guide-link {
 .aq-portal-body {
   gap: 14px !important;
 }
+
+/* ============================================================
+   v9.8 - アイコン右上・カード大型化
+   ============================================================ */
+
+/* ---- 目的から探す: アイコン右上、テキスト左揃え ---- */
+.aq-purpose-card {
+  position: relative !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  text-align: left !important;
+  padding: 16px 62px 14px 16px !important;
+  min-height: 120px !important;
+  gap: 6px !important;
+  justify-content: flex-start !important;
+}
+
+.aq-purpose-icon {
+  position: absolute !important;
+  top: 14px !important;
+  right: 14px !important;
+  width: 44px !important;
+  height: 44px !important;
+  flex: none !important;
+  box-shadow: 0 3px 10px rgba(0,0,0,.18) !important;
+}
+
+.aq-purpose-text {
+  align-items: flex-start !important;
+  text-align: left !important;
+  width: 100%;
+}
+
+.aq-purpose-text strong {
+  font-size: 15px !important;
+  text-align: left !important;
+  line-height: 1.35 !important;
+}
+
+.aq-purpose-text small {
+  font-size: 12px !important;
+  text-align: left !important;
+  line-height: 1.5 !important;
+}
+
+/* ---- よく使うコンテンツ: アイコン右上、テキスト左揃え ---- */
+.aq-content-card {
+  position: relative !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  text-align: left !important;
+  padding: 16px 62px 14px 16px !important;
+  gap: 6px !important;
+  min-height: 0 !important;
+}
+
+.aq-content-icon {
+  position: absolute !important;
+  top: 14px !important;
+  right: 14px !important;
+  width: 44px !important;
+  height: 44px !important;
+  flex: none !important;
+  border-radius: 12px !important;
+}
+
+.aq-content-icon svg {
+  width: 22px !important;
+  height: 22px !important;
+}
+
+.aq-content-card strong {
+  font-size: 14px !important;
+  font-weight: 900 !important;
+  text-align: left !important;
+  line-height: 1.35 !important;
+  word-break: keep-all;
+}
+
+.aq-content-card small {
+  font-size: 11px !important;
+  text-align: left !important;
+  color: #64748b !important;
+}
+
+/* ---- グリッド余白をなくす ---- */
+.aq-purpose-grid {
+  gap: 6px !important;
+}
+
+.aq-content-grid {
+  gap: 6px !important;
+}
+
+/* ---- パネル内余白を詰める ---- */
+.aq-panel {
+  padding: 14px 16px !important;
+}
+
+.aq-content-section {
+  padding: 14px 16px !important;
+}
+
+.aq-row2 {
+  gap: 10px !important;
+}
+
+/* ---- 今月のおすすめ: アイコン右上 ---- */
+.aq-recommend-card {
+  position: relative !important;
+}
+
+.aq-recommend-icon {
+  position: absolute !important;
+  top: 14px !important;
+  right: 14px !important;
+  margin: 0 !important;
+  width: 44px !important;
+  height: 44px !important;
+}
+
+.aq-recommend-card strong {
+  padding-right: 52px;
+}
+
+@media (max-width: 1300px) {
+  .aq-purpose-card { padding: 14px 56px 12px 14px !important; }
+  .aq-content-card { padding: 14px 56px 12px 14px !important; }
+}
