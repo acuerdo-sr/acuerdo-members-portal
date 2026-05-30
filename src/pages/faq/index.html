@@ -65,10 +65,9 @@ data_page: faq
           <h2>こんなときに活用ください</h2>
           <p>手続きの期限や必要書類を確認したいとき、面接・採用で注意する点を調べたいとき、行政機関から連絡が来たときにご利用ください。</p>
         </section>
-        <section class="aq-faq-side-card aq-faq-consult">
-          <h2>解決しない場合はこちら</h2>
-          <p>一般的な案内で判断できない場合は、担当者へご相談ください。</p>
-          <a href="contact/">担当者へ相談する</a>
+        <section class="aq-faq-side-card aq-faq-answer-guide">
+          <h2>回答の見方</h2>
+          <p>各FAQを開くと、実務でそのまま確認しやすい模範回答を表示します。手続きの判断材料として、質問と回答をセットでご確認ください。</p>
         </section>
       </aside>
     </section>
@@ -147,18 +146,17 @@ data_page: faq
     var q = normalize(state.query);
     return faqs.filter(function (f) {
       var catOk = !state.categoryId || f.categoryId === state.categoryId;
-      var hay = normalize([f.question, f.answer, f.action, f.categoryTitle].join(' '));
+      var hay = normalize([f.question, f.answer, f.categoryTitle].join(' '));
       return catOk && (!q || hay.indexOf(q) !== -1);
     });
   }
 
   function faqMarkup(f) {
-    var action = f.action || '担当者へ相談する';
     return '<article class="aq-faq-card" data-faq="' + f.id + '">' +
       '<button class="aq-faq-question" type="button" aria-expanded="false">' +
       '<span class="aq-faq-q-badge">Q</span><span class="aq-faq-q-text">' + esc(f.question) + '</span><span class="aq-faq-chev">⌄</span>' +
       '</button>' +
-      '<div class="aq-faq-answer"><p>' + esc(f.answer) + '</p><a class="aq-faq-action" href="contact/">' + esc(action) + ' ›</a></div>' +
+      '<div class="aq-faq-answer"><div class="aq-faq-answer-label"><span>A</span><strong>模範回答</strong></div><p>' + esc(f.answer) + '</p></div>' +
       '</article>';
   }
 
