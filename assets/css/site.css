@@ -8723,17 +8723,17 @@ body.aq-is-joseikin #acuerdo-footer {
 .aq-josdash-purpose-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 10px;
+  gap: 8px;
 }
 
 .aq-josdash-tile {
-  min-height: 100px;
+  min-height: 84px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  padding: 11px 10px;
+  gap: 5px;
+  padding: 8px 8px;
   border: 1px solid #dce5ef;
   border-radius: 8px;
   background: #fff;
@@ -8751,16 +8751,16 @@ body.aq-is-joseikin #acuerdo-footer {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 36px;
+  min-height: 30px;
   color: #1f63c4;
-  font-size: 36px;
+  font-size: 30px;
   font-weight: 900;
   line-height: 1;
 }
 
 .aq-josdash-tile strong {
   color: #13213a;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 900;
   line-height: 1.35;
 }
@@ -8771,15 +8771,15 @@ body.aq-is-joseikin #acuerdo-footer {
   text-align: right;
 }
 
-.aq-josdash-news ul { display: grid; gap: 8px; }
+.aq-josdash-news ul { display: grid; gap: 7px; }
 
 .aq-josdash-news li {
-  min-height: 48px;
+  min-height: 44px;
   display: grid;
   grid-template-columns: 82px 70px minmax(0, 1fr) 16px;
   align-items: center;
   gap: 10px;
-  padding: 8px 12px;
+  padding: 7px 12px;
   border: 1px solid #dfe7f2;
   border-radius: 8px;
   background: #fff;
@@ -8823,13 +8823,13 @@ body.aq-is-joseikin #acuerdo-footer {
 .aq-josdash-ranking ol { display: grid; }
 
 .aq-josdash-ranking li {
-  min-height: 43px;
+  min-height: 39px;
   display: grid;
   grid-template-columns: 36px minmax(0, 1fr);
   grid-template-rows: auto auto;
   align-items: center;
   gap: 0 12px;
-  padding: 7px 8px;
+  padding: 6px 8px;
   border-bottom: 1px solid #e5ecf4;
 }
 
@@ -9309,4 +9309,76 @@ body.aq-is-joseikin #acuerdo-footer {
   font-size: 13px !important;
   line-height: 1.75 !important;
   color: #475569 !important;
+}
+
+/* ============================================================
+   v9.10 - おすすめアイコン右上・各カード縦長化
+   ============================================================ */
+
+/* ---- 今月のおすすめ: アイコン右上、テキスト開始を下げる ---- */
+.aq-recommend-card {
+  position: relative !important;
+  padding: 18px 18px 18px 20px !important;
+}
+
+.aq-recommend-icon {
+  display: flex !important;
+  position: absolute !important;
+  top: 16px !important;
+  right: 16px !important;
+  width: 46px !important;
+  height: 46px !important;
+  margin: 0 !important;
+  border-radius: 12px !important;
+}
+
+.aq-recommend-icon svg {
+  display: block !important;
+  width: 24px !important;
+  height: 24px !important;
+}
+
+/* タグとタイトルの間に余白を入れてテキスト開始を下げる */
+.aq-recommend-card strong {
+  margin-top: 14px !important;
+  padding-right: 0 !important;
+  font-size: 16px !important;
+  font-weight: 900 !important;
+  line-height: 1.5 !important;
+  color: #0f172a !important;
+}
+
+/* ---- 目的から探す: さらに縦長 ---- */
+.aq-purpose-card {
+  min-height: 240px !important;
+  padding: 32px 14px 26px !important;
+  gap: 16px !important;
+}
+
+.aq-purpose-icon {
+  width: 58px !important;
+  height: 58px !important;
+}
+
+/* ---- よく使うコンテンツ: さらに縦長 ---- */
+.aq-content-card {
+  min-height: 170px !important;
+  padding: 28px 10px 22px !important;
+  gap: 14px !important;
+}
+
+.aq-content-icon {
+  width: 56px !important;
+  height: 56px !important;
+}
+
+/* ---- ご利用の流れ: さらに縦長 ---- */
+.aq-flow-step {
+  min-height: 210px !important;
+  padding: 26px 14px 22px !important;
+}
+
+.aq-flow-body svg {
+  width: 32px !important;
+  height: 32px !important;
 }
