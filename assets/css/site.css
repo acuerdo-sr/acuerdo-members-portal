@@ -5065,47 +5065,100 @@ body.aq-is-news {
 }
 
 /* ============================================================
-   v9.1 - Visual precision fixes
+   v9.3 - 賑わい全面改善 (Liveliness, scale, vibrancy)
    ============================================================ */
 
-/* Hero: 3-column layout (copy | illustration | check card) */
+/* ---- Hero layout ---- */
 #aq-hero {
-  grid-template-columns: minmax(0, 1fr) 240px 290px !important;
-  gap: 28px !important;
-  min-height: 370px !important;
+  grid-template-columns: minmax(0, 1fr) 186px 316px !important;
+  gap: 20px !important;
+  min-height: 380px !important;
   align-items: center !important;
+  padding: 44px 46px !important;
 }
 
-/* Hero title: larger + thinner weight to match target */
 .aq-hero-title {
-  font-size: 62px !important;
+  font-size: 64px !important;
   font-weight: 400 !important;
   line-height: 1.08 !important;
-  letter-spacing: -0.01em !important;
+  letter-spacing: -0.02em !important;
+  word-break: keep-all !important;
 }
 
 .aq-hero-sub {
-  font-size: 18px !important;
-  line-height: 1.75 !important;
-  max-width: 520px !important;
+  font-size: 17px !important;
+  line-height: 1.8 !important;
 }
 
-/* Hero illustration column */
+.aq-hero-actions {
+  gap: 14px !important;
+  margin-top: 30px !important;
+}
+
+.aq-btn-primary,
+.aq-btn-secondary {
+  min-height: 46px !important;
+  padding: 11px 24px !important;
+  border-radius: 10px !important;
+  font-size: 15px !important;
+  font-weight: 800 !important;
+}
+
 .aq-hero-illust {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100%;
-  min-height: 260px;
 }
 
 .aq-hero-illust svg {
   width: 100%;
   height: auto;
-  max-height: 280px;
+  max-height: 260px;
 }
 
-/* Purpose cards: vertical icon-on-top layout (single row of 6) */
+/* ---- Hero check card: prevent wrapping ---- */
+.aq-hero-check-card {
+  padding: 20px 16px 16px !important;
+  border-radius: 20px !important;
+}
+
+.aq-hero-check-card h2 {
+  font-size: 15px !important;
+  font-weight: 900 !important;
+  margin: 0 0 12px !important;
+  line-height: 1.4 !important;
+}
+
+.aq-hero-check-card ul {
+  gap: 8px !important;
+}
+
+.aq-hero-check-card li {
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  padding: 9px 10px !important;
+  gap: 8px !important;
+  border-radius: 11px !important;
+}
+
+.aq-check-icon {
+  flex: 0 0 auto !important;
+  width: 26px !important;
+  height: 26px !important;
+  border-radius: 7px !important;
+}
+
+.aq-check-icon svg {
+  width: 13px !important;
+  height: 13px !important;
+}
+
+.aq-check-arrow {
+  font-size: 16px !important;
+}
+
+/* ---- Purpose grid: 6-column single row ---- */
 .aq-purpose-grid {
   grid-template-columns: repeat(6, minmax(0,1fr)) !important;
   gap: 10px !important;
@@ -5115,10 +5168,11 @@ body.aq-is-news {
   flex-direction: column !important;
   align-items: center !important;
   text-align: center !important;
-  padding: 18px 8px 14px !important;
-  gap: 8px !important;
-  min-height: 120px !important;
+  padding: 22px 8px 16px !important;
+  gap: 10px !important;
+  min-height: 150px !important;
   justify-content: flex-start !important;
+  border-radius: 16px !important;
 }
 
 .aq-purpose-text {
@@ -5127,62 +5181,159 @@ body.aq-is-news {
 }
 
 .aq-purpose-text strong {
-  font-size: 12px !important;
-  text-align: center;
+  font-size: 14px !important;
+  font-weight: 900 !important;
   word-break: keep-all;
+  line-height: 1.3 !important;
 }
 
 .aq-purpose-text small {
-  font-size: 10px !important;
-  text-align: center;
+  font-size: 11px !important;
+  color: #6b7280 !important;
+  line-height: 1.4 !important;
 }
 
-/* Purpose icons: solid circle + white stroke */
 .aq-purpose-icon {
-  width: 52px !important;
-  height: 52px !important;
+  width: 64px !important;
+  height: 64px !important;
   border-radius: 50% !important;
   color: #fff !important;
+  box-shadow: 0 4px 14px rgba(0,0,0,.22) !important;
 }
 
 .aq-purpose-icon svg {
-  color: #fff;
+  width: 28px !important;
+  height: 28px !important;
   stroke: #fff !important;
+  color: #fff !important;
 }
 
-/* Hero check card: tighter items so text stays on one line */
-.aq-hero-check-card li {
-  font-size: 13px !important;
-  font-weight: 700 !important;
-  padding: 9px 12px !important;
-  gap: 8px !important;
+/* ---- Content cards: bigger, colored icons ---- */
+.aq-content-grid {
+  gap: 12px !important;
 }
 
-.aq-check-icon {
+.aq-content-card {
+  padding: 22px 12px 18px !important;
+  gap: 12px !important;
+  border-radius: 18px !important;
+}
+
+.aq-content-icon {
+  width: 60px !important;
+  height: 60px !important;
+  border-radius: 16px !important;
+}
+
+.aq-content-icon svg {
   width: 28px !important;
   height: 28px !important;
 }
 
-.aq-check-icon svg {
-  width: 14px !important;
-  height: 14px !important;
+.aq-content-card strong {
+  font-size: 14px !important;
+  font-weight: 900 !important;
 }
 
-/* News tags: slightly rounded rectangle (not full pill) */
+.aq-content-card small {
+  font-size: 12px !important;
+}
+
+.aq-content-card:nth-child(1) .aq-content-icon { background: #fef9c3; color: #b45309; }
+.aq-content-card:nth-child(2) .aq-content-icon { background: #ede9fe; color: #6d28d9; }
+.aq-content-card:nth-child(3) .aq-content-icon { background: #dcfce7; color: #15803d; }
+.aq-content-card:nth-child(4) .aq-content-icon { background: #e0f2fe; color: #0369a1; }
+.aq-content-card:nth-child(5) .aq-content-icon { background: #dbeafe; color: #1d4ed8; }
+.aq-content-card:nth-child(6) .aq-content-icon { background: #faf5ff; color: #7c3aed; }
+
+/* ---- News tags: rectangular ---- */
 .aq-tag {
-  border-radius: 6px !important;
+  border-radius: 5px !important;
   font-size: 10px !important;
   padding: 3px 7px !important;
 }
 
-/* Responsive: hide illustration when not enough space */
-@media (max-width: 1280px) {
+/* ---- Recommend cards ---- */
+.aq-recommend-icon {
+  width: 58px !important;
+  height: 58px !important;
+  border-radius: 16px !important;
+}
+
+.aq-recommend-icon svg {
+  width: 28px !important;
+  height: 28px !important;
+}
+
+.aq-recommend-card strong {
+  font-size: 16px !important;
+  font-weight: 900 !important;
+}
+
+.aq-recommend-card p {
+  font-size: 13px !important;
+}
+
+/* ---- Flow steps ---- */
+.aq-flow-step {
+  padding: 20px 14px 16px !important;
+}
+
+.aq-flow-num {
+  width: 40px !important;
+  height: 40px !important;
+  font-size: 18px !important;
+  font-weight: 900 !important;
+}
+
+.aq-flow-body svg {
+  width: 30px !important;
+  height: 30px !important;
+}
+
+.aq-flow-body strong {
+  font-size: 15px !important;
+  font-weight: 900 !important;
+}
+
+.aq-flow-body p {
+  font-size: 13px !important;
+}
+
+/* ---- FAQ ---- */
+.aq-faq-q {
+  font-size: 14px !important;
+  padding: 16px 4px !important;
+}
+
+/* ---- Trouble cards ---- */
+.aq-trouble-icon {
+  width: 52px !important;
+  height: 52px !important;
+  border-radius: 14px !important;
+}
+
+.aq-trouble-icon svg {
+  width: 26px !important;
+  height: 26px !important;
+}
+
+.aq-trouble-card strong {
+  font-size: 17px !important;
+}
+
+.aq-trouble-card small {
+  font-size: 13px !important;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 1300px) {
   #aq-hero {
-    grid-template-columns: minmax(0, 1fr) 280px !important;
+    grid-template-columns: minmax(0, 1fr) 306px !important;
+    gap: 24px !important;
+    padding: 38px 40px !important;
   }
-  .aq-hero-illust {
-    display: none !important;
-  }
+  .aq-hero-illust { display: none !important; }
   .aq-purpose-grid {
     grid-template-columns: repeat(3, minmax(0,1fr)) !important;
   }
@@ -5191,12 +5342,14 @@ body.aq-is-news {
 @media (max-width: 820px) {
   #aq-hero {
     grid-template-columns: 1fr !important;
+    padding: 28px 20px !important;
     min-height: auto !important;
   }
-  .aq-hero-title {
-    font-size: 42px !important;
-  }
+  .aq-hero-title { font-size: 40px !important; }
   .aq-purpose-grid {
     grid-template-columns: repeat(2, minmax(0,1fr)) !important;
+  }
+  .aq-content-grid {
+    grid-template-columns: repeat(3, minmax(0,1fr)) !important;
   }
 }
