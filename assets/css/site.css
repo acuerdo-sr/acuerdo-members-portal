@@ -1368,15 +1368,20 @@ body {
 }
 
 .aq-nav-item:hover,
-.aq-nav-item.is-active,
-.aq-nav > .aq-nav-item:first-child {
+.aq-nav-item.is-active {
+  background: #111827;
+  color: #fff !important;
+}
+
+/* first-child を常にアクティブに見せるのはホームページのみに限定 */
+body.aq-is-home .aq-nav > .aq-nav-item:first-child {
   background: #111827;
   color: #fff !important;
 }
 
 .aq-nav-item:hover .aq-nav-en,
 .aq-nav-item.is-active .aq-nav-en,
-.aq-nav > .aq-nav-item:first-child .aq-nav-en {
+body.aq-is-home .aq-nav > .aq-nav-item:first-child .aq-nav-en {
   color: rgba(255,255,255,.65) !important;
 }
 
