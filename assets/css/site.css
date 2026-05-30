@@ -2706,6 +2706,19 @@ body.aq-is-news {
 .aq-subpage-note {
   margin: 8px 4px 0 !important;
   color: var(--aq-text-sub); font-size: 12px; line-height: 1.7;
+  display: flex; align-items: flex-start; gap: 6px;
+}
+
+.aq-subpage-note svg {
+  flex: 0 0 auto;
+  width: 15px !important;
+  height: 15px !important;
+  margin-top: 2px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 @media (max-width: 1100px) { .aq-subpage-hero { grid-template-columns: 1fr; } }
