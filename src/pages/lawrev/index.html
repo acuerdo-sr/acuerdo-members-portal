@@ -33,7 +33,7 @@ data_page: lawrev
 <!-- 注目の法改正 -->
 <section class="aq-lr-section">
   <div class="aq-lr-section-head">
-    <h2>注目の法改正 <span id="aq-lr-featured-label">（2026年度対応が必要なもの）</span></h2>
+    <h2>注目の法改正 <span id="aq-lr-featured-label">（2025年対応が必要なもの）</span></h2>
     <button class="aq-lr-see-all" id="aq-lr-featured-more" type="button">すべて見る ›</button>
   </div>
   <div class="aq-lr-featured-grid" id="aq-lr-featured"></div>
@@ -53,6 +53,8 @@ data_page: lawrev
             <th>法改正名・内容</th>
             <th>施行日</th>
             <th>対象</th>
+            <th>更新日</th>
+            <th></th>
           </tr>
         </thead>
         <tbody id="aq-lr-news-body"></tbody>
@@ -115,6 +117,10 @@ data_page: lawrev
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
   <span>法改正に関するご相談は、<strong>担当者</strong>までお気軽にご連絡ください。</span>
   <a href="contact/" class="aq-lr-cta-btn-primary">担当者に相談する</a>
+  <a href="joseikin-bot/" class="aq-lr-cta-btn-bot">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="7" width="14" height="10" rx="3"/><path d="M12 3v4"/><path d="M9 12h.01M15 12h.01"/><path d="M8 21h8"/></svg>
+    AIボットに相談する
+  </a>
 </div>
 
 </main>
@@ -164,11 +170,10 @@ data_page: lawrev
 
   /* ---- 注目の法改正（必読優先で4件） ---- */
   function renderFeatured() {
-    var items = data.filter(function (d) { return d['重要度'] === '必読'; });
-    if (items.length < 4) {
-      items = items.concat(data.filter(function (d) { return d['重要度'] === '要注目'; }));
-    }
-    items = items.slice(0, 4);
+    var featuredNames = ['育児・介護休業法の改正', '改正労働安全衛生法（化学物質規制）', '最低賃金の引上げ（2025年度）', '労働条件明示ルールの変更'];
+    var items = featuredNames.map(function (name) {
+      return data.find(function (d) { return d['改正名'] === name; });
+    }).filter(Boolean);
     var el = document.getElementById('aq-lr-featured');
     el.innerHTML = items.map(function (d) {
       var i = imp(d);
@@ -214,6 +219,8 @@ data_page: lawrev
           '<div><strong>' + esc(d['改正名']) + '</strong><small>' + esc((d['概要'] || '').substring(0, 30)) + '…</small></div></div></td>' +
         '<td class="aq-lr-news-date">' + esc(fmtDateShort(d['施行日'])) + '</td>' +
         '<td class="aq-lr-news-target">' + esc(target(d)) + '</td>' +
+        '<td class="aq-lr-news-date">' + esc(fmtDateShort(d['更新日'] || '')) + '</td>' +
+        '<td class="aq-lr-news-arrow">›</td>' +
       '</tr>';
     }).join('');
 
@@ -257,8 +264,10 @@ data_page: lawrev
 
   /* ---- ポイント解説 ---- */
   function renderPoints() {
-    var featured = allRows[0];
-    var rest = allRows.slice(1, 5);
+    var featured = data.find(function (d) { return d['改正名'] === '育児・介護休業法の改正'; }) || allRows[0];
+    var rest = ['高年齢者雇用安定法の改正', '改正労働安全衛生法（化学物質規制）', '最低賃金の引上げ（2025年度）', '労働条件明示ルールの変更'].map(function (name) {
+      return data.find(function (d) { return d['改正名'] === name; });
+    }).filter(Boolean);
     var i = imp(featured);
     document.getElementById('aq-lr-point-featured').innerHTML =
       '<div class="aq-lr-pf-badge">' +
