@@ -13864,7 +13864,6 @@ body.aq-is-subsidies .aq-breadcrumb { display: none !important; }
 body:not(.aq-is-home) a.aq-nav-item[data-nav="subsidies"] {
   display: flex !important;
   visibility: visible !important;
-  color: #182844 !important;
   opacity: 1 !important;
 }
 
