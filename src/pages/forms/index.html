@@ -136,6 +136,19 @@ data_page: forms
     </div>
   </main>
 
+  <!-- PDFプレビューモーダル -->
+  <div id="aq-preview-overlay" class="aq-preview-overlay" hidden>
+    <div class="aq-preview-modal">
+      <div class="aq-preview-modal-head">
+        <span id="aq-preview-title" class="aq-preview-title"></span>
+        <button id="aq-preview-close" class="aq-preview-close" type="button" aria-label="閉じる">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <iframe id="aq-preview-iframe" class="aq-preview-iframe" src="" title=""></iframe>
+    </div>
+  </div>
+
   <!-- 記入例ガイド ドロワー -->
   <div id="aq-guide-overlay" class="aq-guide-overlay" hidden>
     <aside class="aq-guide-drawer" role="dialog" aria-labelledby="aq-guide-title">
@@ -269,10 +282,14 @@ data_page: forms
     var badge = options.badge ? '<span class="aq-forms-new-badge">'+esc(options.badge)+'</span>' : '';
     var rank = options.rank ? '<span class="aq-forms-rank">'+esc(options.rank)+'</span>' : '';
     var download = url ? '<a class="aq-forms-download" href="'+esc(urlEncodePath(url))+'" download aria-label="'+esc(row.name)+'をダウンロード">'+icon('download')+'</a>' : '<span class="aq-forms-download is-disabled">'+icon('download')+'</span>';
+    var pdfUrl = urlEncodePath(row.file_pdf || '');
+    var previewIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>';
+    var preview = pdfUrl ? '<button class="aq-forms-preview-btn" type="button" data-pdf="'+pdfUrl+'" data-name="'+esc(row.name)+'" title="プレビューを表示" aria-label="'+esc(row.name)+'をプレビュー">'+previewIcon+'</button>' : '<span class="aq-forms-preview-btn is-disabled">'+previewIcon+'</span>';
     return '<article class="aq-forms-list-row" data-group="'+esc(row.group)+'">' +
       '<div class="aq-forms-row-lead">'+rank+badge+'</div>' +
       '<div class="aq-forms-row-main"><h3>'+esc(row.name)+'</h3><p>'+esc(row.desc || row.use || '')+'</p><div class="aq-forms-tags">'+tags(row)+'</div></div>' +
       '<div class="aq-forms-row-meta">'+date+count+'</div>' +
+      preview +
       download +
     '</article>';
   }
@@ -523,11 +540,47 @@ data_page: forms
     });
   }
 
+  function bindPreview() {
+    var overlay = document.getElementById('aq-preview-overlay');
+    var iframe  = document.getElementById('aq-preview-iframe');
+    var titleEl = document.getElementById('aq-preview-title');
+    var closeBtn = document.getElementById('aq-preview-close');
+    if (!overlay) return;
+
+    document.addEventListener('click', function (e) {
+      var btn = e.target.closest('.aq-forms-preview-btn');
+      if (!btn || btn.classList.contains('is-disabled')) return;
+      var pdf  = btn.getAttribute('data-pdf');
+      var name = btn.getAttribute('data-name');
+      if (!pdf) return;
+      iframe.src = pdf;
+      iframe.title = name || '';
+      titleEl.textContent = name || '';
+      overlay.hidden = false;
+      document.body.style.overflow = 'hidden';
+    });
+
+    function closePreview() {
+      overlay.hidden = true;
+      iframe.src = '';
+      document.body.style.overflow = '';
+    }
+
+    closeBtn.addEventListener('click', closePreview);
+    overlay.addEventListener('click', function (e) {
+      if (e.target === overlay) closePreview();
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && !overlay.hidden) closePreview();
+    });
+  }
+
   flatten();
   renderCategories();
   renderLists();
   renderFilterOptions();
   bindEvents();
   bindGuide();
+  bindPreview();
 })();
 </script>
