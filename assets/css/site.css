@@ -11665,8 +11665,47 @@ body.aq-is-faq .aq-subpage-main {
   display: block;
 }
 
-.aq-faq-answer p {
+.aq-faq-answer-body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.aq-faq-answer-body h3 {
+  margin: 8px 0 0 !important;
+  color: #17395f !important;
+  font-size: 14px !important;
+  line-height: 1.45 !important;
+  font-weight: 900 !important;
+}
+
+.aq-faq-answer-body h3:first-child {
+  margin-top: 0 !important;
+}
+
+.aq-faq-answer-body p {
   margin: 10px 0 0;
+}
+
+.aq-faq-answer-body h3 + p,
+.aq-faq-answer-body h3 + ul,
+.aq-faq-answer-body p:first-child {
+  margin-top: 0;
+}
+
+.aq-faq-answer-body ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.aq-faq-answer-body li {
+  margin: 4px 0;
+}
+
+.aq-faq-answer-body strong {
+  color: #1b355c;
+  font-weight: 900;
 }
 
 .aq-faq-answer-label {
@@ -12498,12 +12537,12 @@ body.aq-is-jimukumiai .aq-subpage-tabs button.is-active {
   color: #fff !important;
 }
 
-/* カレンダー系ページのSVG: fill:noneを強制（黒丸防止） */
-body.aq-is-calendar svg,
-body.aq-is-jimukumiai svg {
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 2;
-  stroke-linecap: round;
-  stroke-linejoin: round;
+/* カレンダー系ページのSVG circle: fill:noneのみ個別指定 */
+body.aq-is-calendar .aq-cal-guide li svg circle,
+body.aq-is-calendar .aq-cal-help svg circle,
+body.aq-is-calendar .aq-cal-mini-link svg circle,
+body.aq-is-calendar .aq-subpage-note svg circle,
+body.aq-is-jimukumiai .aq-cal-guide li svg circle,
+body.aq-is-jimukumiai .aq-cal-mini-link svg circle {
+  fill: none !important;
 }
