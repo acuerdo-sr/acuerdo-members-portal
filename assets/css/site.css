@@ -10242,3 +10242,182 @@ body.aq-is-home .aq-trouble-grid::after {
     display: none !important;
   }
 }
+
+/* ============================================================
+   助成金早見表ページ 新デザイン適用 (body.aq-is-josei)
+   ============================================================ */
+
+/* Hero: ダークグラデーションに統一 */
+body.aq-is-josei .aq-josei-hero {
+  background: linear-gradient(135deg, #0f172a 0%, #111827 55%, #1e3a5f 100%) !important;
+  border: none !important;
+  border-radius: 14px !important;
+  padding: 36px 44px !important;
+  grid-template-columns: 1fr !important;
+  color: #fff !important;
+  box-shadow: 0 8px 32px rgba(11,23,48,.22) !important;
+}
+
+body.aq-is-josei .aq-josei-hero::before {
+  display: none !important;
+}
+
+body.aq-is-josei .aq-hero-kicker {
+  display: inline-flex !important;
+  align-items: center !important;
+  padding: 5px 14px !important;
+  background: rgba(255,255,255,.14) !important;
+  border-radius: 999px !important;
+  color: rgba(255,255,255,.9) !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  margin-bottom: 14px !important;
+}
+
+body.aq-is-josei .aq-josei-hero-text h1 {
+  color: #fff !important;
+  font-size: 44px !important;
+  font-weight: 400 !important;
+  letter-spacing: -.02em !important;
+  line-height: 1.12 !important;
+  margin: 0 0 12px !important;
+}
+
+body.aq-is-josei .aq-josei-hero-text p {
+  color: rgba(255,255,255,.82) !important;
+  font-size: 16px !important;
+  line-height: 1.75 !important;
+  margin: 0 !important;
+}
+
+/* セクションコンテナ: 新デザインに合わせた影・色 */
+body.aq-is-josei .aq-jl-navi-section,
+body.aq-is-josei .aq-jl-list-section {
+  background: #fff !important;
+  border: 1px solid #dce5ef !important;
+  border-radius: 14px !important;
+  box-shadow: 0 4px 16px rgba(11,23,48,.07) !important;
+  padding: 24px 26px !important;
+}
+
+/* セクション見出し */
+body.aq-is-josei .aq-jl-section-h {
+  color: #0b1730 !important;
+  font-size: 20px !important;
+  font-weight: 900 !important;
+  margin-bottom: 16px !important;
+}
+
+body.aq-is-josei .aq-jl-section-en {
+  color: #1d64d8 !important;
+  font-size: 11px !important;
+  letter-spacing: .14em !important;
+}
+
+body.aq-is-josei .aq-jl-section-sub {
+  color: #475569 !important;
+  font-size: 13px !important;
+  margin-bottom: 16px !important;
+}
+
+/* ナビカード: 新デザイン purpose-card に合わせる */
+body.aq-is-josei .aq-jl-navi-grid {
+  grid-template-columns: repeat(3, minmax(0,1fr)) !important;
+  gap: 10px !important;
+}
+
+body.aq-is-josei .aq-jl-navi-card {
+  background: #fff !important;
+  border: 1px solid #dce5ef !important;
+  border-radius: 10px !important;
+  box-shadow: 0 4px 14px rgba(11,23,48,.08) !important;
+  padding: 16px 18px !important;
+  transition: transform .14s ease, box-shadow .14s ease, border-color .14s ease !important;
+}
+
+body.aq-is-josei .aq-jl-navi-card:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 20px rgba(11,23,48,.14) !important;
+  background: #0b1730 !important;
+  border-color: #0b1730 !important;
+}
+
+body.aq-is-josei .aq-jl-navi-no {
+  color: #1d64d8 !important;
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  letter-spacing: .08em !important;
+}
+
+body.aq-is-josei .aq-jl-navi-icon {
+  font-size: 28px !important;
+}
+
+body.aq-is-josei .aq-jl-navi-title {
+  color: #0b1730 !important;
+  font-size: 15px !important;
+  font-weight: 900 !important;
+}
+
+body.aq-is-josei .aq-jl-navi-meta {
+  color: #64748b !important;
+  font-size: 12px !important;
+}
+
+body.aq-is-josei .aq-jl-navi-arrow {
+  color: #1d64d8 !important;
+  font-size: 12px !important;
+  font-weight: 800 !important;
+}
+
+/* テーブル */
+body.aq-is-josei .aq-jl-table {
+  border: 1px solid #dce5ef !important;
+  border-radius: 12px !important;
+  box-shadow: 0 2px 8px rgba(11,23,48,.05) !important;
+  overflow: hidden !important;
+}
+
+body.aq-is-josei .aq-jl-table-head {
+  background: #f4f6fb !important;
+  color: #475569 !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  border-bottom: 1px solid #dce5ef !important;
+}
+
+body.aq-is-josei .aq-jl-row {
+  border-bottom: 1px solid #eef1f6 !important;
+}
+
+body.aq-is-josei .aq-jl-row:hover {
+  background: #f8fafd !important;
+}
+
+/* タブ */
+body.aq-is-josei .aq-josei-tabs {
+  gap: 6px !important;
+}
+
+body.aq-is-josei .aq-josei-tabs button {
+  border-radius: 8px !important;
+  font-weight: 700 !important;
+  font-size: 13px !important;
+  border: 1px solid #dce5ef !important;
+  background: #fff !important;
+  color: #334155 !important;
+  padding: 7px 14px !important;
+  box-shadow: 0 1px 4px rgba(11,23,48,.06) !important;
+}
+
+body.aq-is-josei .aq-josei-tabs button.is-active {
+  background: #0b1730 !important;
+  border-color: #0b1730 !important;
+  color: #fff !important;
+}
+
+/* メインレイアウト: gap調整 */
+body.aq-is-josei .aq-josei-main {
+  gap: 18px !important;
+  padding-bottom: 40px !important;
+}
