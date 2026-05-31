@@ -7192,9 +7192,9 @@ body.aq-is-home .aq-content-icon {
   align-items: center !important;
   justify-content: center !important;
   border-radius: 13px !important;
-  background: var(--p-bg, #eef4ff) !important;
-  color: var(--p-fg, #1d64d8) !important;
-  box-shadow: inset 0 0 0 1px var(--p-bd, rgba(29,100,216,.10)), 0 2px 6px -4px rgba(15,23,42,.18) !important;
+  background: var(--p-bg, #2563eb) !important;
+  color: #fff !important;
+  box-shadow: 0 4px 12px -4px var(--p-shadow, rgba(37,99,235,.45)), inset 0 1px 0 rgba(255,255,255,.18) !important;
 }
 
 body.aq-is-home .aq-purpose-icon svg {
@@ -7203,12 +7203,12 @@ body.aq-is-home .aq-purpose-icon svg {
   height: 26px !important;
 }
 
-body.aq-is-home .aq-purpose-icon.blue   { --p-bg: #eaf2ff; --p-fg: #1d64d8; --p-bd: rgba(29,100,216,.16); }
-body.aq-is-home .aq-purpose-icon.indigo { --p-bg: #ecefff; --p-fg: #3a5fd1; --p-bd: rgba(58,95,209,.16); }
-body.aq-is-home .aq-purpose-icon.green  { --p-bg: #e6f6ec; --p-fg: #1c9148; --p-bd: rgba(28,145,72,.16); }
-body.aq-is-home .aq-purpose-icon.orange { --p-bg: #ffeee3; --p-fg: #df5a24; --p-bd: rgba(223,90,36,.16); }
-body.aq-is-home .aq-purpose-icon.violet { --p-bg: #f1ecfb; --p-fg: #6e44c2; --p-bd: rgba(110,68,194,.16); }
-body.aq-is-home .aq-purpose-icon.teal   { --p-bg: #e1f4f6; --p-fg: #0a8a9b; --p-bd: rgba(10,138,155,.18); }
+body.aq-is-home .aq-purpose-icon.blue   { --p-bg: linear-gradient(135deg,#3b82f6,#1d4ed8); --p-shadow: rgba(29,78,216,.45); }
+body.aq-is-home .aq-purpose-icon.indigo { --p-bg: linear-gradient(135deg,#6366f1,#4338ca); --p-shadow: rgba(67,56,202,.45); }
+body.aq-is-home .aq-purpose-icon.green  { --p-bg: linear-gradient(135deg,#22c55e,#15803d); --p-shadow: rgba(21,128,61,.45); }
+body.aq-is-home .aq-purpose-icon.orange { --p-bg: linear-gradient(135deg,#fb923c,#d8541a); --p-shadow: rgba(216,84,26,.45); }
+body.aq-is-home .aq-purpose-icon.violet { --p-bg: linear-gradient(135deg,#a78bfa,#6d28d9); --p-shadow: rgba(109,40,217,.45); }
+body.aq-is-home .aq-purpose-icon.teal   { --p-bg: linear-gradient(135deg,#14b8a6,#0d6f74); --p-shadow: rgba(13,111,116,.45); }
 
 body.aq-is-home .aq-content-icon svg,
 body.aq-is-home .aq-recommend-icon svg,
@@ -7234,7 +7234,7 @@ body.aq-is-home .aq-trouble-icon svg * {
 body.aq-is-home .aq-purpose-icon svg {
   fill: none !important;
   stroke: currentColor !important;
-  stroke-width: 1.7 !important;
+  stroke-width: 2 !important;
   stroke-linecap: round !important;
   stroke-linejoin: round !important;
 }
