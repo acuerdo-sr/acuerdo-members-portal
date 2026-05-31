@@ -265,7 +265,8 @@ data_page: joseikin-list
   var qs = new URLSearchParams(window.location.search);
   var initialCat = qs.get('cat') || '';
   if (initialCat && VALID_CATS.indexOf(initialCat) === -1) initialCat = '';
-  var state = { q: '', cat: initialCat, target: '', status: '', showAll: false };
+  var initialQ = (qs.get('q') || '').slice(0, 100);
+  var state = { q: initialQ, cat: initialCat, target: '', status: '', showAll: false };
   var PAGE_SIZE = 8;
 
   function filtered() {
@@ -400,8 +401,12 @@ data_page: joseikin-list
     var catSelect = document.getElementById('aq-jl2-cat');
     if (catSelect) catSelect.value = initialCat;
   }
+  if (initialQ) {
+    var qInput = document.getElementById('aq-jl2-q');
+    if (qInput) qInput.value = initialQ;
+  }
   render();
-  if (initialCat) {
+  if (initialCat || initialQ) {
     var tbl = document.querySelector('.aq-jl2-table-section');
     if (tbl) tbl.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
