@@ -70,13 +70,14 @@ data_page: joseikin
         <a class="aq-josdash-more" href="../joseikin-list/">すべての目的から探す ›</a>
       </div>
 
-      <div class="aq-josdash-panel aq-josdash-news">
-        <div class="aq-josdash-panel-head"><h2>最新のお知らせ</h2><a href="../news/">すべて見る ›</a></div>
+      <div class="aq-josdash-panel aq-josdash-notes">
+        <div class="aq-josdash-panel-head"><h2>申請にあたっての注意点</h2><span class="aq-josdash-notes-source">厚生労働省パンフレット</span></div>
         <ul>
-          <li><time>2026.05.20</time><span class="aq-josdash-chip">助成金</span><a href="../news/">キャリアアップ助成金の申請要件の一部が変更されました</a><span>›</span></li>
-          <li><time>2026.05.15</time><span class="aq-josdash-chip cyan">法改正</span><a href="../news/">育児・介護休業法の改正に伴う助成金の拡充について</a><span>›</span></li>
-          <li><time>2026.05.12</time><span class="aq-josdash-chip">助成金</span><a href="../news/">業務改善助成金の賃上げ要件が引き上げられました</a><span>›</span></li>
-          <li><time>2026.05.08</time><span class="aq-josdash-chip navy">セミナー</span><a href="../news/">6/10（火）助成金活用セミナー開催のお知らせ</a><span>›</span></li>
+          <li><button type="button" class="aq-josdash-note-btn" data-note="1"><span class="aq-josdash-note-icon">⚠</span><strong>雇用調整助成金の不正・不適正受給</strong><small>受給後の自主申告のすすめ</small><span class="aq-josdash-note-arrow">›</span></button></li>
+          <li><button type="button" class="aq-josdash-note-btn" data-note="2"><span class="aq-josdash-note-icon">⚠</span><strong>怪しい勧誘・FAXに注意</strong><small>厚労省は助成金勧誘を委託していません</small><span class="aq-josdash-note-arrow">›</span></button></li>
+          <li><button type="button" class="aq-josdash-note-btn" data-note="3"><span class="aq-josdash-note-icon">⚠</span><strong>申請前の書類チェック</strong><small>事業主自身による確認・5年間の保存義務</small><span class="aq-josdash-note-arrow">›</span></button></li>
+          <li><button type="button" class="aq-josdash-note-btn" data-note="4"><span class="aq-josdash-note-icon">⚠</span><strong>キャリアアップ助成金の確認</strong><small>代理人・従業員任せでも事業主責任</small><span class="aq-josdash-note-arrow">›</span></button></li>
+          <li><button type="button" class="aq-josdash-note-btn" data-note="5"><span class="aq-josdash-note-icon">⚠</span><strong>「無料訓練」は危険サイン</strong><small>人材開発支援助成金は訓練費全額負担が必須</small><span class="aq-josdash-note-arrow">›</span></button></li>
         </ul>
       </div>
 
@@ -158,3 +159,135 @@ data_page: joseikin
     </section>
   </main>
 </div>
+
+<!-- 申請にあたっての注意点モーダル -->
+<div id="aq-josdash-note-overlay" class="aq-josdash-note-overlay" hidden>
+  <div class="aq-josdash-note-modal" role="dialog" aria-modal="true" aria-labelledby="aq-josdash-note-title">
+    <div class="aq-josdash-note-modal-head">
+      <span class="aq-josdash-note-modal-eyebrow">厚生労働省パンフレット</span>
+      <h3 id="aq-josdash-note-title"></h3>
+      <button type="button" class="aq-josdash-note-modal-close" id="aq-josdash-note-close" aria-label="閉じる">×</button>
+    </div>
+    <div class="aq-josdash-note-modal-body" id="aq-josdash-note-body"></div>
+    <div class="aq-josdash-note-modal-foot">
+      <a id="aq-josdash-note-link" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="M14 3h7v7"/><path d="M10 14L21 3"/><path d="M21 14v7H3V3h7"/></svg>
+        パンフレット (PDF) を開く
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  var NOTES = {
+    "1": {
+      title: "雇用調整助成金の不正・不適正受給に注意",
+      pdf: "assets/pdf/joseikin/001155272.pdf",
+      body:
+        '<p class="aq-note-lead">受給した雇用調整助成金について、<strong>不正・不適正に該当しないか自ら確認</strong>し、該当する場合は労働局に<strong>自主申告</strong>をしましょう。</p>' +
+        '<h4>こんなケースは要注意</h4>' +
+        '<ul>' +
+          '<li>休業として申請したが、実際には出勤している社員がいた</li>' +
+          '<li>雇用関係にない者を含めて申請している</li>' +
+          '<li>申請内容に誤りがあったが、そのままにしている</li>' +
+          '<li>支給申請は従業員や代理人に任せきりにしている</li>' +
+        '</ul>' +
+        '<h4>自主申告のメリット</h4>' +
+        '<p>調査前に自主申告し、受給額＋違約金＋延滞金を速やかに返還すれば、<strong>事業主名の公表は原則行われません</strong>。一方、自主申告のない不正受給は<strong>例外なく事業主名が公表</strong>されます。</p>'
+    },
+    "2": {
+      title: "助成金に関する勧誘にご注意ください",
+      pdf: "assets/pdf/joseikin/001316327.pdf",
+      body:
+        '<p class="aq-note-lead">厚生労働省・労働局・ハローワークが、<strong>特定の事業者に助成金の勧誘を委託することはありません</strong>。手数料・報酬を目的とした不正勧誘にご注意ください。</p>' +
+        '<h4>よくある手口</h4>' +
+        '<ul>' +
+          '<li>「厚労省から委託を受けた」と名乗り、FAX や DM で営業</li>' +
+          '<li>「無料診断」「受給額の無料査定」を謳う</li>' +
+          '<li>本来受けられない助成金の申請を提案する</li>' +
+        '</ul>' +
+        '<h4>不正があった場合の責任</h4>' +
+        '<p>経営コンサル・申請代理人が不正を行っても、<strong>事業主が不正受給を問われます</strong>。事業主名の公表に加え、<strong>5年間助成金が受けられなくなります</strong>。</p>'
+    },
+    "3": {
+      title: "雇用関係助成金を正しく申請していますか？",
+      pdf: "assets/pdf/joseikin/001316328.pdf",
+      body:
+        '<p class="aq-note-lead">適正な支給がされているか確認するため、労働局は随時調査を行っています。<strong>申請前に提出書類を必ずチェック</strong>しましょう。</p>' +
+        '<h4>こんな申請になっていませんか</h4>' +
+        '<ul>' +
+          '<li>事実を十分に確認せず、適当に記載して申請</li>' +
+          '<li>原本とは別の書類を作成し添付</li>' +
+          '<li>申請内容が事実と異なっていたが、そのまま申請</li>' +
+          '<li>従業員や社労士に任せきりにしている</li>' +
+        '</ul>' +
+        '<h4>書類保存について</h4>' +
+        '<p>事業主は申請書類（添付書類を含む）の写しを、支給決定日の翌日から起算して<strong>5年間保存</strong>する義務があります。社労士・代理人に依頼した場合も、必ず写しを受け取り内容を確認してください。</p>'
+    },
+    "4": {
+      title: "キャリアアップ助成金の申請内容は正しいですか？",
+      pdf: "assets/pdf/joseikin/001450307.pdf",
+      body:
+        '<p class="aq-note-lead">キャリアアップ助成金は例年約7万件活用される一方で、<strong>約200件の不正受給が発覚</strong>しています。代理人・従業員任せにせず、事業主自身が内容を確認しましょう。</p>' +
+        '<h4>事業主の責任</h4>' +
+        '<p>申請書の事業主確認欄にサイン・押印がある時点で、<strong>事業主が内容を確認し申請したこと</strong>になります。役員・従業員・社労士・代理人など、申請に関わった者が不正を行っても事業主の不正受給に該当します。</p>' +
+        '<h4>実際にあった事例</h4>' +
+        '<ul>' +
+          '<li>代理人が事業主に知らせず就業規則を書き換えて申請 → 他の助成金との矛盾で発覚</li>' +
+          '<li>人事担当者が代理人と結託し、偽の雇用契約書を作成 → 雇用契約書の矛盾で発覚</li>' +
+        '</ul>' +
+        '<h4>ペナルティ</h4>' +
+        '<p>返還＋延滞金＋違約金（2割相当）、<strong>5年間助成金停止</strong>、企業名公表、悪質な場合は刑事告発の可能性も。</p>'
+    },
+    "5": {
+      title: "人材開発支援助成金「無料訓練」は危険サイン",
+      pdf: "assets/pdf/joseikin/001687554.pdf",
+      body:
+        '<p class="aq-note-lead">人材開発支援助成金は、<strong>事業主が支払った訓練経費の一部を助成</strong>する制度。「訓練経費が無料になる」「利益が出る」ことは制度上ありえません。</p>' +
+        '<h4>こんな提案を受けていませんか</h4>' +
+        '<ul>' +
+          '<li>「広告協力してくれたら費用負担なし」</li>' +
+          '<li>「後からキャッシュバックがあります」</li>' +
+          '<li>「この訓練は専門家監修なので不正ではない」</li>' +
+        '</ul>' +
+        '<p>これらはすべて<strong>不正受給のリスク</strong>があります。訓練経費の返金・クーポン・サービス提供などを受け取ると「全額負担していない」とみなされ、助成金は受給できません。</p>' +
+        '<h4>必須要件</h4>' +
+        '<p><strong>「訓練経費を申請事業主が全額負担」</strong>これが必須要件。不正と判断されると、企業名公表・全額返還＋2割相当額＋延滞金・5年間助成金停止、悪質な場合は刑事告発も。</p>'
+    }
+  };
+
+  var overlay = document.getElementById('aq-josdash-note-overlay');
+  if (!overlay) return;
+  var titleEl = document.getElementById('aq-josdash-note-title');
+  var bodyEl = document.getElementById('aq-josdash-note-body');
+  var linkEl = document.getElementById('aq-josdash-note-link');
+  var closeBtn = document.getElementById('aq-josdash-note-close');
+
+  function open(id) {
+    var n = NOTES[id];
+    if (!n) return;
+    titleEl.textContent = n.title;
+    bodyEl.innerHTML = n.body;
+    linkEl.setAttribute('href', n.pdf);
+    overlay.hidden = false;
+    document.body.style.overflow = 'hidden';
+  }
+  function close() {
+    overlay.hidden = true;
+    document.body.style.overflow = '';
+  }
+  document.querySelectorAll('.aq-josdash-note-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      open(btn.getAttribute('data-note'));
+    });
+  });
+  closeBtn.addEventListener('click', close);
+  overlay.addEventListener('click', function (e) {
+    if (e.target === overlay) close();
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && !overlay.hidden) close();
+  });
+})();
+</script>
