@@ -227,7 +227,7 @@ data_page: faq
     return '<article class="aq-faq-v2-item" data-faq="' + f.id + '">' +
       '<button type="button" class="aq-faq-v2-q" aria-expanded="false">' +
       '<span>Q</span><strong>' + esc(f.question) + '</strong><em>' + tags.slice(0, 2).map(function (t) { return '<b>' + esc(t) + '</b>'; }).join('') + '</em><i></i></button>' +
-      '<div class="aq-faq-v2-a"><div><span>A</span></div><section>' + answerBody + '</section></div>' +
+      '<div class="aq-faq-v2-a"><section>' + answerBody + '</section></div>' +
       '</article>';
   }
 

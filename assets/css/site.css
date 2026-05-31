@@ -16834,11 +16834,19 @@ body.aq-is-faq .aq-subpage-main {
 }
 
 .aq-faq-v2-a h3 {
-  margin: 9px 0 0 !important;
-  color: #17395f !important;
-  font-size: 13px !important;
-  line-height: 1.45 !important;
+  position: relative;
+  margin: 16px 0 8px !important;
+  padding: 6px 0 6px 14px !important;
+  border-left: 4px solid #1d64d8 !important;
+  background: linear-gradient(90deg, #eaf2ff 0%, rgba(234,242,255,0) 80%) !important;
+  color: #0b2a6b !important;
+  font-size: 15px !important;
+  line-height: 1.4 !important;
   font-weight: 900 !important;
+  letter-spacing: .02em !important;
+}
+.aq-faq-v2-a h3:first-child {
+  margin-top: 4px !important;
 }
 
 .aq-faq-v2-a p {
