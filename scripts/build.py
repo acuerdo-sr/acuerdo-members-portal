@@ -105,6 +105,15 @@ def _fmt_date_ja(s: str) -> str:
     return f"{m.group(1)}年{int(m.group(2))}月{int(m.group(3))}日"
 
 
+def _fmt_date_dot(s: str) -> str:
+    if not s:
+        return ""
+    m = re.match(r"^(\d{4})-(\d{2})-(\d{2})", s)
+    if not m:
+        return s
+    return f"{m.group(1)}.{m.group(2)}.{m.group(3)}"
+
+
 def render_news(html: str) -> str:
     """お知らせカード/タブをビルド時に静的HTMLとして埋め込む(ブラウザ拡張等でJSが
     妨げられてもカードが必ず表示されるようにするため)。"""
@@ -156,6 +165,50 @@ def render_news(html: str) -> str:
     return html
 
 
+def render_home_notices(html: str) -> str:
+    """トップページの最新のお知らせをJSONから生成する。"""
+    if "__HOME_NOTICES_HTML__" not in html:
+        return html
+    data_path = SRC / "data" / "home_notices.json"
+    if not data_path.exists():
+        return html.replace("__HOME_NOTICES_HTML__", "")
+
+    items = json.loads(data_path.read_text(encoding="utf-8"))
+    items_sorted = sorted(items, key=lambda r: r.get("date", ""), reverse=True)
+    rows_html = ""
+
+    for r in items_sorted:
+        source_type = r.get("source_type") or "ニュース"
+        source_class = "leaflet" if "リーフレット" in source_type else "news"
+        tag_color = r.get("tag_color") or "navy"
+        body_html = r.get("body_html") or ""
+        link_html = ""
+        if r.get("url"):
+            link_html = (
+                f'<a class="aq-home-news-link" href="{_esc(r["url"])}" target="_blank" rel="noopener">'
+                f'{_esc(r.get("url_label") or "詳しく見る")} ›</a>'
+            )
+
+        rows_html += (
+            f'<details class="aq-home-news-item aq-home-news-{_esc(source_class)}" id="{_esc(r.get("id") or "")}">'
+            f"<summary>"
+            f'<span class="aq-home-news-type">{_esc(source_type)}</span>'
+            f'<span class="aq-tag {_esc(tag_color)}">{_esc(r.get("category") or "")}</span>'
+            f'<time datetime="{_esc(r.get("date") or "")}">{_esc(_fmt_date_dot(r.get("date") or ""))}</time>'
+            f'<span class="aq-home-news-title">{_esc(r.get("title") or "")}</span>'
+            f'<span class="aq-news-arr">›</span>'
+            f"</summary>"
+            f'<div class="aq-home-news-detail">'
+            + (f'<p class="aq-home-news-summary">{_esc(r["summary"])}</p>' if r.get("summary") else "")
+            + (f'<div class="aq-home-news-body">{body_html}</div>' if body_html else "")
+            + link_html
+            + "</div>"
+            + "</details>"
+        )
+
+    return html.replace("__HOME_NOTICES_HTML__", rows_html)
+
+
 def main(base_href: str = "/") -> int:
     if DIST.exists():
         shutil.rmtree(DIST)
@@ -189,6 +242,7 @@ def main(base_href: str = "/") -> int:
         rel = path.relative_to(pages_root)
         raw = path.read_text(encoding="utf-8")
         meta, content = parse_meta(raw)
+        content = render_home_notices(content)
         content = render_news(content)
         content = inject_data(content)
 

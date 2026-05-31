@@ -1151,49 +1151,54 @@ body.aq-is-home #aq-portal {
 .footer-inner {
   max-width: 1180px;
   margin: 0 auto;
-  padding: 46px 44px 34px;
+  padding: 24px 44px 18px;
   display: grid;
   grid-template-columns: 1.7fr 1fr 1fr 1.2fr;
-  gap: 34px;
+  column-gap: 34px;
+  row-gap: 14px;
+  align-items: start;
 }
 
 .footer-brand,
 .footer-col {
   display: flex;
   flex-direction: column;
-  gap: 9px;
+  gap: 4px;
 }
 
 .footer-logo-badge {
-  margin-bottom: 8px;
+  margin-bottom: 2px;
+  width: 38px !important;
+  height: 38px !important;
 }
 
 .footer-brand-name {
   color: #fff !important;
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 700;
+  line-height: 1.3;
 }
 
 .footer-desc,
 .footer-contact-info {
   margin: 0 !important;
   color: rgba(255,255,255,.66) !important;
-  font-size: 13px;
-  line-height: 1.7;
+  font-size: 12px;
+  line-height: 1.45;
 }
 
 .footer-col h4 {
-  margin: 0 0 6px !important;
+  margin: 0 0 2px !important;
   color: #fff !important;
-  font-size: 12px !important;
+  font-size: 11px !important;
   font-weight: 700 !important;
   line-height: 1.2 !important;
 }
 
 .footer-col a {
   color: rgba(255,255,255,.66) !important;
-  font-size: 13px;
-  line-height: 1.5;
+  font-size: 12px;
+  line-height: 1.35;
 }
 
 .footer-col a:hover {
@@ -1203,17 +1208,20 @@ body.aq-is-home #aq-portal {
 .footer-contact-btn {
   width: fit-content;
   margin-top: 4px;
-  padding: 10px 16px;
+  padding: 6px 14px;
   border: 1px solid rgba(255,255,255,.42);
   color: #fff !important;
   font-weight: 700;
+  font-size: 12px;
+  line-height: 1.3;
 }
 
 .footer-bottom {
-  padding: 16px 44px;
+  padding: 8px 44px;
   border-top: 1px solid rgba(255,255,255,.12);
   color: rgba(255,255,255,.5) !important;
-  font-size: 12px;
+  font-size: 11px;
+  line-height: 1.4;
   text-align: center;
 }
 
@@ -2131,7 +2139,7 @@ body.aq-is-home .aq-nav > .aq-nav-item:first-child .aq-nav-en {
 
   .footer-inner {
     grid-template-columns: 1fr;
-    padding: 36px 22px 28px;
+    padding: 20px 22px 16px;
   }
 
   .footer-bottom {
@@ -10624,6 +10632,136 @@ body.aq-is-home .aq-news-window .aq-news-list a {
   line-height: 1.45 !important;
 }
 
+body.aq-is-home .aq-home-news-items {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+body.aq-is-home .aq-home-news-item {
+  margin: 0 !important;
+  border-bottom: 1px solid #e4ebf4 !important;
+  background: #fff !important;
+}
+
+body.aq-is-home .aq-home-news-item:last-child {
+  border-bottom: 0 !important;
+}
+
+body.aq-is-home .aq-home-news-item summary {
+  display: grid !important;
+  grid-template-columns: 72px 88px 82px minmax(0, 1fr) 16px !important;
+  align-items: center !important;
+  gap: 8px !important;
+  min-height: 64px !important;
+  padding: 9px 12px !important;
+  cursor: pointer !important;
+  list-style: none !important;
+}
+
+body.aq-is-home .aq-home-news-item summary::-webkit-details-marker {
+  display: none !important;
+}
+
+body.aq-is-home .aq-home-news-item summary:focus-visible {
+  outline: 2px solid rgba(29,100,216,.28) !important;
+  outline-offset: -3px !important;
+}
+
+body.aq-is-home .aq-home-news-item summary:hover,
+body.aq-is-home .aq-home-news-item[open] summary {
+  background: #f8fbff !important;
+}
+
+body.aq-is-home .aq-home-news-type,
+body.aq-is-home .aq-home-news-item summary .aq-tag {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  min-height: 24px !important;
+  padding: 4px 7px !important;
+  border-radius: 999px !important;
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  line-height: 1.2 !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+body.aq-is-home .aq-home-news-type {
+  color: #0f766e !important;
+  background: #e6fffb !important;
+}
+
+body.aq-is-home .aq-home-news-leaflet .aq-home-news-type {
+  color: #92400e !important;
+  background: #fff7ed !important;
+}
+
+body.aq-is-home .aq-home-news-item summary time {
+  color: #64748b !important;
+  font-size: 12px !important;
+  font-weight: 750 !important;
+  white-space: nowrap !important;
+}
+
+body.aq-is-home .aq-home-news-title {
+  min-width: 0 !important;
+  color: #0f2b4f !important;
+  font-size: 13.6px !important;
+  font-weight: 850 !important;
+  line-height: 1.45 !important;
+}
+
+body.aq-is-home .aq-home-news-item .aq-news-arr {
+  color: #64748b !important;
+  font-size: 18px !important;
+  transform-origin: center !important;
+  transition: transform .18s ease !important;
+}
+
+body.aq-is-home .aq-home-news-item[open] .aq-news-arr {
+  transform: rotate(90deg) !important;
+}
+
+body.aq-is-home .aq-home-news-detail {
+  padding: 0 14px 14px !important;
+  background: #fbfdff !important;
+  border-top: 1px solid #eaf0f7 !important;
+}
+
+body.aq-is-home .aq-home-news-summary,
+body.aq-is-home .aq-home-news-body p {
+  margin: 10px 0 0 !important;
+  color: #40516a !important;
+  font-size: 13px !important;
+  line-height: 1.65 !important;
+}
+
+body.aq-is-home .aq-home-news-summary {
+  color: #17385f !important;
+  font-weight: 750 !important;
+}
+
+body.aq-is-home .aq-home-news-link {
+  display: inline-flex !important;
+  align-items: center !important;
+  margin-top: 10px !important;
+  color: #0f5f95 !important;
+  font-size: 12.8px !important;
+  font-weight: 850 !important;
+  text-decoration: none !important;
+}
+
+body.aq-is-home .aq-home-news-link:hover {
+  text-decoration: underline !important;
+}
+
 body.aq-is-home .aq-trouble-card,
 body.aq-is-home .aq-trouble-grid::after {
   height: 84px !important;
@@ -10713,6 +10851,29 @@ body.aq-is-home .aq-trouble-grid::after {
     height: 260px !important;
     max-height: 260px !important;
     min-height: 0 !important;
+  }
+
+  body.aq-is-home .aq-home-news-item summary {
+    grid-template-columns: 70px minmax(90px, auto) 1fr 16px !important;
+    min-height: 76px !important;
+    gap: 6px 8px !important;
+    padding: 10px 11px !important;
+  }
+
+  body.aq-is-home .aq-home-news-item summary time {
+    grid-column: 1 / 3 !important;
+    grid-row: 2 !important;
+  }
+
+  body.aq-is-home .aq-home-news-title {
+    grid-column: 3 !important;
+    grid-row: 1 / 3 !important;
+    font-size: 13.2px !important;
+  }
+
+  body.aq-is-home .aq-home-news-item .aq-news-arr {
+    grid-column: 4 !important;
+    grid-row: 1 / 3 !important;
   }
 
   body.aq-is-home .aq-home-contact {
