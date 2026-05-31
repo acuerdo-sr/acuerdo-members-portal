@@ -336,21 +336,30 @@ data_page: joseikin-list
   }
 
   /* イベント */
+  function val(id) {
+    var el = document.getElementById(id);
+    return el ? el.value : '';
+  }
+  function setVal(id, v) {
+    var el = document.getElementById(id);
+    if (el) el.value = v;
+  }
+
   document.getElementById('aq-jl2-search').addEventListener('click', function () {
-    state.q = document.getElementById('aq-jl2-q').value.trim();
-    state.cat = document.getElementById('aq-jl2-cat').value;
-    state.target = document.getElementById('aq-jl2-target').value;
-    state.status = document.getElementById('aq-jl2-status').value;
+    state.q = val('aq-jl2-q').trim();
+    state.cat = val('aq-jl2-cat');
+    state.target = val('aq-jl2-target');
+    state.status = val('aq-jl2-status');
     state.showAll = false;
     render();
   });
 
   document.getElementById('aq-jl2-clear').addEventListener('click', function () {
     state = { q: '', cat: '', target: '', status: '', showAll: false };
-    document.getElementById('aq-jl2-q').value = '';
-    document.getElementById('aq-jl2-cat').value = '';
-    document.getElementById('aq-jl2-target').value = '';
-    document.getElementById('aq-jl2-status').value = '';
+    setVal('aq-jl2-q', '');
+    setVal('aq-jl2-cat', '');
+    setVal('aq-jl2-target', '');
+    setVal('aq-jl2-status', '');
     render();
   });
 
@@ -375,17 +384,17 @@ data_page: joseikin-list
     if (!btn) return;
     var cat = btn.getAttribute('data-cat');
     state = { q: '', cat: cat, target: '', status: '', showAll: false };
-    document.getElementById('aq-jl2-cat').value = cat;
-    document.getElementById('aq-jl2-q').value = '';
-    document.getElementById('aq-jl2-status').value = '';
-    document.getElementById('aq-jl2-target').value = '';
+    setVal('aq-jl2-cat', cat);
+    setVal('aq-jl2-q', '');
+    setVal('aq-jl2-status', '');
+    setVal('aq-jl2-target', '');
     render();
     document.querySelector('.aq-jl2-table-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
 
   document.getElementById('aq-jl2-purpose-all').addEventListener('click', function () {
     state = { q: '', cat: '', target: '', status: '', showAll: false };
-    document.getElementById('aq-jl2-cat').value = '';
+    setVal('aq-jl2-cat', '');
     render();
   });
 
