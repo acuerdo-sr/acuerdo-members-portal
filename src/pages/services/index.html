@@ -1,0 +1,437 @@
+{# meta:
+title: 顧問先向け無料クラウドサービス
+body_class: aq-is-services
+data_page: services
+#}
+
+<style>
+.aq-svc-wrap{--svc-navy:#123A5A;--svc-navy-d:#0C2E49;--svc-teal:#177D78;--svc-teal-d:#126A66;--svc-blue:#1C6489;--svc-blue-d:#154F6E;--svc-ink:#334155;--svc-mute:#64748B;--svc-bg:#F8FAFC;--svc-bg2:#F7FBFB;--svc-line:#E2E8F0;color:var(--svc-ink);}
+.aq-svc-wrap h1,.aq-svc-wrap h2,.aq-svc-wrap h3{color:var(--svc-navy) !important;letter-spacing:.01em;}
+.aq-svc-main{max-width:1180px;margin:0 auto;padding:0 18px;}
+.aq-svc-section{padding:64px 0;}
+.aq-svc-section + .aq-svc-section{border-top:1px solid var(--svc-line);}
+.aq-svc-eyebrow{font-size:11px;font-weight:800;letter-spacing:.22em;color:#1E7D8B;margin-bottom:14px;}
+.aq-svc-section-title{font-size:28px;font-weight:800;line-height:1.35;margin:0 0 16px;}
+.aq-svc-section-lead{font-size:15px;line-height:1.85;color:var(--svc-mute);max-width:720px;margin:0 0 36px;}
+
+/* HERO */
+.aq-svc-hero{position:relative;overflow:hidden;background:#fff;border-radius:24px;padding:48px 36px;margin-top:18px;box-shadow:0 1px 0 var(--svc-line) inset, 0 8px 28px -22px rgba(15,42,80,.35);}
+.aq-svc-hero::before,.aq-svc-hero::after{content:"";position:absolute;border-radius:50%;filter:blur(60px);z-index:0;}
+.aq-svc-hero::before{width:280px;height:280px;background:#DDF2F4;right:-50px;top:24px;opacity:.6;}
+.aq-svc-hero::after{width:240px;height:240px;background:#E5F0F7;left:-60px;bottom:-40px;opacity:.7;}
+.aq-svc-hero-grid{position:relative;z-index:1;display:grid;grid-template-columns:1.12fr .88fr;gap:36px;align-items:center;}
+.aq-svc-badge{display:inline-flex;align-items:center;gap:8px;background:#F1FBFB;border:1px solid #CBE5EA;color:var(--svc-teal);font-size:12px;font-weight:800;padding:6px 12px;border-radius:999px;}
+.aq-svc-hero h1{font-size:38px;line-height:1.32;margin:18px 0 22px;font-weight:800;letter-spacing:.005em;}
+.aq-svc-hero p{font-size:15px;line-height:1.95;color:var(--svc-mute);max-width:560px;margin:0;}
+.aq-svc-hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px;}
+.aq-svc-btn{display:inline-flex;align-items:center;gap:8px;padding:13px 22px;border-radius:12px;font-weight:800;font-size:14px;text-decoration:none;transition:.18s;}
+.aq-svc-btn-primary{background:var(--svc-navy);color:#fff;}
+.aq-svc-btn-primary:hover{background:var(--svc-navy-d);}
+.aq-svc-btn-ghost{background:#fff;color:var(--svc-navy);border:1px solid #CBD5E1;}
+.aq-svc-btn-ghost:hover{background:#F8FAFC;}
+.aq-svc-hero-side{display:flex;flex-direction:column;gap:16px;}
+.aq-svc-freebadge{background:#F2FCFA;border:1px solid #BCE7DF;border-radius:18px;padding:16px 18px;display:flex;align-items:center;gap:14px;}
+.aq-svc-freebadge-dot{flex:0 0 44px;width:44px;height:44px;border-radius:50%;background:var(--svc-teal);color:#fff;display:flex;align-items:center;justify-content:center;}
+.aq-svc-freebadge small{display:block;font-size:11px;font-weight:800;letter-spacing:.18em;color:var(--svc-teal);}
+.aq-svc-freebadge strong{display:block;font-size:17px;color:var(--svc-navy);margin-top:4px;font-weight:800;}
+.aq-svc-mini{background:#fff;border:1px solid #DCE8EE;border-radius:22px;padding:18px;box-shadow:0 18px 40px -28px rgba(15,42,80,.4);}
+.aq-svc-mini-head{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #F1F5F9;padding-bottom:14px;}
+.aq-svc-mini-head-eyebrow{font-size:11px;font-weight:800;letter-spacing:.18em;color:#1E7D8B;}
+.aq-svc-mini-head strong{display:block;font-size:16px;color:var(--svc-navy);margin-top:4px;}
+.aq-svc-mini-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px;}
+.aq-svc-mini-cell{border-radius:16px;padding:14px;}
+.aq-svc-mini-cell.b{background:#EEF7FB;}
+.aq-svc-mini-cell.g{background:#EDF9F7;}
+.aq-svc-mini-cell strong{display:block;font-size:13px;color:var(--svc-navy);margin-top:14px;font-weight:800;}
+.aq-svc-mini-cell small{display:block;font-size:11px;color:#64748B;margin-top:4px;line-height:1.6;}
+
+/* SERVICES TWO CARDS */
+.aq-svc-svc-cards{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.aq-svc-svc-card{background:#fff;border:1px solid var(--svc-line);border-radius:22px;overflow:hidden;box-shadow:0 1px 0 var(--svc-line) inset;}
+.aq-svc-svc-card-strip{height:5px;}
+.aq-svc-svc-card.blue .aq-svc-svc-card-strip{background:#2679A6;}
+.aq-svc-svc-card.teal .aq-svc-svc-card-strip{background:#15918B;}
+.aq-svc-svc-card-body{padding:26px 28px;}
+.aq-svc-svc-card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;}
+.aq-svc-pill{display:inline-flex;font-size:11px;font-weight:800;letter-spacing:.18em;padding:5px 12px;border-radius:999px;}
+.aq-svc-pill.blue{background:#EAF4FA;color:#1C6489;}
+.aq-svc-pill.teal{background:#E7F8F6;color:var(--svc-teal);}
+.aq-svc-svc-card h3{font-size:22px;margin:14px 0 0;font-weight:800;}
+.aq-svc-svc-card-icon{flex:0 0 56px;width:56px;height:56px;border-radius:16px;display:flex;align-items:center;justify-content:center;}
+.aq-svc-svc-card.blue .aq-svc-svc-card-icon{background:#EAF4FA;color:#1C6489;}
+.aq-svc-svc-card.teal .aq-svc-svc-card-icon{background:#E7F8F6;color:var(--svc-teal);}
+.aq-svc-svc-card-body p{font-size:14px;line-height:1.85;color:var(--svc-mute);margin:18px 0 0;}
+.aq-svc-free{display:flex;align-items:center;gap:8px;background:#F2FCFA;color:var(--svc-teal);font-weight:800;font-size:14px;padding:12px 16px;border-radius:12px;margin-top:18px;}
+.aq-svc-svc-card-link{display:inline-flex;align-items:center;gap:8px;margin-top:22px;font-weight:800;font-size:14px;text-decoration:none;}
+.aq-svc-svc-card.blue .aq-svc-svc-card-link{color:#1C6489;}
+.aq-svc-svc-card.teal .aq-svc-svc-card-link{color:var(--svc-teal);}
+
+/* GRID CARDS */
+.aq-svc-grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+.aq-svc-grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:30px;}
+.aq-svc-grid-card{background:#fff;border:1px solid var(--svc-line);border-radius:16px;padding:20px;transition:.25s;}
+.aq-svc-grid-card:hover{transform:translateY(-2px);box-shadow:0 14px 30px -22px rgba(15,42,80,.4);}
+.aq-svc-grid-card .aq-svc-grid-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:14px;}
+.aq-svc-grid-card.blue .aq-svc-grid-icon{background:#EAF3F8;color:#1A5A7A;}
+.aq-svc-grid-card.teal .aq-svc-grid-icon{background:#E8F7F6;color:var(--svc-teal);}
+.aq-svc-grid-card h3{font-size:15px;margin:0 0 6px;font-weight:800;}
+.aq-svc-grid-card p{font-size:13px;line-height:1.75;color:var(--svc-mute);margin:0;}
+.aq-svc-usecase{background:#F7FBFD;border:1px solid #D9E8F0;border-radius:16px;padding:20px;}
+.aq-svc-usecase svg{color:#2679A6;}
+.aq-svc-usecase h3{font-size:15px;font-weight:800;margin:14px 0 6px;}
+.aq-svc-usecase p{font-size:13px;line-height:1.75;color:var(--svc-mute);margin:0;}
+
+/* CTA STRIP */
+.aq-svc-ctastrip{margin-top:28px;border-radius:18px;padding:22px 24px;display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap;}
+.aq-svc-ctastrip.blue{background:#F4FAFD;border:1px solid #D9E8F0;}
+.aq-svc-ctastrip.teal{background:#fff;border:1px solid #D5ECE9;}
+.aq-svc-ctastrip strong{display:block;font-size:14px;color:var(--svc-navy);font-weight:800;}
+.aq-svc-ctastrip small{display:block;font-size:12px;color:var(--svc-mute);margin-top:4px;}
+.aq-svc-ctastrip a{display:inline-flex;align-items:center;gap:8px;color:#fff;font-weight:800;font-size:14px;padding:12px 18px;border-radius:12px;text-decoration:none;}
+.aq-svc-ctastrip.blue a{background:var(--svc-blue);}
+.aq-svc-ctastrip.blue a:hover{background:var(--svc-blue-d);}
+.aq-svc-ctastrip.teal a{background:var(--svc-teal);}
+.aq-svc-ctastrip.teal a:hover{background:var(--svc-teal-d);}
+
+/* COMPARISON TABLE */
+.aq-svc-table{background:#fff;border:1px solid var(--svc-line);border-radius:22px;overflow:hidden;}
+.aq-svc-trow{display:grid;grid-template-columns:0.7fr 1fr 1fr;}
+.aq-svc-trow + .aq-svc-trow{border-top:1px solid var(--svc-line);}
+.aq-svc-trow > div{padding:18px 22px;font-size:14px;line-height:1.65;}
+.aq-svc-trow .lbl{background:#F8FAFC;color:var(--svc-navy);font-weight:800;}
+.aq-svc-trow.head .lbl{background:var(--svc-navy);color:#fff;}
+.aq-svc-trow.head .col-samba{background:#EEF7FB;color:#1C6489;font-weight:800;}
+.aq-svc-trow.head .col-kitera{background:#EDF9F7;color:var(--svc-teal);font-weight:800;}
+.aq-svc-trow .col-kitera{border-left:1px solid var(--svc-line);}
+.aq-svc-trow > div{color:var(--svc-mute);}
+
+/* FAQ */
+.aq-svc-faq{background:#fff;border:1px solid var(--svc-line);border-radius:22px;overflow:hidden;}
+.aq-svc-faq details{border-bottom:1px solid var(--svc-line);}
+.aq-svc-faq details:last-child{border-bottom:0;}
+.aq-svc-faq summary{list-style:none;cursor:pointer;padding:22px 26px;display:flex;justify-content:space-between;gap:18px;align-items:center;font-size:15px;font-weight:800;color:var(--svc-navy);line-height:1.65;}
+.aq-svc-faq summary::-webkit-details-marker{display:none;}
+.aq-svc-faq summary .q{display:flex;gap:12px;}
+.aq-svc-faq summary .q::before{content:"Q.";color:#1E7D8B;font-weight:800;}
+.aq-svc-faq summary .arrow{transition:.2s;color:#94A3B8;flex:0 0 18px;}
+.aq-svc-faq details[open] summary .arrow{transform:rotate(180deg);}
+.aq-svc-faq .a{padding:0 26px 22px 56px;font-size:14px;line-height:1.95;color:var(--svc-mute);}
+
+/* APPLY CTA */
+.aq-svc-apply{background:var(--svc-navy);color:#fff;border-radius:24px;padding:48px 44px;display:grid;grid-template-columns:1fr auto;gap:32px;align-items:center;box-shadow:0 28px 60px -36px rgba(6,21,46,.6);}
+.aq-svc-apply .lab{font-size:11px;font-weight:800;letter-spacing:.22em;color:#8FD5D1;}
+.aq-svc-apply h2{font-size:28px;font-weight:800;color:#fff !important;margin:12px 0 14px;}
+.aq-svc-apply p{font-size:14.5px;line-height:1.95;color:#cbd5e1;max-width:640px;margin:0;}
+.aq-svc-apply a{display:inline-flex;gap:8px;align-items:center;background:#fff;color:var(--svc-navy);font-weight:800;font-size:14px;padding:14px 22px;border-radius:12px;text-decoration:none;transition:.18s;}
+.aq-svc-apply a:hover{background:#F1F5F9;}
+
+@media (max-width:980px){
+  .aq-svc-hero{padding:36px 24px;}
+  .aq-svc-hero-grid{grid-template-columns:1fr;gap:28px;}
+  .aq-svc-hero h1{font-size:30px;}
+  .aq-svc-svc-cards{grid-template-columns:1fr;}
+  .aq-svc-grid3{grid-template-columns:1fr 1fr;}
+  .aq-svc-grid4{grid-template-columns:1fr 1fr;}
+  .aq-svc-trow{grid-template-columns:1fr;}
+  .aq-svc-trow .col-kitera{border-left:0;border-top:1px solid var(--svc-line);}
+  .aq-svc-apply{grid-template-columns:1fr;padding:36px 28px;}
+}
+@media (max-width:560px){
+  .aq-svc-grid3,.aq-svc-grid4{grid-template-columns:1fr;}
+  .aq-svc-section{padding:48px 0;}
+  .aq-svc-section-title{font-size:22px;}
+  .aq-svc-hero h1{font-size:24px;}
+  .aq-svc-mini-grid{grid-template-columns:1fr;}
+}
+</style>
+
+<div id="aq-services-wrap" class="aq-subpage-wrap aq-svc-wrap">
+  <main class="aq-svc-main">
+
+    <!-- HERO -->
+    <section class="aq-svc-hero">
+      <div class="aq-svc-hero-grid">
+        <div>
+          <span class="aq-svc-badge">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.8L20 10l-5 4 1.7 6L12 17l-4.7 3L9 14l-5-4 6.1-1.2L12 3z"/></svg>
+            アクエルドの顧問先様限定
+          </span>
+          <h1>労務書類のやり取りと<br>社内規程の周知を、もっと簡単に。</h1>
+          <p>アクエルド社会保険労務士法人では、顧問先様との書類共有に「セキュアSAMBA」、社内規程の管理・周知に「KiteRa」を活用しています。まだご利用でない顧問先様にも、追加費用なしでご案内しています。</p>
+          <div class="aq-svc-hero-cta">
+            <a href="#services" class="aq-svc-btn aq-svc-btn-primary">サービスを見る
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 5 7 7-7 7"/></svg>
+            </a>
+            <a href="#apply" class="aq-svc-btn aq-svc-btn-ghost">無料利用を申し込む</a>
+          </div>
+        </div>
+        <div class="aq-svc-hero-side">
+          <div class="aq-svc-freebadge">
+            <span class="aq-svc-freebadge-dot">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.8L20 10l-5 4 1.7 6L12 17l-4.7 3L9 14l-5-4 6.1-1.2L12 3z"/></svg>
+            </span>
+            <div>
+              <small>顧問先様限定</small>
+              <strong>追加費用なしで利用できます</strong>
+            </div>
+          </div>
+          <div class="aq-svc-mini">
+            <div class="aq-svc-mini-head">
+              <div>
+                <span class="aq-svc-mini-head-eyebrow">ACUERDO SUPPORT</span>
+                <strong>顧問先様の労務管理をデジタル化</strong>
+              </div>
+              <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#1E7D8B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <div class="aq-svc-mini-grid">
+              <div class="aq-svc-mini-cell b">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2679A6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 7a2 2 0 0 1 2-2h5l2 2h7a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V7z"/><rect x="9" y="11" width="6" height="5" rx="1"/><path d="M12 11v-2"/></svg>
+                <strong>書類の受け渡し</strong>
+                <small>セキュアSAMBAで安全に共有</small>
+              </div>
+              <div class="aq-svc-mini-cell g">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#15918B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V6a2 2 0 0 1 2-2h12v15H6a2 2 0 0 0-2 2z"/><path d="M9 9l2 2 4-4"/></svg>
+                <strong>規程の周知</strong>
+                <small>KiteRaでペーパーレス化</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES SUMMARY -->
+    <section id="services" class="aq-svc-section">
+      <div class="aq-svc-eyebrow">FREE SERVICES</div>
+      <h2 class="aq-svc-section-title">顧問先様に無料でご案内している2つのサービス</h2>
+      <p class="aq-svc-section-lead">重要な労務書類の受け渡しと、就業規則・社内規程の管理を効率化します。どちらもアクエルドの顧問先様は追加費用なしでご利用いただけます。</p>
+      <div class="aq-svc-svc-cards">
+        <article class="aq-svc-svc-card blue">
+          <div class="aq-svc-svc-card-strip"></div>
+          <div class="aq-svc-svc-card-body">
+            <div class="aq-svc-svc-card-head">
+              <div>
+                <span class="aq-svc-pill blue">書類共有</span>
+                <h3>セキュアSAMBA</h3>
+              </div>
+              <div class="aq-svc-svc-card-icon">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 7a2 2 0 0 1 2-2h5l2 2h7a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V7z"/><rect x="9" y="11" width="6" height="5" rx="1"/><path d="M12 11v-2"/></svg>
+              </div>
+            </div>
+            <p>タイムカード、賃金台帳、公文書など、労務管理に必要な書類をアクエルドと安全にやり取りするためのクラウドストレージです。</p>
+            <div class="aq-svc-free">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m8 12 3 3 5-6"/></svg>
+              顧問先様は無料で利用できます
+            </div>
+            <a href="#samba" class="aq-svc-svc-card-link">詳しく見る
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 5 7 7-7 7"/></svg>
+            </a>
+          </div>
+        </article>
+        <article class="aq-svc-svc-card teal">
+          <div class="aq-svc-svc-card-strip"></div>
+          <div class="aq-svc-svc-card-body">
+            <div class="aq-svc-svc-card-head">
+              <div>
+                <span class="aq-svc-pill teal">規程管理・周知</span>
+                <h3>KiteRa</h3>
+              </div>
+              <div class="aq-svc-svc-card-icon">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V6a2 2 0 0 1 2-2h12v15H6a2 2 0 0 0-2 2z"/><path d="M9 9l2 2 4-4"/></svg>
+              </div>
+            </div>
+            <p>就業規則や各種社内規程をクラウド上で管理し、従業員へペーパーレスで周知するためのサービスです。</p>
+            <div class="aq-svc-free">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m8 12 3 3 5-6"/></svg>
+              顧問先様は無料で利用できます
+            </div>
+            <a href="#kitera" class="aq-svc-svc-card-link">詳しく見る
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 5 7 7-7 7"/></svg>
+            </a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- SAMBA DETAIL -->
+    <section id="samba" class="aq-svc-section">
+      <div class="aq-svc-eyebrow">SECURE SAMBA</div>
+      <h2 class="aq-svc-section-title">労務書類は、セキュアSAMBAで安全に受け渡し</h2>
+      <p class="aq-svc-section-lead">メール添付や紙での受け渡しではなく、顧問先様専用のフォルダを利用します。重要書類を整理しながら、安全に共有できます。</p>
+      <div class="aq-svc-grid4">
+        <div class="aq-svc-usecase">
+          <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3 8-8"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          <h3>タイムカード</h3>
+          <p>給与計算に必要な勤怠資料を、メール添付ではなく専用フォルダで安全に共有できます。</p>
+        </div>
+        <div class="aq-svc-usecase">
+          <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 13h6M9 17h6"/></svg>
+          <h3>賃金台帳・給与資料</h3>
+          <p>賃金台帳や給与計算に関する資料を、顧問先ごとのフォルダで分かりやすく管理できます。</p>
+        </div>
+        <div class="aq-svc-usecase">
+          <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <h3>公文書・届出書類</h3>
+          <p>社会保険・労働保険の公文書や各種届出書類を、必要な担当者だけが確認できます。</p>
+        </div>
+        <div class="aq-svc-usecase">
+          <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 16.5a3.5 3.5 0 0 0 0-7H17a5 5 0 1 0-9 3"/><path d="M12 12v9"/><path d="m8 17 4-4 4 4"/></svg>
+          <h3>その他の労務書類</h3>
+          <p>入退社、育児休業、算定基礎、年度更新など、労務手続に関する資料の受け渡しにも活用できます。</p>
+        </div>
+      </div>
+      <div class="aq-svc-grid3">
+        <div class="aq-svc-grid-card blue">
+          <div class="aq-svc-grid-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+          <h3>安全なファイル共有</h3>
+          <p>アクセスを許可された相手だけが、指定されたフォルダを閲覧できます。</p>
+        </div>
+        <div class="aq-svc-grid-card blue">
+          <div class="aq-svc-grid-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg></div>
+          <h3>メール添付を減らせる</h3>
+          <p>重要資料をメールで何度も送る必要がなく、資料の見落としや誤送信のリスクを減らせます。</p>
+        </div>
+        <div class="aq-svc-grid-card blue">
+          <div class="aq-svc-grid-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></div>
+          <h3>過去の書類を探しやすい</h3>
+          <p>必要な資料をフォルダで整理できるため、過去の公文書や給与資料も確認しやすくなります。</p>
+        </div>
+      </div>
+      <div class="aq-svc-ctastrip blue">
+        <div>
+          <strong>顧問先様専用のフォルダをご用意します</strong>
+          <small>未利用の顧問先様は、利用開始のお申し込みをお願いします。</small>
+        </div>
+        <a href="#apply">無料利用を申し込む
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 5 7 7-7 7"/></svg>
+        </a>
+      </div>
+    </section>
+
+    <!-- KITERA DETAIL -->
+    <section id="kitera" class="aq-svc-section" style="background:var(--svc-bg2);margin:0 -18px;padding-left:18px;padding-right:18px;border-radius:24px;">
+      <div class="aq-svc-eyebrow">KITERA</div>
+      <h2 class="aq-svc-section-title">就業規則・社内規程は、KiteRaでペーパーレスに周知</h2>
+      <p class="aq-svc-section-lead">紙で配布した規程は、差し替えや再配布に手間がかかります。KiteRaを活用すると、従業員はID・パスワードでログインし、必要な規程をいつでも確認できます。</p>
+      <div class="aq-svc-grid3">
+        <div class="aq-svc-grid-card teal">
+          <div class="aq-svc-grid-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
+          <h3>ペーパーレスで周知</h3>
+          <p>就業規則や各種社内規程を紙で配布せず、パソコンやスマートフォンから確認できます。</p>
+        </div>
+        <div class="aq-svc-grid-card teal">
+          <div class="aq-svc-grid-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="15" r="4"/><path d="m21 2-9.6 9.6M15.5 7.5l3 3 3-3-3-3z"/></svg></div>
+          <h3>ID・パスワードで閲覧</h3>
+          <p>従業員は案内されたID・パスワードでログインし、必要な規程をいつでも確認できます。</p>
+        </div>
+        <div class="aq-svc-grid-card teal">
+          <div class="aq-svc-grid-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V6a2 2 0 0 1 2-2h12v15H6a2 2 0 0 0-2 2z"/><path d="M9 9l2 2 4-4"/></svg></div>
+          <h3>最新版を一元管理</h3>
+          <p>古い規程と新しい規程が混在する状態を防ぎ、従業員へ最新版を周知しやすくなります。</p>
+        </div>
+        <div class="aq-svc-grid-card teal">
+          <div class="aq-svc-grid-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+          <h3>従業員への周知が簡単</h3>
+          <p>入社時や規程改定時にも、紙の配布や差し替え作業を減らして案内できます。</p>
+        </div>
+        <div class="aq-svc-grid-card teal">
+          <div class="aq-svc-grid-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+          <h3>安心して管理</h3>
+          <p>規程をクラウド上で整理し、閲覧対象を管理しながら運用できます。</p>
+        </div>
+        <div class="aq-svc-grid-card teal">
+          <div class="aq-svc-grid-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3 8-8"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
+          <h3>管理負担を軽減</h3>
+          <p>印刷、配布、回収、ファイル差し替えの手間を減らし、規程管理を効率化できます。</p>
+        </div>
+      </div>
+      <div class="aq-svc-ctastrip teal">
+        <div>
+          <strong>紙の配布・差し替えから、クラウドでの周知へ</strong>
+          <small>従業員への規程周知を簡単にし、最新版の管理負担を減らします。</small>
+        </div>
+        <a href="#apply">無料利用を申し込む
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 5 7 7-7 7"/></svg>
+        </a>
+      </div>
+    </section>
+
+    <!-- COMPARISON -->
+    <section class="aq-svc-section">
+      <div class="aq-svc-eyebrow">COMPARISON</div>
+      <h2 class="aq-svc-section-title">目的に応じてご利用ください</h2>
+      <p class="aq-svc-section-lead">両方をご利用いただくと、アクエルドとの書類共有と、社内での規程周知をまとめて効率化できます。</p>
+      <div class="aq-svc-table">
+        <div class="aq-svc-trow head">
+          <div class="lbl">サービス</div>
+          <div class="col-samba">セキュアSAMBA</div>
+          <div class="col-kitera">KiteRa</div>
+        </div>
+        <div class="aq-svc-trow">
+          <div class="lbl">主な目的</div>
+          <div class="col-samba">アクエルドとの労務書類の共有</div>
+          <div class="col-kitera">就業規則・社内規程の管理と周知</div>
+        </div>
+        <div class="aq-svc-trow">
+          <div class="lbl">対象となる資料</div>
+          <div class="col-samba">タイムカード、賃金台帳、公文書、各種届出書類</div>
+          <div class="col-kitera">就業規則、賃金規程、育児介護休業規程など</div>
+        </div>
+        <div class="aq-svc-trow">
+          <div class="lbl">メリット</div>
+          <div class="col-samba">安全な受け渡し、メール添付の削減、検索しやすい保管</div>
+          <div class="col-kitera">ペーパーレス、ID・パスワードによる閲覧、最新版の周知</div>
+        </div>
+        <div class="aq-svc-trow">
+          <div class="lbl">顧問先様の費用</div>
+          <div class="col-samba">無料</div>
+          <div class="col-kitera">無料</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="aq-svc-section">
+      <div class="aq-svc-eyebrow">FAQ</div>
+      <h2 class="aq-svc-section-title">よくあるご質問</h2>
+      <p class="aq-svc-section-lead">利用開始前によくいただくご質問をまとめました。</p>
+      <div class="aq-svc-faq">
+        <details open>
+          <summary><span class="q">利用料金はかかりますか？</span><svg class="arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></summary>
+          <div class="a">アクエルド社会保険労務士法人の顧問先様は、今回ご案内するセキュアSAMBAとKiteRaの仕組みを無料でご利用いただけます。追加費用はかかりません。</div>
+        </details>
+        <details>
+          <summary><span class="q">セキュアSAMBAでは、どのような書類を共有できますか？</span><svg class="arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></summary>
+          <div class="a">タイムカード、賃金台帳、給与資料、社会保険・労働保険の公文書、入退社や育児休業などの各種手続書類を共有できます。メール添付ではなく、顧問先様専用のフォルダで安全に受け渡しできます。</div>
+        </details>
+        <details>
+          <summary><span class="q">KiteRaは従業員も利用できますか？</span><svg class="arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></summary>
+          <div class="a">はい。従業員向けのID・パスワードをご案内することで、就業規則や各種社内規程をパソコンやスマートフォンから確認できます。紙で配布する必要がなく、最新版の周知にも便利です。</div>
+        </details>
+        <details>
+          <summary><span class="q">両方を利用する必要がありますか？</span><svg class="arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></summary>
+          <div class="a">必須ではありません。書類の受け渡しを安全にしたい場合はセキュアSAMBA、規程のペーパーレス化と従業員周知を進めたい場合はKiteRaが適しています。両方の利用も可能です。</div>
+        </details>
+        <details>
+          <summary><span class="q">利用を開始するにはどうすればよいですか？</span><svg class="arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></summary>
+          <div class="a">ページ下部の申込ボタンからご連絡ください。担当者が利用開始に必要なご案内をいたします。</div>
+        </details>
+      </div>
+    </section>
+
+    <!-- APPLY -->
+    <section id="apply" class="aq-svc-section">
+      <div class="aq-svc-apply">
+        <div>
+          <div class="lab">FREE APPLICATION</div>
+          <h2>無料利用をご希望の顧問先様へ</h2>
+          <p>セキュアSAMBA、KiteRa、または両方の利用をご希望の場合は、担当者へご連絡ください。利用開始に必要な設定やID・パスワードのご案内をいたします。</p>
+        </div>
+        <a href="../contact/">無料利用を申し込む
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 5 7 7-7 7"/></svg>
+        </a>
+      </div>
+    </section>
+
+  </main>
+</div>
