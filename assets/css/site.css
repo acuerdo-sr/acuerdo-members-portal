@@ -9438,11 +9438,11 @@ body.aq-is-joseikin #acuerdo-footer {
   margin-bottom: 6px;
 }
 .aq-josdash-note-modal-head h3 {
-  margin: 0;
-  font-size: 18px;
-  font-weight: 900;
-  line-height: 1.35;
-  color: #fff;
+  margin: 0 !important;
+  font-size: 18px !important;
+  font-weight: 900 !important;
+  line-height: 1.35 !important;
+  color: #fff !important;
 }
 .aq-josdash-note-modal-close {
   position: absolute;
