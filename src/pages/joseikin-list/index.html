@@ -261,7 +261,11 @@ data_page: joseikin-list
     };
   });
 
-  var state = { q: '', cat: '', target: '', status: '', showAll: false };
+  var VALID_CATS = ['hire','edu','care','wage','env','prod'];
+  var qs = new URLSearchParams(window.location.search);
+  var initialCat = qs.get('cat') || '';
+  if (initialCat && VALID_CATS.indexOf(initialCat) === -1) initialCat = '';
+  var state = { q: '', cat: initialCat, target: '', status: '', showAll: false };
   var PAGE_SIZE = 8;
 
   function filtered() {
@@ -392,6 +396,14 @@ data_page: joseikin-list
     if (e.key === 'Escape' && !document.getElementById('aq-jl2-modal-overlay').hidden) closeModal();
   });
 
+  if (initialCat) {
+    var catSelect = document.getElementById('aq-jl2-cat');
+    if (catSelect) catSelect.value = initialCat;
+  }
   render();
+  if (initialCat) {
+    var tbl = document.querySelector('.aq-jl2-table-section');
+    if (tbl) tbl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
 })();
 </script>
