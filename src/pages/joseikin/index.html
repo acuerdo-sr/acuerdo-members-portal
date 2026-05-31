@@ -99,8 +99,8 @@ data_page: joseikin
           <label><span>⌕</span><input type="search" id="aq-josdash-quick-q" placeholder="キーワードで検索（例：採用、研修、賃上げ など）"></label>
         </div>
         <div class="aq-josdash-tabs" id="aq-josdash-quick-tabs" aria-label="助成金カテゴリ">
-          <button type="button" class="is-active" data-cat="">すべて</button>
-          <button type="button" data-cat="hire">採用・雇用</button>
+          <button type="button" data-cat="">すべて</button>
+          <button type="button" class="is-active" data-cat="hire">採用・雇用</button>
           <button type="button" data-cat="edu">教育・研修</button>
           <button type="button" data-cat="care">育児・介護</button>
           <button type="button" data-cat="wage">賃上げ・処遇改善</button>
@@ -140,7 +140,7 @@ data_page: joseikin
         var tbody = document.getElementById('aq-josdash-quick-rows');
         var empty = document.getElementById('aq-josdash-quick-empty');
         if (!tabs || !qInput || !tbody) return;
-        var state = { cat: '', q: '' };
+        var state = { cat: 'hire', q: '' };
 
         function esc(s) {
           return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
