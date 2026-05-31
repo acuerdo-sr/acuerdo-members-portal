@@ -118,6 +118,15 @@ def _notice_date_label(r: dict) -> str:
     return r.get("source_date") or _fmt_date_slash(r.get("date") or "")
 
 
+def _notice_source_class(source_type: str) -> str:
+    return "leaflet" if "リーフレット" in source_type else "news"
+
+
+def _notice_detail_href(r: dict) -> str:
+    notice_id = r.get("id") or "notice"
+    return f"notices/{notice_id}/"
+
+
 def render_news(html: str) -> str:
     """お知らせカード/タブをビルド時に静的HTMLとして埋め込む(ブラウザ拡張等でJSが
     妨げられてもカードが必ず表示されるようにするため)。"""
@@ -183,31 +192,18 @@ def render_home_notices(html: str) -> str:
 
     for r in items_sorted[:30]:
         source_type = r.get("source_type") or "ニュース"
-        source_class = "leaflet" if "リーフレット" in source_type else "news"
+        source_class = _notice_source_class(source_type)
         tag_color = r.get("tag_color") or "navy"
-        body_html = r.get("body_html") or ""
-        link_html = ""
-        if r.get("url"):
-            link_html = (
-                f'<a class="aq-home-news-link" href="{_esc(r["url"])}" target="_blank" rel="noopener">'
-                f'{_esc(r.get("url_label") or "詳しく見る")} ›</a>'
-            )
+        detail_href = _notice_detail_href(r)
 
         rows_html += (
-            f'<details class="aq-home-news-item aq-home-news-{_esc(source_class)}" id="{_esc(r.get("id") or "")}">'
-            f"<summary>"
+            f'<a class="aq-home-news-item aq-home-news-{_esc(source_class)}" id="{_esc(r.get("id") or "")}" href="{_esc(detail_href)}">'
             f'<span class="aq-home-news-type">{_esc(source_type)}</span>'
             f'<span class="aq-tag {_esc(tag_color)}">{_esc(r.get("category") or "")}</span>'
             f'<time datetime="{_esc(r.get("date") or "")}">{_esc(_notice_date_label(r))}</time>'
             f'<span class="aq-home-news-title">{_esc(r.get("title") or "")}</span>'
             f'<span class="aq-news-arr">›</span>'
-            f"</summary>"
-            f'<div class="aq-home-news-detail">'
-            + (f'<p class="aq-home-news-summary">{_esc(r["summary"])}</p>' if r.get("summary") else "")
-            + (f'<div class="aq-home-news-body">{body_html}</div>' if body_html else "")
-            + link_html
-            + "</div>"
-            + "</details>"
+            f"</a>"
         )
 
     return html.replace("__HOME_NOTICES_HTML__", rows_html)
@@ -227,35 +223,95 @@ def render_notice_archive(html: str) -> str:
 
     for r in items_sorted:
         source_type = r.get("source_type") or "ニュース"
-        source_class = "leaflet" if "リーフレット" in source_type else "news"
-        body_html = r.get("body_html") or ""
-        link_html = ""
-        if r.get("url"):
-            link_html = (
-                f'<a class="aq-notice-link" href="{_esc(r["url"])}" target="_blank" rel="noopener">'
-                f'{_esc(r.get("url_label") or "元記事を見る")} ›</a>'
-            )
+        source_class = _notice_source_class(source_type)
+        detail_href = _notice_detail_href(r)
 
         list_html += (
-            f'<details class="aq-notice-list-item aq-notice-is-{_esc(source_class)}" id="{_esc(r.get("id") or "")}">'
-            f"<summary>"
+            f'<a class="aq-notice-list-item aq-notice-is-{_esc(source_class)}" id="{_esc(r.get("id") or "")}" href="{_esc(detail_href)}">'
             f'<span class="aq-notice-type">{_esc(source_type)}</span>'
             f'<span class="aq-notice-cat">{_esc(r.get("category") or "")}</span>'
             f'<time datetime="{_esc(r.get("date") or "")}">{_esc(_notice_date_label(r))}</time>'
             f'<span class="aq-notice-title">{_esc(r.get("title") or "")}</span>'
             f'<span class="aq-notice-arr">›</span>'
-            f"</summary>"
-            f'<div class="aq-notice-detail">'
-            + (f'<p class="aq-notice-summary">{_esc(r["summary"])}</p>' if r.get("summary") else "")
-            + (f'<div class="aq-notice-body">{body_html}</div>' if body_html else "")
-            + link_html
-            + "</div>"
-            + "</details>"
+            f"</a>"
         )
 
     html = html.replace("__NOTICE_LIST_HTML__", list_html)
     html = html.replace("__NOTICE_COUNT__", str(len(items_sorted)))
     return html
+
+
+def render_notice_detail_content(r: dict) -> str:
+    source_type = r.get("source_type") or "ニュース"
+    source_class = _notice_source_class(source_type)
+    body_html = r.get("body_html") or ""
+    if not body_html and r.get("summary"):
+        body_html = f"<p>{_esc(r.get('summary'))}</p>"
+
+    return (
+        f'<div id="aq-notice-detail-wrap" class="aq-subpage-wrap aq-nd-wrap aq-nd-is-{_esc(source_class)}">'
+        f'<main class="aq-nd-main">'
+        f'<section class="aq-nd-hero">'
+        f'<a class="aq-nd-back" href="notices/">ニュース一覧へ戻る</a>'
+        f'<div class="aq-nd-meta">'
+        f'<span class="aq-nd-type">{_esc(source_type)}</span>'
+        f'<span class="aq-nd-cat">{_esc(r.get("category") or "")}</span>'
+        f'<time datetime="{_esc(r.get("date") or "")}">{_esc(_notice_date_label(r))}</time>'
+        f"</div>"
+        f'<h1>{_esc(r.get("title") or "")}</h1>'
+        + (f'<p class="aq-nd-lead">{_esc(r.get("summary"))}</p>' if r.get("summary") else "")
+        + f"</section>"
+        f'<section class="aq-nd-section">'
+        f'<div class="aq-nd-eyebrow">DETAIL</div>'
+        f'<h2>確認しておきたい内容</h2>'
+        f'<article class="aq-nd-article">{body_html}</article>'
+        f"</section>"
+        f'<section class="aq-nd-source">'
+        f'<div class="aq-nd-eyebrow">SOURCE TITLE</div>'
+        f'<h2>元の見出し</h2>'
+        f'<p>{_esc(r.get("source_title") or r.get("title") or "")}</p>'
+        f"</section>"
+        f'<section class="aq-nd-cta">'
+        f'<div>'
+        f'<div class="aq-nd-eyebrow">CONSULTATION</div>'
+        f'<h2>自社への影響が気になる場合</h2>'
+        f'<p>対応が必要かどうか、判断に迷う場合はアクエルド担当者へご相談ください。</p>'
+        f"</div>"
+        f'<a href="contact/">相談する</a>'
+        f"</section>"
+        f"</main></div>"
+    )
+
+
+def render_notice_detail_pages(base_tpl, build_version: str, base_href: str) -> int:
+    data_path = SRC / "data" / "home_notices.json"
+    if not data_path.exists():
+        return 0
+    items = json.loads(data_path.read_text(encoding="utf-8"))
+    count = 0
+    for r in items:
+        notice_id = r.get("id")
+        if not notice_id:
+            continue
+        content = render_notice_detail_content(r)
+        rendered = base_tpl.render(
+            title=r.get("title") or "ニュース詳細",
+            description=r.get("summary") or "",
+            body_class="aq-is-notice-detail data-page-notices",
+            content=content,
+            base_href=base_href,
+            build_version=build_version,
+        )
+        rendered = rendered.replace(
+            '<body class="aq-is-notice-detail data-page-notices"',
+            '<body class="aq-is-notice-detail" data-page="notices"',
+        )
+        out_path = DIST / "notices" / notice_id / "index.html"
+        out_path.parent.mkdir(parents=True, exist_ok=True)
+        out_path.write_text(rendered, encoding="utf-8")
+        print(f"[render] notices\\{notice_id}\\index.html -> {out_path.relative_to(ROOT)}")
+        count += 1
+    return count
 
 
 def main(base_href: str = "/") -> int:
@@ -318,6 +374,8 @@ def main(base_href: str = "/") -> int:
         out_path.write_text(rendered, encoding="utf-8")
         print(f"[render] {rel} -> {out_path.relative_to(ROOT)}")
         count += 1
+
+    count += render_notice_detail_pages(base_tpl, build_version, base_href)
 
     # CNAME（カスタムドメイン用、空ファイルでも作っておく）
     cname = ROOT / "CNAME"
