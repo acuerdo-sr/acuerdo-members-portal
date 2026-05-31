@@ -4773,12 +4773,74 @@ body.aq-is-notices .aq-notice-consult a {
 }
 
 .aq-pod-hero-simple {
+  position: relative;
   grid-template-columns: 1fr;
   padding: 34px;
+  border-color: #c9ddea;
+  background:
+    linear-gradient(90deg, rgba(23, 125, 120, .12) 0, rgba(23, 125, 120, .12) 7px, transparent 7px),
+    linear-gradient(135deg, #fff 0%, #f8fcff 55%, #eef8f7 100%);
+  overflow: hidden;
 }
 
 .aq-pod-hero-simple .aq-pod-hero-copy {
-  max-width: 820px;
+  position: relative;
+  max-width: 860px;
+  z-index: 1;
+}
+
+.aq-pod-title-lockup {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.aq-pod-ai-mark {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  flex: 0 0 auto;
+  width: 74px;
+  height: 74px;
+  border: 1px solid #b8d9d6;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #123a5a 0%, #177d78 100%);
+  color: #fff;
+  box-shadow: 0 18px 34px -24px rgba(15, 42, 80, .55);
+}
+
+.aq-pod-ai-mark::after {
+  content: "AI";
+  position: absolute;
+  right: -8px;
+  bottom: -8px;
+  display: inline-grid;
+  place-items: center;
+  min-width: 30px;
+  height: 30px;
+  padding: 0 6px;
+  border: 2px solid #fff;
+  border-radius: 999px;
+  background: #f2b84b;
+  color: #123a5a;
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.aq-pod-ai-mark svg {
+  width: 46px;
+  height: 46px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.aq-pod-title-lockup h1 strong {
+  color: #177d78;
+  font-weight: 900;
+  white-space: nowrap;
 }
 
 .aq-pod-kicker {
@@ -5388,6 +5450,28 @@ body.aq-is-joseikin-bot .aq-pod-section {
 }
 
 @media (max-width: 560px) {
+  .aq-pod-title-lockup {
+    gap: 12px;
+  }
+  .aq-pod-title-lockup h1 {
+    font-size: 30px !important;
+  }
+  .aq-pod-ai-mark {
+    width: 58px;
+    height: 58px;
+    border-radius: 14px;
+  }
+  .aq-pod-ai-mark svg {
+    width: 35px;
+    height: 35px;
+  }
+  .aq-pod-ai-mark::after {
+    right: -6px;
+    bottom: -6px;
+    min-width: 26px;
+    height: 26px;
+    font-size: 10px;
+  }
   .aq-pod-actions,
   .aq-pod-btn {
     width: 100%;
