@@ -4772,6 +4772,15 @@ body.aq-is-notices .aq-notice-consult a {
   box-shadow: 0 18px 40px -34px rgba(15, 42, 80, .35);
 }
 
+.aq-pod-hero-simple {
+  grid-template-columns: 1fr;
+  padding: 34px;
+}
+
+.aq-pod-hero-simple .aq-pod-hero-copy {
+  max-width: 820px;
+}
+
 .aq-pod-kicker {
   display: inline-flex;
   align-items: center;
@@ -5351,6 +5360,9 @@ body.aq-is-joseikin-bot .aq-pod-section {
 }
 
 @media (max-width: 820px) {
+  body.aq-is-joseikin-bot .aq-pod-wrap {
+    padding-top: 72px !important;
+  }
   .aq-pod-main {
     gap: 14px;
   }
