@@ -4563,6 +4563,21 @@ body.aq-is-notices .aq-notice-consult a {
   font-weight: 900;
 }
 
+.aq-nd-origin-grid {
+  grid-template-columns: 1fr;
+}
+
+.aq-nd-origin .aq-nd-point p {
+  overflow-wrap: anywhere;
+}
+
+.aq-nd-origin .aq-nd-point a {
+  color: #0f5f95 !important;
+  font-weight: 850;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 .aq-nd-cta {
   display: flex;
   align-items: center;

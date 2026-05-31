@@ -313,6 +313,7 @@ def _notice_detail_points(r: dict) -> list[tuple[str, str]]:
 def render_notice_detail_content(r: dict) -> str:
     source_type = r.get("source_type") or "ニュース"
     source_class = _notice_source_class(source_type)
+    source_url = r.get("url") or ""
     body_html = r.get("body_html") or ""
     if not body_html and r.get("summary"):
         body_html = f"<p>{_esc(r.get('summary'))}</p>"
@@ -320,6 +321,11 @@ def render_notice_detail_content(r: dict) -> str:
     points_html = "".join(
         f'<div class="aq-nd-point"><strong>{_esc(title)}</strong><p>{_esc(text)}</p></div>'
         for title, text in _notice_detail_points(r)
+    )
+    source_url_html = (
+        f'<a href="{_esc(source_url)}" target="_blank" rel="noopener">{_esc(source_url)}</a>'
+        if source_url
+        else "URLは登録されていません。"
     )
 
     return (
@@ -344,6 +350,13 @@ def render_notice_detail_content(r: dict) -> str:
         f'<div class="aq-nd-eyebrow">CHECK POINTS</div>'
         f'<h2>実務で確認するポイント</h2>'
         f'<div class="aq-nd-point-grid">{points_html}</div>'
+        f"</section>"
+        f'<section class="aq-nd-points aq-nd-origin">'
+        f'<div class="aq-nd-eyebrow">SOURCE DATA</div>'
+        f'<h2>元データURL</h2>'
+        f'<div class="aq-nd-point-grid aq-nd-origin-grid">'
+        f'<div class="aq-nd-point"><strong>URL</strong><p>{source_url_html}</p></div>'
+        f"</div>"
         f"</section>"
         f'<section class="aq-nd-cta">'
         f'<div>'
