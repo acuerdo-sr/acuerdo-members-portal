@@ -5,30 +5,165 @@ data_page: notices
 #}
 
 <div id="aq-notices-wrap" class="aq-subpage-wrap">
+<main class="aq-subpage-main aq-notice-page">
 
-<input type="radio" name="notice-filter" id="notice-filter-all" class="aq-notice-filter-radio" checked>
-<input type="radio" name="notice-filter" id="notice-filter-news" class="aq-notice-filter-radio">
-<input type="radio" name="notice-filter" id="notice-filter-leaflet" class="aq-notice-filter-radio">
-
-<main class="aq-subpage-main">
-
-<header class="aq-subpage-hero">
-  <div class="aq-subpage-hero-text">
-    <p class="aq-hero-kicker">MyKomon / PSR からのお知らせ</p>
+<header class="aq-notice-hero">
+  <div class="aq-notice-hero-text">
+    <p class="aq-notice-eyebrow">MyKomon / PSR からのお知らせ</p>
     <h1>ニュース一覧</h1>
-    <p>ニュース・リーフレットの更新情報を、見出しを少し読みやすく整えて掲載しています。</p>
+    <p>ニュース・リーフレットの更新情報を、顧問先様の実務に役立つポイントとともに掲載しています。気になる情報を検索し、必要な項目をご確認ください。</p>
   </div>
-  <div class="aq-notice-count" aria-label="掲載件数"><strong>__NOTICE_COUNT__</strong><span>件掲載</span></div>
+  <div class="aq-notice-stats" aria-label="掲載状況">
+    <div class="aq-notice-stat"><span>掲載件数</span><strong>__NOTICE_COUNT__<small>件</small></strong></div>
+    <div class="aq-notice-stat teal"><span>更新情報</span><strong>随時<br>追加</strong></div>
+  </div>
 </header>
 
-<div class="aq-subpage-tabs aq-notice-tabs" role="tablist">
-  <label class="aq-notice-tab" for="notice-filter-all">すべて</label>
-  <label class="aq-notice-tab" for="notice-filter-news">ニュース</label>
-  <label class="aq-notice-tab" for="notice-filter-leaflet">リーフレット</label>
+<section class="aq-notice-searchbox" aria-label="ニュース検索">
+  <div class="aq-notice-search-grid">
+    <label class="aq-notice-field">
+      <span>キーワードで検索</span>
+      <input id="notice-keyword" type="search" placeholder="例：社会保険、助成金、熱中症、外国人雇用">
+    </label>
+    <label class="aq-notice-field">
+      <span>種別</span>
+      <select id="notice-type">
+        <option value="すべて">すべて</option>
+        <option value="ニュース">ニュース</option>
+        <option value="リーフレット">リーフレット</option>
+      </select>
+    </label>
+    <label class="aq-notice-field">
+      <span>カテゴリ</span>
+      <select id="notice-category">
+        <option value="すべて">すべて</option>
+        __NOTICE_CATEGORY_OPTIONS__
+      </select>
+    </label>
+  </div>
+  <div class="aq-notice-search-meta">
+    <span>条件に一致する情報：<strong id="notice-filter-count">__NOTICE_COUNT__</strong>件</span>
+    <button id="notice-clear" type="button">検索条件をクリア</button>
+  </div>
+</section>
+
+<div class="aq-notice-section-head">
+  <div>
+    <p>LATEST UPDATES</p>
+    <h2>更新情報</h2>
+  </div>
+  <span>新しい順に表示</span>
 </div>
 
-<div class="aq-notice-list">__NOTICE_LIST_HTML__</div>
+<section id="notice-cards" class="aq-notice-cards" aria-label="ニュース一覧">
+  __NOTICE_LIST_HTML__
+</section>
 
-<p class="aq-subpage-note">※ 各行をクリックすると詳細ページを表示します。</p>
+<div id="notice-empty" class="aq-notice-empty" hidden>該当する情報がありません。検索条件を変更して、もう一度お試しください。</div>
 
-</main></div>
+<nav class="aq-notice-pagination" aria-label="ニュース一覧ページ送り">
+  <div id="notice-page-info" class="aq-notice-page-info">__NOTICE_COUNT__件中 1〜12件を表示</div>
+  <div id="notice-pages" class="aq-notice-pages"></div>
+</nav>
+
+<section class="aq-notice-consult">
+  <div>
+    <h2>気になる情報があれば、担当者へご相談ください</h2>
+    <p>自社への影響や具体的な対応が分からない場合は、個別に確認します。</p>
+  </div>
+  <a href="contact/">相談する ›</a>
+</section>
+
+</main>
+
+<script>
+(() => {
+  const root = document.getElementById("aq-notices-wrap");
+  if (!root) return;
+  const cards = Array.from(root.querySelectorAll("[data-notice-card]"));
+  const keyword = root.querySelector("#notice-keyword");
+  const type = root.querySelector("#notice-type");
+  const category = root.querySelector("#notice-category");
+  const clear = root.querySelector("#notice-clear");
+  const count = root.querySelector("#notice-filter-count");
+  const empty = root.querySelector("#notice-empty");
+  const pageInfo = root.querySelector("#notice-page-info");
+  const pages = root.querySelector("#notice-pages");
+  const perPage = 12;
+  let currentPage = 1;
+
+  const norm = (value) => String(value || "").toLowerCase();
+
+  function filteredCards() {
+    const word = norm(keyword.value).trim();
+    return cards.filter((card) => {
+      const matchesWord = !word || norm(card.dataset.search).includes(word);
+      const matchesType = type.value === "すべて" || card.dataset.type === type.value;
+      const matchesCategory = category.value === "すべて" || card.dataset.category === category.value;
+      return matchesWord && matchesType && matchesCategory;
+    });
+  }
+
+  function pageButton(label, page, active = false, disabled = false) {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = active ? "is-active" : "";
+    button.textContent = label;
+    button.disabled = disabled;
+    button.addEventListener("click", () => {
+      currentPage = page;
+      render();
+      root.querySelector(".aq-notice-section-head")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+    return button;
+  }
+
+  function renderPages(totalPages) {
+    pages.textContent = "";
+    if (totalPages <= 1) return;
+    pages.append(pageButton("‹ 前へ", Math.max(1, currentPage - 1), false, currentPage === 1));
+    const shown = new Set([1, totalPages, currentPage, currentPage - 1, currentPage + 1]);
+    let last = 0;
+    Array.from(shown).filter((n) => n >= 1 && n <= totalPages).sort((a, b) => a - b).forEach((page) => {
+      if (last && page - last > 1) {
+        const ellipsis = document.createElement("span");
+        ellipsis.textContent = "…";
+        pages.append(ellipsis);
+      }
+      pages.append(pageButton(String(page), page, page === currentPage));
+      last = page;
+    });
+    pages.append(pageButton("次へ ›", Math.min(totalPages, currentPage + 1), false, currentPage === totalPages));
+  }
+
+  function render() {
+    const filtered = filteredCards();
+    const totalPages = Math.max(1, Math.ceil(filtered.length / perPage));
+    if (currentPage > totalPages) currentPage = totalPages;
+    const start = (currentPage - 1) * perPage;
+    const end = start + perPage;
+    const visible = new Set(filtered.slice(start, end));
+    cards.forEach((card) => { card.hidden = !visible.has(card); });
+    count.textContent = filtered.length;
+    empty.hidden = filtered.length > 0;
+    pageInfo.textContent = filtered.length
+      ? `${filtered.length}件中 ${start + 1}〜${Math.min(end, filtered.length)}件を表示`
+      : "0件";
+    renderPages(totalPages);
+  }
+
+  [keyword, type, category].forEach((el) => {
+    el.addEventListener("input", () => { currentPage = 1; render(); });
+    el.addEventListener("change", () => { currentPage = 1; render(); });
+  });
+  clear.addEventListener("click", () => {
+    keyword.value = "";
+    type.value = "すべて";
+    category.value = "すべて";
+    currentPage = 1;
+    render();
+  });
+  render();
+})();
+</script>
+</div>

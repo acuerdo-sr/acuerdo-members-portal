@@ -127,6 +127,17 @@ def _notice_detail_href(r: dict) -> str:
     return f"notices/{notice_id}/"
 
 
+def _notice_icon(source_type: str) -> str:
+    return "▧" if "リーフレット" in source_type else "▤"
+
+
+def _notice_search_text(r: dict) -> str:
+    return " ".join(
+        str(r.get(key) or "")
+        for key in ("source_type", "category", "title", "summary", "source_title")
+    )
+
+
 def render_news(html: str) -> str:
     """お知らせカード/タブをビルド時に静的HTMLとして埋め込む(ブラウザ拡張等でJSが
     妨げられてもカードが必ず表示されるようにするため)。"""
@@ -211,34 +222,92 @@ def render_home_notices(html: str) -> str:
 
 def render_notice_archive(html: str) -> str:
     """MyKomon/PSR由来のお知らせ一覧ページをJSONから生成する。"""
-    if "__NOTICE_LIST_HTML__" not in html and "__NOTICE_COUNT__" not in html:
+    if (
+        "__NOTICE_LIST_HTML__" not in html
+        and "__NOTICE_COUNT__" not in html
+        and "__NOTICE_CATEGORY_OPTIONS__" not in html
+    ):
         return html
     data_path = SRC / "data" / "home_notices.json"
     if not data_path.exists():
-        return html.replace("__NOTICE_LIST_HTML__", "").replace("__NOTICE_COUNT__", "0")
+        return (
+            html.replace("__NOTICE_LIST_HTML__", "")
+            .replace("__NOTICE_COUNT__", "0")
+            .replace("__NOTICE_CATEGORY_OPTIONS__", "")
+        )
 
     items = json.loads(data_path.read_text(encoding="utf-8"))
     items_sorted = sorted(items, key=lambda r: r.get("date", ""), reverse=True)
     list_html = ""
+    categories: list[str] = []
 
     for r in items_sorted:
         source_type = r.get("source_type") or "ニュース"
         source_class = _notice_source_class(source_type)
         detail_href = _notice_detail_href(r)
+        category = r.get("category") or ""
+        if category and category not in categories:
+            categories.append(category)
 
         list_html += (
-            f'<a class="aq-notice-list-item aq-notice-is-{_esc(source_class)}" id="{_esc(r.get("id") or "")}" href="{_esc(detail_href)}">'
+            f'<a class="aq-notice-card aq-notice-is-{_esc(source_class)}" id="{_esc(r.get("id") or "")}" '
+            f'href="{_esc(detail_href)}" data-notice-card data-type="{_esc(source_type)}" '
+            f'data-category="{_esc(category)}" data-search="{_esc(_notice_search_text(r))}">'
+            f'<span class="aq-notice-card-icon" aria-hidden="true">{_esc(_notice_icon(source_type))}</span>'
+            f'<span class="aq-notice-card-main">'
+            f'<span class="aq-notice-card-tags">'
             f'<span class="aq-notice-type">{_esc(source_type)}</span>'
-            f'<span class="aq-notice-cat">{_esc(r.get("category") or "")}</span>'
+            f'<span class="aq-notice-cat">{_esc(category)}</span>'
             f'<time datetime="{_esc(r.get("date") or "")}">{_esc(_notice_date_label(r))}</time>'
-            f'<span class="aq-notice-title">{_esc(r.get("title") or "")}</span>'
+            f"</span>"
+            f'<strong class="aq-notice-title">{_esc(r.get("title") or "")}</strong>'
+            + (f'<span class="aq-notice-lead">{_esc(r.get("summary"))}</span>' if r.get("summary") else "")
+            + f"</span>"
             f'<span class="aq-notice-arr">›</span>'
             f"</a>"
         )
 
+    category_options = ""
+    for category in categories:
+        category_options += f'<option value="{_esc(category)}">{_esc(category)}</option>'
+
     html = html.replace("__NOTICE_LIST_HTML__", list_html)
     html = html.replace("__NOTICE_COUNT__", str(len(items_sorted)))
+    html = html.replace("__NOTICE_CATEGORY_OPTIONS__", category_options)
     return html
+
+
+def _notice_detail_extra_paragraphs(r: dict) -> str:
+    source_type = r.get("source_type") or "ニュース"
+    category = r.get("category") or "実務"
+    if "リーフレット" in source_type:
+        return (
+            f"<p>この案内は、{category}に関する制度説明や社内周知、担当者間の共有に使いやすい情報です。"
+            "該当する従業員や手続きがある場合は、内容を確認したうえで、社内で案内が必要かどうかを検討してください。</p>"
+            "<p>パンフレット・リーフレット類は、制度の概要や注意点を短く整理していることが多いため、"
+            "実際の対応では対象者、提出期限、必要書類、社内への周知方法をあわせて確認しておくと安心です。</p>"
+        )
+    return (
+        f"<p>このニュースは、{category}に関する制度改正、行政発表、実務上の注意点につながる可能性がある情報です。"
+        "自社の労務管理、給与計算、社会保険手続き、社内規程に影響がないかを確認してください。</p>"
+        "<p>すぐに対応が必要な内容でなくても、今後の手続き準備や社内説明に関係する場合があります。"
+        "担当部署で共有し、必要に応じてスケジュールや運用ルールの見直しを進めてください。</p>"
+    )
+
+
+def _notice_detail_points(r: dict) -> list[tuple[str, str]]:
+    category = r.get("category") or "実務"
+    if "リーフレット" in (r.get("source_type") or ""):
+        return [
+            ("対象者・対象業務", f"{category}に関係する従業員、部署、手続きが自社にあるか確認します。"),
+            ("社内周知", "従業員や管理者へ案内すべき内容がある場合は、共有方法とタイミングを決めます。"),
+            ("必要書類・期限", "申請、届出、説明資料などが必要な場合に備え、期限と準備物を確認します。"),
+        ]
+    return [
+        ("自社への影響", f"{category}に関する変更や公表内容が、自社の手続き・規程・給与計算に関係するか確認します。"),
+        ("対応時期", "すぐ対応する内容か、今後の準備として把握しておく内容かを切り分けます。"),
+        ("担当者への共有", "必要に応じて経営者、人事労務担当者、給与担当者へ共有し、対応方針を整理します。"),
+    ]
 
 
 def render_notice_detail_content(r: dict) -> str:
@@ -247,6 +316,11 @@ def render_notice_detail_content(r: dict) -> str:
     body_html = r.get("body_html") or ""
     if not body_html and r.get("summary"):
         body_html = f"<p>{_esc(r.get('summary'))}</p>"
+    body_html += _notice_detail_extra_paragraphs(r)
+    points_html = "".join(
+        f'<div class="aq-nd-point"><strong>{_esc(title)}</strong><p>{_esc(text)}</p></div>'
+        for title, text in _notice_detail_points(r)
+    )
 
     return (
         f'<div id="aq-notice-detail-wrap" class="aq-subpage-wrap aq-nd-wrap aq-nd-is-{_esc(source_class)}">'
@@ -266,10 +340,10 @@ def render_notice_detail_content(r: dict) -> str:
         f'<h2>確認しておきたい内容</h2>'
         f'<article class="aq-nd-article">{body_html}</article>'
         f"</section>"
-        f'<section class="aq-nd-source">'
-        f'<div class="aq-nd-eyebrow">SOURCE TITLE</div>'
-        f'<h2>元の見出し</h2>'
-        f'<p>{_esc(r.get("source_title") or r.get("title") or "")}</p>'
+        f'<section class="aq-nd-points">'
+        f'<div class="aq-nd-eyebrow">CHECK POINTS</div>'
+        f'<h2>実務で確認するポイント</h2>'
+        f'<div class="aq-nd-point-grid">{points_html}</div>'
         f"</section>"
         f'<section class="aq-nd-cta">'
         f'<div>'
