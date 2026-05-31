@@ -272,6 +272,10 @@ data_page: joseikin-list
   function filtered() {
     return rows.filter(function (r) {
       if (state.cat && r.c !== state.cat) return false;
+      if (state.target) {
+        if (state.target === 'small' && (r.target || '').indexOf('小規模') === -1 && (r.target || '').indexOf('中小') === -1) return false;
+        if (state.target === 'all' && (r.target || '').indexOf('小規模') !== -1) return false;
+      }
       if (state.status) {
         var st = state.status;
         if (st === 'open' && r.status !== 'open') return false;
