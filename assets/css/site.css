@@ -7044,7 +7044,8 @@ body.aq-is-forms {
     linear-gradient(180deg, #f8fbff 0%, #eef4fb 100%) !important;
 }
 
-body.aq-is-forms .aq-breadcrumb {
+body.aq-is-forms .aq-breadcrumb,
+body.aq-is-notices .aq-breadcrumb {
   display: none !important;
 }
 
