@@ -9593,6 +9593,8 @@ body.aq-is-joseikin #acuerdo-footer {
 .aq-josdash-link-overlay {
   position: absolute;
   inset: 0;
+  grid-column: 1 / -1;
+  grid-row: 1 / -1;
   border-radius: inherit;
   text-indent: -9999px;
   overflow: hidden;
@@ -9633,7 +9635,7 @@ body.aq-is-joseikin #acuerdo-footer {
   line-height: 1.25;
 }
 
-.aq-josdash-checks li > span:last-child {
+.aq-josdash-checks li > span:last-of-type {
   grid-row: 1 / 3;
   grid-column: 3;
   color: #18375f;
