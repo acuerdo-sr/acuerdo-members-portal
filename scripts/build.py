@@ -177,7 +177,7 @@ def render_home_notices(html: str) -> str:
     items_sorted = sorted(items, key=lambda r: r.get("date", ""), reverse=True)
     rows_html = ""
 
-    for r in items_sorted:
+    for r in items_sorted[:30]:
         source_type = r.get("source_type") or "ニュース"
         source_class = "leaflet" if "リーフレット" in source_type else "news"
         tag_color = r.get("tag_color") or "navy"
@@ -207,6 +207,51 @@ def render_home_notices(html: str) -> str:
         )
 
     return html.replace("__HOME_NOTICES_HTML__", rows_html)
+
+
+def render_notice_archive(html: str) -> str:
+    """MyKomon/PSR由来のお知らせ一覧ページをJSONから生成する。"""
+    if "__NOTICE_LIST_HTML__" not in html and "__NOTICE_COUNT__" not in html:
+        return html
+    data_path = SRC / "data" / "home_notices.json"
+    if not data_path.exists():
+        return html.replace("__NOTICE_LIST_HTML__", "").replace("__NOTICE_COUNT__", "0")
+
+    items = json.loads(data_path.read_text(encoding="utf-8"))
+    items_sorted = sorted(items, key=lambda r: r.get("date", ""), reverse=True)
+    list_html = ""
+
+    for r in items_sorted:
+        source_type = r.get("source_type") or "ニュース"
+        source_class = "leaflet" if "リーフレット" in source_type else "news"
+        body_html = r.get("body_html") or ""
+        link_html = ""
+        if r.get("url"):
+            link_html = (
+                f'<a class="aq-notice-link" href="{_esc(r["url"])}" target="_blank" rel="noopener">'
+                f'{_esc(r.get("url_label") or "元記事を見る")} ›</a>'
+            )
+
+        list_html += (
+            f'<details class="aq-notice-list-item aq-notice-is-{_esc(source_class)}" id="{_esc(r.get("id") or "")}">'
+            f"<summary>"
+            f'<span class="aq-notice-type">{_esc(source_type)}</span>'
+            f'<span class="aq-notice-cat">{_esc(r.get("category") or "")}</span>'
+            f'<time datetime="{_esc(r.get("date") or "")}">{_esc(_fmt_date_dot(r.get("date") or ""))}</time>'
+            f'<span class="aq-notice-title">{_esc(r.get("title") or "")}</span>'
+            f'<span class="aq-notice-arr">›</span>'
+            f"</summary>"
+            f'<div class="aq-notice-detail">'
+            + (f'<p class="aq-notice-summary">{_esc(r["summary"])}</p>' if r.get("summary") else "")
+            + (f'<div class="aq-notice-body">{body_html}</div>' if body_html else "")
+            + link_html
+            + "</div>"
+            + "</details>"
+        )
+
+    html = html.replace("__NOTICE_LIST_HTML__", list_html)
+    html = html.replace("__NOTICE_COUNT__", str(len(items_sorted)))
+    return html
 
 
 def main(base_href: str = "/") -> int:
@@ -242,6 +287,7 @@ def main(base_href: str = "/") -> int:
         rel = path.relative_to(pages_root)
         raw = path.read_text(encoding="utf-8")
         meta, content = parse_meta(raw)
+        content = render_notice_archive(content)
         content = render_home_notices(content)
         content = render_news(content)
         content = inject_data(content)

@@ -5,6 +5,7 @@
 
 .env に MYKOMON_ID / MYKOMON_PASSWORD がある場合はMyKomonへログインして
 PSRページのURLを探す。見つからない場合は PSR_TOPICS_URL を取得元にする。
+標準では今年の1月1日以降のお知らせを取得する。
 既存JSONに同じURLのお知らせがある場合、トップ表示用の言い換え文は保持する。
 """
 from __future__ import annotations
@@ -14,6 +15,7 @@ import json
 import os
 import re
 import sys
+from datetime import date, datetime
 from html import unescape
 from pathlib import Path
 from urllib.parse import urljoin
@@ -26,6 +28,9 @@ DATA_PATH = ROOT / "src" / "data" / "home_notices.json"
 MYKOMON_HOME_URL = "https://www.mykomon.com/app/homeSr"
 MYKOMON_LOGIN_URL = "https://www.mykomon.com/MyKomon/login.do"
 DEFAULT_PSR_URL = "https://www.psrn.jp/?transactionid=2e633e95368f07dd5080458f9cd82fd3e24bd47e"
+PSR_TOPICS_LIST_URL = "https://www.psrn.jp/topics/"
+PSR_UPDATE_LIST_URL = "https://www.psrn.jp/update/"
+DEFAULT_SINCE = f"{date.today().year}-01-01"
 
 USER_AGENT = (
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
@@ -190,15 +195,23 @@ def default_body(source_type: str, category: str) -> str:
     )
 
 
+def entry_blocks(html: str) -> list[str]:
+    blocks = re.findall(r"<li>\s*<p class=\"entry_head\">([\s\S]*?)</li>", html)
+    blocks += re.findall(r"<article class=\"entry\">([\s\S]*?)</article>", html)
+    return blocks
+
+
 def parse_psr_entries(html: str, base_url: str) -> list[dict]:
     entries: list[dict] = []
-    blocks = re.findall(r"<li>\s*<p class=\"entry_head\">([\s\S]*?)</li>", html)
-    for block in blocks:
-        link = re.search(r'<a\s+href=["\']([^"\']+)["\'][^>]*>([\s\S]*?)</a>', block, flags=re.I)
+    for block in entry_blocks(html):
+        links = re.findall(r'<a\s+href=["\']([^"\']+)["\'][^>]*>([\s\S]*?)</a>', block, flags=re.I)
+        link = next((item for item in reversed(links) if "?tag=" not in item[0]), None)
         if not link:
             continue
-        href = urljoin(base_url, unescape(link.group(1)))
-        title = strip_tags(link.group(2))
+        href = urljoin(base_url, unescape(link[0]))
+        if "/feature/" in href:
+            continue
+        title = strip_tags(link[1])
         head = strip_tags(block)
         date_match = re.search(r"(\d{4})/(\d{2})/(\d{2})", head)
         if not date_match:
@@ -209,7 +222,7 @@ def parse_psr_entries(html: str, base_url: str) -> list[dict]:
         main_category = parts[2] if len(parts) >= 3 else ""
         sub_category = " ".join(parts[3:]).strip()
         source_type = classify_source(main_category, sub_category, title, href)
-        if main_category not in {"トピックス", "PSR更新情報"} and source_type != "リーフレット":
+        if main_category and main_category not in {"トピックス", "PSR更新情報"} and source_type != "リーフレット":
             continue
         category = compact_category(sub_category or main_category, title, source_type)
         entries.append(
@@ -227,6 +240,55 @@ def parse_psr_entries(html: str, base_url: str) -> list[dict]:
             }
         )
     return entries
+
+
+def fetch_series(
+    client: httpx.Client,
+    url: str,
+    since: str,
+    max_pages: int,
+    seen: set[str],
+) -> list[dict]:
+    entries: list[dict] = []
+    for page in range(1, max_pages + 1):
+        page_url = url if page == 1 else f"{url}?p={page}"
+        response = client.get(page_url)
+        response.raise_for_status()
+        page_entries = parse_psr_entries(response.text, page_url)
+        if not page_entries:
+            break
+
+        oldest = page_entries[-1].get("date") or ""
+        for item in page_entries:
+            key = item.get("url") or item.get("source_title") or item.get("id")
+            if not key or key in seen:
+                continue
+            seen.add(key)
+            if (item.get("date") or "") >= since:
+                entries.append(item)
+
+        if oldest and oldest < since:
+            break
+    return entries
+
+
+def collect_entries(client: httpx.Client, source_url: str, since: str, max_pages: int) -> list[dict]:
+    seen: set[str] = set()
+    entries: list[dict] = []
+
+    # MyKomonから遷移したトップURL、または指定されたPSRトップURLを先に見る。
+    response = client.get(source_url)
+    response.raise_for_status()
+    for item in parse_psr_entries(response.text, source_url):
+        key = item.get("url") or item.get("source_title") or item.get("id")
+        if key and key not in seen:
+            seen.add(key)
+            if (item.get("date") or "") >= since:
+                entries.append(item)
+
+    entries.extend(fetch_series(client, PSR_TOPICS_LIST_URL, since, max_pages, seen))
+    entries.extend(fetch_series(client, PSR_UPDATE_LIST_URL, since, max_pages, seen))
+    return sorted(entries, key=lambda r: r.get("date", ""), reverse=True)
 
 
 def merge_existing(generated: list[dict], existing: dict[str, dict]) -> list[dict]:
@@ -247,8 +309,14 @@ def merge_existing(generated: list[dict], existing: dict[str, dict]) -> list[dic
 def main() -> int:
     load_dotenv(ROOT / ".env")
     parser = argparse.ArgumentParser()
-    parser.add_argument("--limit", type=int, default=int(os.getenv("HOME_NOTICES_LIMIT", "10")))
+    parser.add_argument("--since", default=os.getenv("HOME_NOTICES_SINCE") or DEFAULT_SINCE)
+    parser.add_argument("--limit", type=int, default=int(os.getenv("HOME_NOTICES_LIMIT", "0") or 0))
+    parser.add_argument("--max-pages", type=int, default=int(os.getenv("HOME_NOTICES_MAX_PAGES", "20") or 20))
     args = parser.parse_args()
+    try:
+        datetime.strptime(args.since, "%Y-%m-%d")
+    except ValueError as exc:
+        raise ValueError("--since は YYYY-MM-DD 形式で指定してください。") from exc
 
     source_url = os.getenv("PSR_TOPICS_URL") or DEFAULT_PSR_URL
     existing = load_existing()
@@ -261,16 +329,16 @@ def main() -> int:
         except RuntimeError as exc:
             print(f"[warn] {exc}", file=sys.stderr)
 
-        response = client.get(source_url)
-        response.raise_for_status()
-        entries = parse_psr_entries(response.text, source_url)
+        entries = collect_entries(client, source_url, args.since, args.max_pages)
 
     if not entries:
         raise RuntimeError("PSRページからお知らせを取得できませんでした。")
 
-    notices = merge_existing(entries[: args.limit], existing)
+    selected = entries[: args.limit] if args.limit > 0 else entries
+    notices = merge_existing(selected, existing)
     DATA_PATH.write_text(json.dumps(notices, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(f"[done] {len(notices)}件を {DATA_PATH.relative_to(ROOT)} に保存しました。")
+    print(f"[since] {args.since}")
     print(f"[source] {source_url}")
     return 0
 

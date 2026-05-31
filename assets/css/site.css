@@ -2567,7 +2567,8 @@ body.aq-is-calendar #aq-home-wrap,
 body.aq-is-subsidies #aq-home-wrap,
 body.aq-is-jimukumiai #aq-home-wrap,
 body.aq-is-joseikin #aq-home-wrap,
-body.aq-is-news #aq-home-wrap { display: none !important; }
+body.aq-is-news #aq-home-wrap,
+body.aq-is-notices #aq-home-wrap { display: none !important; }
 
 /* サブページは自身の margin-left を持つので body の margin-left をリセット */
 body.aq-is-josei,
@@ -2577,7 +2578,8 @@ body.aq-is-calendar,
 body.aq-is-subsidies,
 body.aq-is-jimukumiai,
 body.aq-is-joseikin,
-body.aq-is-news {
+body.aq-is-news,
+body.aq-is-notices {
   margin-left: 0 !important;
 }
 
@@ -3803,10 +3805,10 @@ body.aq-is-news {
   min-width: 92px;
   min-height: 74px;
   padding: 10px 16px;
-  border: 1px solid rgba(255,255,255,.26);
+  border: 1px solid #dbe3ee;
   border-radius: 8px;
-  background: rgba(255,255,255,.12);
-  color: #fff;
+  background: #f8fafc;
+  color: var(--aq-navy);
 }
 
 .aq-notice-count strong {
@@ -3927,6 +3929,8 @@ body.aq-is-news {
   font-size: 15px;
   font-weight: 850;
   line-height: 1.4;
+  overflow-wrap: anywhere;
+  white-space: normal;
 }
 
 .aq-notice-arr {
@@ -3996,16 +4000,23 @@ body.aq-is-news {
   #aq-notices-wrap .aq-subpage-hero {
     align-items: flex-start;
     flex-direction: column;
+    gap: 12px;
   }
   .aq-notice-count {
     min-height: 0;
+    min-width: 0;
+    padding: 7px 11px;
+    flex-direction: row;
+    gap: 5px;
     align-items: flex-start;
   }
+  .aq-notice-count strong { font-size: 18px; }
+  .aq-notice-count span { margin-top: 0; }
   .aq-notice-list-item summary {
     grid-template-columns: auto auto 1fr 16px;
-    min-height: 72px;
+    min-height: 0;
     gap: 6px 8px;
-    padding: 10px 12px;
+    padding: 10px 12px 12px;
   }
   .aq-notice-list-item time {
     grid-column: 1 / 3;
@@ -4013,13 +4024,14 @@ body.aq-is-news {
     font-size: 12px;
   }
   .aq-notice-title {
-    grid-column: 3;
-    grid-row: 1 / 3;
+    grid-column: 1 / 5;
+    grid-row: 3;
     font-size: 13.5px;
   }
   .aq-notice-arr {
     grid-column: 4;
     grid-row: 1 / 3;
+    justify-self: end;
   }
 }
 
@@ -10929,6 +10941,8 @@ body.aq-is-home .aq-home-news-title {
   font-size: 13.2px !important;
   font-weight: 850 !important;
   line-height: 1.32 !important;
+  overflow-wrap: anywhere !important;
+  white-space: normal !important;
 }
 
 body.aq-is-home .aq-home-news-item .aq-news-arr {

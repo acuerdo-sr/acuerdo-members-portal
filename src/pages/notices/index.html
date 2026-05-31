@@ -1,0 +1,34 @@
+{# meta:
+title: ニュース一覧
+body_class: aq-is-notices
+data_page: notices
+#}
+
+<div id="aq-notices-wrap" class="aq-subpage-wrap">
+
+<input type="radio" name="notice-filter" id="notice-filter-all" class="aq-notice-filter-radio" checked>
+<input type="radio" name="notice-filter" id="notice-filter-news" class="aq-notice-filter-radio">
+<input type="radio" name="notice-filter" id="notice-filter-leaflet" class="aq-notice-filter-radio">
+
+<main class="aq-subpage-main">
+
+<header class="aq-subpage-hero">
+  <div class="aq-subpage-hero-text">
+    <p class="aq-hero-kicker">MyKomon / PSR からのお知らせ</p>
+    <h1>ニュース一覧</h1>
+    <p>ニュース・リーフレットの更新情報を、見出しを少し読みやすく整えて掲載しています。</p>
+  </div>
+  <div class="aq-notice-count" aria-label="掲載件数"><strong>__NOTICE_COUNT__</strong><span>件掲載</span></div>
+</header>
+
+<div class="aq-subpage-tabs aq-notice-tabs" role="tablist">
+  <label class="aq-notice-tab" for="notice-filter-all">すべて</label>
+  <label class="aq-notice-tab" for="notice-filter-news">ニュース</label>
+  <label class="aq-notice-tab" for="notice-filter-leaflet">リーフレット</label>
+</div>
+
+<div class="aq-notice-list">__NOTICE_LIST_HTML__</div>
+
+<p class="aq-subpage-note">※ 各行をクリックすると概要が開きます。元記事・資料は本文内のリンクから確認できます。</p>
+
+</main></div>
