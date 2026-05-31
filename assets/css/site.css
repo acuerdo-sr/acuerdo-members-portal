@@ -4526,10 +4526,10 @@ body.aq-is-notices .aq-notice-consult a {
 .aq-nd-article p,
 .aq-nd-point p,
 .aq-nd-cta p {
-  margin: 0 0 12px;
+  margin: 0 0 10px;
   color: #40516a;
   font-size: 15px;
-  line-height: 1.85;
+  line-height: 1.78;
 }
 
 .aq-nd-article p:last-child,
@@ -4540,6 +4540,14 @@ body.aq-is-notices .aq-notice-consult a {
 
 .aq-nd-points {
   background: #f7fbfd;
+}
+
+.aq-nd-article a {
+  color: #0f5f95 !important;
+  font-weight: 850;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  overflow-wrap: anywhere;
 }
 
 .aq-nd-point-grid {
@@ -4561,21 +4569,6 @@ body.aq-is-notices .aq-notice-consult a {
   color: #123a5a;
   font-size: 14px;
   font-weight: 900;
-}
-
-.aq-nd-origin-grid {
-  grid-template-columns: 1fr;
-}
-
-.aq-nd-origin .aq-nd-point p {
-  overflow-wrap: anywhere;
-}
-
-.aq-nd-origin .aq-nd-point a {
-  color: #0f5f95 !important;
-  font-weight: 850;
-  text-decoration: underline;
-  text-underline-offset: 3px;
 }
 
 .aq-nd-cta {

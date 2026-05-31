@@ -313,20 +313,28 @@ def _notice_detail_points(r: dict) -> list[tuple[str, str]]:
 def render_notice_detail_content(r: dict) -> str:
     source_type = r.get("source_type") or "ニュース"
     source_class = _notice_source_class(source_type)
-    source_url = r.get("url") or ""
-    body_html = r.get("body_html") or ""
+    has_source_body = bool(r.get("source_body_html"))
+    body_html = r.get("source_body_html") or r.get("body_html") or ""
     if not body_html and r.get("summary"):
         body_html = f"<p>{_esc(r.get('summary'))}</p>"
-    body_html += _notice_detail_extra_paragraphs(r)
+    if not has_source_body:
+        body_html += _notice_detail_extra_paragraphs(r)
     points_html = "".join(
         f'<div class="aq-nd-point"><strong>{_esc(title)}</strong><p>{_esc(text)}</p></div>'
         for title, text in _notice_detail_points(r)
     )
-    source_url_html = (
-        f'<a href="{_esc(source_url)}" target="_blank" rel="noopener">{_esc(source_url)}</a>'
-        if source_url
-        else "URLは登録されていません。"
-    )
+    points_section = ""
+    if not has_source_body:
+        points_section = (
+            f'<section class="aq-nd-points">'
+            f'<div class="aq-nd-eyebrow">CHECK POINTS</div>'
+            f'<h2>実務で確認するポイント</h2>'
+            f'<div class="aq-nd-point-grid">{points_html}</div>'
+            f"</section>"
+        )
+    lead_html = ""
+    if r.get("summary") and not has_source_body:
+        lead_html = f'<p class="aq-nd-lead">{_esc(r.get("summary"))}</p>'
 
     return (
         f'<div id="aq-notice-detail-wrap" class="aq-subpage-wrap aq-nd-wrap aq-nd-is-{_esc(source_class)}">'
@@ -339,26 +347,15 @@ def render_notice_detail_content(r: dict) -> str:
         f'<time datetime="{_esc(r.get("date") or "")}">{_esc(_notice_date_label(r))}</time>'
         f"</div>"
         f'<h1>{_esc(r.get("title") or "")}</h1>'
-        + (f'<p class="aq-nd-lead">{_esc(r.get("summary"))}</p>' if r.get("summary") else "")
+        + lead_html
         + f"</section>"
         f'<section class="aq-nd-section">'
         f'<div class="aq-nd-eyebrow">DETAIL</div>'
         f'<h2>確認しておきたい内容</h2>'
         f'<article class="aq-nd-article">{body_html}</article>'
         f"</section>"
-        f'<section class="aq-nd-points">'
-        f'<div class="aq-nd-eyebrow">CHECK POINTS</div>'
-        f'<h2>実務で確認するポイント</h2>'
-        f'<div class="aq-nd-point-grid">{points_html}</div>'
-        f"</section>"
-        f'<section class="aq-nd-points aq-nd-origin">'
-        f'<div class="aq-nd-eyebrow">SOURCE DATA</div>'
-        f'<h2>元データURL</h2>'
-        f'<div class="aq-nd-point-grid aq-nd-origin-grid">'
-        f'<div class="aq-nd-point"><strong>URL</strong><p>{source_url_html}</p></div>'
-        f"</div>"
-        f"</section>"
-        f'<section class="aq-nd-cta">'
+        + points_section
+        + f'<section class="aq-nd-cta">'
         f'<div>'
         f'<div class="aq-nd-eyebrow">CONSULTATION</div>'
         f'<h2>自社への影響が気になる場合</h2>'

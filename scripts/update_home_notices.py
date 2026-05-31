@@ -15,8 +15,9 @@ import json
 import os
 import re
 import sys
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import date, datetime
-from html import unescape
+from html import escape, unescape
 from pathlib import Path
 from urllib.parse import urljoin
 
@@ -38,12 +39,138 @@ USER_AGENT = (
 )
 
 TAG_COLORS = ["navy", "sky", "gold", "violet", "wine", "gray"]
+BLOCK_TAGS = ("div", "section", "article", "main")
 
 
 def strip_tags(html: str) -> str:
     text = re.sub(r"<script[\s\S]*?</script>|<style[\s\S]*?</style>", " ", html, flags=re.I)
     text = re.sub(r"<[^>]+>", " ", text)
     return re.sub(r"\s+", " ", unescape(text)).strip()
+
+
+def extract_balanced_element(html: str, start: int, tag: str) -> str:
+    pattern = re.compile(rf"</?{tag}\b[^>]*>", flags=re.I)
+    depth = 0
+    for match in pattern.finditer(html, start):
+        token = match.group(0)
+        if token.startswith("</"):
+            depth -= 1
+            if depth == 0:
+                return html[start:match.end()]
+        elif not token.endswith("/>"):
+            depth += 1
+    return ""
+
+
+def inner_html(element_html: str) -> str:
+    match = re.match(r"<([a-z0-9]+)\b[^>]*>([\s\S]*)</\1>\s*$", element_html.strip(), flags=re.I)
+    return match.group(2) if match else element_html
+
+
+def find_element_by_class(html: str, class_name: str, tags: tuple[str, ...] = BLOCK_TAGS) -> str:
+    for tag in tags:
+        for match in re.finditer(rf"<{tag}\b[^>]*>", html, flags=re.I):
+            attrs = match.group(0)
+            class_match = re.search(r'class=["\']([^"\']+)["\']', attrs, flags=re.I)
+            if not class_match:
+                continue
+            classes = set(class_match.group(1).split())
+            if class_name not in classes:
+                continue
+            element_html = extract_balanced_element(html, match.start(), tag)
+            if element_html:
+                return inner_html(element_html)
+    return ""
+
+
+def trim_psr_wrapper_paragraph(html: str) -> str:
+    html = html.strip()
+    if re.match(r"^<p\b[^>]*>\s*<(?:p|ul|ol)\b", html, flags=re.I):
+        html = re.sub(r"^<p\b[^>]*>\s*", "", html, count=1, flags=re.I)
+        html = re.sub(r"(</(?:p|ul|ol)>\s*)</p>\s*$", r"\1", html, flags=re.I)
+    return html
+
+
+def clean_source_html(raw_html: str, base_url: str) -> str:
+    html = re.sub(r"<!--[\s\S]*?-->", "", raw_html)
+    html = re.sub(r"<script[\s\S]*?</script>|<style[\s\S]*?</style>", "", html, flags=re.I)
+    html = re.sub(r"<img\b[^>]*>", "", html, flags=re.I)
+    html = trim_psr_wrapper_paragraph(html)
+
+    def clean_anchor(match: re.Match) -> str:
+        attrs = match.group(1)
+        href_match = re.search(r'href=["\']([^"\']+)["\']', attrs, flags=re.I)
+        text = strip_tags(match.group(2))
+        if not href_match:
+            return escape(text)
+        href = unescape(href_match.group(1)).strip()
+        if not href or href == "#":
+            return escape(text)
+        abs_href = urljoin(base_url, href)
+        label = text or abs_href
+        return (
+            f'<a href="{escape(abs_href, quote=True)}" target="_blank" rel="noopener">'
+            f"{escape(label)}</a>"
+        )
+
+    html = re.sub(r"<a\b([^>]*)>([\s\S]*?)</a>", clean_anchor, html, flags=re.I)
+    html = re.sub(r"<br\b[^>]*>", "<br>", html, flags=re.I)
+
+    allowed = {"p", "br", "ul", "ol", "li", "strong", "b", "em", "a"}
+
+    def clean_tag(match: re.Match) -> str:
+        slash = match.group(1)
+        tag = match.group(2).lower()
+        if tag not in allowed:
+            return "\n" if tag in {"div", "section", "article", "table", "tbody", "tr", "td", "th"} else ""
+        if tag == "a":
+            return match.group(0)
+        if tag == "br":
+            return "<br>"
+        return f"<{slash}{tag}>"
+
+    html = re.sub(r"<(/?)([a-z0-9]+)\b[^>]*>", clean_tag, html, flags=re.I)
+    html = re.sub(r"\s+\n", "\n", html)
+    html = re.sub(r"\n\s+", "\n", html)
+    html = re.sub(r"(?:\s*<br>\s*){3,}", "<br><br>", html)
+    html = re.sub(r"<p>\s*</p>", "", html, flags=re.I)
+    return html.strip()
+
+
+def source_url_paragraph(url: str) -> str:
+    if not url:
+        return ""
+    url = escape(url, quote=True)
+    return f'<p><a href="{url}" target="_blank" rel="noopener">{url}</a></p>'
+
+
+def extract_source_body_html(html: str, base_url: str) -> str:
+    entry_body = find_element_by_class(html, "entry_body", tags=("section", "div", "article"))
+    if entry_body:
+        body_html = clean_source_html(entry_body, base_url)
+        if body_html and "href=" not in body_html:
+            body_html += source_url_paragraph(base_url)
+        return body_html
+
+    contents = find_element_by_class(html, "contents", tags=("div", "section", "article"))
+    if not contents:
+        return source_url_paragraph(base_url)
+
+    paragraphs = re.findall(r"<p\b[^>]*>[\s\S]*?</p>", contents, flags=re.I)
+    cleaned: list[str] = []
+    for paragraph in paragraphs:
+        text = strip_tags(paragraph)
+        if not text or text == " ":
+            continue
+        cleaned_paragraph = clean_source_html(paragraph, base_url)
+        if cleaned_paragraph:
+            cleaned.append(cleaned_paragraph)
+        if len(cleaned) >= 4:
+            break
+    body_html = "".join(cleaned)
+    if base_url and base_url not in body_html:
+        body_html += source_url_paragraph(base_url)
+    return body_html.strip()
 
 
 def load_existing() -> dict[str, dict]:
@@ -238,7 +365,6 @@ def parse_psr_entries(html: str, base_url: str) -> list[dict]:
                 "summary": default_summary(source_type, category, title),
                 "body_html": default_body(source_type, category),
                 "url": href,
-                "url_label": "リーフレットを見る" if source_type == "リーフレット" else "元記事を見る",
             }
         )
     return entries
@@ -293,12 +419,46 @@ def collect_entries(client: httpx.Client, source_url: str, since: str, max_pages
     return sorted(entries, key=lambda r: r.get("date", ""), reverse=True)
 
 
+def fetch_source_body(source_url: str) -> tuple[str, str, str | None]:
+    try:
+        response = httpx.get(
+            source_url,
+            follow_redirects=True,
+            timeout=25,
+            headers={"User-Agent": USER_AGENT},
+        )
+        response.raise_for_status()
+    except httpx.HTTPError as exc:
+        return source_url, "", str(exc)
+    return source_url, extract_source_body_html(response.text, str(response.url)), None
+
+
+def hydrate_source_bodies(entries: list[dict]) -> None:
+    targets = [item for item in entries if item.get("url")]
+    if not targets:
+        return
+
+    workers = int(os.getenv("HOME_NOTICES_DETAIL_WORKERS", "8") or 8)
+    with ThreadPoolExecutor(max_workers=max(1, workers)) as executor:
+        futures = {executor.submit(fetch_source_body, item["url"]): item for item in targets}
+        for index, future in enumerate(as_completed(futures), start=1):
+            item = futures[future]
+            source_url, body_html, error = future.result()
+            if error:
+                print(f"[warn] 詳細本文を取得できませんでした: {source_url} ({error})", file=sys.stderr)
+                continue
+            if body_html:
+                item["source_body_html"] = body_html
+            if index % 50 == 0:
+                print(f"[detail] {index}件の本文を確認しました。")
+
+
 def merge_existing(generated: list[dict], existing: dict[str, dict]) -> list[dict]:
     merged: list[dict] = []
     for idx, item in enumerate(generated):
         previous = existing.get(item.get("url")) or existing.get(item.get("source_title")) or existing.get(item.get("id"))
         if previous:
-            for key in ("id", "title", "summary", "body_html", "url_label", "tag_color"):
+            for key in ("id", "title", "summary", "body_html", "tag_color"):
                 if previous.get(key):
                     if key == "title" and previous.get("title") == previous.get("source_title"):
                         continue
@@ -314,6 +474,12 @@ def main() -> int:
     parser.add_argument("--since", default=os.getenv("HOME_NOTICES_SINCE") or DEFAULT_SINCE)
     parser.add_argument("--limit", type=int, default=int(os.getenv("HOME_NOTICES_LIMIT", "0") or 0))
     parser.add_argument("--max-pages", type=int, default=int(os.getenv("HOME_NOTICES_MAX_PAGES", "20") or 20))
+    parser.add_argument(
+        "--skip-details",
+        action="store_true",
+        default=os.getenv("HOME_NOTICES_SKIP_DETAILS") == "1",
+        help="一覧だけ更新し、各詳細ページの本文取得を省略します。",
+    )
     args = parser.parse_args()
     try:
         datetime.strptime(args.since, "%Y-%m-%d")
@@ -332,11 +498,13 @@ def main() -> int:
             print(f"[warn] {exc}", file=sys.stderr)
 
         entries = collect_entries(client, source_url, args.since, args.max_pages)
+        selected = entries[: args.limit] if args.limit > 0 else entries
+    if not args.skip_details:
+        hydrate_source_bodies(selected)
 
     if not entries:
         raise RuntimeError("PSRページからお知らせを取得できませんでした。")
 
-    selected = entries[: args.limit] if args.limit > 0 else entries
     notices = merge_existing(selected, existing)
     DATA_PATH.write_text(json.dumps(notices, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(f"[done] {len(notices)}件を {DATA_PATH.relative_to(ROOT)} に保存しました。")
