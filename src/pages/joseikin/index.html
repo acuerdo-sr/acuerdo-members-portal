@@ -96,30 +96,90 @@ data_page: joseikin
       <div class="aq-josdash-panel aq-josdash-quick">
         <div class="aq-josdash-table-head">
           <h2>助成金早見表（かんたん検索）</h2>
-          <label><span>⌕</span><input type="search" placeholder="キーワードで検索（例：採用、研修、賃上げ など）"></label>
+          <label><span>⌕</span><input type="search" id="aq-josdash-quick-q" placeholder="キーワードで検索（例：採用、研修、賃上げ など）"></label>
         </div>
-        <div class="aq-josdash-tabs" aria-label="助成金カテゴリ">
-          <button type="button" class="is-active">すべて</button>
-          <button type="button">採用・雇用</button>
-          <button type="button">教育・研修</button>
-          <button type="button">育児・介護</button>
-          <button type="button">賃上げ・処遇改善</button>
-          <button type="button">設備投資・DX</button>
+        <div class="aq-josdash-tabs" id="aq-josdash-quick-tabs" aria-label="助成金カテゴリ">
+          <button type="button" class="is-active" data-cat="">すべて</button>
+          <button type="button" data-cat="hire">採用・雇用</button>
+          <button type="button" data-cat="edu">教育・研修</button>
+          <button type="button" data-cat="care">育児・介護</button>
+          <button type="button" data-cat="wage">賃上げ・処遇改善</button>
+          <button type="button" data-cat="prod">設備投資・DX</button>
         </div>
         <div class="aq-josdash-table-wrap">
           <table>
             <thead><tr><th>目的・取組例</th><th>おすすめ助成金</th><th>支給額の目安</th><th>主な対象</th><th>詳細</th></tr></thead>
-            <tbody>
-              <tr><td>非正規社員を正社員にしたい</td><td>キャリアアップ助成金</td><td>最大80万円／人</td><td>中小企業</td><td><a href="../joseikin-list/">詳細を見る ›</a></td></tr>
-              <tr><td>社員に研修を受けさせたい</td><td>人材開発支援助成金</td><td>経費の最大75%</td><td>中小企業</td><td><a href="../joseikin-list/">詳細を見る ›</a></td></tr>
-              <tr><td>男性の育休取得を進めたい</td><td>両立支援等助成金</td><td>最大57万円／人</td><td>中小企業</td><td><a href="../joseikin-list/">詳細を見る ›</a></td></tr>
-              <tr><td>賃上げと設備投資を進めたい</td><td>業務改善助成金</td><td>最大600万円</td><td>中小企業・小規模</td><td><a href="../joseikin-list/">詳細を見る ›</a></td></tr>
-            </tbody>
+            <tbody id="aq-josdash-quick-rows"></tbody>
           </table>
         </div>
+        <p class="aq-josdash-note" id="aq-josdash-quick-empty" hidden>該当する助成金が見つかりませんでした。条件を変えてお試しください。</p>
         <p class="aq-josdash-note">※支給額は要件や区分により異なります。詳細は各助成金ページをご確認ください。</p>
         <a class="aq-josdash-more table" href="../joseikin-list/">助成金早見表をもっと見る ›</a>
       </div>
+
+      <script>
+      (function () {
+        var ROWS = [
+          { cat: 'hire', purpose: '非正規社員を正社員にしたい',         name: 'キャリアアップ助成金',                       amount: '最大80万円／人',      target: '中小企業' },
+          { cat: 'hire', purpose: '試行雇用でミスマッチを防ぎたい',     name: 'トライアル雇用助成金',                       amount: '最大4万円／月',       target: '中小企業' },
+          { cat: 'hire', purpose: '中高年層を正規採用したい',           name: '特定求職者雇用開発助成金',                   amount: '60〜240万円／人',     target: '中小企業' },
+          { cat: 'hire', purpose: 'シニアの継続雇用年齢を引き上げたい', name: '65歳超雇用推進助成金',                       amount: '30〜160万円',         target: '中小企業' },
+          { cat: 'hire', purpose: '中途採用を拡大したい',               name: '早期再就職支援等助成金（中途採用拡大コース）', amount: '最大600万円',        target: '中小企業' },
+          { cat: 'edu',  purpose: '社員に研修を受けさせたい',           name: '人材開発支援助成金',                         amount: '経費の最大75%',       target: '中小企業' },
+          { cat: 'edu',  purpose: 'DX人材を育成したい',                 name: '人材開発支援助成金（リスキリング支援）',      amount: '経費の最大75%',       target: '中小企業' },
+          { cat: 'care', purpose: '男性の育休取得を進めたい',           name: '両立支援等助成金（出生時両立支援コース）',     amount: '最大57万円／人',     target: '中小企業' },
+          { cat: 'care', purpose: '育休復帰と業務代替を支援したい',     name: '両立支援等助成金（育児休業等支援コース）',     amount: '28.5〜108万円',       target: '中小企業' },
+          { cat: 'wage', purpose: '賃上げと設備投資を進めたい',         name: '業務改善助成金',                             amount: '最大600万円',         target: '中小企業・小規模' },
+          { cat: 'wage', purpose: '賃金制度を整備したい',               name: '人材確保等支援助成金',                       amount: '57〜325万円',         target: '中小企業' },
+          { cat: 'prod', purpose: '設備投資で生産性を上げたい',         name: '業務改善助成金',                             amount: '最大600万円',         target: '中小企業・小規模' }
+        ];
+        var tabs = document.getElementById('aq-josdash-quick-tabs');
+        var qInput = document.getElementById('aq-josdash-quick-q');
+        var tbody = document.getElementById('aq-josdash-quick-rows');
+        var empty = document.getElementById('aq-josdash-quick-empty');
+        if (!tabs || !qInput || !tbody) return;
+        var state = { cat: '', q: '' };
+
+        function esc(s) {
+          return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+            return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+          });
+        }
+        function render() {
+          var q = state.q.toLowerCase();
+          var items = ROWS.filter(function (r) {
+            if (state.cat && r.cat !== state.cat) return false;
+            if (q) {
+              var hay = (r.purpose + ' ' + r.name + ' ' + r.target).toLowerCase();
+              if (hay.indexOf(q) === -1) return false;
+            }
+            return true;
+          });
+          tbody.innerHTML = items.map(function (r) {
+            return '<tr>' +
+              '<td>' + esc(r.purpose) + '</td>' +
+              '<td>' + esc(r.name) + '</td>' +
+              '<td>' + esc(r.amount) + '</td>' +
+              '<td>' + esc(r.target) + '</td>' +
+              '<td><a href="../joseikin-list/?q=' + encodeURIComponent(r.name) + '">詳細を見る ›</a></td>' +
+            '</tr>';
+          }).join('');
+          if (empty) empty.hidden = items.length !== 0;
+        }
+        tabs.addEventListener('click', function (e) {
+          var btn = e.target.closest('button[data-cat]');
+          if (!btn) return;
+          tabs.querySelectorAll('button').forEach(function (b) { b.classList.toggle('is-active', b === btn); });
+          state.cat = btn.getAttribute('data-cat') || '';
+          render();
+        });
+        qInput.addEventListener('input', function () {
+          state.q = qInput.value.trim();
+          render();
+        });
+        render();
+      })();
+      </script>
 
       <div class="aq-josdash-panel aq-josdash-faq">
         <div class="aq-josdash-panel-head"><h2>よくあるご質問（FAQ）</h2><a href="../faq/">すべて見る ›</a></div>
