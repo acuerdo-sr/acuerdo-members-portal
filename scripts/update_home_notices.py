@@ -216,6 +216,7 @@ def parse_psr_entries(html: str, base_url: str) -> list[dict]:
         date_match = re.search(r"(\d{4})/(\d{2})/(\d{2})", head)
         if not date_match:
             continue
+        source_date = date_match.group(0)
         date = f"{date_match.group(1)}-{date_match.group(2)}-{date_match.group(3)}"
         before_title = head.split(title, 1)[0]
         parts = before_title.split()
@@ -229,6 +230,7 @@ def parse_psr_entries(html: str, base_url: str) -> list[dict]:
             {
                 "id": make_id(href, title),
                 "date": date,
+                "source_date": source_date,
                 "source_type": source_type,
                 "category": category,
                 "source_title": title,

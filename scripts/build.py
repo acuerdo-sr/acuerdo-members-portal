@@ -105,13 +105,17 @@ def _fmt_date_ja(s: str) -> str:
     return f"{m.group(1)}年{int(m.group(2))}月{int(m.group(3))}日"
 
 
-def _fmt_date_dot(s: str) -> str:
+def _fmt_date_slash(s: str) -> str:
     if not s:
         return ""
     m = re.match(r"^(\d{4})-(\d{2})-(\d{2})", s)
     if not m:
         return s
-    return f"{m.group(1)}.{m.group(2)}.{m.group(3)}"
+    return f"{m.group(1)}/{m.group(2)}/{m.group(3)}"
+
+
+def _notice_date_label(r: dict) -> str:
+    return r.get("source_date") or _fmt_date_slash(r.get("date") or "")
 
 
 def render_news(html: str) -> str:
@@ -194,7 +198,7 @@ def render_home_notices(html: str) -> str:
             f"<summary>"
             f'<span class="aq-home-news-type">{_esc(source_type)}</span>'
             f'<span class="aq-tag {_esc(tag_color)}">{_esc(r.get("category") or "")}</span>'
-            f'<time datetime="{_esc(r.get("date") or "")}">{_esc(_fmt_date_dot(r.get("date") or ""))}</time>'
+            f'<time datetime="{_esc(r.get("date") or "")}">{_esc(_notice_date_label(r))}</time>'
             f'<span class="aq-home-news-title">{_esc(r.get("title") or "")}</span>'
             f'<span class="aq-news-arr">›</span>'
             f"</summary>"
@@ -237,7 +241,7 @@ def render_notice_archive(html: str) -> str:
             f"<summary>"
             f'<span class="aq-notice-type">{_esc(source_type)}</span>'
             f'<span class="aq-notice-cat">{_esc(r.get("category") or "")}</span>'
-            f'<time datetime="{_esc(r.get("date") or "")}">{_esc(_fmt_date_dot(r.get("date") or ""))}</time>'
+            f'<time datetime="{_esc(r.get("date") or "")}">{_esc(_notice_date_label(r))}</time>'
             f'<span class="aq-notice-title">{_esc(r.get("title") or "")}</span>'
             f'<span class="aq-notice-arr">›</span>'
             f"</summary>"
