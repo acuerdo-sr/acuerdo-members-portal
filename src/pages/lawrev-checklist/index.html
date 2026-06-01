@@ -1,0 +1,428 @@
+{# meta:
+title: 法改正影響診断チェックリスト
+body_class: aq-is-lawrev-check
+data_page: lawrev
+#}
+
+<style>
+body.aq-is-lawrev-check .aq-breadcrumb{display:none !important;}
+body.aq-is-lawrev-check{margin-left:0 !important;background:#f3f6fb !important;overflow-x:hidden;}
+.aq-lrc-wrap{background:#f3f6fb;color:#26364f;}
+.aq-lrc-wrap,.aq-lrc-wrap *,.aq-lrc-wrap *::before,.aq-lrc-wrap *::after{box-sizing:border-box;}
+.aq-lrc-wrap h1,.aq-lrc-wrap h2,.aq-lrc-wrap h3{color:#0b1730 !important;white-space:normal !important;line-height:1.35 !important;}
+.aq-lrc-main{width:100%;max-width:1180px;margin:0;padding:0;}
+.aq-lrc-hero{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:24px;align-items:center;background:#fff;border:1px solid #dce5ef;border-radius:18px;padding:30px 32px;box-shadow:0 16px 42px -34px rgba(11,23,48,.45);margin:8px 0 18px;}
+.aq-lrc-kicker{display:inline-flex;align-items:center;gap:8px;color:#087887;background:#eefafa;border:1px solid #c9e8e8;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;letter-spacing:.12em;}
+.aq-lrc-hero h1{margin:14px 0 10px !important;font-size:32px !important;font-weight:900 !important;}
+.aq-lrc-hero p{margin:0 !important;color:#475569;font-size:15px;line-height:1.78;}
+.aq-lrc-hero-list{display:grid;gap:8px;margin-top:18px;}
+.aq-lrc-hero-list span{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:800;color:#334155;}
+.aq-lrc-hero-list svg{width:16px;height:16px;color:#16a34a;flex:0 0 auto;}
+.aq-lrc-hero-visual{height:190px;border-radius:16px;background:linear-gradient(135deg,#f0f8ff 0%,#fff7e8 100%);display:flex;align-items:center;justify-content:center;overflow:hidden;}
+.aq-lrc-hero-visual svg{width:220px;height:170px;}
+.aq-lrc-layout{display:grid;grid-template-columns:minmax(320px,380px) minmax(0,1fr);gap:16px;align-items:start;}
+.aq-lrc-panel{background:#fff;border:1px solid #dce5ef;border-radius:16px;box-shadow:0 12px 34px -30px rgba(11,23,48,.45);}
+.aq-lrc-form{padding:22px;position:sticky;top:14px;}
+.aq-lrc-panel-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:18px;}
+.aq-lrc-eyebrow{display:block;color:#087887;font-size:11px;font-weight:900;letter-spacing:.18em;margin-bottom:6px;}
+.aq-lrc-panel-head h2{margin:0 !important;font-size:21px !important;font-weight:900 !important;}
+.aq-lrc-field{border:0;border-top:1px solid #eef1f6;min-width:0;padding:16px 0 0;margin:16px 0 0;}
+.aq-lrc-field legend,.aq-lrc-field-title{display:block;margin:0 0 10px;font-size:13px;font-weight:900;color:#0b1730;}
+.aq-lrc-segments{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.aq-lrc-segment input,.aq-lrc-check input{position:absolute;opacity:0;pointer-events:none;}
+.aq-lrc-segment span,.aq-lrc-check span{display:flex;align-items:center;gap:8px;width:100%;border:1px solid #dce5ef;border-radius:10px;background:#f8fafc;color:#334155;font-size:12.5px;font-weight:800;line-height:1.45;padding:10px 12px;cursor:pointer;min-height:42px;}
+.aq-lrc-segment input:checked + span,.aq-lrc-check input:checked + span{border-color:#1d4ed8;background:#eff6ff;color:#1d4ed8;box-shadow:0 0 0 2px rgba(29,78,216,.08);}
+.aq-lrc-checks{display:grid;gap:8px;}
+.aq-lrc-check span::before{content:"";width:16px;height:16px;border:2px solid #cbd5e1;border-radius:4px;flex:0 0 auto;background:#fff;}
+.aq-lrc-check input:checked + span::before{border-color:#1d4ed8;background:#1d4ed8;box-shadow:inset 0 0 0 3px #fff;}
+.aq-lrc-form-actions{display:flex;gap:8px;margin-top:18px;}
+.aq-lrc-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:10px;border:1px solid #dce5ef;font-size:13px;font-weight:900;padding:11px 14px;text-decoration:none;cursor:pointer;}
+.aq-lrc-btn.primary{background:#0b1730;color:#fff !important;border-color:#0b1730;flex:1;}
+.aq-lrc-btn.secondary{background:#fff;color:#334155 !important;}
+.aq-lrc-results{display:grid;gap:16px;}
+.aq-lrc-summary{padding:20px 22px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;}
+.aq-lrc-stat{border:1px solid #dce5ef;border-radius:12px;background:#f8fafc;padding:14px;}
+.aq-lrc-stat small{display:block;color:#64748b;font-size:11px;font-weight:900;letter-spacing:.12em;}
+.aq-lrc-stat strong{display:block;margin-top:6px;font-size:24px;font-weight:900;color:#0b1730;}
+.aq-lrc-stat.is-high{background:#fff7ed;border-color:#fed7aa;}
+.aq-lrc-stat.is-done{background:#f0fdf4;border-color:#bbf7d0;}
+.aq-lrc-result-list{display:grid;gap:12px;}
+.aq-lrc-result{background:#fff;border:1px solid #dce5ef;border-radius:16px;overflow:hidden;box-shadow:0 10px 30px -28px rgba(11,23,48,.45);}
+.aq-lrc-result-top{display:flex;justify-content:space-between;gap:12px;padding:16px 18px;background:#f8fafc;border-bottom:1px solid #eef1f6;}
+.aq-lrc-result h3{margin:0 !important;font-size:16px !important;font-weight:900 !important;}
+.aq-lrc-meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:8px;}
+.aq-lrc-badge{display:inline-flex;align-items:center;border-radius:999px;padding:3px 9px;font-size:11px;font-weight:900;}
+.aq-lrc-badge.high{background:#fee2e2;color:#b91c1c;}
+.aq-lrc-badge.mid{background:#fef3c7;color:#92400e;}
+.aq-lrc-badge.low{background:#dbeafe;color:#1d4ed8;}
+.aq-lrc-date{font-size:12px;color:#64748b;font-weight:800;}
+.aq-lrc-reason{display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid #dce5ef;border-radius:999px;padding:7px 10px;color:#334155;font-size:12px;font-weight:900;white-space:normal;align-self:flex-start;}
+.aq-lrc-result-body{padding:16px 18px;}
+.aq-lrc-result-body p{margin:0 0 14px;color:#475569;font-size:13.5px;line-height:1.75;}
+.aq-lrc-actions{display:grid;gap:8px;}
+.aq-lrc-action{display:flex;align-items:flex-start;gap:9px;border:1px solid #e2e8f0;border-radius:10px;background:#fff;padding:10px 12px;}
+.aq-lrc-action input{width:17px;height:17px;margin-top:2px;accent-color:#1d4ed8;flex:0 0 auto;}
+.aq-lrc-action span{font-size:13px;line-height:1.6;color:#334155;font-weight:700;}
+.aq-lrc-empty{padding:34px 22px;text-align:center;color:#64748b;}
+.aq-lrc-empty strong{display:block;color:#0b1730;font-size:18px;margin-bottom:6px;}
+.aq-lrc-consult{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:22px;background:#0b1730;color:#fff;border-radius:16px;}
+.aq-lrc-consult strong{display:block;color:#fff;font-size:16px;font-weight:900;}
+.aq-lrc-consult small{display:block;color:#cbd5e1;margin-top:4px;font-size:12px;line-height:1.6;}
+.aq-lrc-consult a{background:#fff;color:#0b1730 !important;border-radius:10px;padding:12px 18px;font-size:13px;font-weight:900;text-decoration:none;white-space:nowrap;}
+@media (max-width:1040px){
+  .aq-lrc-hero{grid-template-columns:1fr;}
+  .aq-lrc-hero-visual{display:none;}
+  .aq-lrc-layout{grid-template-columns:1fr;}
+  .aq-lrc-form{position:static;}
+}
+@media (max-width:640px){
+  body.aq-is-lawrev-check .aq-subpage-wrap{padding:14px 12px 42px;}
+  .aq-lrc-hero{padding:22px 18px;}
+  .aq-lrc-hero h1{font-size:22px !important;}
+  .aq-lrc-summary{grid-template-columns:1fr;padding:16px;}
+  .aq-lrc-segments{grid-template-columns:1fr;}
+  .aq-lrc-result-top{flex-direction:column;}
+  .aq-lrc-reason{white-space:normal;}
+  .aq-lrc-consult{align-items:stretch;flex-direction:column;}
+  .aq-lrc-consult a{width:100%;text-align:center;}
+}
+</style>
+
+<div id="aq-lawrev-check-wrap" class="aq-subpage-wrap aq-lrc-wrap">
+  <main class="aq-subpage-main aq-lrc-main">
+    <section class="aq-lrc-hero">
+      <div>
+        <span class="aq-lrc-kicker">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          LAW REVISION CHECK
+        </span>
+        <h1>法改正の自社影響診断チェックリスト</h1>
+        <p>会社の人数や働き方、業務の特徴を選ぶだけで、対応が必要になりそうな法改正と確認事項を整理できます。</p>
+        <div class="aq-lrc-hero-list">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="m5 13 4 4L19 7"/></svg>業種・従業員数・雇用形態から影響範囲を確認</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="m5 13 4 4L19 7"/></svg>優先度の高い法改正から対応チェック</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="m5 13 4 4L19 7"/></svg>担当者へ相談する前の確認メモとして活用</span>
+        </div>
+      </div>
+      <div class="aq-lrc-hero-visual" aria-hidden="true">
+        <svg viewBox="0 0 260 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="58" y="26" width="118" height="148" rx="12" fill="#fff" stroke="#86A7D9" stroke-width="4"/>
+          <path d="M82 48h70M82 78h70M82 108h70M82 138h44" stroke="#4267A8" stroke-width="5" stroke-linecap="round"/>
+          <rect x="72" y="41" width="14" height="14" rx="3" fill="#EAF4FF" stroke="#4267A8" stroke-width="3"/>
+          <rect x="72" y="71" width="14" height="14" rx="3" fill="#EAF4FF" stroke="#4267A8" stroke-width="3"/>
+          <rect x="72" y="101" width="14" height="14" rx="3" fill="#EAF4FF" stroke="#4267A8" stroke-width="3"/>
+          <path d="m75 48 4 4 8-10M75 78l4 4 8-10" stroke="#1F9F74" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M172 145l46-80 18 10-46 80-22 13 4-23Z" fill="#D88A3D"/>
+          <path d="m218 65 4-7a9 9 0 0 1 16 8l-3 6" stroke="#7B4A22" stroke-width="4"/>
+          <ellipse cx="138" cy="178" rx="88" ry="8" fill="#E4D8BD"/>
+          <circle cx="200" cy="48" r="7" fill="#BFD2F3"/>
+          <circle cx="224" cy="42" r="4" fill="#D6E4F8"/>
+        </svg>
+      </div>
+    </section>
+
+    <div class="aq-lrc-layout">
+      <form class="aq-lrc-panel aq-lrc-form" id="aq-lrc-form">
+        <div class="aq-lrc-panel-head">
+          <div>
+            <span class="aq-lrc-eyebrow">DIAGNOSIS</span>
+            <h2>会社の状況を選択</h2>
+          </div>
+        </div>
+
+        <fieldset class="aq-lrc-field">
+          <legend>常用労働者数</legend>
+          <div class="aq-lrc-segments">
+            <label class="aq-lrc-segment"><input type="radio" name="size" value="small" checked><span>36人未満</span></label>
+            <label class="aq-lrc-segment"><input type="radio" name="size" value="mid"><span>36〜100人</span></label>
+            <label class="aq-lrc-segment"><input type="radio" name="size" value="large"><span>101人以上</span></label>
+            <label class="aq-lrc-segment"><input type="radio" name="size" value="unknown"><span>未確認</span></label>
+          </div>
+        </fieldset>
+
+        <fieldset class="aq-lrc-field">
+          <legend>雇用・人員の状況</legend>
+          <div class="aq-lrc-checks">
+            <label class="aq-lrc-check"><input type="checkbox" name="hasSenior"><span>60歳以上の在職社員がいる</span></label>
+            <label class="aq-lrc-check"><input type="checkbox" name="hasParttime20"><span>週20時間以上の短時間勤務者がいる</span></label>
+            <label class="aq-lrc-check"><input type="checkbox" name="hasParttime10"><span>週10〜19時間の短時間勤務者がいる</span></label>
+            <label class="aq-lrc-check"><input type="checkbox" name="hasDependents"><span>扶養追加・扶養異動の手続きがある</span></label>
+            <label class="aq-lrc-check"><input type="checkbox" name="hasDisability"><span>障害者雇用率の対象になりそう</span></label>
+          </div>
+        </fieldset>
+
+        <fieldset class="aq-lrc-field">
+          <legend>業務・社内制度の状況</legend>
+          <div class="aq-lrc-checks">
+            <label class="aq-lrc-check"><input type="checkbox" name="customerFacing"><span>顧客・利用者対応を行う業務がある</span></label>
+            <label class="aq-lrc-check"><input type="checkbox" name="hasContractor"><span>請負・業務委託・一人親方と同じ場所で作業する</span></label>
+            <label class="aq-lrc-check"><input type="checkbox" name="needsTreatmentSupport"><span>病気治療と仕事の両立相談に備えたい</span></label>
+            <label class="aq-lrc-check"><input type="checkbox" name="hasSelfEmployed"><span>役員・家族・委託先に国民年金第1号被保険者がいる</span></label>
+          </div>
+        </fieldset>
+
+        <div class="aq-lrc-form-actions">
+          <button class="aq-lrc-btn primary" type="button" id="aq-lrc-run">診断結果を更新</button>
+          <button class="aq-lrc-btn secondary" type="reset" id="aq-lrc-reset">リセット</button>
+        </div>
+      </form>
+
+      <section class="aq-lrc-results" aria-live="polite">
+        <div class="aq-lrc-panel aq-lrc-summary">
+          <div class="aq-lrc-stat is-high">
+            <small>該当可能性</small>
+            <strong id="aq-lrc-count">0件</strong>
+          </div>
+          <div class="aq-lrc-stat">
+            <small>高優先度</small>
+            <strong id="aq-lrc-high">0件</strong>
+          </div>
+          <div class="aq-lrc-stat is-done">
+            <small>対応チェック</small>
+            <strong id="aq-lrc-progress">0/0</strong>
+          </div>
+        </div>
+
+        <div class="aq-lrc-result-list" id="aq-lrc-results"></div>
+
+        <div class="aq-lrc-consult">
+          <div>
+            <strong>判断に迷う項目は担当者へご相談ください</strong>
+            <small>診断結果は簡易確認です。実際の対象可否や期限、就業規則の見直しは個別に確認します。</small>
+          </div>
+          <a id="aq-lrc-mail" href="mailto:info@acuerdo-sr.jp?subject=%E6%B3%95%E6%94%B9%E6%AD%A3%E5%BD%B1%E9%9F%BF%E8%A8%BA%E6%96%AD%E3%81%AE%E7%9B%B8%E8%AB%87">メールで相談する</a>
+        </div>
+      </section>
+    </div>
+  </main>
+</div>
+
+<script id="aq-lrc-data" type="application/json">__LAWREV_DATA__</script>
+<script>
+(function () {
+  var rows;
+  try { rows = JSON.parse(document.getElementById('aq-lrc-data').textContent) || []; }
+  catch (e) { rows = []; }
+
+  var form = document.getElementById('aq-lrc-form');
+  var resultEl = document.getElementById('aq-lrc-results');
+  var countEl = document.getElementById('aq-lrc-count');
+  var highEl = document.getElementById('aq-lrc-high');
+  var progressEl = document.getElementById('aq-lrc-progress');
+  var mailEl = document.getElementById('aq-lrc-mail');
+
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+
+  function selected(name) {
+    var el = form.querySelector('[name="' + name + '"]:checked');
+    return el ? el.value : '';
+  }
+
+  function checked(name) {
+    var el = form.querySelector('[name="' + name + '"]');
+    return !!(el && el.checked);
+  }
+
+  function findRow(title) {
+    return rows.find(function (r) { return r['改正名'] === title; }) || { '改正名': title, '概要': '', '必要な対応': '' };
+  }
+
+  function actions(row, extra) {
+    var base = String(row['必要な対応'] || '').split(/\n/).map(function (s) {
+      return s.replace(/^[・\-\s]+/, '').trim();
+    }).filter(Boolean);
+    return base.concat(extra || []);
+  }
+
+  function fmtDate(s) {
+    var m = String(s || '').match(/^(\d{4})-(\d{2})/);
+    return m ? m[1] + '年' + parseInt(m[2], 10) + '月' : '時期確認';
+  }
+
+  var rules = [
+    {
+      title: '雇用保険料率の引き下げ（雇用保険法）',
+      level: 'high',
+      reason: '全事業者で確認',
+      match: function () { return true; },
+      extra: ['4月分給与計算で料率変更が反映されているか確認']
+    },
+    {
+      title: '治療と就業の両立支援 ─ 事業主の努力義務化',
+      level: 'mid',
+      reason: '全企業で体制確認',
+      match: function () { return true; },
+      extra: ['相談窓口・休暇制度・勤務配慮の案内先を社内で整理']
+    },
+    {
+      title: 'カスタマーハラスメント対策の義務化',
+      level: 'high',
+      reason: '全事業主が対象',
+      match: function () { return true; },
+      extra: ['顧客対応部署がある場合は、対応フローと記録方法を先に確認']
+    },
+    {
+      title: '在職老齢年金 支給停止基準額の引き上げ（厚生年金保険法）',
+      level: 'high',
+      reason: '60歳以上の在職社員あり',
+      match: function (s) { return s.hasSenior; },
+      extra: ['再雇用者の賃金設計・勤務時間の見直し要否を確認']
+    },
+    {
+      title: '女性活躍推進法改正 ─ 情報公表義務の拡大',
+      level: 'mid',
+      reason: '101人以上で対象',
+      match: function (s) { return s.size === 'large'; },
+      extra: ['男女間賃金差異と女性管理職比率の集計担当を決める']
+    },
+    {
+      title: '障害者法定雇用率 2.5% → 2.7% 引き上げ',
+      level: 'high',
+      reason: '37.5人以上または対象可能性あり',
+      match: function (s) { return s.size === 'mid' || s.size === 'large' || s.hasDisability; },
+      extra: ['常用労働者数と現在の雇用率を確認']
+    },
+    {
+      title: '被扶養者認定における年間収入の取扱い見直し',
+      level: 'mid',
+      reason: '扶養手続きあり',
+      match: function (s) { return s.hasDependents; },
+      extra: ['扶養追加時に労働条件通知書等の確認・保管ルールを整備']
+    },
+    {
+      title: '労働安全衛生法改正 ─ 個人事業者等の保護拡充',
+      level: 'mid',
+      reason: '請負・委託作業あり',
+      match: function (s) { return s.hasContractor; },
+      extra: ['委託先を含めた安全衛生ルールと契約条項を確認']
+    },
+    {
+      title: '国民年金保険料の育児免除制度スタート（第1号被保険者）',
+      level: 'low',
+      reason: '第1号被保険者への案内可能性',
+      match: function (s) { return s.hasSelfEmployed; },
+      extra: ['対象になりそうな役員・家族・委託先へ制度案内の要否を確認']
+    },
+    {
+      title: '短時間労働者への社会保険適用拡大（段階的実施）',
+      level: 'mid',
+      reason: '短時間労働者あり',
+      match: function (s) { return s.hasParttime20 || s.size === 'mid' || s.size === 'large'; },
+      extra: ['週20時間以上勤務者の人数と社会保険料負担を試算']
+    },
+    {
+      title: '雇用保険の適用拡大（週所定労働時間10時間以上へ）',
+      level: 'mid',
+      reason: '週10〜19時間勤務者あり',
+      match: function (s) { return s.hasParttime10; },
+      extra: ['週10〜19時間勤務者の人数、雇用契約、給与計算への影響を確認']
+    }
+  ];
+
+  function state() {
+    return {
+      size: selected('size'),
+      hasSenior: checked('hasSenior'),
+      hasParttime20: checked('hasParttime20'),
+      hasParttime10: checked('hasParttime10'),
+      hasDependents: checked('hasDependents'),
+      hasDisability: checked('hasDisability'),
+      customerFacing: checked('customerFacing'),
+      hasContractor: checked('hasContractor'),
+      needsTreatmentSupport: checked('needsTreatmentSupport'),
+      hasSelfEmployed: checked('hasSelfEmployed')
+    };
+  }
+
+  function levelLabel(level) {
+    if (level === 'high') return '高優先度';
+    if (level === 'mid') return '要確認';
+    return '参考';
+  }
+
+  function render() {
+    var s = state();
+    var matches = rules.filter(function (rule) { return rule.match(s); }).map(function (rule) {
+      var row = findRow(rule.title);
+      return {
+        rule: rule,
+        row: row,
+        actions: actions(row, rule.extra)
+      };
+    });
+
+    matches.sort(function (a, b) {
+      var order = { high: 0, mid: 1, low: 2 };
+      return order[a.rule.level] - order[b.rule.level];
+    });
+
+    countEl.textContent = matches.length + '件';
+    highEl.textContent = matches.filter(function (m) { return m.rule.level === 'high'; }).length + '件';
+
+    if (!matches.length) {
+      resultEl.innerHTML = '<div class="aq-lrc-panel aq-lrc-empty"><strong>条件を選択してください</strong><span>会社の状況を選ぶと、ここに該当しそうな法改正が表示されます。</span></div>';
+      progressEl.textContent = '0/0';
+      return;
+    }
+
+    resultEl.innerHTML = matches.map(function (m, idx) {
+      var row = m.row;
+      return '<article class="aq-lrc-result">' +
+        '<div class="aq-lrc-result-top">' +
+          '<div>' +
+            '<h3>' + esc(row['改正名']) + '</h3>' +
+            '<div class="aq-lrc-meta">' +
+              '<span class="aq-lrc-badge ' + esc(m.rule.level) + '">' + esc(levelLabel(m.rule.level)) + '</span>' +
+              '<span class="aq-lrc-date">' + esc(fmtDate(row['施行日'])) + '施行</span>' +
+            '</div>' +
+          '</div>' +
+          '<span class="aq-lrc-reason">' + esc(m.rule.reason) + '</span>' +
+        '</div>' +
+        '<div class="aq-lrc-result-body">' +
+          '<p>' + esc(row['概要'] || '') + '</p>' +
+          '<div class="aq-lrc-actions">' +
+            m.actions.map(function (a, actionIdx) {
+              var id = 'aq-lrc-action-' + idx + '-' + actionIdx;
+              return '<label class="aq-lrc-action" for="' + id + '">' +
+                '<input id="' + id + '" type="checkbox" data-action-check>' +
+                '<span>' + esc(a) + '</span>' +
+              '</label>';
+            }).join('') +
+          '</div>' +
+        '</div>' +
+      '</article>';
+    }).join('');
+
+    updateProgress();
+    updateMail(matches);
+  }
+
+  function updateProgress() {
+    var checks = Array.prototype.slice.call(resultEl.querySelectorAll('[data-action-check]'));
+    var done = checks.filter(function (el) { return el.checked; }).length;
+    progressEl.textContent = done + '/' + checks.length;
+  }
+
+  function updateMail(matches) {
+    var body = '法改正影響診断チェックリストで、以下の項目が表示されました。\n\n' +
+      matches.slice(0, 8).map(function (m) { return '・' + m.row['改正名']; }).join('\n');
+    mailEl.href = 'mailto:info@acuerdo-sr.jp?subject=' + encodeURIComponent('法改正影響診断の相談') +
+      '&body=' + encodeURIComponent(body);
+  }
+
+  form.addEventListener('change', render);
+  document.getElementById('aq-lrc-run').addEventListener('click', render);
+  document.getElementById('aq-lrc-reset').addEventListener('click', function () {
+    window.setTimeout(render, 0);
+  });
+  resultEl.addEventListener('change', function (e) {
+    if (e.target && e.target.matches('[data-action-check]')) updateProgress();
+  });
+
+  render();
+})();
+</script>
