@@ -9295,6 +9295,31 @@ body.aq-is-home .aq-trouble-chat {
   font-size: 14px !important;
 }
 
+body.aq-is-home .aq-trouble-chat-actions {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  min-width: 0 !important;
+  white-space: nowrap !important;
+}
+
+body.aq-is-home .aq-trouble-chat-help {
+  color: #64748b !important;
+  font-size: 11px !important;
+  font-weight: 850 !important;
+  line-height: 1.2 !important;
+  text-decoration: underline !important;
+  text-underline-offset: 2px !important;
+  white-space: nowrap !important;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  body.aq-is-home .aq-trouble-tel[data-mobile-tel] {
+    cursor: default !important;
+    pointer-events: none !important;
+  }
+}
+
 body.aq-is-home .aq-float-widget {
   display: none !important;
 }
@@ -19477,5 +19502,60 @@ body.aq-is-office-letter .aq-office-note a {
   body.aq-is-office-letter .aq-office-card {
     min-height: 0;
     padding: 16px;
+  }
+}
+
+/* Home support contact: keep the bottom contact cards readable after real links were added. */
+body.aq-is-home .aq-home-contact {
+  grid-template-columns: 1fr !important;
+  align-items: stretch !important;
+}
+
+body.aq-is-home .aq-home-contact h2 {
+  margin: 0 !important;
+}
+
+body.aq-is-home .aq-home-contact h2::after {
+  max-width: none !important;
+}
+
+body.aq-is-home .aq-trouble-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: 12px !important;
+}
+
+body.aq-is-home .aq-trouble-grid::after {
+  content: none !important;
+  display: none !important;
+}
+
+body.aq-is-home .aq-trouble-card {
+  height: 92px !important;
+  min-height: 92px !important;
+}
+
+body.aq-is-home .aq-trouble-card {
+  padding: 12px 14px !important;
+}
+
+body.aq-is-home .aq-trouble-card strong {
+  white-space: nowrap !important;
+}
+
+body.aq-is-home .aq-trouble-card small {
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+
+body.aq-is-home .aq-trouble-email {
+  font-size: 13px !important;
+}
+
+@media (max-width: 820px) {
+  body.aq-is-home .aq-trouble-card,
+  body.aq-is-home .aq-trouble-grid::after {
+    height: auto !important;
+    min-height: 92px !important;
   }
 }
