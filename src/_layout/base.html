@@ -8,6 +8,93 @@
   <base href="{{ base_href }}">
   <link rel="stylesheet" href="assets/css/site.css?v={{ build_version }}">
   <link rel="icon" href="https://assets.super.so/ff55fa24-943b-4570-bc4b-3531dfc71017/uploads/favicon/2271fa94-63af-4f5e-8ac4-48481418b2c3.png">
+  <script>
+  /* ===== 簡易パスワードゲート =====
+     合言葉を変更したい場合は EXPECTED_HASH を更新してください。
+     新しいハッシュ値は scripts/gen_password_hash.py または
+     次のコマンドで生成:
+       python -c "import hashlib;print(hashlib.sha256('YOUR_PASSWORD'.encode()).hexdigest())"
+     有効期間は 30 日 (それを過ぎたら再入力)。
+  */
+  (function () {
+    var EXPECTED_HASH = 'f12251770ec6c1ec1c04ff395ca9fed3e9d57dc8bc2420b62f7884601dd49245'; // 合言葉: acuerdo2026
+    var KEY = 'aq-auth-v1';
+    var TTL_MS = 30 * 24 * 60 * 60 * 1000; // 30日
+
+    try {
+      var raw = localStorage.getItem(KEY);
+      if (raw) {
+        var rec = JSON.parse(raw);
+        if (rec && rec.h === EXPECTED_HASH && rec.t && (Date.now() - rec.t) < TTL_MS) return;
+      }
+    } catch (e) {}
+
+    // ページ描画を一時非表示
+    var style = document.createElement('style');
+    style.id = 'aq-auth-block-style';
+    style.textContent = 'html.aq-auth-blocked > body { visibility: hidden !important; }';
+    document.head.appendChild(style);
+    document.documentElement.classList.add('aq-auth-blocked');
+
+    async function sha256(s) {
+      var buf = new TextEncoder().encode(s);
+      var h = await crypto.subtle.digest('SHA-256', buf);
+      return Array.from(new Uint8Array(h)).map(function (b) { return b.toString(16).padStart(2, '0'); }).join('');
+    }
+
+    function showGate() {
+      var gate = document.createElement('div');
+      gate.id = 'aq-auth-gate';
+      gate.innerHTML =
+        '<style>' +
+        '#aq-auth-gate{position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#1d2c54 0%,#0b1730 100%);font-family:Roboto,"Yu Gothic","YuGothic","Hiragino Kaku Gothic ProN",Meiryo,sans-serif;visibility:visible !important;}' +
+        '#aq-auth-card{width:min(420px,92vw);padding:32px 28px;background:#fff;border-radius:18px;box-shadow:0 24px 60px rgba(0,0,0,.45);text-align:center;}' +
+        '#aq-auth-card h1{margin:0 0 6px;font-size:18px;font-weight:900;color:#0b1730;letter-spacing:.04em;}' +
+        '#aq-auth-card p{margin:0 0 22px;color:#64748b;font-size:13px;line-height:1.6;}' +
+        '#aq-auth-pwd{width:100%;height:46px;padding:0 14px;border:1.5px solid #cbd5e1;border-radius:10px;font-size:15px;font-family:inherit;color:#0b1730;background:#fff;box-sizing:border-box;}' +
+        '#aq-auth-pwd:focus{outline:none;border-color:#1d4ed8;box-shadow:0 0 0 3px rgba(29,78,216,.15);}' +
+        '#aq-auth-btn{width:100%;margin-top:14px;height:46px;border:0;border-radius:10px;background:#0b1730;color:#fff;font-size:14px;font-weight:900;cursor:pointer;font-family:inherit;letter-spacing:.05em;}' +
+        '#aq-auth-btn:hover{background:#1d2c54;}' +
+        '#aq-auth-err{margin-top:12px;color:#dc2626;font-size:12.5px;font-weight:700;min-height:18px;}' +
+        '@keyframes aq-auth-shake{0%,100%{transform:translateX(0);}25%{transform:translateX(-8px);}75%{transform:translateX(8px);}}' +
+        '#aq-auth-card.is-error{animation:aq-auth-shake .25s;}' +
+        '</style>' +
+        '<form id="aq-auth-card" autocomplete="off">' +
+          '<h1>顧問先専用ページ</h1>' +
+          '<p>合言葉を入力してください</p>' +
+          '<input id="aq-auth-pwd" type="password" placeholder="合言葉" autofocus required>' +
+          '<button id="aq-auth-btn" type="submit">入る</button>' +
+          '<div id="aq-auth-err"></div>' +
+        '</form>';
+      document.body.appendChild(gate);
+      document.documentElement.classList.remove('aq-auth-blocked');
+
+      var card = document.getElementById('aq-auth-card');
+      var err = document.getElementById('aq-auth-err');
+      card.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var v = document.getElementById('aq-auth-pwd').value;
+        sha256(v).then(function (h) {
+          if (h === EXPECTED_HASH) {
+            try { localStorage.setItem(KEY, JSON.stringify({ h: h, t: Date.now() })); } catch (e) {}
+            gate.remove();
+          } else {
+            err.textContent = '合言葉が違います';
+            card.classList.remove('is-error');
+            void card.offsetWidth;
+            card.classList.add('is-error');
+          }
+        });
+      });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', showGate);
+    } else {
+      showGate();
+    }
+  })();
+  </script>
 </head>
 <body class="{{ body_class }}">
 
