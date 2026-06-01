@@ -324,5 +324,32 @@ data_page: faq
   renderCategories();
   renderRank();
   renderList();
+
+  function openFaqById(id) {
+    if (!faqs.find(function (f) { return f.id === id; })) return;
+    state.mode = 'all';
+    state.group = null;
+    state.query = '';
+    state.visible = faqs.length;
+    if (els.search) els.search.value = '';
+    renderTabs();
+    renderCategories();
+    renderList();
+    setTimeout(function () {
+      var card = document.querySelector('[data-faq="' + id + '"]');
+      if (!card) return;
+      card.classList.add('is-open');
+      var q = card.querySelector('.aq-faq-v2-q');
+      if (q) q.setAttribute('aria-expanded', 'true');
+      card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 60);
+  }
+
+  function handleHash() {
+    var m = (window.location.hash || '').match(/^#faq-(\d+)$/);
+    if (m) openFaqById(Number(m[1]));
+  }
+  handleHash();
+  window.addEventListener('hashchange', handleHash);
 })();
 </script>
