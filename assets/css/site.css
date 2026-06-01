@@ -18524,7 +18524,7 @@ body.aq-is-news .aq-news-hero p {
 
 body.aq-is-news .aq-news-stats {
   display: grid;
-  grid-template-columns: repeat(2, 128px);
+  grid-template-columns: 128px 168px;
   gap: 12px;
 }
 
@@ -18559,6 +18559,11 @@ body.aq-is-news .aq-news-stat strong {
   font-size: 24px;
   font-weight: 950;
   line-height: 1.05;
+}
+
+body.aq-is-news .aq-news-stat.amber strong {
+  font-size: 22px;
+  white-space: nowrap;
 }
 
 body.aq-is-news .aq-news-stat strong small {
