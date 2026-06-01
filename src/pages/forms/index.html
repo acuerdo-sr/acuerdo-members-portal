@@ -106,7 +106,7 @@ data_page: forms
           <span>記入例・記入のポイント</span>
           <span>よくある質問</span>
         </div>
-        <a class="aq-forms-outline-button" href="faq/">ガイドを開く</a>
+        <button type="button" class="aq-forms-outline-button" id="aq-guide-open-btn2">ガイドを開く</button>
       </div>
 
       <div class="aq-forms-panel aq-forms-notice-panel">
@@ -511,15 +511,18 @@ data_page: forms
 
   function bindGuide() {
     var openBtn = document.getElementById('aq-guide-open-btn');
+    var openBtn2 = document.getElementById('aq-guide-open-btn2');
     var overlay = document.getElementById('aq-guide-overlay');
     var closeBtn = document.getElementById('aq-guide-close-btn');
-    if (!openBtn || !overlay) return;
+    if (!overlay) return;
 
-    openBtn.addEventListener('click', function () {
+    function openModal() {
       renderGuide();
       overlay.hidden = false;
       document.body.style.overflow = 'hidden';
-    });
+    }
+    if (openBtn) openBtn.addEventListener('click', openModal);
+    if (openBtn2) openBtn2.addEventListener('click', openModal);
     closeBtn.addEventListener('click', function () {
       overlay.hidden = true;
       document.body.style.overflow = '';
