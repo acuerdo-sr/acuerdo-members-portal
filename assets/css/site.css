@@ -1308,12 +1308,19 @@ body {
   inset: 36px auto 36px 36px;
   width: var(--aq-sidebar-box-w);
   height: auto;
+  max-height: calc(100vh - 72px);
   display: flex;
   border: 1px solid #d9e0ea;
   border-radius: 28px;
   background: #fff;
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
 }
+
+#aq-sidebar::-webkit-scrollbar { width: 6px; }
+#aq-sidebar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 999px; }
+#aq-sidebar::-webkit-scrollbar-track { background: transparent; }
 
 .aq-sidebar-inner {
   gap: 28px;
