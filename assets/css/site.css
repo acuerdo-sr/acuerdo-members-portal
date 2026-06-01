@@ -16081,17 +16081,22 @@ body.aq-is-lawrev .aq-lr-featured-grid {
 }
 
 body.aq-is-lawrev .aq-lr-feat-card {
-  height: 170px !important;
+  height: 210px !important;
   min-height: 0 !important;
   display: flex !important;
   flex-direction: column !important;
   border-radius: 8px !important;
   padding: 18px !important;
+  overflow: hidden !important;
 }
 
 body.aq-is-lawrev .aq-lr-feat-card h3 {
   margin-bottom: 10px !important;
   font-size: 16px !important;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 body.aq-is-lawrev .aq-lr-feat-card p {
@@ -16106,6 +16111,7 @@ body.aq-is-lawrev .aq-lr-feat-card p {
 
 body.aq-is-lawrev .aq-lr-feat-foot {
   margin-top: auto !important;
+  padding-top: 8px !important;
 }
 
 body.aq-is-lawrev .aq-lr-badge.critical {
