@@ -11,25 +11,41 @@ data_page: news
 <input type="radio" name="news-cat" id="news-cat-hojo"  class="aq-news-cat-radio">
 <input type="radio" name="news-cat" id="news-cat-law"   class="aq-news-cat-radio">
 
-<main class="aq-subpage-main">
+<main class="aq-subpage-main aq-news-page">
 
-<header class="aq-subpage-hero">
-  <div class="aq-subpage-hero-text">
-    <p class="aq-hero-kicker">アクエルド からのお知らせ</p>
+<header class="aq-news-hero">
+  <div class="aq-news-hero-text">
+    <p class="aq-news-eyebrow">ACUERDO NEWS</p>
     <h1>最新情報・コラム</h1>
     <p>助成金・補助金・法改正の最新情報、新サービス公開のご案内をお届けします。</p>
   </div>
+  <div class="aq-news-stats" aria-label="掲載状況">
+    <div class="aq-news-stat"><span>掲載情報</span><strong>__NEWS_COUNT__<small>件</small></strong></div>
+    <div class="aq-news-stat amber"><span>最終更新</span><strong>__NEWS_LATEST_DATE__</strong></div>
+  </div>
 </header>
 
-<div class="aq-subpage-tabs" role="tablist">
-  <label class="aq-news-tab" for="news-cat-all">すべて</label>
-  <label class="aq-news-tab" for="news-cat-josei">助成金</label>
-  <label class="aq-news-tab" for="news-cat-hojo">補助金</label>
-  <label class="aq-news-tab" for="news-cat-law">法改正</label>
-</div>
+<section class="aq-news-toolbar" aria-label="カテゴリで絞り込み">
+  <div class="aq-news-toolbar-title">
+    <span>FILTER</span>
+    <strong>カテゴリで表示</strong>
+  </div>
+  <div class="aq-subpage-tabs aq-news-tabs" role="tablist">
+    <label class="aq-news-tab" for="news-cat-all">すべて</label>
+    <label class="aq-news-tab" for="news-cat-josei">助成金</label>
+    <label class="aq-news-tab" for="news-cat-hojo">補助金</label>
+    <label class="aq-news-tab" for="news-cat-law">法改正</label>
+  </div>
+</section>
 
 <div class="aq-news-list" id="aq-news-list">__NEWS_CARDS_HTML__</div>
 
-<p class="aq-subpage-note">※ 各お知らせの末尾に詳細ページや関連リンクを掲載しています。気になる項目があれば担当者へお気軽にお問い合わせください。</p>
+<section class="aq-news-consult">
+  <div>
+    <h2>気になる情報があれば、実施前にご相談ください</h2>
+    <p>助成金・補助金は事前確認が重要です。対象になりそうな取り組みがあれば、担当者へお気軽にお声がけください。</p>
+  </div>
+  <a href="contact/">相談する</a>
+</section>
 
 </main></div>

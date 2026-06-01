@@ -141,7 +141,12 @@ def _notice_search_text(r: dict) -> str:
 def render_news(html: str) -> str:
     """お知らせカード/タブをビルド時に静的HTMLとして埋め込む(ブラウザ拡張等でJSが
     妨げられてもカードが必ず表示されるようにするため)。"""
-    if "__NEWS_CARDS_HTML__" not in html and "__NEWS_TABS_HTML__" not in html:
+    if (
+        "__NEWS_CARDS_HTML__" not in html
+        and "__NEWS_TABS_HTML__" not in html
+        and "__NEWS_COUNT__" not in html
+        and "__NEWS_LATEST_DATE__" not in html
+    ):
         return html
     data_path = SRC / "data" / "news.json"
     if not data_path.exists():
@@ -165,27 +170,38 @@ def render_news(html: str) -> str:
         link_html = ""
         if r.get("url"):
             link_html = (
-                f'<a class="aq-news-link" href="{_esc(r["url"])}" target="_blank" rel="noopener">'
-                f'{_esc(r.get("url_label") or "ページを開く")} ›</a>'
+                f'<a class="aq-news-link" href="{_esc(r["url"])}" target="_blank" rel="noopener" '
+                f'aria-label="{_esc(r.get("title") or "")}の外部LPを開く">'
+                f'<span>外部LPを開く</span>'
+                f'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7"/><path d="M9 7h8v8"/></svg>'
+                f"</a>"
             )
         cards_html += (
             f'<article class="aq-news-card aq-tag-{_esc(r.get("tag_color") or "navy")}" data-cat="{_esc(r.get("category") or "")}">'
-            f'<header class="aq-news-card-head">'
-            f'<span class="aq-news-icon">{_esc(r.get("icon") or "📌")}</span>'
+            f'<div class="aq-news-card-top">'
+            f'<span class="aq-news-icon" aria-hidden="true">{_esc(r.get("icon") or "📌")}</span>'
             f'<div class="aq-news-meta">'
-            f'<time class="aq-news-date">{_esc(_fmt_date_ja(r.get("date") or ""))}</time>'
             f'<span class="aq-news-cat">{_esc(r.get("category") or "")}</span>'
+            f'<time class="aq-news-date" datetime="{_esc(r.get("date") or "")}">{_esc(_fmt_date_ja(r.get("date") or ""))}</time>'
             f"</div>"
-            f"</header>"
+            f"</div>"
             f'<h2 class="aq-news-title">{_esc(r.get("title") or "")}</h2>'
             + (f'<p class="aq-news-lead">{_esc(r["lead"])}</p>' if r.get("lead") else "")
-            + f'<div class="aq-news-body">{r.get("body_html") or ""}</div>'
+            + (
+                f'<details class="aq-news-detail"><summary>本文を確認する</summary>'
+                f'<div class="aq-news-body">{r.get("body_html") or ""}</div></details>'
+                if r.get("body_html")
+                else ""
+            )
             + link_html
             + "</article>"
         )
 
     html = html.replace("__NEWS_TABS_HTML__", tabs_html)
     html = html.replace("__NEWS_CARDS_HTML__", cards_html)
+    html = html.replace("__NEWS_COUNT__", str(len(items_sorted)))
+    latest_date = _fmt_date_slash(items_sorted[0].get("date") or "") if items_sorted else "-"
+    html = html.replace("__NEWS_LATEST_DATE__", latest_date)
     return html
 
 

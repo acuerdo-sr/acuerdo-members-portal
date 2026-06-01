@@ -13,7 +13,7 @@
 
 {% include '_layout/partials/chrome_pre.html' %}
 
-{% if 'aq-is-home' not in body_class %}
+{% if 'aq-is-home' not in body_class and 'aq-is-news' not in body_class %}
 <nav class="aq-breadcrumb" aria-label="パンくず">
   <a href="./" class="aq-breadcrumb-home"><span class="aq-breadcrumb-arrow">←</span><span>ホームに戻る</span></a>
   <span class="aq-breadcrumb-sep">／</span>
