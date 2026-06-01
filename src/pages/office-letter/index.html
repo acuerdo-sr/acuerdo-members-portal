@@ -1,0 +1,62 @@
+{# meta:
+title: 事務所通信
+body_class: aq-is-office-letter
+data_page: office-letter
+#}
+
+<div id="aq-office-wrap" class="aq-subpage-wrap">
+
+<input type="radio" name="office-type" id="office-type-all" class="aq-office-type-radio" checked>
+<input type="radio" name="office-type" id="office-type-general" class="aq-office-type-radio">
+<input type="radio" name="office-type" id="office-type-medical" class="aq-office-type-radio">
+<input type="radio" name="office-type" id="office-type-care" class="aq-office-type-radio">
+
+<main class="aq-subpage-main aq-office-main">
+
+<header class="aq-office-hero">
+  <div class="aq-office-hero-text">
+    <p class="aq-office-eyebrow">OFFICE LETTER</p>
+    <h1>事務所通信アーカイブ</h1>
+    <p>毎月の人事労務トピックをまとめた事務所通信を、通常版・医療版・介護版ごとに確認できます。</p>
+  </div>
+  <div class="aq-office-stats" aria-label="掲載状況">
+    <div class="aq-office-stat"><span>掲載PDF</span><strong>__OFFICE_LETTER_COUNT__<small>件</small></strong></div>
+    <div class="aq-office-stat teal"><span>掲載月</span><strong>__OFFICE_LETTER_MONTH_COUNT__<small>か月</small></strong></div>
+    <div class="aq-office-stat amber"><span>最新号</span><strong>__OFFICE_LETTER_LATEST__</strong></div>
+  </div>
+</header>
+
+<section class="aq-office-filter" aria-label="事務所通信の種類で絞り込み">
+  <div class="aq-office-filter-title">
+    <span>FILTER</span>
+    <strong>種類で表示</strong>
+  </div>
+  <div class="aq-office-tabs" role="tablist">
+    <label class="aq-office-tab" for="office-type-all">すべて</label>
+    <label class="aq-office-tab" for="office-type-general">通常版</label>
+    <label class="aq-office-tab" for="office-type-medical">医療版</label>
+    <label class="aq-office-tab" for="office-type-care">介護版</label>
+  </div>
+</section>
+
+<section class="aq-office-archive" aria-label="過去の事務所通信">
+  <div class="aq-office-section-head">
+    <div>
+      <p>ARCHIVE</p>
+      <h2>過去の事務所通信</h2>
+    </div>
+    <span>新しい月から表示</span>
+  </div>
+  __OFFICE_LETTER_ARCHIVE_HTML__
+</section>
+
+<section class="aq-office-note">
+  <div>
+    <h2>顧問先様向けの社内共有・確認資料としてご活用ください</h2>
+    <p>気になる記事や自社への影響がありそうな内容がございましたら、担当者までお気軽にご相談ください。</p>
+  </div>
+  <a href="contact/">相談する</a>
+</section>
+
+</main>
+</div>

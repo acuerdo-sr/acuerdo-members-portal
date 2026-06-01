@@ -36,8 +36,11 @@ ROOT = Path(__file__).resolve().parent.parent
 SRC = ROOT / "src"
 ASSETS = ROOT / "assets"
 DIST = ROOT / "dist"
+OFFICE_LETTER_SRC = ROOT / "事務所通信"
+OFFICE_LETTER_DIST_REL = "assets/pdf/office-letter"
 
 META_RE = re.compile(r"\{#\s*meta:\s*(.+?)#\}", re.S)
+OFFICE_LETTER_RE = re.compile(r"^\[(\d{4})年(\d{1,2})月号\]\s*事務所通信(?:\s*(医療|介護))?\.pdf$")
 
 
 def parse_meta(text: str) -> tuple[dict[str, str], str]:
@@ -112,6 +115,60 @@ def _fmt_date_slash(s: str) -> str:
     if not m:
         return s
     return f"{m.group(1)}/{m.group(2)}/{m.group(3)}"
+
+
+def _fmt_file_size(size: int) -> str:
+    if size >= 1024 * 1024:
+        return f"{size / (1024 * 1024):.1f}MB"
+    return f"{size / 1024:.0f}KB"
+
+
+def collect_office_letters() -> list[dict]:
+    if not OFFICE_LETTER_SRC.exists():
+        return []
+
+    kinds = {
+        "": ("general", "通常版", "人事労務の最新トピックを顧問先様向けに読みやすくまとめた通常版です。", 0),
+        "医療": ("medical", "医療版", "医療機関向けの労務管理・制度改正トピックをまとめた事務所通信です。", 1),
+        "介護": ("care", "介護版", "介護事業所向けの人事労務・運営に関わる情報をまとめた事務所通信です。", 2),
+    }
+    items: list[dict] = []
+    for path in OFFICE_LETTER_SRC.glob("*.pdf"):
+        m = OFFICE_LETTER_RE.match(path.name)
+        if not m:
+            continue
+        year = int(m.group(1))
+        month = int(m.group(2))
+        raw_kind = m.group(3) or ""
+        kind, kind_label, description, order = kinds[raw_kind]
+        file_name = f"office-letter-{year}-{month:02d}-{kind}.pdf"
+        items.append(
+            {
+                "year": year,
+                "month": month,
+                "month_key": f"{year}-{month:02d}",
+                "month_label": f"{year}年{month}月号",
+                "kind": kind,
+                "kind_label": kind_label,
+                "description": description,
+                "order": order,
+                "source_path": path,
+                "file_name": file_name,
+                "href": f"{OFFICE_LETTER_DIST_REL}/{file_name}",
+                "size": _fmt_file_size(path.stat().st_size),
+            }
+        )
+    return sorted(items, key=lambda r: (-r["year"], -r["month"], r["order"]))
+
+
+def copy_office_letter_pdfs(items: list[dict]) -> None:
+    if not items:
+        return
+    target_dir = DIST / OFFICE_LETTER_DIST_REL
+    target_dir.mkdir(parents=True, exist_ok=True)
+    for item in items:
+        shutil.copy2(item["source_path"], target_dir / item["file_name"])
+    print(f"[copy] 事務所通信/ -> {target_dir.relative_to(ROOT)}/")
 
 
 def _notice_date_label(r: dict) -> str:
@@ -275,6 +332,68 @@ def render_home_recommendations(html: str) -> str:
         )
 
     return html.replace("__HOME_RECOMMENDATIONS_HTML__", cards_html)
+
+
+def render_office_letters(html: str) -> str:
+    if "__OFFICE_LETTER_ARCHIVE_HTML__" not in html:
+        return html
+
+    items = collect_office_letters()
+    if not items:
+        empty_html = '<div class="aq-office-empty">現在公開中の事務所通信はありません。</div>'
+        return (
+            html.replace("__OFFICE_LETTER_ARCHIVE_HTML__", empty_html)
+            .replace("__OFFICE_LETTER_COUNT__", "0")
+            .replace("__OFFICE_LETTER_MONTH_COUNT__", "0")
+            .replace("__OFFICE_LETTER_LATEST__", "-")
+        )
+
+    months = []
+    for item in items:
+        if item["month_key"] not in months:
+            months.append(item["month_key"])
+
+    archive_html = ""
+    for month_key in months:
+        month_items = [item for item in items if item["month_key"] == month_key]
+        month_label = month_items[0]["month_label"]
+        cards_html = ""
+        for item in month_items:
+            title = f'{item["month_label"]} 事務所通信 {item["kind_label"]}'
+            cards_html += (
+                f'<article class="aq-office-card aq-office-{_esc(item["kind"])}" data-kind="{_esc(item["kind"])}">'
+                f'<div class="aq-office-card-top">'
+                f'<span class="aq-office-kind">{_esc(item["kind_label"])}</span>'
+                f'<span class="aq-office-size">{_esc(item["size"])}</span>'
+                f"</div>"
+                f"<h3>{_esc(title)}</h3>"
+                f"<p>{_esc(item['description'])}</p>"
+                f'<div class="aq-office-actions">'
+                f'<a class="aq-office-btn primary" href="{_esc(item["href"])}" target="_blank" rel="noopener">'
+                f'PDFを開く <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7"/><path d="M9 7h8v8"/></svg></a>'
+                f'<a class="aq-office-btn secondary" href="{_esc(item["href"])}" download>'
+                f'ダウンロード <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg></a>'
+                f"</div>"
+                f"</article>"
+            )
+
+        archive_html += (
+            f'<section class="aq-office-month">'
+            f'<div class="aq-office-month-head">'
+            f"<h2>{_esc(month_label)}</h2>"
+            f"<span>{len(month_items)}件</span>"
+            f"</div>"
+            f'<div class="aq-office-cards">{cards_html}</div>'
+            f"</section>"
+        )
+
+    latest = items[0]["month_label"]
+    return (
+        html.replace("__OFFICE_LETTER_ARCHIVE_HTML__", archive_html)
+        .replace("__OFFICE_LETTER_COUNT__", str(len(items)))
+        .replace("__OFFICE_LETTER_MONTH_COUNT__", str(len(months)))
+        .replace("__OFFICE_LETTER_LATEST__", latest)
+    )
 
 
 def render_notice_archive(html: str) -> str:
@@ -463,6 +582,8 @@ def main(base_href: str = "/") -> int:
     # assets コピー
     shutil.copytree(ASSETS, DIST / "assets")
     print(f"[copy] assets/ -> dist/assets/")
+    office_letter_items = collect_office_letters()
+    copy_office_letter_pdfs(office_letter_items)
 
     # キャッシュバスター: site.css の mtime + 短いハッシュをビルドバージョンとして使う
     import hashlib
@@ -492,6 +613,7 @@ def main(base_href: str = "/") -> int:
         content = render_home_notices(content)
         content = render_home_recommendations(content)
         content = render_news(content)
+        content = render_office_letters(content)
         content = inject_data(content)
 
         # Jinja の構文（{{ ... }}）がpages内に無いことを前提に、content はそのまま安全に渡す
