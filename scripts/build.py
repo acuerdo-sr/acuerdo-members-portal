@@ -220,6 +220,47 @@ def render_home_notices(html: str) -> str:
     return html.replace("__HOME_NOTICES_HTML__", rows_html)
 
 
+def render_home_recommendations(html: str) -> str:
+    """トップページのおすすめ情報をnews.jsonから生成する。"""
+    if "__HOME_RECOMMENDATIONS_HTML__" not in html:
+        return html
+    data_path = SRC / "data" / "news.json"
+    if not data_path.exists():
+        return html.replace("__HOME_RECOMMENDATIONS_HTML__", "")
+
+    items = json.loads(data_path.read_text(encoding="utf-8"))
+    items_sorted = sorted(items, key=lambda r: r.get("date", ""), reverse=True)
+    cards_html = ""
+
+    for r in items_sorted:
+        url = r.get("url")
+        if not url:
+            continue
+        tag_color = r.get("tag_color") or "navy"
+        category = r.get("category") or "おすすめ"
+        title = r.get("title") or ""
+        lead = r.get("lead") or ""
+
+        cards_html += (
+            f'<a class="aq-recommend-card aq-tag-{_esc(tag_color)}" '
+            f'href="{_esc(url)}" target="_blank" rel="noopener" '
+            f'aria-label="{_esc(title)}の外部LPを開く">'
+            f'<span class="aq-recommend-meta">'
+            f'<span class="aq-recommend-tag {_esc(tag_color)}">{_esc(category)}</span>'
+            f'<time datetime="{_esc(r.get("date") or "")}">{_esc(_fmt_date_slash(r.get("date") or ""))}</time>'
+            f"</span>"
+            f'<span class="aq-recommend-icon" aria-hidden="true">{_esc(r.get("icon") or "↗")}</span>'
+            f"<strong>{_esc(title)}</strong>"
+            + (f"<p>{_esc(lead)}</p>" if lead else "")
+            + '<span class="aq-recommend-link">外部LPを開く '
+            + '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7"/><path d="M9 7h8v8"/></svg>'
+            + "</span>"
+            + "</a>"
+        )
+
+    return html.replace("__HOME_RECOMMENDATIONS_HTML__", cards_html)
+
+
 def render_notice_archive(html: str) -> str:
     """MyKomon/PSR由来のお知らせ一覧ページをJSONから生成する。"""
     if (
@@ -433,6 +474,7 @@ def main(base_href: str = "/") -> int:
         meta, content = parse_meta(raw)
         content = render_notice_archive(content)
         content = render_home_notices(content)
+        content = render_home_recommendations(content)
         content = render_news(content)
         content = inject_data(content)
 

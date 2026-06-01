@@ -18228,3 +18228,221 @@ body.aq-is-contact .aq-contact-main {
     flex: 1 1 180px;
   }
 }
+
+/* ============================================================
+   Home: external LP recommendation carousel
+   ============================================================ */
+
+body.aq-is-home .aq-recommend-strip {
+  width: 100% !important;
+  min-width: 0 !important;
+  margin: -2px -2px 0 !important;
+  padding: 2px 2px 10px !important;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  scroll-snap-type: x mandatory !important;
+  scrollbar-gutter: stable !important;
+}
+
+body.aq-is-home .aq-recommend-strip:focus {
+  outline: 2px solid rgba(29, 100, 216, .28) !important;
+  outline-offset: 2px !important;
+}
+
+body.aq-is-home .aq-recommend-strip::-webkit-scrollbar {
+  height: 10px !important;
+}
+
+body.aq-is-home .aq-recommend-strip::-webkit-scrollbar-track {
+  background: #eef3f8 !important;
+  border-radius: 999px !important;
+}
+
+body.aq-is-home .aq-recommend-strip::-webkit-scrollbar-thumb {
+  background: #b8c7da !important;
+  border: 2px solid #eef3f8 !important;
+  border-radius: 999px !important;
+}
+
+body.aq-is-home .aq-recommend-strip .aq-recommend-grid {
+  width: max-content !important;
+  max-width: none !important;
+  display: flex !important;
+  grid-template-columns: none !important;
+  align-items: stretch !important;
+  gap: 12px !important;
+}
+
+body.aq-is-home .aq-recommend-strip .aq-recommend-card {
+  position: relative !important;
+  flex: 0 0 220px !important;
+  width: 220px !important;
+  min-height: 156px !important;
+  height: auto !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 7px !important;
+  padding: 12px 13px 11px !important;
+  border: 1px solid #d8e3f0 !important;
+  border-top: 4px solid #2563eb !important;
+  border-radius: 8px !important;
+  background: #fff !important;
+  color: #13213a !important;
+  text-decoration: none !important;
+  box-shadow: 0 5px 16px rgba(11, 23, 48, .08) !important;
+  scroll-snap-align: start !important;
+  overflow: hidden !important;
+  transition: border-color .16s ease, box-shadow .16s ease, transform .16s ease !important;
+}
+
+body.aq-is-home .aq-recommend-strip .aq-recommend-card:hover,
+body.aq-is-home .aq-recommend-strip .aq-recommend-card:focus-visible {
+  border-color: #9bb5d5 !important;
+  box-shadow: 0 8px 22px rgba(11, 23, 48, .13) !important;
+  transform: translateY(-1px) !important;
+}
+
+body.aq-is-home .aq-recommend-strip .aq-recommend-card:focus-visible {
+  outline: 2px solid rgba(29, 100, 216, .35) !important;
+  outline-offset: 2px !important;
+}
+
+body.aq-is-home .aq-recommend-strip .aq-recommend-card > * {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+body.aq-is-home .aq-recommend-strip .aq-recommend-card.aq-tag-navy {
+  border-top-color: #2563eb !important;
+}
+
+body.aq-is-home .aq-recommend-strip .aq-recommend-card.aq-tag-wine {
+  border-top-color: #b91c1c !important;
+}
+
+body.aq-is-home .aq-recommend-strip .aq-recommend-card.aq-tag-gold {
+  border-top-color: #d97706 !important;
+}
+
+body.aq-is-home .aq-recommend-strip .aq-recommend-meta {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 8px !important;
+}
+
+body.aq-is-home .aq-recommend-strip .aq-recommend-meta time {
+  color: #7b8ba1 !important;
+  font-size: 10.5px !important;
+  font-weight: 800 !important;
+  line-height: 1.2 !important;
+  white-space: nowrap !important;
+}
+
+body.aq-is-home .aq-recommend-strip .aq-recommend-tag {
+  width: auto !important;
+  min-height: 18px !important;
+  margin: 0 !important;
+  padding: 3px 9px !important;
+  border-radius: 999px !important;
+  font-size: 11px !important;
+  font-weight: 900 !important;
+  line-height: 1 !important;
+  white-space: nowrap !important;
+}
+
+body.aq-is-home .aq-recommend-strip .aq-recommend-tag.navy {
+  color: #245bb4 !important;
+  background: #e8f1ff !important;
+}
+
+body.aq-is-home .aq-recommend-strip .aq-recommend-tag.wine {
+  color: #9f1d1d !important;
+  background: #fee7e7 !important;
+}
+
+body.aq-is-home .aq-recommend-strip .aq-recommend-tag.gold {
+  color: #8a570c !important;
+  background: #fff3cf !important;
+}
+
+body.aq-is-home .aq-recommend-strip .aq-recommend-icon {
+  display: none !important;
+}
+
+body.aq-is-home .aq-recommend-strip .aq-recommend-icon::before {
+  content: none !important;
+  display: none !important;
+}
+
+body.aq-is-home .aq-recommend-strip .aq-recommend-card strong {
+  min-height: 38px !important;
+  margin-top: 0 !important;
+  padding-right: 0 !important;
+  display: -webkit-box !important;
+  overflow: hidden !important;
+  color: #13213a !important;
+  font-size: 13.2px !important;
+  font-weight: 900 !important;
+  line-height: 1.42 !important;
+  overflow-wrap: anywhere !important;
+  -webkit-line-clamp: 2 !important;
+  -webkit-box-orient: vertical !important;
+}
+
+body.aq-is-home .aq-recommend-strip .aq-recommend-card p {
+  min-height: 36px !important;
+  margin: 0 !important;
+  display: -webkit-box !important;
+  overflow: hidden !important;
+  color: #475569 !important;
+  font-size: 11.4px !important;
+  font-weight: 700 !important;
+  line-height: 1.55 !important;
+  overflow-wrap: anywhere !important;
+  -webkit-line-clamp: 2 !important;
+  -webkit-box-orient: vertical !important;
+}
+
+body.aq-is-home .aq-recommend-strip .aq-recommend-link {
+  position: static !important;
+  inset: auto !important;
+  min-height: 24px !important;
+  margin-top: auto !important;
+  padding: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 6px !important;
+  align-self: flex-start !important;
+  color: #0f4eb3 !important;
+  font-size: 11.8px !important;
+  font-weight: 900 !important;
+  line-height: 1.2 !important;
+}
+
+body.aq-is-home .aq-recommend-strip .aq-recommend-link svg {
+  width: 15px !important;
+  height: 15px !important;
+  flex: 0 0 auto !important;
+  fill: none !important;
+  stroke: currentColor !important;
+  stroke-width: 2.4 !important;
+  stroke-linecap: round !important;
+  stroke-linejoin: round !important;
+}
+
+@media (max-width: 820px) {
+  body.aq-is-home .aq-recommend-strip .aq-recommend-card {
+    flex-basis: min(72vw, 260px) !important;
+    width: min(72vw, 260px) !important;
+  }
+}
+
+@media (max-width: 560px) {
+  body.aq-is-home .aq-recommend-strip .aq-recommend-card {
+    flex-basis: min(78vw, 260px) !important;
+    width: min(78vw, 260px) !important;
+    min-height: 154px !important;
+  }
+}
