@@ -10,14 +10,14 @@
   <link rel="icon" href="https://assets.super.so/ff55fa24-943b-4570-bc4b-3531dfc71017/uploads/favicon/2271fa94-63af-4f5e-8ac4-48481418b2c3.png">
   <script>
   /* ===== 簡易パスワードゲート =====
-     合言葉を変更したい場合は EXPECTED_HASH を更新してください。
+     パスワードを変更したい場合は EXPECTED_HASH を更新してください。
      新しいハッシュ値は scripts/gen_password_hash.py または
      次のコマンドで生成:
        python -c "import hashlib;print(hashlib.sha256('YOUR_PASSWORD'.encode()).hexdigest())"
      有効期間は 30 日 (それを過ぎたら再入力)。
   */
   (function () {
-    var EXPECTED_HASH = 'f12251770ec6c1ec1c04ff395ca9fed3e9d57dc8bc2420b62f7884601dd49245'; // 合言葉: acuerdo2026
+    var EXPECTED_HASH = 'f12251770ec6c1ec1c04ff395ca9fed3e9d57dc8bc2420b62f7884601dd49245'; // パスワード: acuerdo2026
     var KEY = 'aq-auth-v1';
     var TTL_MS = 30 * 24 * 60 * 60 * 1000; // 30日
 
@@ -61,8 +61,8 @@
         '</style>' +
         '<form id="aq-auth-card" autocomplete="off">' +
           '<h1>顧問先専用ページ</h1>' +
-          '<p>合言葉を入力してください</p>' +
-          '<input id="aq-auth-pwd" type="password" placeholder="合言葉" autofocus required>' +
+          '<p>パスワードを入力してください</p>' +
+          '<input id="aq-auth-pwd" type="password" placeholder="パスワード" autocomplete="current-password" autofocus required>' +
           '<button id="aq-auth-btn" type="submit">入る</button>' +
           '<div id="aq-auth-err"></div>' +
         '</form>';
@@ -79,7 +79,9 @@
             try { localStorage.setItem(KEY, JSON.stringify({ h: h, t: Date.now() })); } catch (e) {}
             gate.remove();
           } else {
-            err.textContent = '合言葉が違います';
+            err.textContent = 'パスワードが違います';
+            document.getElementById('aq-auth-pwd').value = '';
+            document.getElementById('aq-auth-pwd').focus();
             card.classList.remove('is-error');
             void card.offsetWidth;
             card.classList.add('is-error');
