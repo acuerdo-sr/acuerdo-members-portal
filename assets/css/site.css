@@ -19648,3 +19648,212 @@ body.aq-is-home .aq-trouble-email {
     min-height: 92px !important;
   }
 }
+
+/* ============================================================
+   Responsive safety net (全ページ共通)
+   モバイル/タブレットでよくある overflow・崩れを一括防止
+   ============================================================ */
+
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+img, svg, video, iframe {
+  max-width: 100%;
+  height: auto;
+}
+
+/* ---- タブレット (≤1100px) ---- */
+@media (max-width: 1100px) {
+  .aq-purpose-grid,
+  .aq-content-grid,
+  .aq-menu-grid,
+  .aq-check-list {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)) !important;
+  }
+}
+
+/* ---- モバイル/タブレット (≤820px) ---- */
+@media (max-width: 820px) {
+  /* サイドバーオフキャンバス & ハンバーガー表示 */
+  body {
+    margin-left: 0 !important;
+  }
+
+  #aq-sidebar {
+    inset: 0 auto 0 0 !important;
+    width: min(86vw, 320px) !important;
+    max-height: 100vh !important;
+    height: 100vh !important;
+    border-radius: 0 !important;
+    border: 0 !important;
+    transform: translateX(-100%);
+    transition: transform .25s ease;
+    z-index: 1150 !important;
+  }
+
+  #aq-sidebar.is-open {
+    transform: translateX(0);
+  }
+
+  #aq-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1140;
+    background: rgba(0,0,0,.45);
+    display: none;
+  }
+
+  #aq-overlay.is-open {
+    display: block;
+  }
+
+  #aq-hamburger {
+    position: fixed !important;
+    top: 14px;
+    right: 14px;
+    z-index: 1200;
+    width: 44px;
+    height: 44px;
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    border: 0;
+    border-radius: 10px;
+    background: #0b1730;
+    cursor: pointer;
+  }
+
+  #aq-hamburger span {
+    display: block;
+    width: 20px;
+    height: 2px;
+    background: #fff;
+    border-radius: 2px;
+  }
+
+  /* テーブルを横スクロール可能に */
+  table {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* グリッドを 1〜2 列に集約 */
+  .aq-josdash-grid,
+  .aq-josdash-grid-upper,
+  .aq-josdash-grid-lower,
+  .aq-josdash-bottom,
+  .aq-home-grid,
+  .aq-home-grid-top,
+  .aq-portal-body section,
+  .aq-jl2-bottom-grid,
+  .aq-cal-layout,
+  .aq-faq-v2-content,
+  .aq-contact-content-grid,
+  .aq-svc-svc-cards,
+  .aq-svc-grid3,
+  .aq-svc-grid4 {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* 4 連お問い合わせカードは 2 列に */
+  .aq-contact-route-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  /* タップターゲット最小 44px */
+  button, a.aq-btn-primary, a.aq-btn-secondary,
+  .aq-josdash-btn, .aq-jl2-search-btn, .aq-jl2-clear-btn,
+  .aq-josdash-tile, .aq-purpose-card, .aq-content-card,
+  .aq-faq-v2-tabs button, .aq-faq-v2-cat {
+    min-height: 44px;
+  }
+
+  /* メインコンテンツ余白を縮小 */
+  .aq-subpage-wrap,
+  .aq-portal-body,
+  #aq-portal,
+  .aq-jl2-top,
+  .aq-cal-layout {
+    padding: 70px 14px 24px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  /* ヒーロー圧縮 */
+  .aq-josdash-hero,
+  .aq-home-hero,
+  #aq-hero {
+    grid-template-columns: 1fr !important;
+    padding: 22px 18px !important;
+    gap: 18px !important;
+  }
+
+  .aq-josdash-hero h1,
+  .aq-home-hero h1,
+  .aq-hero-title {
+    font-size: 26px !important;
+    line-height: 1.3 !important;
+  }
+
+  /* ヒーロー右側のイラスト・アート系は非表示 */
+  .aq-hero-illust,
+  .aq-josdash-hero-art {
+    display: none !important;
+  }
+
+  /* モーダルは画面いっぱい近くに */
+  .aq-jl2-modal,
+  .aq-josdash-note-modal,
+  .aq-svc-modal,
+  .aq-guide-modal {
+    width: 94vw !important;
+    max-width: 94vw !important;
+    max-height: 90vh !important;
+  }
+}
+
+/* ---- スマホ (≤560px) ---- */
+@media (max-width: 560px) {
+  /* グリッドをほぼ全て 1 列 */
+  .aq-purpose-grid,
+  .aq-content-grid,
+  .aq-menu-grid,
+  .aq-contact-route-grid,
+  .aq-trouble-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* テキストサイズ控えめ */
+  h1 { font-size: 22px !important; line-height: 1.3 !important; }
+  h2 { font-size: 18px !important; line-height: 1.35 !important; }
+
+  /* CTA バー縦並び */
+  .aq-jl2-cta-bar,
+  .aq-josdash-actions,
+  .aq-hero-actions {
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+
+  .aq-jl2-cta-bar > *,
+  .aq-josdash-actions > *,
+  .aq-hero-actions > * {
+    width: 100% !important;
+  }
+
+  /* セル padding 縮小 */
+  td, th { padding: 8px 10px !important; }
+
+  /* フッターを縦 1 列 */
+  .footer-inner {
+    grid-template-columns: 1fr !important;
+    gap: 14px !important;
+    padding: 22px 18px 14px !important;
+  }
+}
