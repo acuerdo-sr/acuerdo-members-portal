@@ -133,16 +133,15 @@ data_page: faq
     mailbox: '<svg viewBox="0 0 24 24"><path d="M4 20h16"></path><path d="M6 20V9a6 6 0 0 1 12 0v11"></path><path d="M8 12h8"></path><path d="M15 6h3"></path></svg>'
   };
 
-  var groups = [
-    { id: 'employment', label: '入退社・雇用', ids: [3,4,5,10], icon: 'people' },
-    { id: 'contract', label: '労働条件・契約', ids: [1,2,6], icon: 'doc' },
-    { id: 'social', label: '社会保険', ids: [8], icon: 'shield' },
-    { id: 'labor', label: '労働保険', ids: [11,16], icon: 'helmet' },
-    { id: 'payroll', label: '給与・賞与・年末調整', ids: [7], icon: 'yen' },
-    { id: 'grant', label: '助成金', ids: [12], icon: 'care' },
-    { id: 'care', label: '育児・介護休業', ids: [9], icon: 'care' },
-    { id: 'other', label: 'その他・全般', ids: [13,14,15,17], icon: 'more' }
-  ];
+  var CAT_ICON = {
+    1: 'doc', 2: 'people', 3: 'people', 4: 'people', 5: 'people',
+    6: 'bulb', 7: 'yen', 8: 'shield', 9: 'care', 10: 'people',
+    11: 'helmet', 12: 'yen', 13: 'shield', 14: 'headset',
+    15: 'people', 16: 'helmet', 17: 'doc'
+  };
+  var groups = categories.map(function (c) {
+    return { id: 'cat-' + c.id, label: c.title, ids: [c.id], icon: CAT_ICON[c.id] || 'doc' };
+  });
 
   var els = {
     search: document.getElementById('aq-faq-search'),
