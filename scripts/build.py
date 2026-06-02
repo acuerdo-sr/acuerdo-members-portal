@@ -195,7 +195,7 @@ def _notice_search_text(r: dict) -> str:
     )
 
 
-HOME_NOTICE_LIMIT = 4
+HOME_NOTICE_LIMIT = 10
 EXCLUDED_NOTICE_CATEGORIES = {
     "会社のリーフレット",
     "psr更新情報",
