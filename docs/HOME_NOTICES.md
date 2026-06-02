@@ -11,7 +11,8 @@
 5. `main` に push すると GitHub Pages へ反映される
 
 MyKomonへログインできない場合も、`PSR_TOPICS_URL` の公開ページから取得を試みます。
-同じURLのお知らせが既にある場合、手で整えた `title`、`summary`、`body_html` は保持されます。
+MyKomonへログインできる場合は、PSRに加えてMyKomonの人事労務ニュースも取得します。
+同じURLのお知らせが既にある場合、手で整えた `title`、`summary`、`body_html`、`source_body_html` は保持されます。
 標準では今年の1月1日以降を全件取得します。期間を変える場合は、たとえば `python scripts/update_home_notices.py --since 2026-04-01` のように指定します。
 
 ## 主な項目
@@ -32,6 +33,7 @@ MyKomonへログインできない場合も、`PSR_TOPICS_URL` の公開ペー�
 
 - 日付の新しい順で表示されます。
 - 行をクリックすると説明が同じスクロール枠の中で開きます。
-- トップページには最新30件を表示し、「すべて見る」から `/notices/` の全件一覧を開けます。
+- トップページには最新4件を表示し、「すべて見る」から `/notices/` の全件一覧を開けます。
+- `category` が `PSR更新情報` または `会社のリーフレット` の記事は、トップページ、一覧、詳細ページには表示しません。
 - `source_type` が `リーフレット` の場合、ラベル色が変わります。
 - `tag_color` は `navy`、`wine`、`gold`、`sky`、`violet`、`gray` が使えます。
