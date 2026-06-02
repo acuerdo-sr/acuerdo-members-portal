@@ -45,6 +45,17 @@ BLOCK_TAGS = ("div", "section", "article", "main")
 EXCLUDED_IMPORT_CATEGORIES = {"会社のリーフレット", "psr更新情報"}
 _EXCLUDED_IMPORT_KEYS = {"".join(c.split()).casefold() for c in EXCLUDED_IMPORT_CATEGORIES}
 
+# 事務所からの内部発信（在宅勤務・臨時休業案内等の自社お知らせ）を判別する文面マーカー。
+OFFICE_NOTICE_MARKERS = ("平素は格別", "ご高配を賜り", "誠に勝手ながら")
+
+
+def _is_office_internal(item: dict) -> bool:
+    text = " ".join(
+        str(item.get(k) or "")
+        for k in ("title", "summary", "body_html", "source_body_html", "source_title")
+    )
+    return any(marker in text for marker in OFFICE_NOTICE_MARKERS)
+
 
 def strip_tags(html: str) -> str:
     text = re.sub(r"<script[\s\S]*?</script>|<style[\s\S]*?</style>", " ", html, flags=re.I)
@@ -510,6 +521,13 @@ def main() -> int:
 
     if not entries:
         raise RuntimeError("PSRページからお知らせを取得できませんでした。")
+
+    # 事務所からの内部発信（在宅勤務・臨時休業案内等の自社お知らせ）は取り込まない。
+    before = len(selected)
+    selected = [item for item in selected if not _is_office_internal(item)]
+    skipped = before - len(selected)
+    if skipped:
+        print(f"[skip] 事務所発信のお知らせ {skipped}件を除外しました。")
 
     notices = merge_existing(selected, existing)
     DATA_PATH.write_text(json.dumps(notices, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")

@@ -272,9 +272,26 @@ def _notice_cat_key(value) -> str:
 
 _EXCLUDED_NOTICE_KEYS = {_notice_cat_key(c) for c in EXCLUDED_NOTICE_CATEGORIES}
 
+# 事務所からの内部発信（在宅勤務・臨時休業・営業案内等の自社お知らせ）を判別する文面マーカー。
+# PSRの労務ニュースは三人称の記事体だが、自社発信は「平素は格別のご高配を賜り…」等の
+# 一人称の挨拶・締め文を含むため、これで判別して表示・取込から除外する。
+OFFICE_NOTICE_MARKERS = ("平素は格別", "ご高配を賜り", "誠に勝手ながら")
+
+
+def _is_office_internal(item: dict) -> bool:
+    text = " ".join(
+        str(item.get(k) or "")
+        for k in ("title", "summary", "body_html", "source_body_html", "source_title")
+    )
+    return any(marker in text for marker in OFFICE_NOTICE_MARKERS)
+
 
 def _is_public_notice(item: dict) -> bool:
-    return _notice_cat_key(item.get("category")) not in _EXCLUDED_NOTICE_KEYS
+    if _notice_cat_key(item.get("category")) in _EXCLUDED_NOTICE_KEYS:
+        return False
+    if _is_office_internal(item):
+        return False
+    return True
 
 
 def render_home_notices(html: str) -> str:
