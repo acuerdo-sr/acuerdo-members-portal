@@ -19859,6 +19859,7 @@ img, svg, video, iframe {
 }
 
 body.aq-is-home .aq-hero-check-card li {
+  display: block !important;
   padding: 0 !important;
   overflow: hidden !important;
 }
@@ -19867,6 +19868,7 @@ body.aq-is-home .aq-hero-check-card li > a {
   min-height: inherit !important;
   width: 100% !important;
   height: 100% !important;
+  box-sizing: border-box !important;
   display: grid !important;
   grid-template-columns: 1fr 12px !important;
   grid-template-rows: 42px minmax(0, 1fr) 16px !important;
