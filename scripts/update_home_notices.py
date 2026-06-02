@@ -416,8 +416,8 @@ def parse_mykomon_entries(html: str, base_url: str) -> list[dict]:
                 "title": title,
                 "summary": "MyKomonの人事労務ニュースから追加しました。詳細はリンク先でご確認ください。",
                 "body_html": (
-                    "<p>MyKomonの人事労務ニュースから追加した情報です。</p>"
-                    "<p>自社の労務管理や従業員対応に関係しそうな内容は、担当者間で共有してください。</p>"
+                    "<p>MyKomonの会員向け人事労務ニュース一覧から追加しました。</p>"
+                    "<p>記事本文の転載は行わず、詳細確認用のリンクのみ掲載しています。</p>"
                 ),
                 "url": url,
                 "source": "MyKomon",
