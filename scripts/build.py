@@ -228,8 +228,8 @@ def render_news(html: str) -> str:
         if r.get("url"):
             link_html = (
                 f'<a class="aq-news-link" href="{_esc(r["url"])}" target="_blank" rel="noopener" '
-                f'aria-label="{_esc(r.get("title") or "")}の外部LPを開く">'
-                f'<span>外部LPを開く</span>'
+                f'aria-label="{_esc(r.get("title") or "")}の特設ページへ移動">'
+                f'<span>特設ページへ移動</span>'
                 f'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7"/><path d="M9 7h8v8"/></svg>'
                 f"</a>"
             )
