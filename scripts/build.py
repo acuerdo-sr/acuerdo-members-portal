@@ -317,7 +317,7 @@ def render_home_recommendations(html: str) -> str:
         cards_html += (
             f'<a class="aq-recommend-card aq-tag-{_esc(tag_color)}" '
             f'href="{_esc(url)}" target="_blank" rel="noopener" '
-            f'aria-label="{_esc(title)}の外部LPを開く">'
+            f'aria-label="{_esc(title)}の特設ページへ移動">'
             f'<span class="aq-recommend-meta">'
             f'<span class="aq-recommend-tag {_esc(tag_color)}">{_esc(category)}</span>'
             f'<time datetime="{_esc(r.get("date") or "")}">{_esc(_fmt_date_slash(r.get("date") or ""))}</time>'
@@ -325,7 +325,7 @@ def render_home_recommendations(html: str) -> str:
             f'<span class="aq-recommend-icon" aria-hidden="true">{_esc(r.get("icon") or "↗")}</span>'
             f"<strong>{_esc(title)}</strong>"
             + (f"<p>{_esc(lead)}</p>" if lead else "")
-            + '<span class="aq-recommend-link">外部LPを開く '
+            + '<span class="aq-recommend-link">特設ページへ移動 '
             + '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7"/><path d="M9 7h8v8"/></svg>'
             + "</span>"
             + "</a>"
