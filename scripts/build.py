@@ -262,6 +262,21 @@ def render_news(html: str) -> str:
     return html
 
 
+# 表示・取込から除外するお知らせカテゴリ（会社のリーフレット / PSR更新情報）
+EXCLUDED_NOTICE_CATEGORIES = {"会社のリーフレット", "psr更新情報"}
+
+
+def _notice_cat_key(value) -> str:
+    return "".join(str(value or "").split()).casefold()
+
+
+_EXCLUDED_NOTICE_KEYS = {_notice_cat_key(c) for c in EXCLUDED_NOTICE_CATEGORIES}
+
+
+def _is_public_notice(item: dict) -> bool:
+    return _notice_cat_key(item.get("category")) not in _EXCLUDED_NOTICE_KEYS
+
+
 def render_home_notices(html: str) -> str:
     """トップページの最新のお知らせをJSONから生成する。"""
     if "__HOME_NOTICES_HTML__" not in html:
@@ -270,7 +285,7 @@ def render_home_notices(html: str) -> str:
     if not data_path.exists():
         return html.replace("__HOME_NOTICES_HTML__", "")
 
-    items = json.loads(data_path.read_text(encoding="utf-8"))
+    items = [r for r in json.loads(data_path.read_text(encoding="utf-8")) if _is_public_notice(r)]
     items_sorted = sorted(items, key=lambda r: r.get("date", ""), reverse=True)
     rows_html = ""
 
@@ -412,7 +427,7 @@ def render_notice_archive(html: str) -> str:
             .replace("__NOTICE_CATEGORY_OPTIONS__", "")
         )
 
-    items = json.loads(data_path.read_text(encoding="utf-8"))
+    items = [r for r in json.loads(data_path.read_text(encoding="utf-8")) if _is_public_notice(r)]
     items_sorted = sorted(items, key=lambda r: r.get("date", ""), reverse=True)
     list_html = ""
     categories: list[str] = []

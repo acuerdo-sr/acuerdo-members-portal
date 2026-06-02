@@ -41,6 +41,10 @@ USER_AGENT = (
 TAG_COLORS = ["navy", "sky", "gold", "violet", "wine", "gray"]
 BLOCK_TAGS = ("div", "section", "article", "main")
 
+# 取り込まないお知らせカテゴリ（会社のリーフレット / PSR更新情報）
+EXCLUDED_IMPORT_CATEGORIES = {"会社のリーフレット", "psr更新情報"}
+_EXCLUDED_IMPORT_KEYS = {"".join(c.split()).casefold() for c in EXCLUDED_IMPORT_CATEGORIES}
+
 
 def strip_tags(html: str) -> str:
     text = re.sub(r"<script[\s\S]*?</script>|<style[\s\S]*?</style>", " ", html, flags=re.I)
@@ -353,6 +357,8 @@ def parse_psr_entries(html: str, base_url: str) -> list[dict]:
         if main_category and main_category not in {"トピックス", "PSR更新情報"} and source_type != "リーフレット":
             continue
         category = compact_category(sub_category or main_category, title, source_type)
+        if "".join(category.split()).casefold() in _EXCLUDED_IMPORT_KEYS:
+            continue
         entries.append(
             {
                 "id": make_id(href, title),
