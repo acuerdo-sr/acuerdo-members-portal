@@ -146,7 +146,10 @@ data_page: jimukumiai
       '</li>';
     }
     var html = '';
-    for (var m = 1; m <= 12; m++) {
+    // 年度順(4月始まり)で表示する: 4,5,...,12,1,2,3
+    var monthOrder = [4, 5, 6, 7, 8, 9, 10, 11, 12, 1, 2, 3];
+    for (var mi = 0; mi < monthOrder.length; mi++) {
+      var m = monthOrder[mi];
       if (!grouped[m]) continue;
       html += '<section class="aq-cal-month-block">';
       html += '<h2 class="aq-cal-month-h"><span class="aq-cal-month-no">'+m+'</span><span class="aq-cal-month-label">月</span><span class="aq-cal-month-count">'+grouped[m].length+'件</span></h2>';
