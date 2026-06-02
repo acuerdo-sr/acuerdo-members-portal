@@ -28,7 +28,6 @@ ROOT = Path(__file__).resolve().parent.parent
 DATA_PATH = ROOT / "src" / "data" / "home_notices.json"
 MYKOMON_HOME_URL = "https://www.mykomon.com/app/homeSr"
 MYKOMON_LOGIN_URL = "https://www.mykomon.com/MyKomon/login.do"
-MYKOMON_NEWS_LIST_URL = "https://www.mykomon.com/contents/listSr.do?srCategoryCode=04"
 DEFAULT_PSR_URL = "https://www.psrn.jp/?transactionid=2e633e95368f07dd5080458f9cd82fd3e24bd47e"
 PSR_TOPICS_LIST_URL = "https://www.psrn.jp/topics/"
 PSR_UPDATE_LIST_URL = "https://www.psrn.jp/update/"
@@ -197,12 +196,6 @@ def extract_hidden_inputs(html: str) -> dict[str, str]:
     return payload
 
 
-def has_mykomon_credentials() -> bool:
-    login_id = os.getenv("MYKOMON_ID") or os.getenv("MYKOMON_LOGINNAME")
-    password = os.getenv("MYKOMON_PASSWORD") or os.getenv("MYKOMON_PASS")
-    return bool(login_id and password)
-
-
 def login_mykomon(client: httpx.Client) -> str | None:
     login_id = os.getenv("MYKOMON_ID") or os.getenv("MYKOMON_LOGINNAME")
     password = os.getenv("MYKOMON_PASSWORD") or os.getenv("MYKOMON_PASS")
@@ -242,12 +235,6 @@ def make_id(href: str, title: str) -> str:
         return f"psr-{m.group(1).lower()}"
     slug = re.sub(r"[^a-zA-Z0-9]+", "-", href or title).strip("-").lower()
     return f"psr-{slug[:48] or 'notice'}"
-
-
-def make_mykomon_id(href: str, date_value: str) -> str:
-    code_match = re.search(r"srContentsCode=([A-Za-z0-9_-]+)", href)
-    code = code_match.group(1).lower() if code_match else re.sub(r"[^a-zA-Z0-9]+", "-", href).strip("-")[:32]
-    return f"mykomon-{date_value.replace('-', '')}-{code or 'notice'}"
 
 
 def compact_category(category: str, title: str, source_type: str) -> str:
@@ -383,65 +370,6 @@ def parse_psr_entries(html: str, base_url: str) -> list[dict]:
     return entries
 
 
-def parse_mykomon_entries(html: str, base_url: str) -> list[dict]:
-    entries: list[dict] = []
-    for row_html in re.findall(r"<tr\b[^>]*>([\s\S]*?)</tr>", html, flags=re.I):
-        if "srContentsCode=" not in row_html:
-            continue
-        link_match = re.search(
-            r'<a\s+href=["\']?([^"\'\s>]+)["\']?[^>]*>([\s\S]*?)</a>',
-            row_html,
-            flags=re.I,
-        )
-        date_match = re.search(r"(\d{4})/(\d{2})/(\d{2})", row_html)
-        if not link_match or not date_match:
-            continue
-        href = link_match.group(1)
-        title_html = link_match.group(2)
-        year, month, day = date_match.groups()
-        title = strip_tags(title_html)
-        if not title:
-            continue
-        url = urljoin(base_url, unescape(href))
-        date_value = f"{year}-{month}-{day}"
-        source_date = f"{year}/{month}/{day}"
-        entries.append(
-            {
-                "id": make_mykomon_id(url, date_value),
-                "date": date_value,
-                "source_date": source_date,
-                "source_type": "ニュース",
-                "category": "my顧問 人事労務ニュース",
-                "source_title": title,
-                "title": title,
-                "summary": "MyKomonの人事労務ニュースから追加しました。詳細はリンク先でご確認ください。",
-                "body_html": (
-                    "<p>MyKomonの会員向け人事労務ニュース一覧から追加しました。</p>"
-                    "<p>記事本文の転載は行わず、詳細確認用のリンクのみ掲載しています。</p>"
-                ),
-                "url": url,
-                "source": "MyKomon",
-                "tag_color": "navy",
-            }
-        )
-    return entries
-
-
-def fetch_mykomon_entries(client: httpx.Client, since: str, seen: set[str]) -> list[dict]:
-    response = client.get(MYKOMON_NEWS_LIST_URL)
-    response.raise_for_status()
-    html = response.content.decode("cp932", errors="replace")
-    entries: list[dict] = []
-    for item in parse_mykomon_entries(html, str(response.url)):
-        key = item.get("url") or item.get("source_title") or item.get("id")
-        if not key or key in seen:
-            continue
-        seen.add(key)
-        if (item.get("date") or "") >= since:
-            entries.append(item)
-    return entries
-
-
 def fetch_series(
     client: httpx.Client,
     url: str,
@@ -472,13 +400,7 @@ def fetch_series(
     return entries
 
 
-def collect_entries(
-    client: httpx.Client,
-    source_url: str,
-    since: str,
-    max_pages: int,
-    include_mykomon: bool = False,
-) -> list[dict]:
+def collect_entries(client: httpx.Client, source_url: str, since: str, max_pages: int) -> list[dict]:
     seen: set[str] = set()
     entries: list[dict] = []
 
@@ -494,8 +416,6 @@ def collect_entries(
 
     entries.extend(fetch_series(client, PSR_TOPICS_LIST_URL, since, max_pages, seen))
     entries.extend(fetch_series(client, PSR_UPDATE_LIST_URL, since, max_pages, seen))
-    if include_mykomon:
-        entries.extend(fetch_mykomon_entries(client, since, seen))
     return sorted(entries, key=lambda r: r.get("date", ""), reverse=True)
 
 
@@ -514,7 +434,7 @@ def fetch_source_body(source_url: str) -> tuple[str, str, str | None]:
 
 
 def hydrate_source_bodies(entries: list[dict]) -> None:
-    targets = [item for item in entries if item.get("url") and item.get("source") != "MyKomon"]
+    targets = [item for item in entries if item.get("url")]
     if not targets:
         return
 
@@ -538,7 +458,7 @@ def merge_existing(generated: list[dict], existing: dict[str, dict]) -> list[dic
     for idx, item in enumerate(generated):
         previous = existing.get(item.get("url")) or existing.get(item.get("source_title")) or existing.get(item.get("id"))
         if previous:
-            for key in ("id", "title", "summary", "body_html", "source_body_html", "tag_color"):
+            for key in ("id", "title", "summary", "body_html", "tag_color"):
                 if previous.get(key):
                     if key == "title" and previous.get("title") == previous.get("source_title"):
                         continue
@@ -570,17 +490,14 @@ def main() -> int:
     existing = load_existing()
 
     with httpx.Client(follow_redirects=True, timeout=25, headers={"User-Agent": USER_AGENT}) as client:
-        mykomon_logged_in = False
         try:
-            if has_mykomon_credentials():
-                logged_in_psr_url = login_mykomon(client)
-                mykomon_logged_in = True
-                if logged_in_psr_url:
-                    source_url = logged_in_psr_url
+            logged_in_psr_url = login_mykomon(client)
+            if logged_in_psr_url:
+                source_url = logged_in_psr_url
         except RuntimeError as exc:
             print(f"[warn] {exc}", file=sys.stderr)
 
-        entries = collect_entries(client, source_url, args.since, args.max_pages, mykomon_logged_in)
+        entries = collect_entries(client, source_url, args.since, args.max_pages)
         selected = entries[: args.limit] if args.limit > 0 else entries
     if not args.skip_details:
         hydrate_source_bodies(selected)

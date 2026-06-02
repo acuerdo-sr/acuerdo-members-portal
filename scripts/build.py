@@ -195,24 +195,6 @@ def _notice_search_text(r: dict) -> str:
     )
 
 
-HOME_NOTICE_LIMIT = 4
-EXCLUDED_NOTICE_CATEGORIES = {
-    "会社のリーフレット",
-    "psr更新情報",
-}
-EXCLUDED_NOTICE_CATEGORY_KEYS = {
-    "".join(category.split()).casefold() for category in EXCLUDED_NOTICE_CATEGORIES
-}
-
-
-def _notice_category_key(category) -> str:
-    return "".join(str(category or "").split()).casefold()
-
-
-def _is_public_notice_item(item: dict) -> bool:
-    return _notice_category_key(item.get("category")) not in EXCLUDED_NOTICE_CATEGORY_KEYS
-
-
 def render_news(html: str) -> str:
     """お知らせカード/タブをビルド時に静的HTMLとして埋め込む(ブラウザ拡張等でJSが
     妨げられてもカードが必ず表示されるようにするため)。"""
@@ -226,12 +208,8 @@ def render_news(html: str) -> str:
     data_path = SRC / "data" / "news.json"
     if not data_path.exists():
         return html
-    items = [r for r in json.loads(data_path.read_text(encoding="utf-8")) if _is_public_notice_item(r)]
-    items_sorted = sorted(
-        [r for r in items if _is_public_notice_item(r)],
-        key=lambda r: r.get("date", ""),
-        reverse=True,
-    )
+    items = json.loads(data_path.read_text(encoding="utf-8"))
+    items_sorted = sorted(items, key=lambda r: r.get("date", ""), reverse=True)
 
     # タブ(カテゴリ)
     cats: list[str] = []
@@ -293,14 +271,10 @@ def render_home_notices(html: str) -> str:
         return html.replace("__HOME_NOTICES_HTML__", "")
 
     items = json.loads(data_path.read_text(encoding="utf-8"))
-    items_sorted = sorted(
-        [r for r in items if _is_public_notice_item(r)],
-        key=lambda r: r.get("date", ""),
-        reverse=True,
-    )
+    items_sorted = sorted(items, key=lambda r: r.get("date", ""), reverse=True)
     rows_html = ""
 
-    for r in items_sorted[:HOME_NOTICE_LIMIT]:
+    for r in items_sorted[:30]:
         source_type = r.get("source_type") or "ニュース"
         source_class = _notice_source_class(source_type)
         tag_color = r.get("tag_color") or "navy"
@@ -328,11 +302,7 @@ def render_home_recommendations(html: str) -> str:
         return html.replace("__HOME_RECOMMENDATIONS_HTML__", "")
 
     items = json.loads(data_path.read_text(encoding="utf-8"))
-    items_sorted = sorted(
-        [r for r in items if _is_public_notice_item(r)],
-        key=lambda r: r.get("date", ""),
-        reverse=True,
-    )
+    items_sorted = sorted(items, key=lambda r: r.get("date", ""), reverse=True)
     cards_html = ""
 
     for r in items_sorted:
@@ -442,7 +412,7 @@ def render_notice_archive(html: str) -> str:
             .replace("__NOTICE_CATEGORY_OPTIONS__", "")
         )
 
-    items = [r for r in json.loads(data_path.read_text(encoding="utf-8")) if _is_public_notice_item(r)]
+    items = json.loads(data_path.read_text(encoding="utf-8"))
     items_sorted = sorted(items, key=lambda r: r.get("date", ""), reverse=True)
     list_html = ""
     categories: list[str] = []
@@ -577,7 +547,7 @@ def render_notice_detail_pages(base_tpl, build_version: str, base_href: str) -> 
     data_path = SRC / "data" / "home_notices.json"
     if not data_path.exists():
         return 0
-    items = [r for r in json.loads(data_path.read_text(encoding="utf-8")) if _is_public_notice_item(r)]
+    items = json.loads(data_path.read_text(encoding="utf-8"))
     count = 0
     for r in items:
         notice_id = r.get("id")
