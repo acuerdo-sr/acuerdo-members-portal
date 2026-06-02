@@ -2,6 +2,7 @@
   {
     "id": "n-2026-josei-list",
     "date": "2026-05-24",
+    "order": 2,
     "category": "助成金",
     "tag_color": "navy",
     "icon": "📢",
@@ -14,6 +15,7 @@
   {
     "id": "n-2026-josei-revision",
     "date": "2026-05-20",
+    "order": 4,
     "category": "助成金",
     "tag_color": "wine",
     "icon": "📢",
@@ -26,6 +28,7 @@
   {
     "id": "n-2026-hojokin-shinjigyo",
     "date": "2026-05-15",
+    "order": 3,
     "category": "補助金",
     "tag_color": "gold",
     "icon": "💡",
@@ -38,6 +41,7 @@
   {
     "id": "n-2026-lawrev-summary",
     "date": "2026-05-10",
+    "order": 1,
     "category": "法改正",
     "tag_color": "wine",
     "icon": "📢",

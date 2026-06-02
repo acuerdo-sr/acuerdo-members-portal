@@ -334,7 +334,9 @@ def render_home_recommendations(html: str) -> str:
         return html.replace("__HOME_RECOMMENDATIONS_HTML__", "")
 
     items = json.loads(data_path.read_text(encoding="utf-8"))
+    # おすすめ情報は明示的な order(昇順)で並べる。order 未指定は末尾に日付降順で続く。
     items_sorted = sorted(items, key=lambda r: r.get("date", ""), reverse=True)
+    items_sorted = sorted(items_sorted, key=lambda r: r.get("order", 9999))
     cards_html = ""
 
     for r in items_sorted:
