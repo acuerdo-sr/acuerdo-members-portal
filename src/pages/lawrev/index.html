@@ -34,7 +34,6 @@ data_page: lawrev
 <section class="aq-lr-section">
   <div class="aq-lr-section-head">
     <h2>注目の法改正 <span id="aq-lr-featured-label">（令和8年度対応が必要なもの）</span></h2>
-    <button class="aq-lr-see-all" id="aq-lr-featured-more" type="button">すべて見る ›</button>
   </div>
   <div class="aq-lr-featured-grid" id="aq-lr-featured"></div>
 </section>
@@ -328,11 +327,6 @@ data_page: lawrev
   document.getElementById('aq-lr-q').addEventListener('input', function () {
     state.q = this.value.trim();
     renderTable();
-  });
-
-  document.getElementById('aq-lr-featured-more').addEventListener('click', function () {
-    state.showAllFeatured = !state.showAllFeatured;
-    renderFeatured();
   });
 
   document.getElementById('aq-lr-news-more').addEventListener('click', function () {
