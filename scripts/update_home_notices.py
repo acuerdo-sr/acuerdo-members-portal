@@ -188,14 +188,28 @@ def extract_source_body_html(html: str, base_url: str) -> str:
     return body_html.strip()
 
 
-def load_existing() -> dict[str, dict]:
+def load_existing_list() -> list[dict]:
     if not DATA_PATH.exists():
-        return {}
+        return []
     try:
         items = json.loads(DATA_PATH.read_text(encoding="utf-8"))
     except json.JSONDecodeError:
-        return {}
-    return {item.get("url") or item.get("source_title") or item.get("id"): item for item in items}
+        return []
+    return items if isinstance(items, list) else []
+
+
+def item_key(item: dict) -> str | None:
+    return item.get("url") or item.get("source_title") or item.get("id")
+
+
+def load_existing(existing_list: list[dict] | None = None) -> dict[str, dict]:
+    items = existing_list if existing_list is not None else load_existing_list()
+    return {item_key(item): item for item in items}
+
+
+def latest_existing_date(existing_list: list[dict]) -> str | None:
+    dates = [item.get("date") for item in existing_list if item.get("date")]
+    return max(dates) if dates else None
 
 
 def extract_hidden_inputs(html: str) -> dict[str, str]:
@@ -497,14 +511,32 @@ def main() -> int:
         default=os.getenv("HOME_NOTICES_SKIP_DETAILS") == "1",
         help="一覧だけ更新し、各詳細ページの本文取得を省略します。",
     )
+    parser.add_argument(
+        "--incremental",
+        action="store_true",
+        default=os.getenv("HOME_NOTICES_INCREMENTAL") == "1",
+        help="既存JSONの最新日付以降の差分だけを取得して追記します（古い記事は保持）。",
+    )
     args = parser.parse_args()
+
+    existing_list = load_existing_list()
+    existing = load_existing(existing_list)
+
+    # 増分モード: 既存の最新日付を since にして、新着分だけを既存へ足す。
+    if args.incremental:
+        newest = latest_existing_date(existing_list)
+        if newest:
+            args.since = newest
+            print(f"[incremental] 既存の最新日付 {newest} 以降の差分を取得します。")
+        else:
+            print("[incremental] 既存データが無いため全件取得します。")
+
     try:
         datetime.strptime(args.since, "%Y-%m-%d")
     except ValueError as exc:
         raise ValueError("--since は YYYY-MM-DD 形式で指定してください。") from exc
 
     source_url = os.getenv("PSR_TOPICS_URL") or DEFAULT_PSR_URL
-    existing = load_existing()
 
     with httpx.Client(follow_redirects=True, timeout=25, headers={"User-Agent": USER_AGENT}) as client:
         try:
@@ -516,11 +548,37 @@ def main() -> int:
 
         entries = collect_entries(client, source_url, args.since, args.max_pages)
         selected = entries[: args.limit] if args.limit > 0 else entries
-    if not args.skip_details:
-        hydrate_source_bodies(selected)
 
     if not entries:
         raise RuntimeError("PSRページからお知らせを取得できませんでした。")
+
+    # 増分モードでは既存に無い新着だけを対象にする（古い記事や手直し済み文面は保持）。
+    if args.incremental:
+        new_entries = [item for item in selected if item_key(item) not in existing]
+        if not new_entries:
+            print("[incremental] 新着のお知らせはありませんでした。既存データを維持します。")
+            print(f"[since] {args.since}")
+            print(f"[source] {source_url}")
+            return 0
+        if not args.skip_details:
+            hydrate_source_bodies(new_entries)
+        before = len(new_entries)
+        new_entries = [item for item in new_entries if not _is_office_internal(item)]
+        skipped = before - len(new_entries)
+        if skipped:
+            print(f"[skip] 事務所発信のお知らせ {skipped}件を除外しました。")
+        for idx, item in enumerate(new_entries):
+            item.setdefault("tag_color", TAG_COLORS[idx % len(TAG_COLORS)])
+        combined = new_entries + existing_list
+        notices = sorted(combined, key=lambda r: r.get("date", ""), reverse=True)
+        DATA_PATH.write_text(json.dumps(notices, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        print(f"[done] 新着 {len(new_entries)}件を追加し、合計 {len(notices)}件を {DATA_PATH.relative_to(ROOT)} に保存しました。")
+        print(f"[since] {args.since}")
+        print(f"[source] {source_url}")
+        return 0
+
+    if not args.skip_details:
+        hydrate_source_bodies(selected)
 
     # 事務所からの内部発信（在宅勤務・臨時休業案内等の自社お知らせ）は取り込まない。
     before = len(selected)
