@@ -16007,6 +16007,196 @@ body.aq-is-subsidies .aq-breadcrumb { display: none !important; }
 .aq-sub-modal-src:hover { background: #eff6ff; }
 .aq-sub-empty { padding: 32px; text-align: center; color: #64748b; font-size: 14px; }
 
+/* ------------------------------------------------------------
+   アクエルドコンサルティング ブランドゾーン (補助金ページ)
+   ------------------------------------------------------------ */
+
+/* ① ヒーロー */
+.aq-subcon-hero {
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr);
+  gap: 28px;
+  align-items: center;
+  background: linear-gradient(120deg, #123a5a 0%, #14524d 100%);
+  border-radius: 18px;
+  padding: 34px 38px;
+  margin-top: 8px;
+}
+.aq-subcon-hero-copy { position: relative; z-index: 1; }
+.aq-subcon-badges { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+.aq-subcon-badge {
+  display: inline-flex; align-items: center;
+  padding: 5px 13px;
+  background: rgba(255,255,255,.14);
+  border: 1px solid rgba(255,255,255,.32);
+  color: #eafaf8;
+  font-size: 12px; font-weight: 800;
+  border-radius: 999px;
+}
+.aq-subcon-hero h1 {
+  margin: 0 0 14px !important;
+  color: #fff !important;
+  font-size: 32px !important;
+  font-weight: 900 !important;
+  line-height: 1.32 !important;
+  letter-spacing: .01em;
+}
+.aq-subcon-hero-copy p {
+  margin: 0 !important;
+  color: #d6e6e4;
+  font-size: 14.5px;
+  line-height: 1.8;
+}
+.aq-subcon-hero-copy p strong { color: #fff; }
+.aq-subcon-hero-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+.aq-subcon-btn {
+  display: inline-flex; align-items: center;
+  padding: 12px 22px;
+  border-radius: 10px;
+  font-size: 14px; font-weight: 800;
+  text-decoration: none;
+  transition: .18s;
+}
+.aq-subcon-btn.primary { background: #f0a500; color: #1f2937 !important; }
+.aq-subcon-btn.primary:hover { background: #ffb71a; }
+.aq-subcon-btn.ghost { background: rgba(255,255,255,.08); color: #fff !important; border: 1px solid rgba(255,255,255,.4); }
+.aq-subcon-btn.ghost:hover { background: rgba(255,255,255,.18); }
+.aq-subcon-cert {
+  margin: 16px 0 0 !important;
+  color: #9fc4c0 !important;
+  font-size: 12px !important;
+  font-weight: 700;
+  letter-spacing: .02em;
+}
+.aq-subcon-hero-art { position: relative; z-index: 1; display: flex; justify-content: center; }
+.aq-subcon-hero-art svg { width: 100%; max-width: 300px; height: auto; }
+
+/* ② 強みカード */
+.aq-subcon-strengths {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+.aq-subcon-card {
+  background: #fff;
+  border: 1px solid #dce5ef;
+  border-radius: 14px;
+  padding: 22px 22px 24px;
+  box-shadow: 0 2px 8px rgba(11,23,48,.05);
+}
+.aq-subcon-card-icon {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 46px; height: 46px; border-radius: 12px;
+  margin-bottom: 14px;
+}
+.aq-subcon-card-icon svg { width: 24px; height: 24px; }
+.aq-subcon-card-icon.a { background: #e6f4f3; color: #0f766e; }
+.aq-subcon-card-icon.b { background: #fef3d8; color: #b45309; }
+.aq-subcon-card-icon.c { background: #e0edf7; color: #1d4ed8; }
+.aq-subcon-card h3 {
+  margin: 0 0 10px !important;
+  font-size: 16px !important;
+  font-weight: 900 !important;
+  color: #0b1730 !important;
+  line-height: 1.45 !important;
+}
+.aq-subcon-card p {
+  margin: 0 !important;
+  font-size: 13px;
+  color: #475569;
+  line-height: 1.75;
+}
+.aq-subcon-card p strong { color: #0f4f4a; }
+
+/* ③ 使えるケース */
+.aq-subcon-usecases {
+  background: #fff;
+  border: 1px solid #dce5ef;
+  border-radius: 14px;
+  padding: 24px 26px;
+  box-shadow: 0 2px 8px rgba(11,23,48,.05);
+}
+.aq-subcon-usecases h2 {
+  margin: 0 0 16px !important;
+  font-size: 18px !important;
+  font-weight: 900 !important;
+  color: #0b1730 !important;
+}
+.aq-subcon-uselist {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 10px;
+  margin: 0 0 14px !important;
+  padding: 0 !important;
+  list-style: none !important;
+}
+.aq-subcon-uselist li {
+  display: flex; flex-direction: column; gap: 3px;
+  background: #f4f8f7;
+  border: 1px solid #e0ece9;
+  border-left: 3px solid #177d78;
+  border-radius: 10px;
+  padding: 12px 14px;
+}
+.aq-subcon-uselist li strong { font-size: 13.5px; font-weight: 800; color: #0b1730; }
+.aq-subcon-uselist li span { font-size: 12px; color: #0f766e; font-weight: 700; }
+.aq-subcon-usenote { margin: 0 !important; font-size: 13px; color: #64748b; }
+.aq-subcon-usenote a { color: #1d4ed8 !important; font-weight: 700; }
+
+/* ⑤ 相談の流れ */
+.aq-subcon-flow {
+  background: #fff;
+  border: 1px solid #dce5ef;
+  border-radius: 14px;
+  padding: 24px 26px;
+  box-shadow: 0 2px 8px rgba(11,23,48,.05);
+}
+.aq-subcon-flow h2 {
+  margin: 0 0 18px !important;
+  font-size: 18px !important;
+  font-weight: 900 !important;
+  color: #0b1730 !important;
+}
+.aq-subcon-flow-row { display: flex; align-items: stretch; gap: 6px; }
+.aq-subcon-step {
+  flex: 1;
+  background: #f8fafc;
+  border: 1px solid #e7eef5;
+  border-radius: 12px;
+  padding: 16px 14px;
+  text-align: center;
+}
+.aq-subcon-step-num {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 30px; height: 30px; border-radius: 50%;
+  background: #123a5a; color: #fff;
+  font-size: 14px; font-weight: 900;
+  margin-bottom: 10px;
+}
+.aq-subcon-step strong { display: block; font-size: 14px; font-weight: 800; color: #0b1730; margin-bottom: 6px; }
+.aq-subcon-step p { margin: 0 !important; font-size: 12px; color: #64748b; line-height: 1.6; }
+.aq-subcon-flow-sep { display: flex; align-items: center; color: #cbd5e1; font-size: 22px; font-weight: 700; }
+
+/* ⑥ CTA(コンサル) */
+.aq-subcon-cta { background: linear-gradient(120deg, #123a5a 0%, #14524d 100%) !important; border-color: transparent !important; }
+.aq-subcon-cta-tag {
+  display: inline-block;
+  padding: 4px 12px;
+  background: rgba(255,255,255,.14);
+  border: 1px solid rgba(255,255,255,.3);
+  color: #eafaf8;
+  font-size: 11px; font-weight: 800;
+  border-radius: 999px;
+  margin-bottom: 12px;
+}
+.aq-subcon-cta h2 { color: #fff !important; }
+.aq-subcon-cta p { color: #d6e6e4 !important; }
+.aq-subcon-cta p strong { color: #fff; }
+.aq-subcon-cta .aq-sub-cta-btn { background: #f0a500; color: #1f2937 !important; }
+.aq-subcon-cta .aq-sub-cta-btn:hover { background: #ffb71a !important; }
+
 @media (max-width: 820px) {
   body.aq-is-subsidies .aq-subpage-wrap { padding: 16px 14px 40px; }
   .aq-sub-bottom-grid { grid-template-columns: 1fr; }
@@ -16014,6 +16204,13 @@ body.aq-is-subsidies .aq-breadcrumb { display: none !important; }
   .aq-sub-gantt-row { grid-template-columns: 180px 1fr 60px; }
   .aq-sub-col-label strong { font-size: 12px; }
   .aq-sub-filter-row select { min-width: 110px; }
+
+  .aq-subcon-hero { grid-template-columns: 1fr; padding: 26px 22px; }
+  .aq-subcon-hero-art { display: none; }
+  .aq-subcon-hero h1 { font-size: 25px !important; }
+  .aq-subcon-strengths { grid-template-columns: 1fr; }
+  .aq-subcon-flow-row { flex-direction: column; }
+  .aq-subcon-flow-sep { justify-content: center; transform: rotate(90deg); }
 }
 
 /* 補助金カレンダー: サイドバー項目を確実に表示 */
