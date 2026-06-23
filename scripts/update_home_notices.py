@@ -45,6 +45,9 @@ BLOCK_TAGS = ("div", "section", "article", "main")
 EXCLUDED_IMPORT_CATEGORIES = {"会社のリーフレット", "psr更新情報"}
 _EXCLUDED_IMPORT_KEYS = {"".join(c.split()).casefold() for c in EXCLUDED_IMPORT_CATEGORIES}
 
+# PSRサイト自体の宣伝・使い方ページ（事務所通信の案内 等）は顧問先向けニュースではないので取り込まない。
+EXCLUDED_URL_SUBSTRINGS = ("/office_letter", "/info_letter", "/manual", "/guide/")
+
 # 事務所からの内部発信（在宅勤務・臨時休業案内等の自社お知らせ）を判別する文面マーカー。
 OFFICE_NOTICE_MARKERS = ("平素は格別", "ご高配を賜り", "誠に勝手ながら")
 
@@ -366,6 +369,8 @@ def parse_psr_entries(html: str, base_url: str) -> list[dict]:
             continue
         href = urljoin(base_url, unescape(link[0]))
         if "/feature/" in href:
+            continue
+        if any(sub in href for sub in EXCLUDED_URL_SUBSTRINGS):
             continue
         title = strip_tags(link[1])
         head = strip_tags(block)
