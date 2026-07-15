@@ -56,20 +56,6 @@
     "tag_color": "violet"
   },
   {
-    "id": "psr-41721",
-    "date": "2026-07-14",
-    "source_date": "2026/07/14",
-    "source_type": "ニュース",
-    "category": "ニュース",
-    "source_title": "商品発送停止期間のお知らせ",
-    "title": "商品発送停止期間のお知らせ",
-    "summary": "ニュースに関する新しい情報です。自社の手続きや労務管理に関係しそうな項目を確認しておきましょう。",
-    "body_html": "<p>ニュースに関する新しい情報が公表されています。</p><p>対応が必要かどうか、まずは概要をご確認ください。判断に迷う場合は担当者へご相談ください。</p>",
-    "url": "https://www.psrn.jp/update/detail.php?id=41721",
-    "source_body_html": "<p>平素よりPSRnetworkをご利用いただき誠にありがとうございます。</p>\n<p>当社の発送業務委託業者の夏季休業に伴い、下記の期間中商品発送を原則停止とさせていただきます。</p>\n<p>＜発送停止期間＞<br>\n2026年8月7日（金）13:00〜 2025年8月16日（日）</p>\n<p>なお、8月7日（金）13:00以降のご注文は、8月17日（月）より順次対応させていただきます。</p>\n<p>ご不便をおかけいたしますが、何卒よろしくお願いいたします。</p><p><a href=\"https://www.psrn.jp/update/detail.php?id=41721\" target=\"_blank\" rel=\"noopener\">https://www.psrn.jp/update/detail.php?id=41721</a></p>",
-    "tag_color": "wine"
-  },
-  {
     "id": "psr-41704",
     "date": "2026-07-13",
     "source_date": "2026/07/13",
@@ -362,20 +348,6 @@
     "url": "https://www.psrn.jp/topics/detail.php?id=41631",
     "source_body_html": "<p>協会けんぽ（全国健康保険協会）から、「2025（令和7）年度協会けんぽの決算見込み（医療分）」が公表されました（令和8年7月3日公表）。　</p>\n<p>そのポイントは、次のとおりです。</p>\n<p>＜全体の収支状況＞<br>\n2025年度は収入（総額）が12兆3,406億円、支出（総額）が11兆6,611億円、収支差は＋6,795億円（前年度から209億円増加）。</p>\n<p>＜収入の状況＞<br>\n収入（総額）は前年度から4,881億円増加（前年度比＋4.1％）。<br>\n・保険料収入（平均保険料率10％）は4,057億円増加。被保険者数及び賃金（賞与含む。）の増加が主な要因であり、伸びは、被保険者数が前年度比＋1.8％、標準報酬月額が前年度比＋1.8％。</p>\n<p>＜支出の状況＞<br>\n支出（総額）は前年度から4,672億円増加（前年度比＋4.2％）。<br>\n・保険給付費は2,818億円増加。加入者1人当たり保険給付費が増加（＋3.5％）したことが主な要因。<br>\n・拠出金等は1,634億円増加。後期高齢者支援金が増加したことが主な要因。</p>\n<p>なお、協会けんぽの今後の財政については、当面、賃上げ等により標準報酬月額の増加は見込まれるものの、現在の不安定な世界情勢が今後の我が国の経済社会に及ぼす影響は不透明であり、これまでのような保険料収入の増加が中長期的に継続するか予測が難しいこと、協会けんぽ加入者の平均年齢の上昇や医療の高度化等により保険給付費の継続的な増加が見込まれること、団塊の世代がすべて後期高齢者になったことにより後期高齢者支援金が中長期的に高い水準で推移することが見込まれること等に留意が必要であるとされています。</p>\n<p>今後の保険料率の決定などにあたり、この決算の内容がどのように考慮されるのか？<br>\n動向に注目です。</p>\n<p>詳しくは、こちらをご覧ください。<br>\n＜2025（令和7）年度協会けんぽの決算見込みについて＞<br>\n<a href=\"https://www.kyoukaikenpo.or.jp/news/r08_jul/4922.html\" target=\"_blank\" rel=\"noopener\">https://www.kyoukaikenpo.or.jp/news/r08_jul/4922.html</a></p>",
     "tag_color": "violet"
-  },
-  {
-    "id": "psr-https-www-psrn-jp-tool-jyoseikin-php",
-    "date": "2026-07-07",
-    "source_date": "2026/07/07",
-    "source_type": "ニュース",
-    "category": "ニュース",
-    "source_title": "2026年度版 助成金診断ツール アップしました！",
-    "title": "2026年度版 助成金診断ツール を掲載しました",
-    "summary": "ニュースに関する新しい情報です。自社の手続きや労務管理に関係しそうな項目を確認しておきましょう。",
-    "body_html": "<p>ニュースに関する新しい情報が公表されています。</p><p>対応が必要かどうか、まずは概要をご確認ください。判断に迷う場合は担当者へご相談ください。</p>",
-    "url": "https://www.psrn.jp/tool/jyoseikin.php",
-    "source_body_html": "<p>\nPSR<a href=\"https://www.psrn.jp/guidance/service.php#about-member-type\" target=\"_blank\" rel=\"noopener\">正会員</a>の方のみ各情報の詳細をご覧いただくことができます。\n<p>正会員の方は、<a href=\"https://www.psrn.jp/mypage/login.php?ref=https%3A%2F%2Fwww.psrn.jp%2Ftool%2Fjyoseikin.php\" target=\"_blank\" rel=\"noopener\">ログイン</a>してください。</p><p><strong>助成金診断 2026年度版（PSR正会員版）</strong></p><p>助成金の診断結果に、事務所名を入れて印刷ができます。 <br>\n<strong>NEW！7/7更新</strong><br>\n</p><p><strong>診断ツール提供サービス</strong>\n</p><p><a href=\"https://www.psrn.jp/tool/jyoseikin.php\" target=\"_blank\" rel=\"noopener\">https://www.psrn.jp/tool/jyoseikin.php</a></p>",
-    "tag_color": "wine"
   },
   {
     "id": "psr-41597",
