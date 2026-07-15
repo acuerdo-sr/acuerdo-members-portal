@@ -45,8 +45,22 @@ BLOCK_TAGS = ("div", "section", "article", "main")
 EXCLUDED_IMPORT_CATEGORIES = {"会社のリーフレット", "psr更新情報"}
 _EXCLUDED_IMPORT_KEYS = {"".join(c.split()).casefold() for c in EXCLUDED_IMPORT_CATEGORIES}
 
-# PSRサイト自体の宣伝・使い方ページ（事務所通信の案内 等）は顧問先向けニュースではないので取り込まない。
-EXCLUDED_URL_SUBSTRINGS = ("/office_letter", "/info_letter", "/manual", "/guide/")
+# PSRサイト自体の宣伝・商品・使い方ページ（事務所通信の案内 / 小冊子・ツール販売 等）は
+# 顧問先向けの労務ニュースではないので取り込まない。
+# ※ /update/ = 「PSR更新情報」= PSR運営側のお知らせ（商品販売・発送停止・ツール告知 等）。
+#   正規の労務ニュースは /topics/ から取得するため、/update/ は丸ごと除外する。
+# ※ /dl/leaflet 等（政府の正規リーフレット判定に使用）は除外しないこと。
+EXCLUDED_URL_SUBSTRINGS = (
+    "/update/",
+    "/office_letter",
+    "/info_letter",
+    "/tool",
+    "/pamph",
+    "/shop",
+    "/cart",
+    "/manual",
+    "/guide/",
+)
 
 # 事務所からの内部発信（在宅勤務・臨時休業案内等の自社お知らせ）を判別する文面マーカー。
 OFFICE_NOTICE_MARKERS = ("平素は格別", "ご高配を賜り", "誠に勝手ながら")
@@ -384,7 +398,7 @@ def parse_psr_entries(html: str, base_url: str) -> list[dict]:
         main_category = parts[2] if len(parts) >= 3 else ""
         sub_category = " ".join(parts[3:]).strip()
         source_type = classify_source(main_category, sub_category, title, href)
-        if main_category and main_category not in {"トピックス", "PSR更新情報"} and source_type != "リーフレット":
+        if main_category and main_category not in {"トピックス"} and source_type != "リーフレット":
             continue
         category = compact_category(sub_category or main_category, title, source_type)
         if "".join(category.split()).casefold() in _EXCLUDED_IMPORT_KEYS:
@@ -451,7 +465,8 @@ def collect_entries(client: httpx.Client, source_url: str, since: str, max_pages
                 entries.append(item)
 
     entries.extend(fetch_series(client, PSR_TOPICS_LIST_URL, since, max_pages, seen))
-    entries.extend(fetch_series(client, PSR_UPDATE_LIST_URL, since, max_pages, seen))
+    # /update/（PSR更新情報）はPSR運営側のお知らせ（商品販売・発送停止・ツール告知 等）で
+    # 顧問先向けの労務ニュースではないため巡回しない。念のためURL除外でも二重に弾いている。
     return sorted(entries, key=lambda r: r.get("date", ""), reverse=True)
 
 
