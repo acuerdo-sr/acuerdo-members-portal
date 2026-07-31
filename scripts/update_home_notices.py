@@ -89,6 +89,10 @@ AI_SCREEN_PROMPT = """\
 掲載すべきなら YES、掲載すべきでないなら NO とだけ出力してください。"""
 
 
+class _AIAuthError(RuntimeError):
+    """APIキーが無効・権限不足。リトライしても無駄なので判定自体を打ち切る。"""
+
+
 def _ai_screen_verdict(title: str, body: str, api_key: str) -> bool | None:
     """記事1件を判定する。True=掲載, False=除外, None=判定不能。"""
     prompt = AI_SCREEN_PROMPT.format(title=title, body=strip_tags(body)[:1500])
@@ -102,10 +106,20 @@ def _ai_screen_verdict(title: str, body: str, api_key: str) -> bool | None:
             },
             timeout=30,
         )
+        if response.status_code in (400, 401, 403):
+            # キーが無効/権限不足。以降の記事も必ず同じ結果になるので中断させる。
+            detail = ""
+            try:
+                detail = response.json().get("error", {}).get("message", "")
+            except Exception:
+                pass
+            raise _AIAuthError(detail or f"HTTP {response.status_code}")
         response.raise_for_status()
         parts = response.json()["candidates"][0]["content"]["parts"]
         text = "".join(p.get("text", "") for p in parts).strip().upper()
-    except Exception as exc:  # ネットワーク/APIエラー/応答形式変更
+    except _AIAuthError:
+        raise
+    except Exception as exc:  # ネットワーク/一時的なAPIエラー/応答形式変更
         print(f"[warn] AI判定に失敗しました（掲載扱いにします）: {title} ({exc})", file=sys.stderr)
         return None
     if "NO" in text:
@@ -126,10 +140,18 @@ def ai_screen_entries(entries: list[dict]) -> list[dict]:
         return entries
 
     kept: list[dict] = []
-    for item in entries:
+    for index, item in enumerate(entries):
         title = item.get("source_title") or item.get("title") or ""
         body = item.get("source_body_html") or item.get("body_html") or ""
-        verdict = _ai_screen_verdict(title, body, api_key)
+        try:
+            verdict = _ai_screen_verdict(title, body, api_key)
+        except _AIAuthError as exc:
+            print(
+                f"[warn] GEMINI_API_KEY が無効なためAI判定を中止します（全件そのまま掲載）: {exc}\n"
+                "       → https://aistudio.google.com/apikey でキーを再発行し .env を更新してください。",
+                file=sys.stderr,
+            )
+            return kept + list(entries[index:])
         if verdict is False:
             print(f"[ai-skip] 顧問先向けでないと判定: {title}")
             continue
