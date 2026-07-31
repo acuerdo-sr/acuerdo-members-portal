@@ -66,6 +66,78 @@ EXCLUDED_URL_SUBSTRINGS = (
 # 事務所からの内部発信（在宅勤務・臨時休業案内等の自社お知らせ）を判別する文面マーカー。
 OFFICE_NOTICE_MARKERS = ("平素は格別", "ご高配を賜り", "誠に勝手ながら")
 
+# --- AI適切性判定（Gemini） -------------------------------------------------
+# URL除外ルールをすり抜けた記事を、顧問先向けの労務ニュースとして適切か最終チェックする。
+# GEMINI_API_KEY が未設定、またはAPI障害・応答不正のときは「掲載する」に倒す（取込を止めない）。
+GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-3.5-flash")
+GEMINI_ENDPOINT = "https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent"
+
+AI_SCREEN_PROMPT = """\
+あなたは社会保険労務士事務所の編集担当です。以下の記事を、顧問先企業向けの
+「労務ニュース」として自社ポータルに掲載すべきか判定してください。
+
+【掲載する(YES)】法改正、行政の発表・通達、助成金や補助金の制度情報、労働保険・社会保険の
+手続き、統計や調査結果など、顧問先企業の労務管理や手続きに関係する情報。
+
+【掲載しない(NO)】情報提供元(PSR)など外部サービスの商品販売・キャンペーン・セミナー勧誘・
+ツールやサービスの宣伝・サイトの使い方案内・発送や休業などの事務連絡。
+社労士事務所向けであって顧問先企業向けでない内容。
+
+タイトル: {title}
+本文: {body}
+
+掲載すべきなら YES、掲載すべきでないなら NO とだけ出力してください。"""
+
+
+def _ai_screen_verdict(title: str, body: str, api_key: str) -> bool | None:
+    """記事1件を判定する。True=掲載, False=除外, None=判定不能。"""
+    prompt = AI_SCREEN_PROMPT.format(title=title, body=strip_tags(body)[:1500])
+    try:
+        response = httpx.post(
+            GEMINI_ENDPOINT.format(model=GEMINI_MODEL),
+            headers={"x-goog-api-key": api_key},
+            json={
+                "contents": [{"parts": [{"text": prompt}]}],
+                "generationConfig": {"temperature": 0, "maxOutputTokens": 8},
+            },
+            timeout=30,
+        )
+        response.raise_for_status()
+        parts = response.json()["candidates"][0]["content"]["parts"]
+        text = "".join(p.get("text", "") for p in parts).strip().upper()
+    except Exception as exc:  # ネットワーク/APIエラー/応答形式変更
+        print(f"[warn] AI判定に失敗しました（掲載扱いにします）: {title} ({exc})", file=sys.stderr)
+        return None
+    if "NO" in text:
+        return False
+    if "YES" in text:
+        return True
+    print(f"[warn] AI判定の応答を解釈できません（掲載扱い）: {title} -> {text!r}", file=sys.stderr)
+    return None
+
+
+def ai_screen_entries(entries: list[dict]) -> list[dict]:
+    """新着記事をAI判定にかけ、不適切と判定されたものを除外して返す。"""
+    api_key = os.getenv("GEMINI_API_KEY")
+    if not api_key:
+        print("[skip] GEMINI_API_KEY 未設定のためAI判定をスキップします。")
+        return entries
+    if not entries:
+        return entries
+
+    kept: list[dict] = []
+    for item in entries:
+        title = item.get("source_title") or item.get("title") or ""
+        body = item.get("source_body_html") or item.get("body_html") or ""
+        verdict = _ai_screen_verdict(title, body, api_key)
+        if verdict is False:
+            print(f"[ai-skip] 顧問先向けでないと判定: {title}")
+            continue
+        kept.append(item)
+    if len(kept) != len(entries):
+        print(f"[ai] {len(entries) - len(kept)}件をAI判定で除外しました。")
+    return kept
+
 
 def _is_office_internal(item: dict) -> bool:
     text = " ".join(
@@ -588,6 +660,7 @@ def main() -> int:
         skipped = before - len(new_entries)
         if skipped:
             print(f"[skip] 事務所発信のお知らせ {skipped}件を除外しました。")
+        new_entries = ai_screen_entries(new_entries)
         for idx, item in enumerate(new_entries):
             item.setdefault("tag_color", TAG_COLORS[idx % len(TAG_COLORS)])
         combined = new_entries + existing_list
@@ -607,6 +680,12 @@ def main() -> int:
     skipped = before - len(selected)
     if skipped:
         print(f"[skip] 事務所発信のお知らせ {skipped}件を除外しました。")
+
+    # AI判定は既存JSONに無い記事だけに絞る（既存分の再判定はAPI無駄打ちになるため）。
+    fresh = [item for item in selected if item_key(item) not in existing]
+    dropped = {id(item) for item in fresh} - {id(item) for item in ai_screen_entries(fresh)}
+    if dropped:
+        selected = [item for item in selected if id(item) not in dropped]
 
     notices = merge_existing(selected, existing)
     DATA_PATH.write_text(json.dumps(notices, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
