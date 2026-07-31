@@ -83,6 +83,8 @@ AI_SCREEN_PROMPT = """\
 ツールやサービスの宣伝・サイトの使い方案内・発送や休業などの事務連絡。
 社労士事務所向けであって顧問先企業向けでない内容。
 
+判断に迷う場合は掲載(YES)にしてください。
+
 タイトル: {title}
 本文: {body}
 
@@ -102,7 +104,13 @@ def _ai_screen_verdict(title: str, body: str, api_key: str) -> bool | None:
             headers={"x-goog-api-key": api_key},
             json={
                 "contents": [{"parts": [{"text": prompt}]}],
-                "generationConfig": {"temperature": 0, "maxOutputTokens": 8},
+                # YES/NOだけ欲しいので思考(thinking)はオフ。オンだと思考トークンが
+                # maxOutputTokens を食い潰し、本文が空のまま MAX_TOKENS で返る。
+                "generationConfig": {
+                    "temperature": 0,
+                    "maxOutputTokens": 16,
+                    "thinkingConfig": {"thinkingBudget": 0},
+                },
             },
             timeout=30,
         )
@@ -115,8 +123,11 @@ def _ai_screen_verdict(title: str, body: str, api_key: str) -> bool | None:
                 pass
             raise _AIAuthError(detail or f"HTTP {response.status_code}")
         response.raise_for_status()
-        parts = response.json()["candidates"][0]["content"]["parts"]
+        candidate = response.json()["candidates"][0]
+        parts = candidate.get("content", {}).get("parts") or []
         text = "".join(p.get("text", "") for p in parts).strip().upper()
+        if not text:
+            raise ValueError(f"応答が空です (finishReason={candidate.get('finishReason')})")
     except _AIAuthError:
         raise
     except Exception as exc:  # ネットワーク/一時的なAPIエラー/応答形式変更
