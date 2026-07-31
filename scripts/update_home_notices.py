@@ -54,6 +54,7 @@ EXCLUDED_URL_SUBSTRINGS = (
     "/update/",
     "/office_letter",
     "/info_letter",
+    "/service",
     "/tool",
     "/pamph",
     "/shop",
