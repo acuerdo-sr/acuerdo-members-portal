@@ -50,6 +50,11 @@ _EXCLUDED_IMPORT_KEYS = {"".join(c.split()).casefold() for c in EXCLUDED_IMPORT_
 # ※ /update/ = 「PSR更新情報」= PSR運営側のお知らせ（商品販売・発送停止・ツール告知 等）。
 #   正規の労務ニュースは /topics/ から取得するため、/update/ は丸ごと除外する。
 # ※ /dl/leaflet 等（政府の正規リーフレット判定に使用）は除外しないこと。
+# 社労士会（業界団体）の活動報告・セミナー案内は、社労士向けであって顧問先向けではない。
+# ※「連合会」だけで判定してはいけない。日本労働組合総連合会(連合)・日本経済団体連合会(経団連)
+#   など、顧問先に必要なニュースの発信元も「連合会」を含むため。
+EXCLUDED_TITLE_KEYWORDS = ("社労士会", "社会保険労務士会", "社労士連合会")
+
 EXCLUDED_URL_SUBSTRINGS = (
     "/update/",
     "/office_letter",
@@ -499,6 +504,8 @@ def parse_psr_entries(html: str, base_url: str) -> list[dict]:
         if any(sub in href for sub in EXCLUDED_URL_SUBSTRINGS):
             continue
         title = strip_tags(link[1])
+        if any(kw in title for kw in EXCLUDED_TITLE_KEYWORDS):
+            continue
         head = strip_tags(block)
         date_match = re.search(r"(\d{4})/(\d{2})/(\d{2})", head)
         if not date_match:
