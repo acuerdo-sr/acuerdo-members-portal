@@ -1,8 +1,21 @@
 [
   {
+    "id": "n-2026-lawrev-q4",
+    "date": "2026-08-03",
+    "order": 1,
+    "category": "法改正",
+    "tag_color": "wine",
+    "icon": "📢",
+    "title": "【2026年10月〜12月】人事労務 4つの改定まとめ",
+    "lead": "カスハラ・就活ハラ対策の義務化など、この秋から順に施行される4つの改定をまとめました。",
+    "url": "https://acuerdo-sr.github.io/column004/",
+    "url_label": "2026年10月〜12月 人事労務 4つの改定まとめ",
+    "body_html": "<p>2026年10月から12月にかけて、人事労務に関する改定が4つ施行されます。</p><h4>今回の4つの改定</h4><ul class=\"aq-news-checks\"><li><strong>カスタマーハラスメント・就活ハラスメント対策の義務化</strong> — 全事業主が対象</li><li><strong>労働条件通知書の明示事項が1項目追加</strong></li><li><strong>令和8年度 地域別最低賃金の改定</strong></li><li><strong>こども性暴力防止法</strong> — 対象となる業種の事業者様</li></ul><p>ページには「自社に関係あるか」を確認できるチェックリストと、着手時期の目安をまとめたスケジュールを掲載しています。関係する項目からご確認ください。</p><p class=\"aq-news-note\">このうち<strong>カスハラ・就活ハラ対策とこども性暴力防止法への対応は、就業規則の改定が必要</strong>です。顧問先様につきましては、今回の法改正に伴う就業規則の改定を無料で承ります。御社の現行規程に合わせて改定いたしますので、お気軽にご連絡ください。</p>"
+  },
+  {
     "id": "n-2026-josei-list",
     "date": "2026-05-24",
-    "order": 2,
+    "order": 3,
     "category": "助成金",
     "tag_color": "navy",
     "icon": "📢",
@@ -15,7 +28,7 @@
   {
     "id": "n-2026-josei-revision",
     "date": "2026-05-20",
-    "order": 4,
+    "order": 5,
     "category": "助成金",
     "tag_color": "wine",
     "icon": "📢",
@@ -28,7 +41,7 @@
   {
     "id": "n-2026-hojokin-shinjigyo",
     "date": "2026-05-15",
-    "order": 3,
+    "order": 4,
     "category": "補助金",
     "tag_color": "gold",
     "icon": "💡",
@@ -41,7 +54,7 @@
   {
     "id": "n-2026-lawrev-summary",
     "date": "2026-05-10",
-    "order": 1,
+    "order": 2,
     "category": "法改正",
     "tag_color": "wine",
     "icon": "📢",
