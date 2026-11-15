@@ -1,5 +1,19 @@
 [
   {
+    "id": "psr-43502",
+    "date": "2026-11-13",
+    "source_date": "2026/11/13",
+    "source_type": "ニュース",
+    "category": "手続き・届出",
+    "source_title": "厚労省からの注意喚起情報 Microsoft365の大規模障害について",
+    "title": "厚労省からの注意喚起情報 Microsoft365の大規模障害を確認できます",
+    "summary": "手続き・届出に関する新しい情報です。自社の手続きや労務管理に関係しそうな項目を確認しておきましょう。",
+    "body_html": "<p>手続き・届出に関する新しい情報が公表されています。</p><p>対応が必要かどうか、まずは概要をご確認ください。判断に迷う場合は担当者へご相談ください。</p>",
+    "url": "https://www.psrn.jp/topics/detail.php?id=43502",
+    "source_body_html": "<p>厚生労働省から、Microsoft365の大規模障害について、お知らせがありました（令和8年11月13日：注意喚起情報として公表）。</p>\n<p>令和8年11月13日未明から発生している、Microsoft365の大規模障害により、受付・相談窓口等がメールのみとなっている場合に、送信に影響が生じる可能性があるということです。</p>\n<p>メールが送信できない場合、各受付・相談窓口に電話等で照会するように呼びかけています。</p>\n<p>詳しくは、こちらをご覧ください。</p>\n<p>＜Microsoft365の大規模障害について（厚労省）＞<br>\n<a href=\"https://www.mhlw.go.jp/stf/kinkyu/20261113.html\" target=\"_blank\" rel=\"noopener\">https://www.mhlw.go.jp/stf/kinkyu/20261113.html</a></p>",
+    "tag_color": "navy"
+  },
+  {
     "id": "psr-43489",
     "date": "2026-11-12",
     "source_date": "2026/11/12",
